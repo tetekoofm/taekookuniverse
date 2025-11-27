@@ -1,0 +1,157 @@
+{% extends "00.base_subnav.html" %}
+{% block title %}Fanbases{% endblock %}
+{% block content %}
+
+<!-- Main Content -->
+<div class="page guide-page">
+    <h1>Fanbases: The Heart of TaeKook</h1>
+    <p class="caption">Unite with Taekook Fans Worldwide: Join Communities Supporting Taehyung & Jung Kook!</p>
+
+    <!-- 🔹 Auto-Scrolling Banner Section -->
+    {% if banners %}
+    <section class="banner-carousel">
+        <div class="banner-track">
+            {% for banner in banners %}
+            <div class="banner-slide">
+                <h2>{{ banner.title }}</h2>
+                {% if banner.link %}
+                <a href="{{ banner.link }}" class="banner-btn">Learn More</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+    
+    <div class="section">
+        <h3>What Are Fanbases?</h3>
+        <p>Fanbases are organized communities of fans devoted to supporting artists like Taehyung and Jung Kook. They are the driving force behind promotions, events, projects, and celebrations of the artists' achievements. By joining a fanbase, you can be part of a global movement that uplifts and honors their artistry.</p>
+    </div>
+
+    <div class="section">
+        <h3>Why Are Fanbases Important?</h3>
+        <p>Fanbases unite people from different parts of the world who share a common love for Taehyung and Jungkook. They organize streaming parties, voting campaigns, and promotional activities to boost their achievements. A well-coordinated fanbase helps increase visibility, ensuring that their work gets the recognition it deserves.</p>
+    </div>
+
+    <div class="section">
+        <h3>Why Join a Fanbase?</h3>
+        <ul>
+            <li><strong style="color: #3dcf64;">Stay Updated:</strong> Get real-time updates on Taehyung and Jung Kook's schedules, new music, performances, and important news from dedicated fanbases, ensuring you never miss a moment.</li>
+            <li><strong style="color: #3dcf64;">Meet Fellow Fans:</strong> Connect with fellow TaeKookies who share the same love and admiration for Tae and Koo, forming friendships that go beyond music.</li>
+            <li><strong style="color: #3dcf64;">Participate in Events:</strong> Join fan gatherings, attend concerts together, stream their shows virtually, and take part in interactive challenges. Being together makes every moment more special.</li>
+            <li><strong style="color: #3dcf64;">Get Reliable Guidance:</strong> Fanbases help you navigate through genuine promotions, ensuring your support goes to the right initiatives. If you're unsure about participating in a fan drive or need guidance on new releases and promotions, you can always rely on them for trusted advice.</li>
+            <li><strong style="color: #3dcf64;">Spread Positivity:</strong> Be part of a supportive community that uplifts, encourages, and spreads love, ensuring Taekook’s impact continues to inspire fans worldwide.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h3>How Can You Support Fanbases?</h3>
+        <ul>
+            <li><strong style="color: #3dcf64;">Follow Official Fanbases:</strong> Join them! The more followers they have, the wider the words about Tae and Koo spreads, helping to attract new fans.</li>
+            <li><strong style="color: #3dcf64;">Join Their Events:</strong> Participate in and support organized events to increase their rankings and visibility. Fanbases organize daily events and challenges for streaming, shazaming, buying, voting, radio requests, etc.</li>
+            <li><strong style="color: #3dcf64;">Donate for Projects:</strong> Fanbases run donation drives to support subscription sponsorships, album purchases, giveaways, and other promotions.</li>
+            <li><strong style="color: #3dcf64;">Engage on Social Media:</strong> Like, share, repost, and interact with fanbases' posts to help spread the word.</li>
+        </ul>
+    </div>
+
+    <!-- Fanbase Etiquette Section -->
+    <div class="section">
+        <h3>Fanbase Etiquette</h3>
+        <ul>
+            <li><strong style="color: #3dcf64;">Be Respectful:</strong> Treat others with kindness and value diverse opinions.</li>
+            <li><strong style="color: #3dcf64;">Follow Rules:</strong> Adhere to fanbase guidelines and engage constructively</li>
+            <li><strong style="color: #3dcf64;">Be a good Leader:</strong> Have patience and teach those are new in a polite and welcoming manner.</li>
+            <li><strong style="color: #3dcf64;">Spread Positivity:</strong> Follow what Taehyung and Jung Kook taught us - Be grounded and focus on spreading love and support.</li>
+            <li><strong style="color: #3dcf64;">Stay Involved:</strong> Actively participate in discussions, campaigns, and charity events.</li>
+        </ul>
+    </div>
+
+    <!-- Fanbase Overview Section -->
+    <div class="section">
+         <h3>How to Connect with Fanbases?</h3>
+        <p>If you are looking to connect with dedicated fanbases (check focus), below are the list of fanbases that work tirelessly for TaeKook. Follow their official social media accounts (X preferred) and actively participate in their everyday events.</p>
+        <div class="fanbase-container">
+            {% for fanbase in fanbases %}
+                <div class="fanbase-card">
+                    {% if fanbase.logo %}
+                        <img src="{{ url_for('static', filename='images/fanbases/' + fanbase.logo) }}" alt="Logo of {{ fanbase.fb_name }}" class="fanbase-logo">
+                    {% endif %}
+                    <h3 class="fanbase-name">{{ fanbase.fb_name }}</h3>
+                    <p class="location"><strong>Location:</strong> {{ fanbase.location }}</p>
+                    <p class="work"><strong>Focus:</strong> {{ fanbase.focus }}</p>
+                    <!-- <p class="description">{{ fanbase.description }}</p> -->
+                    
+                    <div class="fb-social-icons">
+                        {% if fanbase.x %}
+                            <a href="{{ fanbase.x }}" target="_blank">
+                                <img src="{{ url_for('static', filename='images/icons/x.webp') }}" alt="X Icon">
+                            </a>
+                        {% endif %}
+                        {% if fanbase.instagram %}
+                            <a href="{{ fanbase.instagram }}" target="_blank">
+                                <img src="{{ url_for('static', filename='images/icons/instagram.webp') }}" alt="Instagram Icon">
+                            </a>
+                        {% endif %}
+                        {% if fanbase.facebook %}
+                            <a href="{{ fanbase.facebook }}" target="_blank">
+                                <img src="{{ url_for('static', filename='images/icons/facebook.webp') }}" alt="Facebook Icon">
+                            </a>
+                        {% endif %}
+                        {% if fanbase.bluesky %}
+                            <a href="{{ fanbase.bluesky }}" target="_blank">
+                                <img src="{{ url_for('static', filename='images/icons/bluesky.webp') }}" alt="Bluesky Icon">
+                            </a>
+                        {% endif %}
+                        {% if fanbase.tiktok %}
+                            <a href="{{ fanbase.tiktok }}" target="_blank">
+                                <img src="{{ url_for('static', filename='images/icons/tiktok.webp') }}" alt="TikTok Icon">
+                            </a>
+                        {% endif %}
+                        {% if fanbase.spotify %}
+                            <a href="{{ fanbase.spotify }}" target="_blank">
+                                <img src="{{ url_for('static', filename='images/icons/spotify.webp') }}" alt="Spotify Icon">
+                            </a>
+                        {% endif %}
+                        {% if fanbase.applemusic %}
+                            <a href="{{ fanbase.applemusic }}" target="_blank">
+                                <img src="{{ url_for('static', filename='images/icons/applemusic.webp') }}" alt="Apple Music Icon">
+                            </a>
+                        {% endif %}
+                    </div>                        
+                </div>
+            {% endfor %}
+        </div>                        
+    </div>
+
+    <!-- Tips Section -->
+    <div class="sticky-notes">
+        <ul>
+            <li>Follow fanbases to stay updated with news, projects, and celebrations.</li>
+            <li>Participate in events like streaming parties, donation drives, and voting campaigns.</li>
+            <li>Share projects and amplify achievements by using relevant hashtags.</li>
+        </ul>
+    </div> 
+
+
+    <!-- Button to trigger sticky note slide-in -->
+    <button id="toggle-sticky-note" class="sticky-note-btn">Quick Tips</button>
+
+    <div class="sticky-notes">
+        <ul>
+            <li>Follow trusted fanbases for accurate updates</li>
+            <li>Engage with fanbase activities to boost visibility</li>
+            <li>Participate in global events andradio plays and voting campaigns</li>
+            <li>Support charity and promotional projects</li>
+        </ul>
+    </div>
+
+    <script>
+        const stickyNote = document.querySelector('.sticky-notes');
+        const toggleButton = document.querySelector('#toggle-sticky-note');
+
+        toggleButton.addEventListener('click', function () {
+            stickyNote.classList.toggle('open');
+        });
+    </script>
+</div>
+{% endblock %}

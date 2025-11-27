@@ -1,0 +1,146 @@
+{% extends "00.base_subnav.html" %}
+{% block title %}Streaming{% endblock %}
+{% block content %}
+
+<!-- Main Content -->
+<div class="page guide-page">
+    <h1>Stream For TaeKook Forever</h1>
+    <p class="caption">Boost Taehyung & Jung Kook streams to ensure their success on global charts.</p>
+    <p class="caption">Let's stream together to make an impact!</p>
+
+    <!-- 🔹 Auto-Scrolling Banner Section -->
+    {% if banners %}
+    <section class="banner-carousel">
+        <div class="banner-track">
+            {% for banner in banners %}
+            <div class="banner-slide">
+                <h2>{{ banner.title }}</h2>
+                {% if banner.link %}
+                <a href="{{ banner.link }}" class="banner-btn">Learn More</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+    
+    <div class="section">
+        <h3>Why Streaming Matters?</h3>
+        <p>Streaming Taehyung and Jung Kook's music on major platforms helps boost their chart rankings, increases visibility, and supports their music careers. Every stream counts, especially during their new releases or a major comeback.</p>
+    </div>
+
+    <div class="section">
+        <h3>Step-by-Step Guide to Streaming Effectively</h3>
+        <ul>
+            <li><strong style="color: #3dcf64;">Create an Account:</strong> Ensure you have a valid account on the platforms. If you can affort, please use a paid subscription for better impact.</li>
+            <li><strong style="color: #3dcf64;">Stream Their Music:</strong> Search for the artist's profile (V / Jung Kook) on these platforms and stream from it as the first step.</li>
+            <li><strong style="color: #3dcf64;">Stream from Playlists:</strong> Make your own personalized playlists with their songs, add 2–3 songs by other artists as fillers to avoid playlist flagging by platforms. If you are not sure how, you are always welcome to use playlists created by the fanbases which they share on their X profile everyday</li>
+            <li><strong style="color: #3dcf64;">Engage Naturally:</strong> Stream at normal volume (50% recommended) and avoid muting it. Let the songs play fully without skipping to ensure the streams are counted. Stream as a human and avoid any bot behavior.</li>
+            <li><strong style="color: #3dcf64;">Avoid Looping:</strong> Do not loop a single song repeatedly; create a diverse playlist with different artists.</li>
+            <li><strong style="color: #3dcf64;">Stream on Multiple Platforms:</strong> Use varied platforms instead of focusing on just one YouTube to maximize the impact.</li>
+            <li><strong style="color: #3dcf64;">Share on Social Media:</strong> Encourage others to stream by sharing your playlists / FB's playlists on social platforms.</li>
+        </ul>
+        <div class="image-container">
+            <a href="{{ url_for('static', filename='images/guide/why_stream.webp') }}" class="lightbox">
+                <img src="{{ url_for('static', filename='images/guide/why_stream.webp') }}" alt="Why Streaming Matters">
+            </a>
+            <!-- <a href="{{ url_for('static', filename='images/guide/streaming_guide.webp') }}" class="lightbox">
+                <img src="{{ url_for('static', filename='images/guide/streaming_guide.webp') }}" alt="Streaming Guide">
+            </a> -->
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Join Streaming Teams</h3>
+        <p>Get involved with fanbases that organize streaming parties. Connect with like-minded fans through group chats (GC) to stay updated and to participate on streaming events and challenges!</p>
+        <p><strong><a href="https://x.com/tetekoofm">Fire Babies</a></strong> - Join daily Spotify streaming challenges.</p>
+        <p><strong><a href="https://x.com/uktaekook">Water Babies</a></strong> - Join daily Apple Music streaming challenges.</p>
+        <p><strong><a href="https://x.com/TaeKook_USA">Sky Scrapers</a></strong> - Join daily Shazam challenges.</p>
+        <p><strong><a href="https://x.com/taekook_YouTube">Terra Tribes</a></strong> - Join daily YouTube streaming challenges.</p>
+        <p><strong><a href="https://x.com/TaeKook_Radio">Air Benders</a></strong> Join our team for daily Radio challenges.</p>
+        <p><strong><a href="https://stationhead.com/tetekoofm">TeteKooFM Stationhead</a></strong> Join our Listening Party with your Spotify Premium / Apple Music.</p>
+        <p><strong><a href="http://listening-party.weverse.io/bts/wlp/4-195767441">TeteKooFM Weverse</a></strong> Join our Listening Party with you Spotify Premium.</p>
+        <p>You can also stream directly from <strong><a href="https://open.spotify.com/user/31lmwciln3i3p5pgnxrd5wgqq4bi">Spotify</a></strong>, <strong><a href="https://music.apple.com/profile/uktaekook">Apple Music</a></strong>, <strong><a href="https://tidal.com/browse/user/202097628">Tidal</a></strong>, and  <strong><a href="https://www.youtube.com/@TKUtbe/playlists">Youtube</a></strong> playlists created by our FBs.</p>
+    </div>
+
+    <div class="section">
+        <h3>Trending Tracks</h3>
+        <p>These songs are gaining traction. Keep streaming to push them higher!</p>
+        <section class="tracks-container">
+            {% for track in trending_tracks %}
+            <div class="track-card">
+                {% if track.image %}
+                <img src="{{ url_for('static', filename='images/songs/' ~ track.image) }}" alt="{{ track.song_name }}" class="track-image">
+                {% endif %}
+                <h3>{{ track.song_name }}</h3>
+                <!-- <p><strong>Artist:</strong> {{ track.artist }}</p> -->
+            
+                <!-- Streaming Platform Icons -->
+                <div class="streaming-links">
+                    {% if track.spotify_url %}
+                    <a href="{{ track.spotify_url }}" target="_blank">
+                        <img src="{{ url_for('static', filename='images/icons/spotify.webp') }}" alt="Spotify" class="stream-icon">
+                    </a>
+                    {% endif %}
+                    {% if track.apple_music_url %}
+                    <a href="{{ track.apple_music_url }}" target="_blank">
+                        <img src="{{ url_for('static', filename='images/icons/applemusic.webp') }}" alt="Apple Music" class="stream-icon">
+                    </a>
+                    {% endif %}
+                    {% if track.youtube_url %}
+                    <a href="{{ track.youtube_url }}" target="_blank">
+                        <img src="{{ url_for('static', filename='images/icons/youtube.webp') }}" alt="YouTube" class="stream-icon">
+                    </a>
+                    {% endif %}
+                    {% if track.shazam_url %}
+                    <a href="{{ track.shazam_url }}" target="_blank">
+                        <img src="{{ url_for('static', filename='images/icons/shazam.webp') }}" alt="Shazam" class="stream-icon">
+                    </a>
+                    {% endif %}
+                    {% if track.pandora_url %}
+                    <a href="{{ track.pandora_url }}" target="_blank">
+                        <img src="{{ url_for('static', filename='images/icons/pandora.webp') }}" alt="Pandora" class="stream-icon">
+                    </a>
+                    {% endif %}
+                    {% if track.tidal_url %}
+                    <a href="{{ track.tidal_url }}" target="_blank">
+                        <img src="{{ url_for('static', filename='images/icons/tidal.webp') }}" alt="Tidal" class="stream-icon">
+                    </a>
+                    {% endif %}
+                </div>
+            </div>                    
+            {% endfor %}
+        </section>
+    </div>
+
+    <!-- Stats Link -->
+    <div class="section">
+        <p>To get the detailed statistics of every song of Taehyung and Jung Kook, refer below:</p>
+        <p><a href="{{ url_for('spotifystats') }}">Spotify Stats Page</a></p>
+        <p><a href="{{ url_for('youtubestats') }}">Youtube Stats Page</a></p>
+    </div>
+
+<!-- Button to trigger sticky note slide-in -->
+<button id="toggle-sticky-note" class="sticky-note-btn">Quick Tips</button>
+
+<div class="sticky-notes">
+    <ul>
+        <li>Use multiple platforms</li>
+        <li>Do not loop a song</li>
+        <li>Keep volume at least 50%</li>
+        <li>Interact with songs (like, comment, share)</li>
+        <li>Never use VPN. Be organic</li>
+        <li>Join streaming events hosted by FBs</li>
+    </ul>
+</div>
+
+<script>
+    const stickyNote = document.querySelector('.sticky-notes');
+    const toggleButton = document.querySelector('#toggle-sticky-note');
+
+    toggleButton.addEventListener('click', function () {
+        stickyNote.classList.toggle('open');
+    });
+</script>
+
+{% endblock %}

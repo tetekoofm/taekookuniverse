@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}">
+    
+    <title>{% block title %}Taekook Universe{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <meta name="theme-color" content="#008000">
+    {% if halloween_hunt_active %}
+        <script src="{{ url_for('static', filename='js/halloween-hunt.js') }}"></script>
+    {% endif %}
+
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Night Sky Effect -->
+        <div class="night-sky" id="night-sky"></div>
+
+        <!-- Navigation Menu -->
+        <nav class="navbar">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/guide">Back to Guide</a></li>
+            </ul>
+        </nav>
+
+        <!-- Sub Navigation -->
+        <nav class="navbar sub-nav">
+            <ul>
+                <li><a href="/buying">Buying</a></li>
+                <li><a href="/voting">Voting</a></li>
+                <li><a href="/streaming">Streaming</a></li>
+                <li><a href="/shazam">Shazam</a></li>
+                <li><a href="/radio">Radio</a></li>
+                <li><a href="/brandreputation">Brand Reputation</a></li>
+                <li><a href="/fanbases">Fanbases</a></li>
+                <!-- <li><a href="/promotions">Promotions</a></li> -->
+                <li><a href="/events">Events</a></li>
+                <li><a href="/reporting">Reporting</a></li>
+                <li><a href="/donating">Donating</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer>
+            <div class="meet-taekook">
+                <p>
+                    <a href="/meet-tae" style="color: #008000; text-decoration: none; margin-right: 15px;">🐻 Meet Tae 🐯</a>
+                    <a href="/meet-koo" style="color: #a855f7; text-decoration: none;">🐰 Meet Koo 🐰</a>
+                </p>
+            </div>
+            <p>
+                <a href="mailto:tkuniverse9795@gmail.com" style="color: #5a5a5a; text-decoration: none; margin-right: 15px;">Contact Us</a>|
+                <a href="/termsandconditions" style="color: #5a5a5a; text-decoration: none; margin-left: 15px;">Terms and Conditions</a>
+            </p>
+            <p>&copy; 2025 TaeKook Universe. All rights reserved.</p>
+        </footer>
+
+    </div>
+
+    <!-- Floating Stars Animation Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const track = document.querySelector('.banner-track');
+            if (track) {
+                // Clone banners for smooth looping
+                const banners = track.children;
+                const cloneTrack = track.cloneNode(true);
+                track.parentNode.appendChild(cloneTrack);
+            }
+        });
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/static/service-worker.js')
+                .then(reg => console.log('Service Worker registered:', reg.scope))
+                .catch(err => console.log('Service Worker registration failed:', err));
+            });
+        }
+    </script>
+</body>
+</html>

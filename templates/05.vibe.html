@@ -1,0 +1,160 @@
+{% extends "00.base.html" %}
+{% block title %}Rhythm of Taekook{% endblock %}
+{% block content %}
+
+<div class="song-names"></div>
+
+<!-- Heading and Intro Section -->
+<div class="main-content">
+    <h1 class="heading">Rhythm of Taekook</h1>
+    <p class="caption">Both artists have distinct musical tastes and styles, offering a blend of soul, energy, and emotion in their playlists.</p>
+    <p class="caption">Explore their unique vibes and discover new music along the way!</p>
+    
+    <div class="vibe-container">
+        <div class="vibe-section">
+            <h2>Taehyung's Vibes</h2>
+            <p>Taehyung enjoys a unique blend of genres, ranging from soulful ballads to experimental sounds. His music is full of emotion, with an emphasis on rich, atmospheric textures.</p>
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX5Ku5zxR5pFB?utm_source=generator&theme=0" width="100%" height="352" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>
+            <!-- <iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="450" style="width:100%;max-width:660px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/artist/v/1191852113"></iframe> -->
+            <iframe id='AmazonMusicEmbedB000QJWGKC' src='https://music.amazon.com/embed/B000QJWGKC/?id=6FNSyUlYLo&marketplaceId=ATVPDKIKX0DER&musicTerritory=US' width='100%' height='352px' frameBorder='0' style='border-radius:20px;max-width:'></iframe>
+            <iframe src="https://embed.tidal.com/playlists/530caaaf-5ddc-40e1-ac57-70fe37adab72" width=100% height="352" allow="encrypted-media" sandbox="allow-same-origin allow-scripts allow-forms allow-popups" title="TIDAL Embed Player"></iframe>
+            <iframe title="deezer-widget" src="https://widget.deezer.com/widget/dark/artist/134200/top_tracks" width="100%" height="252" frameborder="0" allowtransparency="true" allow="encrypted-media; clipboard-write"></iframe>
+            <iframe width=100% height="352" src="https://www.youtube.com/embed/videoseries?si=1qABxTX56syb_PSH&amp;list=PLCuwaSdxr-NiM2MEwHRK7mdjBdZTnz3x2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="vibe-section">
+            <h2>Jung Kook's Vibes</h2>
+            <p>Jung Kook has a dynamic taste in music, with influences spanning from K-pop, pop, to rock. His versatile voice fits perfectly with various genres, and his playlists are full of energy and emotion.</p>
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXdVUsw2RlcPf?utm_source=generator&theme=0" width="100%" height="352" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>
+            <!-- <iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="450" style="width:100%;max-width:660px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/artist/jung-kook/785052275"></iframe> -->
+            <iframe id='AmazonMusicEmbedB01CKABLEQ' src='https://music.amazon.com/embed/B01CKABLEQ/?id=cNSGIzWrQo&marketplaceId=ATVPDKIKX0DER&musicTerritory=US' width='100%' height='352px' frameBorder='0' style='border-radius:20px;max-width:'></iframe>
+            <iframe src="https://embed.tidal.com/playlists/4980dbdf-9dd6-4a0a-84c6-a36f44cbb6c5" width=100% height="352" allow="encrypted-media" sandbox="allow-same-origin allow-scripts allow-forms allow-popups" title="TIDAL Embed Player"></iframe>
+            <iframe title="deezer-widget" src="https://widget.deezer.com/widget/dark/artist/9172904/top_tracks" width="100%" height="252" frameborder="0" allowtransparency="true" allow="encrypted-media; clipboard-write"></iframe>
+            <iframe width=100% height="352" src="https://www.youtube.com/embed/videoseries?si=yDoVkn7DLSNYqTNv&amp;list=PLCuwaSdxr-Nj62w206FDUoYus81iMAQKE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>        
+    </div>
+</div>
+
+<div class="universe-link"></div>
+
+<div class="music-videos-container">
+    <h2>Music Videos</h2>
+    <p>Enjoy some of Taehyung's and Jung Kook's best music videos!</p>
+
+    <!-- Taehyung's Videos -->
+    <div class="video-section">
+        <h3>Taehyung's Music Videos</h3>
+        <div class="video-scroll-container">
+            <button class="arrow-left" onclick="scrollVideos('taehyung', -1)">←</button>
+
+            <div class="video-frame orbit-frame" id="taehyung-videos">
+                {% for video in taehyung_videos %}
+                    <div class="video-item">
+                        <iframe width="450" height="250" 
+                        src="https://www.youtube.com/embed/{{ video.youtube_url.split('v=')[1].split('&')[0] if 'v=' in video.youtube_url else video.youtube_url.split('youtu.be/')[1] }}?rel=0&autohide=1&showinfo=0&modestbranding=1" 
+                        frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen loading="lazy"></iframe>
+                        <p>{{ video.video_name }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <button class="arrow-right" onclick="scrollVideos('taehyung', 1)">→</button>
+        </div>
+    </div>
+
+    <!-- Jung Kook's Videos -->
+    <div class="video-section">
+        <h3>Jung Kook's Music Videos</h3>
+        <div class="video-scroll-container">
+            <button class="arrow-left" onclick="scrollVideos('jungkook', -1)">←</button>
+
+            <div class="video-frame orbit-frame" id="jungkook-videos">
+                {% for video in jungkook_videos %}
+                    <div class="video-item">
+                        <iframe width="450" height="250" 
+                        src="https://www.youtube.com/embed/{{ video.youtube_url.split('v=')[1].split('&')[0] if 'v=' in video.youtube_url else video.youtube_url.split('youtu.be/')[1] }}?rel=0&autohide=1&showinfo=0&modestbranding=1" 
+                        frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen loading="lazy"></iframe>
+                        <p>{{ video.video_name }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <button class="arrow-right" onclick="scrollVideos('jungkook', 1)">→</button>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript to handle song name popups -->
+<script>
+    const songs = {{ song_names | tojson }};
+    const emojis = ['🎶', '🎵'];
+    let displayedSongs = [];
+
+    function getRandomPosition() {
+        const x = Math.floor(Math.random() * window.innerWidth);
+        const y = Math.floor(Math.random() * window.innerHeight);
+        return { x, y };
+    }
+
+    function getRandomSong() {
+        let randomSong;
+        do {
+            randomSong = songs[Math.floor(Math.random() * songs.length)];
+        } while (displayedSongs.includes(randomSong));
+        displayedSongs.push(randomSong);
+        if (displayedSongs.length > 20) displayedSongs.shift();
+        return randomSong;
+    }
+
+    function getRandomEmoji() {
+        return emojis[Math.floor(Math.random() * emojis.length)];
+    }
+
+    function createSongNamePopup() {
+        const songName = getRandomSong();
+        const { x, y } = getRandomPosition();
+        const emoji = getRandomEmoji();
+
+        const popup = document.createElement('div');
+        popup.classList.add('song-name');
+        popup.style.left = `${x}px`;
+        popup.style.top = `${y}px`;
+        popup.innerHTML = `${songName} ${emoji}`;
+        document.querySelector('.song-names').appendChild(popup);
+
+        setTimeout(() => {
+            popup.style.opacity = 0;
+        }, 4000);
+    }
+
+    function scrollVideos(artist, direction) {
+        const frame = document.querySelector(`#${artist}-videos`);
+        frame.scrollBy({ left: direction * 300, behavior: 'smooth' });
+    }
+
+    setInterval(createSongNamePopup, 300);
+
+    function updateOrbitScroll(frameId) {
+        const frame = document.getElementById(frameId);
+        const items = frame.querySelectorAll('.video-item');
+        const scrollCenter = frame.scrollLeft + frame.offsetWidth / 2;
+
+        items.forEach(item => {
+            const itemCenter = item.offsetLeft + item.offsetWidth / 2;
+            const offset = (itemCenter - scrollCenter) / frame.offsetWidth;
+            const angle = offset * 30; // tilt based on distance from center
+            const scale = 1 - Math.abs(offset) * 0.2; // slightly shrink edges
+            const shadow = 20 - Math.abs(offset) * 20; // dynamic glow
+            item.style.transform = `rotateY(${angle}deg) scale(${scale})`;
+            item.style.boxShadow = `0 0 ${shadow}px rgba(255,255,255,0.5)`;
+        });
+    }
+
+    document.querySelectorAll('.orbit-frame').forEach(frame => {
+        frame.addEventListener('scroll', () => updateOrbitScroll(frame.id));
+        updateOrbitScroll(frame.id); // initialize
+    });
+
+</script>
+{% endblock %}

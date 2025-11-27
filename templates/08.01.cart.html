@@ -1,0 +1,83 @@
+{% extends "00.base.html" %}
+{% block title %}Cart{% endblock %}
+{% block content %}
+<div class="cart-container">
+    <div class="promo-banner">
+        <span>Exclusive Offer: Free shipping on orders above $50! Shop now and support Taekook fandom!</span>
+    </div>
+
+    <h1>Your Shopping Cart</h1>
+
+    {% if cart_items %}
+    <form action="/cart" method="POST">
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Thumbnail</th>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                    <th>Price x Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item, details in cart_items.items() %}
+                    {% set product = products | selectattr('name', 'equalto', item) | first %}
+                    <tr id="cart-item-{{ item }}">
+                        <td>
+                            <img src="{{ url_for('static', filename='images/store/' + product.image) }}"
+                                alt="{{ item }} Thumbnail" 
+                                class="cart-item-thumbnail">
+                        </td>
+                        <td>{{ item }}</td>
+                        <td>
+                            <select name="quantity_{{ item }}" class="quantity-dropdown" data-item="{{ item }}" required>
+                                {% for i in range(101) %}
+                                    <option value="{{ i }}" {% if details.quantity == i %}selected{% endif %}>{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                        <td class="price-x-quantity">
+                            ${{ details.price }} x <span class="quantity-display">{{ details.quantity }}</span>
+                        </td>
+                        <td class="total-price">${{ "%.2f"|format(details.quantity * details.price) }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="cart-summary">
+            <h2>Order Summary</h2>
+            <p><strong>Subtotal:</strong> $<span id="subtotal">{{ "%.2f"|format(total_price) }}</span></p>
+            <p><strong>Shipping:</strong> Free</p>
+            <p><strong>Grand Total:</strong> $<span id="grand-total">{{ "%.2f"|format(total_price) }}</span></p>
+            <a href="https://x.com/tetekoofm" class="checkout-button">Screenshot the cart and DM here</a>
+        </div>
+    </form>   
+
+    <script>
+        document.querySelectorAll('.quantity-dropdown').forEach(select => {
+            select.addEventListener('change', function() {
+                let item = this.dataset.item;
+                let newQuantity = parseInt(this.value);
+                let row = document.getElementById('cart-item-' + item);
+                let price = parseFloat(row.querySelector('.price-x-quantity').textContent.split(' x ')[0].replace('$', ''));
+                let newTotal = (price * newQuantity).toFixed(2);
+                
+                row.querySelector('.quantity-display').textContent = newQuantity;
+                row.querySelector('.total-price').textContent = '$' + newTotal;
+
+                let subtotal = 0;
+                document.querySelectorAll('.total-price').forEach(td => {
+                    subtotal += parseFloat(td.textContent.replace('$', ''));
+                });
+                document.getElementById('subtotal').textContent = subtotal.toFixed(2);
+                document.getElementById('grand-total').textContent = subtotal.toFixed(2);
+            });
+        });
+    </script>  
+    {% else %}
+    <p>Your cart is empty. <a href="{{ url_for('store') }}" class="return-store">Go back to the store</a></p>
+    {% endif %}  
+</div>
+{% endblock %}

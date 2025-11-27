@@ -1,0 +1,192 @@
+{% extends "00.base_subnav.html" %}
+{% block title %}Shazam{% endblock %}
+{% block content %}
+
+<!-- Main Content -->
+<div class="page guide-page">
+    <h1>TaeKook On Shazam</h1>
+    <p class="caption">Shazam plays a crucial role in tracking music popularity.</p>
+    <p class="caption">Help increase their recognition and make Taehyung and Jung Kook the top artists on Shazam!</p>
+
+    <!-- 🔹 Auto-Scrolling Banner Section -->
+    {% if banners %}
+    <section class="banner-carousel">
+        <div class="banner-track">
+            {% for banner in banners %}
+            <div class="banner-slide">
+                <h2>{{ banner.title }}</h2>
+                {% if banner.link %}
+                <a href="{{ banner.link }}" class="banner-btn">Learn More</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <div class="section">
+        <h3>Importance of Shazam</h3>
+        <p>Shazam allows users to discover music instantly. As more people Shazam their tracks, their popularity increases, and the songs can get ranked on Shazam charts. This visibility helps increase their stream counts and also attracts new fans globally.</p>
+    </div>
+
+    <div class="section">
+        <h3>How to Shazam Their Songs?</h3>
+        <p>It’s easy to Shazam Taehyung and Jung Kook’s music!</p>
+        <ul>
+            <li><strong style="color: #3dcf64;">Open Shazam:</strong> Install and open the Shazam app or use the Shazam extension for Browser.</li>
+            <li><strong style="color: #3dcf64;">Shazam the Song:</strong> Play a song by Taehyung or Jung Kook, tap the Shazam button to identify it.</li>
+            <li><strong style="color: #3dcf64;">Share the Song:</strong> When the song is identified, share it on your social media accounts for more visibility and encourage others to Shazam!</li>
+            <li>Use our Discography playlists from any of the listed platforms:</li>
+            <ul>    
+                <li><a href="https://open.spotify.com/playlist/0rVxZKCBhSxqyp7p32Jh5M">Spotify</a></li>
+                <li><a href="https://music.apple.com/us/playlist/shazam-focused-discography/pl.u-NpXmDymF4y54g4Z">Apple Music</a></li>
+                <li><a href="https://listen.tidal.com/playlist/466f61ae-40c4-4c0d-9c0c-6d17684b74b7">Tidal</a></li>
+                <li><a href="https://music.amazon.com/my/playlists/88aa03ac-febf-4a7a-a639-93c65bbad5f9">Amazon Music</a></li>
+                <li><a href="https://www.pandora.com/playlist/PL:72478709138867376:149816158013361983">Pandora</a></li>
+                <li><a href="https://youtube.com/playlist?list=PLCuwaSdxr-Nh28T9M1Cx2kn0ONh-MCvs-&si=XM-Ythu5l6l71j6d">Youtube</a></li>
+            </ul>
+        </ul>
+        <div class="image-container">
+            <a href="{{ url_for('static', filename='images/guide/why_shazam.webp') }}" class="lightbox">
+                <img src="{{ url_for('static', filename='images/guide/why_shazam.webp') }}" alt="Why_Shazam">
+            </a>
+            <a href="{{ url_for('static', filename='images/guide/shazam_guide.webp') }}" class="lightbox">
+                <img src="{{ url_for('static', filename='images/guide/shazam_guide.webp') }}" alt="Shazam_Guide">
+            </a>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Effective Shazam Tips</h3>
+        <ul>
+            <li>Shazam multiple tracks to increase their ranking.</li>
+            <li>Use Auto-Shazam feature for identifying the tracks on its own</li>
+            <li>Shazam the songs in different locations to spread the word globally.</li>
+            <li>Encourage your friends and family to Shazam their songs too!</li>
+            <li>Stay updated with their new releases and Shazam them as soon as they are out.</li>
+            <li>Our beloved fanbase <a href="https://x.com/TaeKook_USA">TK USA</a> organizes Daily Shazam Challenges on X at two different timezones to accomodate global fans. Join them!</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h3>Step-by-Step Guide on Shazaming TaeKook Discography</h3>
+        <p><strong style="color: #3dcf64;">1. Manual Shazam:</strong></p>
+        <ul>
+            <li>Install Shazam App from PlayStore/AppStore:
+                <ul>
+                    <li>Android: <a href="https://play.google.com/store/apps/details?id=com.shazam.android&pli=1" target="_blank">Shazam on Android</a></li>
+                    <li>iOS: <a href="https://apps.apple.com/us/app/shazam-find-music-concerts/id284993459?amp%3Bat=11l3eE&amp%3Bct=5348615A-616D-3235-3830-44754D6D5973" target="_blank">Shazam on iOS</a></li>
+                    <li>MacOS: <a href="https://apps.apple.com/us/app/shazam-identify-songs/id897118787?mt=12" target="_blank">Shazam on MacOS</a></li>
+                </ul>
+            </li>
+            <li>Open TeteKooFM Stationhead or your preferred streaming platform and start playing Taehyung and JungKook songs.</li>
+            <li>Launch Shazam on your phone and tap the Shazam button to identify the song.</li>
+            <li>Repeat the process for each song to help their music gain more attention!</li>
+        </ul>
+
+        <p><strong style="color: #3dcf64;">2. Auto Shazam:</strong></p>
+        <ul>
+            <li>Install and open the Shazam app</li>
+            <li>Long press the Shazam icon to activate Auto Shazam.</li>
+            <li>Play their discography and let Shazam automatically detect and save the songs to your library.</li>
+            <li>Remove songs from the library once all Taehyung and JungKook's songs are detected.</li>
+            <li>Be sure to interact with the completed shazams before deleting them from your Shazam library. Open the individual Shazams so the song appears.</li>
+        </ul>
+
+        <p><strong style="color: #3dcf64;">3. Using Chrome Browser Extension:</strong></p>
+        <ul>
+            <li>Install the Shazam Chrome Extension: <a href="https://chromewebstore.google.com/detail/shazam-find-song-names-fr/mmioliijnhnoblpgimnlajmefafdfilb" target="_blank">Shazam Extension</a> on your preferred browser (Edge or Chrome)</li>
+            <li>Click on the Shazam extension icon in your browser and pin it for easy access.</li>
+            <li>Start playing Taehyung and JungKook songs and click the Shazam button in the extension to identify the song.</li>
+            <li>Keep the browser tab active while playing the song for Shazam to recognize it.</li>
+            <li><strong>Note:</strong> The Auto Shazam feature is not available for this option.</li>
+        </ul>
+
+        <p><strong style="color: #3dcf64;">4. Using Shazam Webpage:</strong></p>
+        <ul>
+            <li>Open the <a href="https://shazam.com" target="_blank">Shazam webpage</a> in your preferred browser.</li>
+            <li>In the same browser profile, open a new tab and play Taehyung and Jungkook's songs from any streaming platform.</li>
+            <li>Return to the Shazam webpage and click the Shazam button at the bottom right of the page.</li>
+            <li>Keep the Shazam tab active to ensure the song is recognized.</li>
+            <li><strong>Note:</strong> The Auto Shazam feature is not available for this option.</li>
+        </ul>        
+        <p>If you are stuck at some point or need help, please reach out to <a href="https://x.com/TaeKook_USA">TK USA</a>. We are glad to help!</p>
+    </div>
+
+    <div class="section">
+        <h3>Popular Tracks on Shazam</h3>
+        <p>Check out the tracks by Taehyung and Jung Kook that are currently trending on Shazam!</p>
+        <section class="tracks-container">
+            {% for track in popular_tracks %}
+            <div class="track-card">
+                {% if track.image %}
+                <img src="{{ url_for('static', filename='images/songs/' ~ track.image) }}" alt="{{ track.orig_song_name }}" class="track-image">
+                {% endif %}
+                <h3>{{ track.orig_song_name }}</h3>
+                <p><strong>Artist:</strong> {{ track.artist }}</p>
+                <p><strong>Shazam Count:</strong> {{ track.shazam_count }}</p>
+            </div>
+            {% endfor %}
+        </section>
+    </div>
+
+    <!-- Shazam Stats Link -->
+    <div class="section">
+        <!-- <h3>Current Shazam Stats</h3> -->
+        <p>To get the detailed Shazam statistics of every song of Taehyung and Jung Kook, refer to the <a href="{{ url_for('shazamstats') }}">Shazam Stats Page</a>.</p>
+    </div>
+
+</div>
+
+<!-- Button to trigger sticky note slide-in -->
+<button id="toggle-sticky-note" class="sticky-note-btn">Quick Tips</button>
+
+<div class="sticky-notes">
+    <!-- <h4><span class="pin-icon">📌</span>Pro Tips</h4> -->
+    <ul>
+        <li>Shazam multiple tracks</li>
+        <li>Auto-Shazam</li>
+        <li>Share your Shazam screenshots on social media</li>
+        <li>Contact our FB <strong><a href="https://x.com/TaeKook_USA">TK USA</a></strong> if you need help</li>
+    </ul>
+</div>
+<script>
+    const stickyNote = document.querySelector('.sticky-notes');
+    const toggleButton = document.querySelector('#toggle-sticky-note');
+
+    toggleButton.addEventListener('click', function () {
+        stickyNote.classList.toggle('open');
+    });
+
+    document.querySelectorAll('.lightbox').forEach(anchor => {
+        anchor.addEventListener('click', event => {
+            event.preventDefault();
+            const imgSrc = anchor.getAttribute('href');
+            const lightboxOverlay = document.createElement('div');
+            lightboxOverlay.style.position = 'fixed';
+            lightboxOverlay.style.top = '0';
+            lightboxOverlay.style.left = '0';
+            lightboxOverlay.style.width = '100%';
+            lightboxOverlay.style.height = '100%';
+            lightboxOverlay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+            lightboxOverlay.style.display = 'flex';
+            lightboxOverlay.style.justifyContent = 'center';
+            lightboxOverlay.style.alignItems = 'center';
+            lightboxOverlay.style.zIndex = '1000';
+
+            const img = document.createElement('img');
+            img.src = imgSrc;
+            img.style.maxWidth = '90%';
+            img.style.maxHeight = '90%';
+            img.style.border = '2px solid white';
+
+            lightboxOverlay.appendChild(img);
+            document.body.appendChild(lightboxOverlay);
+
+            lightboxOverlay.addEventListener('click', () => {
+                document.body.removeChild(lightboxOverlay);
+            });
+        });
+    });
+</script>
+{% endblock %}

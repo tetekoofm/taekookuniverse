@@ -1,0 +1,38 @@
+{% extends "00.base.html" %}
+{% block title %}In The News - Spanish{% endblock %}
+{% block content %}
+<div class="main-content">
+    <h1 class="heading">En Las Noticias - Español</h1>
+    <p class="caption">¡Mantente al día con Tae y Koo!</p>
+
+    <div class="inthenews-cards">
+        {% for news in inthenews_spanish %}
+        <div class="inthenews-card">
+            <div class="card-header">
+                <h2 class="title">{{ news.title }}</h2>
+                <p class="date">{{ news.date }}</p>
+            </div>
+            <div class="card-body">
+                {% if news.link %}
+                    <a href="{{ news.link }}" target="_blank">
+                        <img src="{{ url_for('static', filename='images/inthenews/spanish/' + news.image) }}" 
+                             alt="News image: {{ news.title }}"
+                             data-title="{{ news.title }}"
+                             data-date="{{ news.date }}"
+                             data-image="{{ news.image }}"
+                             data-description="{{ news.description }}">
+                    </a>
+                {% else %}
+                    <img src="{{ url_for('static', filename='images/inthenews/spanish/' + news.image) }}" 
+                         alt="News image: {{ news.title }}"
+                         data-title="{{ news.title }}"
+                         data-date="{{ news.date }}"
+                         data-image="{{ news.image }}"
+                         data-description="{{ news.description }}">
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

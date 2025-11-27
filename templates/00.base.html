@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}">
+    <title>{% block title %}Taekook Universe{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <meta name="theme-color" content="#008000">
+    <meta name="google-site-verification" content="Nr_jyzjFvtpGRoNiZYZigsOkC8nIy2TalKP0Gxl8gmw" />
+    {% if halloween_hunt_active %}
+        <script src="{{ url_for('static', filename='js/halloween-hunt.js') }}"></script>
+    {% endif %}
+<body>
+    <div class="wrapper">
+        <div class="night-sky" id="night-sky"></div>
+
+        <nav class="navbar">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li class="dropdown">
+                    <a href="/highlights" class="dropbtn">Features ▾</a>
+                    <div class="dropdown-content">
+                        <a href="/upcoming">Upcoming</a>
+                        <a href="/highlights">Highlights</a>
+                        <a href="/recap">Weekly Recaps</a>
+                    </div>
+                </li>
+                <li><a href="/memories">Memories</a></li>
+                <li><a href="/inthenews">In The News</a></li>
+                <li><a href="/vibe">Vibe</a></li>
+                <li><a href="/projects">Projects</a></li>
+                <li><a href="/guide">Guide</a></li>
+                <li><a href="/fanletters">Fan Letters</a></li>
+                <li><a href="pride">Pride</a></li>
+                <li><a href="https://taekook.bimoribox.com/">Spanish</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            {% include "00.audio_control.html" %}
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer>
+            <div class="meet-taekook">
+                <p>
+                    <a href="/meet-tae" style="color: #008000; text-decoration: none; margin-right: 15px;">🐻 Meet Tae 🐯</a>
+                    <a href="/meet-koo" style="color: #a855f7; text-decoration: none;">🐰 Meet Koo 🐰</a>
+                </p>
+            </div>
+            <p>
+                <a href="mailto:tkuniverse9795@gmail.com" style="color: #5a5a5a; text-decoration: none; margin-right: 15px;">Contact Us</a>|
+                <a href="/termsandconditions" style="color: #5a5a5a; text-decoration: none; margin-left: 15px;">Terms and Conditions</a>
+            </p>
+            <p>&copy; 2025 TaeKook Universe. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // select all dropdowns
+        const dropdowns = document.querySelectorAll('.dropdown');
+    
+        dropdowns.forEach(drop => {
+            const btn = drop.querySelector('.dropbtn');
+    
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                // toggle active class
+                drop.classList.toggle('active');
+            });
+        });
+    
+        // Optional: close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            dropdowns.forEach(drop => {
+                if (!drop.contains(e.target)) {
+                    drop.classList.remove('active');
+                }
+            });
+        });
+    });
+</script>
+</html>
