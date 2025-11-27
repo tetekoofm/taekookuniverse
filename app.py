@@ -4,7 +4,6 @@ from models import db, TKURadio, BackgroundMusic, Upcoming, Highlights, Recap, M
 from collections import defaultdict
 from datetime import datetime
 from flask_wtf import CSRFProtect
-from scraper.naver_scraper import scrape_naver_blog
 
 # Initialize the Flask app
 app = Flask(__name__)
