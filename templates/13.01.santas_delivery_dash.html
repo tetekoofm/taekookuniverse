@@ -33,10 +33,16 @@
   /* Heading */
   #instructions h2 {
     color: #d32f2f;
-    font-size: 28px;
+    font-size: 25px;
     margin-bottom: 15px;
   }
 
+  #instructions p {
+    color: #4caf50;
+    font-size: 25px;
+    margin-bottom: 15px;
+  }
+  
   /* List styling */
   #instructions ul {
     text-align: left;
@@ -81,7 +87,6 @@
     margin-top: 5px;
   }
   #stopBtn {
-    display: block;
     margin: 10px auto;
     background: #e63946;
     color: #fff;
@@ -234,23 +239,44 @@
 
   /* Responsive: 768px */
   @media (max-width: 768px) {
-    #scoreBoard { font-size: 20px; }
-    #timer { font-size: 16px; }
-    #stopBtn { font-size: 16px; padding: 8px 14px; }
-    #gameArea { max-width: 95%; height: 80vh; border-width: 1px; margin: 10px auto; }
-    #score-popup .popup-content { padding: 15px; max-width: 300px; }
-    #score-popup input { font-size: 0.9rem; padding: 8px 10px; }
-    #score-popup button { font-size: 0.9rem; padding: 6px 14px; }
-    .leaderboard-section { padding: 10px; }
-    .leaderboard-section h2 { font-size: 1.1rem; }
-    #instructions {
-    padding: 15px;
-    max-width: 80%;
+  #scoreBoard { font-size: 20px; }
+  #timer { font-size: 16px; }
+  #stopBtn { font-size: 16px; padding: 8px 14px; }
+  #gameArea { max-width: 95%; height: 80vh; border-width: 1px; margin: 10px auto; }
+  #score-popup .popup-content { padding: 15px; max-width: 300px; }
+  #score-popup input { font-size: 0.9rem; padding: 8px 10px; }
+  #score-popup button { font-size: 0.9rem; padding: 6px 14px; }
+  .leaderboard-section { padding: 10px; }
+  .leaderboard-section h2 { font-size: 1.1rem; }
+
+  /* --- Smaller Instruction Container --- */
+  #instructions {
+    padding: 12px;              /* reduced */
+    max-width: 80%;             /* reduced from 80% */
+    margin-top: 10px;
   }
-  #instructions h2 { font-size: 1.1rem; }
-  #instructions li { font-size: 0.9rem; }
-  #startGameBtn { font-size: 16px; padding: 10px 18px; }
+  #instructions h2 { 
+    font-size: 0.9rem;            /* reduced */
+    margin-bottom: 8px;
   }
+
+  #instructions p { 
+    font-size: 0.9rem;            /* reduced */
+    margin-bottom: 8px;
+  }
+
+  #instructions li { 
+    font-size: 0.85rem;         /* reduced */
+    margin-bottom: 4px;
+  }
+
+  #startGameBtn { 
+    font-size: 14px;            /* reduced */
+    padding: 8px 14px;          /* reduced */
+    margin-top: 12px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -260,17 +286,17 @@
   <button id="stopBtn">⏹ Stop</button>
   <div id="gameArea"></div>
 
-  <div id="instructions" style="text-align:center; padding:20px; max-width:600px; margin:auto;">
-    <h2>🎅 Christmas Delivery Instructions 🎄</h2>
-    <p>Welcome to the Christmas Delivery game! Here’s how to play:</p>
-    <ul style="text-align:left; display:inline-block;">
+  <div id="instructions">
+    <h2>🎅 Welcome to Santa’s Delivery Dash 🎄</h2>
+    <p>Instructions:</p>
+    <ul>
       <li>Move Santa left or right using your mouse (desktop) or finger (mobile).</li>
       <li>Catch the gifts 🎁 to earn points.</li>
       <li>Avoid obstacles ❄️ and snowmen ⛄, they reduce your score.</li>
       <li>Catch the star ⭐ power-ups for bonus points!</li>
       <li>You have 30 seconds to score as many points as possible.</li>
     </ul>
-    <button id="startGameBtn" style="margin-top:15px; padding:10px 20px;">Start Game</button>
+    <button id="startGameBtn">Start Game</button>
   </div>
 
   <!-- Score Popup -->
@@ -317,7 +343,7 @@ function getGameDimensions() {
 let santaSize, objectSize;
 let santaX;
 let score = 0;
-let speed = 2;
+let speed = 3;
 let gameRunning = true;
 let timer = 30;
 let objects = [];
@@ -337,19 +363,23 @@ const obstacleImages = [
 const powerupImage = "{{ url_for('static', filename='images/games/christmas/star.png') }}";
 
 document.getElementById('startGameBtn').addEventListener('click', () => {
-  // Hide instructions
-  document.getElementById('instructions').style.display = 'none';
 
-  // Show game area and controls
-  document.getElementById('gameArea').style.display = 'block';
-  document.getElementById('scoreBoard').style.display = 'block';
-  document.getElementById('timer').style.display = 'block';
-  document.getElementById('stopBtn').style.display = 'inline-block';
+// Hide instructions
+document.getElementById('instructions').style.display = 'none';
 
-  // Start game loop and timer
-  gameLoop();
-  startTimer();
+// Show game elements *after starting*
+document.getElementById('gameArea').style.display = 'block';
+document.getElementById('scoreBoard').style.display = 'block';
+document.getElementById('timer').style.display = 'block';
+
+// Show STOP only after game starts
+document.getElementById('stopBtn').style.display = 'inline-block';
+
+// Start game
+gameLoop();
+startTimer();
 });
+
 
 // ----- Set initial sizes based on screen -----
 function setInitialSizes() {
@@ -438,7 +468,7 @@ function moveObjects() {
 // ----- Game Loop -----
 function gameLoop(){
   if(!gameRunning) return;
-  if(Math.random() < 0.015) createObject('gift');      // fewer gifts
+  if(Math.random() < 0.045) createObject('gift');      // fewer gifts
 if(Math.random() < 0.007) createObject('obstacle');  // fewer obstacles
 if(Math.random() < 0.003) createObject('powerup');   // fewer powerups
   moveObjects();
@@ -567,9 +597,6 @@ function playAgain() {
 
 window.addEventListener('resize', adjustSizes);
 
-// ----- Start Game -----
-gameLoop();
-startTimer();
 </script>
 
 </body>

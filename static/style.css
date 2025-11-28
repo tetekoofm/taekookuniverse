@@ -5165,11 +5165,14 @@ a:hover {
     }
   
     .game-card img {
-      height: 100px;               /* limit image height */
-      object-fit: cover;
-      border-radius: 6px;
-    }
-  
+        width: 100%;
+        height: 100px;          /* fixed height */
+        object-fit: contain;     /* makes sure the full image is visible */
+        border-radius: 6px;
+        background: #fff;        /* optional, shows space around image */
+      }
+      
+
     .game-card h2 {
       font-size: 0.9rem !important;
       margin: 6px 0 4px;

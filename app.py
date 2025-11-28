@@ -446,9 +446,9 @@ def inject_halloween_flag():
     # make this True during the Halloween event
     return dict(halloween_hunt_active=True)
 
-@app.route("/christmas_delivery")
-def christmas_delivery():
-    return render_template("13.01.christmas_delivery.html")
+@app.route("/santas_delivery_dash")
+def santas_delivery_dash():
+    return render_template("13.01.santas_delivery_dash.html")
 
 @app.route("/halloween-hunt")
 def halloween_hunt():
