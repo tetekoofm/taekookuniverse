@@ -201,8 +201,8 @@ def recap():
 
 @app.route('/memories')
 def memories():
-    video_dir = os.path.join(app.static_folder, 'videos')
-    video_files = os.listdir(video_dir)
+    # video_dir = os.path.join(app.static_folder, 'videos')
+    # video_files = os.listdir(video_dir)
 
     memories_data = Memory.query.all()
     music = BackgroundMusic.query.filter_by(page_name='memories').first()

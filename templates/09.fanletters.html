@@ -45,7 +45,8 @@
 <div id="letterModal" class="modal">
     <span class="close" onclick="closeModal()">&times;</span>
     <img id="modalImage" class="modal-content">
-    <div id="modalText" class="fan-message"></div>
+    <div id="modalFanname" class="modal-fanname"></div>
+    <div id="modalMessage" class="fan-message"></div>
 </div>
 
 <!-- JavaScript -->
@@ -53,7 +54,8 @@
     function openModal(imageSrc, fanname, message) {
         let modal = document.getElementById("letterModal");
         let modalImg = document.getElementById("modalImage");
-        let modalText = document.getElementById("modalText");
+        let modalFanname = document.getElementById("modalFanname");
+        let modalMessage = document.getElementById("modalMessage");
 
         modal.style.display = "flex";  
         if (imageSrc.includes('default.webp')) {
@@ -63,18 +65,8 @@
             modalImg.src = imageSrc;
         }
 
-        let modalContent = "";
-
-        if (fanname) {
-            modalContent += "<strong>" + fanname + "</strong><br><br>";
-        }
-
-        if (message) {
-            // Replace \n with <br> to preserve line breaks
-            modalContent += message.replace(/\n/g, "<br>");
-        }
-
-        modalText.innerHTML = modalContent || 'No Content';
+        modalFanname.innerHTML = fanname || "Anonymous";
+        modalMessage.innerHTML = message ? message.replace(/\n/g, "<br>") : "";
     }
 
 
