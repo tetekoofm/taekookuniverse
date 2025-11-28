@@ -21,7 +21,8 @@
         <button id="skip-btn">Skip</button>
       </div>
 
-      <p id="feedback"></p>
+      <p id="feedback" style="font-weight:bold; margin-top:10px;"></p>
+
       <div class="score-board">
         <p>Score: <span id="score">0</span> | Question: <span id="question-count">0</span>/10</p>
       </div>
@@ -30,240 +31,472 @@
 </div>
 
 <!-- Score popup -->
-<div id="score-popup" style="display:none;">
-  <div>
-    <h2>Final Score: <span id="final-score"></span></h2>
-    <input type="text" id="username-input" placeholder="Enter your name" />
-    <button onclick="submitScore()">Submit</button>
-    <button onclick="skipUsername()">Skip</button>
-    <div id="post-game-menu" style="display:none;">
-      <button onclick="goHome()">Home</button>
-      <button onclick="goGames()">Games</button>
-      <button onclick="playAgain()">Play Again</button>
+<div id="score-popup">
+  <div class="popup-content">
+    <h2>🎉 Your Score: <span id="final-score">0</span></h2>
+    <input type="text" id="username-input" placeholder="Username"><br><br>
+    <button id="submit-score-btn">Submit</button>
+    <button id="skip-score-btn">Skip</button>
+
+    <div id="post-game-menu" style="display:none; margin-top: 15px;">
+      <button onclick="goHome()">🏠 Home</button>
+      <button onclick="goGames()">🎮 Games</button>
+      <button onclick="playAgain()">🔄 Play Again</button>
     </div>
-    <ul id="leaderboard"></ul>
   </div>
 </div>
+
+<section class="leaderboard-section">
+  <h2>🏆 Top Players</h2>
+  <ul id="leaderboard"></ul>
+</section>
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <script>
 const GAME_NAME = "Song Scramble";
 let songs = [];
+let remainingSongs = [];
 let currentSong = '';
 let score = 0;
 let questionCount = 0;
 const maxQuestions = 10;
+let gameOver = false;
 
 // Load songs JSON
 async function loadSongs() {
-  const response = await fetch('/static/js/guess_song_scrambled.json');
-  songs = await response.json();
-  startGame();
+    const res = await fetch('/static/js/guess_song_scrambled.json');
+    songs = await res.json();
+    remainingSongs = [...songs];
+    startGame();
 }
 
 // Shuffle word
 function shuffleWord(word) {
-  let arr = word.replace(/\s+/g, '').split('');
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr.join('');
+    let arr = word.replace(/\s+/g,'').split('');
+    for(let i = arr.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i+1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr.join('');
 }
 
-// Start the game
+// Start game
 function startGame() {
-  score = 0;
-  questionCount = 0;
-  document.getElementById('score').innerText = score;
-  document.getElementById('question-count').innerText = questionCount;
-  nextSong();
+    score = 0;
+    questionCount = 0;
+    gameOver = false;
+    remainingSongs = [...songs];
+    document.getElementById('score').innerText = score;
+    document.getElementById('question-count').innerText = questionCount;
+    document.getElementById('feedback').innerText = '';
+    enableButtons();
+    nextSong();
 }
 
 // Next song
 function nextSong() {
-  if (questionCount >= maxQuestions) {
-    showScorePopup();
-    return;
-  }
+    if(questionCount >= maxQuestions || remainingSongs.length === 0){
+        endGame();
+        return;
+    }
 
-  currentSong = songs[Math.floor(Math.random() * songs.length)];
+    // Pick a random song from remainingSongs
+    const idx = Math.floor(Math.random() * remainingSongs.length);
+    currentSong = remainingSongs[idx];
 
-  const wordCount = currentSong.trim().split(/\s+/).length;
-  document.getElementById('clue-text').innerText = `Clue: ${wordCount} word${wordCount > 1 ? 's' : ''}`;
-  document.getElementById('jumbled-text').innerText = shuffleWord(currentSong);
-  document.getElementById('user-answer').value = '';
-  document.getElementById('feedback').innerText = '';
-  questionCount++;
-  document.getElementById('question-count').innerText = questionCount;
+    // Remove selected song from remainingSongs to prevent repeats
+    remainingSongs.splice(idx, 1);
+
+    const wordCount = currentSong.trim().split(/\s+/).length;
+    document.getElementById('clue-text').innerText = `Clue: ${wordCount} word${wordCount > 1 ? 's' : ''}`;
+    document.getElementById('jumbled-text').innerText = shuffleWord(currentSong);
+    document.getElementById('user-answer').value = '';
+    document.getElementById('feedback').innerText = '';
+
+    questionCount++;
+    document.getElementById('question-count').innerText = questionCount;
+    enableButtons();
 }
 
-// Launch confetti
-function launchConfetti(particles=100) {
-  confetti({
-      particleCount: particles,
-      spread: 70,
-      origin: { y: 0.6 }
-  });
+// Confetti
+function launchConfetti(particles=100){
+    confetti({ particleCount: particles, spread: 70, origin: { y:0.6 } });
+}
+
+// Enable/disable buttons
+function disableButtons(){
+    document.getElementById('check-answer-btn').disabled = true;
+    document.getElementById('skip-btn').disabled = true;
+}
+function enableButtons(){
+    document.getElementById('check-answer-btn').disabled = false;
+    document.getElementById('skip-btn').disabled = false;
 }
 
 // Check answer
-document.getElementById('check-answer-btn').addEventListener('click', () => {
-  const userAnswer = document.getElementById('user-answer').value.trim().toLowerCase();
-  if (userAnswer === currentSong.toLowerCase()) {
-    score++;
-    document.getElementById('feedback').innerText = 'Correct! 🎉';
-    launchConfetti();
-  } else {
-    document.getElementById('feedback').innerText = `Incorrect ❌. Answer was: ${currentSong}`;
-  }
-  document.getElementById('score').innerText = score;
-  setTimeout(nextSong, 1000);
+document.getElementById('check-answer-btn').addEventListener('click', ()=>{
+    if(gameOver) return;
+    const userAnswer = document.getElementById('user-answer').value.trim().toLowerCase();
+    if(userAnswer === currentSong.toLowerCase()){
+        score++;
+        document.getElementById('feedback').innerText = 'Correct! 🎉';
+        launchConfetti();
+    } else {
+        document.getElementById('feedback').innerText = `Incorrect ❌. Answer was: ${currentSong}`;
+    }
+    document.getElementById('score').innerText = score;
+    disableButtons();
+    setTimeout(nextSong, 1000);
 });
 
-// Skip button
-document.getElementById('skip-btn').addEventListener('click', nextSong);
+// Skip
+document.getElementById('skip-btn').addEventListener('click', ()=>{
+    if(gameOver) return;
+    disableButtons();
+    nextSong();
+});
 
-// Score popup functions
-function showScorePopup() {
-  document.getElementById("final-score").innerText = score;
-  const popup = document.getElementById("score-popup");
-  popup.style.display = "flex";
-  popup.classList.add("active");
+// End game
+function endGame(){
+    gameOver = true;
+    disableButtons();
+    showScorePopup();
 }
 
-async function submitScore() {
-  const username = document.getElementById("username-input").value.trim() || "Anonymous";
-  const isTop = await saveScore(username, score, GAME_NAME);
-  showPostGameMenu(isTop);
+// Show score popup
+function showScorePopup(){
+    document.getElementById("final-score").innerText = score;
+    document.getElementById("username-input").style.display = 'inline-block';
+    document.getElementById("username-input").value = '';
+    document.getElementById("submit-score-btn").style.display = 'inline-block';
+    document.getElementById("skip-score-btn").style.display = 'inline-block';
+    document.getElementById("post-game-menu").style.display = 'none';
+
+    const popup = document.getElementById("score-popup");
+    popup.style.display = "flex";
+    popup.classList.add("active");
 }
 
-async function skipUsername() {
-  const isTop = await saveScore("Anonymous", score, GAME_NAME);
-  showPostGameMenu(isTop);
+// Submit / skip score
+document.getElementById('submit-score-btn').addEventListener('click', ()=> saveAndShowPost(true));
+document.getElementById('skip-score-btn').addEventListener('click', ()=> saveAndShowPost(false));
+
+async function saveAndShowPost(useUsername){
+    const username = useUsername ? document.getElementById("username-input").value.trim() || "Anonymous" : "Anonymous";
+    const isTop = await saveScore(username, score, GAME_NAME);
+    showPostGameMenu(isTop);
 }
 
-function showPostGameMenu(isTop) {
-  document.getElementById("username-input").style.display = 'none';
-  document.querySelector("#score-popup button[onclick='submitScore()']").style.display = 'none';
-  document.querySelector("#score-popup button[onclick='skipUsername()']").style.display = 'none';
+// Show post-game menu
+function showPostGameMenu(isTop){
+    document.getElementById("username-input").style.display = 'none';
+    document.getElementById("submit-score-btn").style.display = 'none';
+    document.getElementById("skip-score-btn").style.display = 'none';
+    document.getElementById("post-game-menu").style.display = 'block';
 
-  const menu = document.getElementById("post-game-menu");
-  menu.style.display = 'block';
-
-  if (isTop) launchConfetti(500);
+    if(isTop) launchConfetti(500);
 }
 
-async function saveScore(username, score, gameName) {
-  try {
-    const res = await fetch('/submit_score', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ game: gameName, username, score })
-    });
-
-    if (!res.ok) {
-        const text = await res.text();
-        console.error("Server returned error:", text);
+// Save leaderboard score
+async function saveScore(username, score, gameName){
+    try {
+        const res = await fetch('/submit_score', {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({game: gameName, username, score})
+        });
+        if(!res.ok){
+            console.error(await res.text());
+            return false;
+        }
+        const data = await res.json();
+        displayLeaderboard(data.leaderboard || []);
+        return data.leaderboard[0]?.score === score;
+    } catch(err){
+        console.error("Error saving score:", err);
         return false;
     }
-
-    const data = await res.json();
-    displayLeaderboard(data.leaderboard || []);
-    return data.leaderboard[0]?.score === score;
-  } catch (err) {
-    console.error("Error saving score:", err);
-    return false;
-  }
 }
 
-function displayLeaderboard(leaderboard) {
-  const list = document.getElementById("leaderboard");
-  list.innerHTML = "";
-  if (!leaderboard.length) {
-      list.innerHTML = "<li>No scores yet!</li>";
-      return;
-  }
-
-  leaderboard.forEach((entry, i) => {
-      const li = document.createElement("li");
-      li.innerText = `${i + 1}️⃣ ${entry.username} — ${entry.score}`;
-      if (i === 0) li.style.border = "2px solid gold";
-      else if (i === 1) li.style.border = "2px solid silver";
-      else if (i === 2) li.style.border = "2px solid #cd7f32";
-      list.appendChild(li);
-  });
+// Display leaderboard
+function displayLeaderboard(leaderboard){
+    const list = document.getElementById("leaderboard");
+    list.innerHTML = "";
+    if(!leaderboard.length){
+        list.innerHTML = "<li>No scores yet!</li>";
+        return;
+    }
+    leaderboard.forEach((entry,i)=>{
+        const li = document.createElement("li");
+        li.innerText = `${i+1}️⃣ ${entry.username} — ${entry.score}`;
+        if(i===0) li.style.border="2px solid gold";
+        else if(i===1) li.style.border="2px solid silver";
+        else if(i===2) li.style.border="2px solid #cd7f32";
+        list.appendChild(li);
+    });
 }
 
+// Post-game menu actions
 function goHome(){ window.location.href = '/'; }
 function goGames(){ window.location.href = '/games'; }
-
 function playAgain(){
-  const popup = document.getElementById("score-popup");
-  popup.style.display = 'none';
-  popup.classList.remove("active");
-
-  const usernameInput = document.getElementById("username-input");
-  usernameInput.style.display = 'inline-block';
-  usernameInput.value = '';
-
-  document.querySelector("#score-popup button[onclick='submitScore()']").style.display = 'inline-block';
-  document.querySelector("#score-popup button[onclick='skipUsername()']").style.display = 'inline-block';
-  document.getElementById("post-game-menu").style.display = 'none';
-
-  startGame();
+    const popup = document.getElementById("score-popup");
+    popup.style.display='none';
+    popup.classList.remove("active");
+    document.getElementById("username-input").style.display='inline-block';
+    document.getElementById("username-input").value='';
+    document.getElementById("submit-score-btn").style.display='inline-block';
+    document.getElementById("skip-score-btn").style.display='inline-block';
+    document.getElementById("post-game-menu").style.display='none';
+    startGame();
 }
 
 // Load leaderboard on page load
-window.onload = async function() {
-  try {
-      const res = await fetch(`/leaderboard/${GAME_NAME}`);
-      if (!res.ok) {
-          console.error("Failed to fetch leaderboard:", await res.text());
-          return;
-      }
-      const data = await res.json();
-      displayLeaderboard(data);
-  } catch (err) {
-      console.error("Failed to load leaderboard:", err);
-  }
-};
+document.addEventListener('DOMContentLoaded', async ()=>{
+    try{
+        const res = await fetch(`/leaderboard/${GAME_NAME}`);
+        if(!res.ok){
+            console.error(await res.text());
+            return;
+        }
+        const data = await res.json();
+        displayLeaderboard(data);
+    } catch(err){ console.error(err); }
+});
 
 loadSongs();
 </script>
 
 <style>
-.jumbled-song p {
+/* ===== Game ===== */
+.jumbled-song p { font-size: 2rem; letter-spacing: 8px; margin-bottom: 20px; font-weight: bold; font-family:'Orbitron', sans-serif; }
+#user-answer { padding: 10px; font-size: 1rem; width: 60%; max-width: 300px; margin-bottom: 10px; }
+.buttons button { padding: 10px 20px; margin: 5px; font-size: 1rem; cursor: pointer; border-radius:10px; font-family:'Orbitron', sans-serif; }
+#feedback { margin-top: 10px; font-weight: bold; }
+.score-board { margin-top: 20px; font-weight: bold; }
+
+/* ===== Leaderboard ===== */
+.leaderboard-section {
+  width: 100%;
+  max-width: 500px;
+  margin: 40px auto 0 auto; /* top margin 40px, centered horizontally */
+  background: rgba(255,255,255,0.9);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+  text-align: center;
+  z-index: 2;
+  position: relative; /* ensure stacking context */
+}
+
+.leaderboard-section h2 {
+  font-family:'Orbitron', sans-serif;
+  color:#a855f7;
+  font-size:2rem;
+  margin-bottom:15px;
+  text-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+#leaderboard {
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+
+#leaderboard li {
+  background: rgba(255,255,255,0.95);
+  padding:10px 15px;
+  margin:8px 0;
+  border-radius:12px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+  font-weight:600;
+  font-family:'Orbitron', sans-serif;
+  font-size:1rem;
+  color: #000;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+#leaderboard li:hover {
+  transform: translateY(-3px);
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+#leaderboard li:nth-child(1){ background:#ffe082; border:2px solid gold; }
+#leaderboard li:nth-child(2){ background:#e0e0e0; border:2px solid silver; }
+#leaderboard li:nth-child(3){ background:#ffd7b5; border:2px solid #cd7f32; }
+
+/* ===== Score Popup ===== */
+#score-popup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.3); /* slightly dark overlay */
+  display: none;  
+  justify-content: center;
+  align-items: center;
+  z-index: 10; /* always on top when active */
+  pointer-events: none;
+}
+
+#score-popup.active {
+  display: flex;  
+  pointer-events: auto;
+}
+
+#score-popup .popup-content {
+  background: rgba(255,255,255,0.95);
+  padding: 30px;
+  border-radius: 25px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+  animation: popupFade 0.5s ease;
+}
+
+@keyframes popupFade {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+#score-popup h2 {
+  font-family: 'Orbitron', sans-serif;
+  color: #a855f7;
   font-size: 2rem;
-  letter-spacing: 8px;
-  margin-bottom: 20px;
-  font-weight: bold;
+  margin-bottom: 15px;
 }
 
-#user-answer {
-  padding: 10px;
+#score-popup input {
+  padding: 10px 15px;
+  width: 80%;
+  margin-top: 10px;
   font-size: 1rem;
-  width: 60%;
-  max-width: 300px;
-  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid #d1b3ff;
+  outline: none;
 }
 
-.buttons button {
+#score-popup button {
+  margin: 10px 5px;
   padding: 10px 20px;
-  margin: 5px;
   font-size: 1rem;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, #6a11cb, #b983ff);
+  color: #fff;
   cursor: pointer;
 }
 
-#feedback {
-  margin-top: 10px;
-  font-weight: bold;
+#score-popup button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(106,17,203,0.4);
 }
 
-.score-board {
-  margin-top: 20px;
-  font-weight: bold;
+#post-game-menu button {
+  background:#6a11cb; color:#fff; border:none; border-radius:10px; padding:10px 15px; margin:5px; cursor:pointer;
+}
+#post-game-menu button:hover {
+  transform:translateY(-2px); box-shadow:0 6px 20px rgba(106,17,203,0.4);
+}
+
+/* ===== Tablet ===== */
+@media (max-width: 1024px) {
+  .game-container {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .jumbled-song p {
+    font-size: 1.8rem;
+    letter-spacing: 6px;
+  }
+
+  #user-answer {
+    width: 70%;
+    font-size: 0.95rem;
+  }
+
+  .buttons button {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  .score-board p {
+    font-size: 0.95rem;
+  }
+
+  .leaderboard-section {
+    max-width: 400px;
+    padding: 15px;
+  }
+
+  #leaderboard li {
+    font-size: 0.95rem;
+    padding: 8px 12px;
+  }
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 600px) {
+  .game-container {
+    width: 95%;
+    padding: 10px;
+  }
+
+  .jumbled-song p {
+    font-size: 1.5rem;
+    letter-spacing: 4px;
+  }
+
+  #user-answer {
+    width: 90%;
+    font-size: 0.9rem;
+  }
+
+  .buttons button {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+
+  .score-board p {
+    font-size: 0.9rem;
+  }
+
+  .leaderboard-section {
+    max-width: 300px;
+    padding: 10px;
+  }
+
+  #leaderboard li {
+    font-size: 0.7rem;
+    padding: 6px 10px;
+  }
+
+  /* Popup content smaller on mobile */
+  #score-popup .popup-content {
+    padding: 20px;
+    border-radius: 20px;
+    max-width: 90%;
+  }
+
+  #score-popup h2 {
+    font-size: 1.7rem;
+  }
+
+  #score-popup input {
+    width: 90%;
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+
+  #score-popup button, #post-game-menu button {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
 }
 
 </style>

@@ -48,7 +48,7 @@
     .game-container {
     position: relative;
     z-index: 2;
-    background: rgba(255,255,255,0.85); /* slightly transparent to show bg */
+    background: rgba(10,100,140,0.85); /* slightly transparent to show bg */
     border-radius: 25px;
     padding: 50px 35px;   /* more padding for larger screen */
     max-width: 700px;     /* increased from 450px */
@@ -216,6 +216,8 @@
     border-radius: 12px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     font-weight: 600;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -396,7 +398,6 @@
     font-size: 1.2rem;
   }
 }
-
 </style>
 </head>
 <body>
@@ -431,24 +432,24 @@
         </main>
     
         <div id="score-popup">
-            <div class="popup-content">
-              <h2>🎉 Your Score: <span id="final-score">0</span></h2>
-              <input type="text" id="username-input" placeholder="Username"><br><br>
-              <button onclick="submitScore()">Submit</button>
-              <button onclick="skipUsername()">Skip</button>
-          
-              <div id="post-game-menu" style="display:none; margin-top: 15px;">
-                <button onclick="goHome()">🏠 Home</button>
-                <button onclick="goGames()">🎮 Games</button>
-                <button onclick="playAgain()">🔄 Play Again</button>
-              </div>
+          <div class="popup-content">
+            <h2>🎉 Your Score: <span id="final-score">0</span></h2>
+            <input type="text" id="username-input" placeholder="Username"><br><br>
+            <button onclick="submitScore()">Submit</button>
+            <button onclick="skipUsername()">Skip</button>
+        
+            <div id="post-game-menu" style="display:none; margin-top: 15px;">
+              <button onclick="goHome()">🏠 Home</button>
+              <button onclick="goGames()">🎮 Games</button>
+              <button onclick="playAgain()">🔄 Play Again</button>
             </div>
           </div>
+        </div>
 
     <section class="leaderboard-section">
-        <h2>🏆 Top Players</h2>
-        <ul id="leaderboard"></ul>
-      </section>
+      <h2>🏆 Top Players</h2>
+      <ul id="leaderboard"></ul>
+    </section>
   
     <div id="confetti"></div>
   

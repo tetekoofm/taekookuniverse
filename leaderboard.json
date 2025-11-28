@@ -1,6 +1,10 @@
 {
   "guess_song_emoji": [
     {
+      "username": "nikook",
+      "score": 6
+    },
+    {
       "username": "Hi",
       "score": 3
     },
@@ -15,6 +19,44 @@
     {
       "username": "test",
       "score": 1
+    },
+    {
+      "username": "Anonymous",
+      "score": 0
+    },
+    {
+      "username": "Anonymous",
+      "score": 0
+    }
+  ],
+  "Song Scramble": [
+    {
+      "username": "nikook",
+      "score": 9
+    },
+    {
+      "username": "Anonymous",
+      "score": 0
+    },
+    {
+      "username": "Anonymous",
+      "score": 0
+    },
+    {
+      "username": "Anonymous",
+      "score": 0
+    },
+    {
+      "username": "Anonymous",
+      "score": 0
+    },
+    {
+      "username": "Anonymous",
+      "score": 0
+    },
+    {
+      "username": "Anonymous",
+      "score": 0
     },
     {
       "username": "Anonymous",

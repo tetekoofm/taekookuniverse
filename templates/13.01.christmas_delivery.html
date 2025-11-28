@@ -11,6 +11,63 @@
     font-family: sans-serif;
     overflow: hidden;
   }
+
+  #gameArea, #scoreBoard, #timer, #stopBtn {
+    display: none;
+  }
+
+  /* Center container */
+  #instructions {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    text-align: center;
+    background: linear-gradient(135deg, #ffefba, #ffffff);
+    border: 3px solid #d32f2f;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    color: #333;
+  }
+
+  /* Heading */
+  #instructions h2 {
+    color: #d32f2f;
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+
+  /* List styling */
+  #instructions ul {
+    text-align: left;
+    margin: 0 auto 20px auto;
+    padding-left: 20px;
+  }
+
+  #instructions li {
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+
+  /* Start button */
+  #startGameBtn {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  #startGameBtn:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  }
+
+
   #scoreBoard {
     text-align: center;
     font-size: 24px;
@@ -196,6 +253,19 @@
   <button id="stopBtn">⏹ Stop</button>
   <div id="gameArea"></div>
 
+  <div id="instructions" style="text-align:center; padding:20px; max-width:600px; margin:auto;">
+    <h2>🎅 Christmas Delivery Instructions 🎄</h2>
+    <p>Welcome to the Christmas Delivery game! Here’s how to play:</p>
+    <ul style="text-align:left; display:inline-block;">
+      <li>Move Santa left or right using your mouse (desktop) or finger (mobile).</li>
+      <li>Catch the gifts 🎁 to earn points.</li>
+      <li>Avoid obstacles ❄️ and snowmen ⛄, they reduce your score.</li>
+      <li>Catch the star ⭐ power-ups for bonus points!</li>
+      <li>You have 30 seconds to score as many points as possible.</li>
+    </ul>
+    <button id="startGameBtn" style="margin-top:15px; padding:10px 20px;">Start Game</button>
+  </div>
+
   <!-- Score Popup -->
   <div id="score-popup">
     <div class="popup-content">
@@ -258,6 +328,21 @@ const obstacleImages = [
   "{{ url_for('static', filename='images/games/christmas/snowman.png') }}"
 ];
 const powerupImage = "{{ url_for('static', filename='images/games/christmas/star.png') }}";
+
+document.getElementById('startGameBtn').addEventListener('click', () => {
+  // Hide instructions
+  document.getElementById('instructions').style.display = 'none';
+
+  // Show game area and controls
+  document.getElementById('gameArea').style.display = 'block';
+  document.getElementById('scoreBoard').style.display = 'block';
+  document.getElementById('timer').style.display = 'block';
+  document.getElementById('stopBtn').style.display = 'inline-block';
+
+  // Start game loop and timer
+  gameLoop();
+  startTimer();
+});
 
 // ----- Set initial sizes based on screen -----
 function setInitialSizes() {
