@@ -9,7 +9,6 @@
 
     <div class="games-grid">
 
-        <!-- 💜 Santa’s Delivery Dash -->
         <div class="game-card">
             <img src="{{ url_for('static', filename='images/games/santas_delivery_dash.png') }}" alt="Santa’s Delivery Dash">
             <h2>Santa’s Delivery Dash</h2>
@@ -17,7 +16,6 @@
             <a href="{{ url_for('santas_delivery_dash') }}" class="play-btn">Play Now</a>
         </div>
         
-        <!-- 🎃 Halloween Hunt Game -->
         <div class="game-card">
         <img src="{{ url_for('static', filename='images/games/ghostys_halloween_hunt.png') }}" alt="Halloween Hunt">
         <h2>Ghosty's Halloween Hunt</h2>
@@ -25,7 +23,6 @@
         <a href="{{ url_for('halloween_hunt') }}" class="play-btn">Play Now</a>
         </div>
 
-        <!-- 💜 Guess the Song by Emojis-->
         <div class="game-card">
             <img src="{{ url_for('static', filename='images/games/guess_song_emoji.png') }}" alt="Guess the Song by Emojis">
             <h2>Guess the Song by Emojis</h2>
@@ -33,18 +30,18 @@
             <a href="{{ url_for('guess_song_emoji') }}" class="play-btn">Play Now</a>
         </div>
 
-        <!-- 💜 Guess the Song by Emojis-->
-        <div class="game-card">
-            <img src="{{ url_for('static', filename='images/games/guess_song_lyrics.png') }}" alt="Guess the Song by Lyrics">
-            <h2>Guess the Song by Lyrics</h2>
-            <p>Read the lyrics, recall the melody and guess the song!</p>
-            <button class="play-btn" disabled>Coming Soon</button>
-        </div>
 
         <div class="game-card">
             <img src="{{ url_for('static', filename='images/games/guess_song_scrambled.png') }}" alt="Guess the Scrambled Song">
             <h2>Guess the Scrambled Song</h2>
             <p>Unscramble the chaos and name the song!</p>
+            <a href="{{ url_for('guess_song_scrambled') }}" class="play-btn">Play Now</a>
+        </div>
+
+        <div class="game-card">
+            <img src="{{ url_for('static', filename='images/games/guess_song_lyrics.png') }}" alt="Guess the Song by Lyrics">
+            <h2>Guess the Song by Lyrics</h2>
+            <p>Read the lyrics, recall the melody and guess the song!</p>
             <button class="play-btn" disabled>Coming Soon</button>
         </div>
 
@@ -55,7 +52,6 @@
             <button class="play-btn" disabled>Coming Soon</button>
         </div>
 
-        <!-- 💜 Future Game Placeholder -->
         <div class="game-card">
             <img src="{{ url_for('static', filename='images/games/taekook_trivia.png') }}" alt="Taekook Trivia">
             <h2>Taekook Trivia</h2>
