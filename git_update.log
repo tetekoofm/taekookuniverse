@@ -171,3 +171,33 @@ Products updated from Excel!
 Fan Letters updated from Excel!
 🔁 Running git_update.sh at Fri Nov 28 22:04:13 CST 2025
 🌐 Current ngrok URL: https://bac9f61682d6.ngrok-free.app
+✅ Update complete at Fri Nov 28 22:04:14 CST 2025
+▶️ Running create_table.py
+Loaded Spotify creds: {'SPOTIFY_CLIENT_ID': 'c30f2b0a378d47dea592ba6ee5dcd6ca', 'SPOTIFY_CLIENT_SECRET': 'd857a06c3f514b20a9e9c229e6b2b78d', 'SPOTIFY_REDIRECT_URI': 'http://localhost:8888/callback', 'SPOTIFY_SCOPE': 'ugc-image-upload streaming user-read-playback-state user-modify-playback-state user-read-currently-playing user-read-private'}
+Tables dropped successfully in taekook.db!
+Tables created successfully in taekook.db!
+▶️ Running insert_data.py
+Loaded Spotify creds: {'SPOTIFY_CLIENT_ID': 'c30f2b0a378d47dea592ba6ee5dcd6ca', 'SPOTIFY_CLIENT_SECRET': 'd857a06c3f514b20a9e9c229e6b2b78d', 'SPOTIFY_REDIRECT_URI': 'http://localhost:8888/callback', 'SPOTIFY_SCOPE': 'ugc-image-upload streaming user-read-playback-state user-modify-playback-state user-read-currently-playing user-read-private'}
+TKURadio table updated from Excel!
+Background Music updated from Excel!
+Upcoming Events updated from Excel!
+Highlights Events updated from Excel!
+Recap videos updated from Excel!
+Memories updated from Excel!
+InTheNews updated from Excel!
+Discography updated from Excel!
+Music Videos updated from Excel!
+Vote data updated from Excel!
+Radio stations data updated from Excel!
+Spotify stats data updated from Excel!
+Youtube stats data updated from Excel!
+Shazam stats data updated from Excel!
+Fanbases data updated from Excel!
+Projects data updated from Excel!
+Event updated from Excel!
+Promotion data updated from Excel!
+Banner data inserted successfully!
+Products updated from Excel!
+Fan Letters updated from Excel!
+🔁 Running git_update.sh at Sat Nov 29 00:52:02 CST 2025
+🌐 Current ngrok URL: https://bac9f61682d6.ngrok-free.app

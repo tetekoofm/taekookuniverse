@@ -17,7 +17,7 @@
   <h1 class="glow">🎃 Halloween Surprise!</h1>
 
   <div class="avatar-wrapper">
-    <img src="/static/images/halloween/ghosty.png" alt="Ghosty Admin" class="avatar">
+    <img src="/static/images/games/halloween/ghosty.png" alt="Ghosty Admin" class="avatar">
   </div>
 
   <div class="message glow">
@@ -27,8 +27,8 @@
   </div>
 
   <div class="taekook-gallery">
-    <img src="/static/images/halloween/taekook1.gif" alt="Taekook Halloween 1" onerror="this.src='/static/images/halloween/taekook1.png'">
-    <img src="/static/images/halloween/taekook2.gif" alt="Taekook Halloween 2" onerror="this.src='/static/images/halloween/taekook2.png'">
+    <img src="/static/images/games/halloween/taekook1.gif" alt="Taekook Halloween 1" onerror="this.src='/static/images/games/halloween/taekook1.png'">
+    <img src="/static/images/games/halloween/taekook2.gif" alt="Taekook Halloween 2" onerror="this.src='/static/images/games/halloween/taekook2.png'">
   </div>
 
   <audio id="halloweenAudio" autoplay loop>
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
   for(let i=0;i<floatingCount;i++){
     const iconNum = Math.floor(Math.random() * totalHalloweenImages) + 1;
     const img = document.createElement("img");
-    img.src = `/static/images/halloween/${iconNum}.png`;
+    img.src = `/static/images/games/halloween/${iconNum}.png`;
     img.className = "spooky";
 
     // Random starting position

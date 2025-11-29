@@ -470,6 +470,10 @@ def guess_song_lyrics():
 def guess_song_scrambled():
     return render_template('13.04.guess_song_scrambled.html')
 
+@app.route('/cookwithtaekook')
+def cook_with_taekook():
+    return render_template('13.07.cook_with_taekook.html')
+
 # Load leaderboard JSON
 def load_leaderboard():
     if not os.path.exists(LEADERBOARD_FILE):

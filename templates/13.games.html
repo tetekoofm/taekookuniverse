@@ -30,7 +30,6 @@
             <a href="{{ url_for('guess_song_emoji') }}" class="play-btn">Play Now</a>
         </div>
 
-
         <div class="game-card">
             <img src="{{ url_for('static', filename='images/games/guess_song_scrambled.png') }}" alt="Guess the Scrambled Song">
             <h2>Guess the Scrambled Song</h2>
@@ -49,6 +48,13 @@
             <img src="{{ url_for('static', filename='images/games/guess_song_randomwords.png') }}" alt="Guess the Song by Random Words">
             <h2>Guess the Song by Random Words</h2>
             <p>Piece the puzzle together from scattered words!</p>
+            <button class="play-btn" disabled>Coming Soon</button>
+        </div>
+
+        <div class="game-card">
+            <img src="{{ url_for('static', filename='images/games/who_said_it.png') }}" alt="Who said it - Tae or Koo?">
+            <h2>Who said it - Tae or Koo?</h2>
+            <p>Test your knowledge about our favorite duo!</p>
             <button class="play-btn" disabled>Coming Soon</button>
         </div>
 
