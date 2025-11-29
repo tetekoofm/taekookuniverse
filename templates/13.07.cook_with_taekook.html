@@ -1,161 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Cook With TaeKook</title>
-</head>
-<body>
-
-<div class="game-container">
-
-    <!-- ORDER BOX -->
-    <div class="order-box">
-        <h2>👨‍🍳 TaeKook Order</h2>
-        <p id="orderText">Loading order...</p>
-    </div>
-
-    <!-- CHARACTERS -->
-    <div class="characters">
-        <img src="{{ url_for('static', filename='images/games/cookwithtaekook/tae_cook.jpeg') }}" class="character tae">
-        <img src="{{ url_for('static', filename='images/games/cookwithtaekook/koo_cook.jpeg') }}" class="character jk">
-    </div>
-
-    <!-- MAIN GAME AREA -->
-    <div class="kitchen-area">
-
-        <!-- INGREDIENT LIST -->
-        <div class="ingredients">
-            <h3>Ingredients</h3>
-            <div id="ingredientList" class="ingredient-list"></div>
-        </div>
-
-        <!-- BOWL DROP AREA -->
-        <div class="bowl-area">
-            <img src="{{ url_for('static', filename='images/games/cookwithtaekook/bowl.png') }}" class="bowl" id="bowl">
-            <div id="bowlContents" class="bowl-contents"></div>
-            <p class="drop-text">Drop ingredients here</p>
-        </div>
-
-    </div>
-
-    <!-- REACTION BOX -->
-    <div class="reaction-box">
-        <p id="reactionText"></p>
-    </div>
-
-    <!-- NEXT BUTTON -->
-    <button id="nextDishBtn" class="hidden">Next Dish</button>
-
-</div>
-
-<!-- GAME SCRIPT -->
-<script src="{{ url_for('static', filename='js/cook_with_taekook.js') }}"></script>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cook with Taekook</title>
 <style>
-/* ===== GAME STYLES ===== */
-
-body {
-    background: #f7eaff;
-    font-family: 'Poppins', sans-serif;
+  /* ---- Global ---- */
+  body {
     margin: 0;
-    text-align: center;
-}
+    padding: 0;
+    font-family: 'Comic Sans MS', sans-serif;
+    background: #ffe6f0; /* pastel pink kitchen vibe */
+    overflow: hidden;
+  }
 
-.game-container {
-    padding: 20px;
-}
-
-.order-box {
-    background: white;
-    padding: 15px;
-    margin: 10px auto;
-    width: 60%;
-    border-radius: 15px;
-    box-shadow: 0 0 10px #d7b9ff;
-}
-
-.characters {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    margin: 20px 0;
-}
-
-.character {
-    width: 120px;
-}
-
-.kitchen-area {
-    display: flex;
-    justify-content: center;
-    gap: 50px;
-    margin: 20px;
-}
-
-.ingredients {
-    width: 220px;
-    background: #fff;
-    padding: 15px;
-    border-radius: 15px;
-    box-shadow: 0 0 10px #dabfff;
-}
-
-.ingredient-list img {
-    cursor: grab;
-    user-select: none;
-}
-.ingredient-list img:active {
-    cursor: grabbing;
-    transform: scale(1.2);
-    opacity: 0.8;
-}
-
-
-.bowl-area {
+  /* ---- Kitchen Background ---- */
+  .kitchen {
     position: relative;
-}
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(to top, #ffe6f0 0%, #fff 70%);
+    overflow: hidden;
+  }
 
-.bowl-contents {
+  /* ---- Countertop ---- */
+  .counter {
     position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 120px;
+    background: #ffd699;
+    border-radius: 20px;
+    box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+  }
+
+  /* ---- Taekook Characters ---- */
+  .taekook {
+    position: absolute;
+    bottom: 150px;
+    width: 80px;
+    height: 80px;
+    background: url('https://i.imgur.com/VkXv2fQ.png') no-repeat center/contain; /* placeholder chibi */
+    transition: left 0.3s ease;
+  }
+
+  /* ---- Ingredients ---- */
+  .ingredient {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: url('https://i.imgur.com/w1lBZ8X.png') no-repeat center/contain; /* placeholder ingredient */
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    pointer-events: none; /* allows dragging on top */
-}
+    animation: drop 3s infinite linear;
+  }
 
+  @keyframes drop {
+    0% { top: -50px; }
+    100% { top: 400px; }
+  }
 
-.bowl {
-    width: 180px;
-}
-
-.drop-text {
-    margin-top: -10px;
-    color: #7a4ca3;
-}
-
-.reaction-box {
-    margin-top: 25px;
+  /* ---- Score Display ---- */
+  .score-board {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #fff;
+    padding: 10px 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
     font-size: 20px;
     font-weight: bold;
-    min-height: 40px;
-}
+    color: #ff6699;
+  }
 
-.hidden {
-    display: none !important;
-}
-
-#nextDishBtn {
-    padding: 10px 20px;
-    border: none;
-    background: #9d4edd;
-    color: white;
-    border-radius: 10px;
-    cursor: pointer;
-}
 </style>
+</head>
+<body>
+<div class="kitchen">
+  <div class="counter"></div>
+  <div class="taekook" id="player" style="left: 50%;"></div>
+  <div class="ingredient" id="ingredient"></div>
+  <div class="score-board" id="score">Score: 0</div>
+</div>
 
+<script>
+  const player = document.getElementById('player');
+  let score = 0;
+
+  // Move player with arrow keys
+  document.addEventListener('keydown', (e) => {
+    let left = parseInt(player.style.left);
+    if(e.key === 'ArrowLeft') left -= 20;
+    if(e.key === 'ArrowRight') left += 20;
+    if(left < 0) left = 0;
+    if(left > window.innerWidth - 80) left = window.innerWidth - 80;
+    player.style.left = left + 'px';
+  });
+
+  // Simple collision detection
+  const ingredient = document.getElementById('ingredient');
+  function checkCollision() {
+    const playerRect = player.getBoundingClientRect();
+    const ingRect = ingredient.getBoundingClientRect();
+    if (
+      playerRect.left < ingRect.left + ingRect.width &&
+      playerRect.left + playerRect.width > ingRect.left &&
+      playerRect.top < ingRect.top + ingRect.height &&
+      playerRect.height + playerRect.top > ingRect.top
+    ) {
+      score += 1;
+      document.getElementById('score').innerText = 'Score: ' + score;
+      // reset ingredient
+      ingredient.style.top = '-50px';
+      ingredient.style.left = Math.random() * (window.innerWidth - 50) + 'px';
+    }
+    requestAnimationFrame(checkCollision);
+  }
+
+  checkCollision();
+</script>
 </body>
 </html>

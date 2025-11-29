@@ -474,6 +474,10 @@ def guess_song_scrambled():
 def cook_with_taekook():
     return render_template('13.07.cook_with_taekook.html')
 
+@app.route('/memorygame')
+def memory_game():
+    return render_template('13.08.memory_game.html')
+
 # Load leaderboard JSON
 def load_leaderboard():
     if not os.path.exists(LEADERBOARD_FILE):
