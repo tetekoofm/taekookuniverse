@@ -250,11 +250,143 @@ body {
     color: #c88aff;
 }
 
+.restaurant-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 10% 20%, rgba(128, 0, 255, 0.3) 2px, transparent 2px),
+                radial-gradient(circle at 80% 30%, rgba(0, 255, 0, 0.3) 2px, transparent 2px),
+                radial-gradient(circle at 30% 70%, rgba(128, 0, 255, 0.3) 2px, transparent 2px),
+                radial-gradient(circle at 60% 50%, rgba(0, 255, 0, 0.3) 2px, transparent 2px);
+    background-size: cover;
+    z-index: 1;
+    animation: twinkle 4s infinite alternate;
+    pointer-events: none; /* THIS IS KEY */
+}
+
+.restaurant-content {
+    position: relative;
+    z-index: 10; /* above background */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px;
+    pointer-events: auto;
+}
+
+#startCookingBtn {
+    margin-top: 20px;
+    padding: 12px 25px;
+    font-size: 1.4rem;
+    font-family: 'Orbitron', sans-serif;
+    color: #000; 
+    background: linear-gradient(90deg, #8affc1, #c88aff);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative; /* required for z-index */
+    z-index: 11; /* above all */
+}
+
+
+#startCookingBtn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px #8affc1, 0 0 50px #c88aff;
+}
+
 /* Floating animation for welcome image */
 @keyframes float {
     0% { transform: translateY(0px); }
     50% { transform: translateY(-10px); }
     100% { transform: translateY(0px); }
+}
+
+#kitchenScene {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Instruction panel at top */
+.instruction-panel {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 800px;
+    background: rgba(0,0,0,0.7);
+    border: 2px solid #8affc1;
+    border-radius: 12px;
+    padding: 12px 20px;
+    color: #c88aff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    z-index: 2;
+    text-align: center;
+}
+
+/* kitchen counter */
+.counter-area {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.taekook-kitchen {
+    width: 60vw; /* responsive width */
+    max-width: 600px;
+    height: auto;
+}
+
+
+/* Floating animation */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Chat bubble */
+.chat-bubble {
+    position: absolute;
+    bottom: 250px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 300px;
+    background: linear-gradient(145deg, #8affc1, #c88aff);
+    color: #000;
+    border-radius: 15px;
+    padding: 10px 15px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    text-align: center;
+    z-index: 3;
+    box-shadow: 0 0 15px #8affc1, 0 0 25px #c88aff;
+}
+
+/* Next button */
+#nextInstructionBtn {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    font-family: 'Orbitron', sans-serif;
+    color: #000;
+    background: linear-gradient(90deg, #8affc1, #c88aff);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    z-index: 3;
+    box-shadow: 0 0 15px #8affc1, 0 0 25px #c88aff;
+}
+
+#nextInstructionBtn:hover {
+    transform: translateX(-50%) scale(1.05);
+    box-shadow: 0 0 25px #8affc1, 0 0 50px #c88aff;
 }
 
 

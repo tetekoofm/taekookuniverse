@@ -40,8 +40,8 @@
 <div id="rideScene" class="scene hidden">
     <div id="sky"></div> 
     <div class="neon-road"></div>
-    <div class="star" style="top:10%; left:20%;"></div>
-    <div class="star" style="top:50%; left:70%;"></div>
+    <!-- <div class="star" style="top:10%; left:20%;"></div> -->
+    <!-- <div class="star" style="top:50%; left:70%;"></div> -->
     <img id="motorbike" src="{{ url_for('static', filename='images/games/cookwithtaekook/ridetorestaurant1.png') }}" alt="Tae & Koo on Harley">
 </div>
 
@@ -59,9 +59,37 @@
 
         <h2>Welcome to</h2>
         <h1>My Universe Cafe!</h1>
-        <p>Let’s start cooking your first dish!</p>
+        <p>Ready for your first dish?</p>
+        <button id="startCookingBtn">Start Cooking 🍳</button>
     </div>
 </div>
+
+<!-- Kitchen Scene -->
+<div id="kitchenScene" class="scene hidden">
+
+    <!-- Background -->
+    <div class="kitchen-bg"></div>
+
+    <!-- Top Instruction Panel -->
+    <div class="instruction-panel">
+        <p id="instructionText">Follow Tae & Koo's instructions to cook your first dish!</p>
+    </div>
+
+    <!-- Characters behind counter (single image now) -->
+    <div class="counter-area">
+        <img class="taekook-kitchen" src="{{ url_for('static', filename='images/games/cookwithtaekook/taekook_cooking.png') }}" alt="Tae & Koo cooking">
+    </div>
+
+    <!-- Chat Bubble -->
+    <div class="chat-bubble hidden" id="chatBubble">
+        <p id="chatText">Hi! Let's start cooking!</p>
+    </div>
+
+    <!-- Next Step Button -->
+    <button id="nextInstructionBtn" class="hidden">Next 🍳</button>
+
+</div>
+
 
 <script src="{{ url_for('static', filename='js/cook_with_taekook.js') }}"></script>
 </body>
