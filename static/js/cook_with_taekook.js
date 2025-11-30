@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const kooText = document.getElementById('kooText');
 
     const chatSteps = [
-        { id: 'taeBubble', text: "Hellooooooooooo!!! <br> We'll show you how to play the game." },
+        { id: 'taeBubble', text: "Hellooooooooooo!!! <br><br> We'll show you how to play the game." },
         { id: 'kooBubble', text: "Follow our steps and enjoy cooking with us!" },
         { id: 'taeBubble', text: "First, a customer will arrive at your restaurant." },
         { id: 'kooBubble', text: "They will choose a dish from the menu." },
@@ -34,18 +34,24 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 'kooBubble', text: "Ready? Let's start cooking and have fun!" }
     ];
 
+    const restaurantChatSteps = [    
+        { id: 'taeBubble', text: "Oh! Our first customer is here!" },
+        { id: 'kooBubble', text: "Let's see what they want to order." }
+        // { id: 'taeBubble', text: "The customer wants to order <br><strong>Kimchi Fried Rice!</strong>" },
+        // { id: 'kooBubble', text: "Time to head to the kitchen and start cooking!" }
+    ];
     /* -------------------------------------------
        INITIAL VISIBILITY
     -------------------------------------------*/
-    // landingScene.classList.remove('hidden');
-    // rideScene.classList.add('hidden');
-    // restaurantScene.classList.add('hidden');
-    // kitchenScene.classList.add('hidden');
-
-    landingScene.classList.add('hidden');
+    landingScene.classList.remove('hidden');
     rideScene.classList.add('hidden');
     restaurantScene.classList.add('hidden');
-    kitchenScene.classList.remove('hidden');
+    kitchenScene.classList.add('hidden');
+
+    // landingScene.classList.add('hidden');
+    // rideScene.classList.add('hidden');
+    // restaurantScene.classList.add('hidden');
+    // kitchenScene.classList.remove('hidden');
     /* -------------------------------------------
        STARS IN SKY
     -------------------------------------------*/
@@ -92,6 +98,8 @@ document.addEventListener('DOMContentLoaded', () => {
         headToKitchenBtn.addEventListener('click', () => {
             restaurantScene.classList.add('hidden');
             kitchenScene.classList.remove('hidden');
+
+            startKitchenInstructions();
         });
     }
 
@@ -106,34 +114,46 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => bubble.classList.remove('vibrate'), 300); // matches animation duration
     }
     
-    function showNextChat() {
-        if (currentStep % 2 === 0) {
-            taeText.textContent = chatSteps[currentStep];
-            vibrateBubble(document.getElementById('taeBubble'));
-        } else {
-            kooText.textContent = chatSteps[currentStep];
-            vibrateBubble(document.getElementById('kooBubble'));
-        }
-        currentStep++;
-        if (currentStep < chatSteps.length) {
-            setTimeout(showNextChat, 2500);
-        }
+    function startKitchenInstructions() {
+        currentStep = 0; // reset
+        setTimeout(() => {
+            showNextChat();
+        }, 1000);
+        
+    }
+
+    function goToKitchen() {
+        document.getElementById('rideScene').classList.add('hidden');
+        document.getElementById('kitchenScene').classList.remove('hidden');
+    
+        // start chat now that kitchen is visible
+        startKitchenInstructions();
     }
 
     // Sequential chat display
     function showNextChat() {
         // Hide all bubbles first
         chatSteps.forEach(step => {
-            document.getElementById(step.id).style.display = 'none';
+            const bubble = document.getElementById(step.id);
+            if (bubble) bubble.style.display = 'none';
         });
+    
+        // Don't show bubble if full instructions panel is visible
+        if (!fullPanel.classList.contains('hidden')) {
+            currentStep++;
+            if (currentStep < chatSteps.length) {
+                setTimeout(showNextChat, 2500);
+            }
+            return; // exit early
+        }
     
         // Show current bubble
         const currentBubble = document.getElementById(chatSteps[currentStep].id);
         const currentText = chatSteps[currentStep].text;
-        currentBubble.querySelector('p').innerHTML = currentText;  // <-- use innerHTML
+        currentBubble.querySelector('p').innerHTML = currentText;
         currentBubble.style.display = 'block';
     
-        // Optional: add vibrate effect
+        // Vibrate effect
         currentBubble.classList.add('vibrate');
         setTimeout(() => currentBubble.classList.remove('vibrate'), 300);
     
@@ -143,12 +163,17 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(showNextChat, 2500);
         }
     }
-    showNextChat();
     
 
     // Show full instructions
     showFullBtn.addEventListener('click', () => {
         fullPanel.classList.remove('hidden');
+
+        chatSteps.forEach(step => {
+            const bubble = document.getElementById(step.id);
+            if (bubble) bubble.style.display = 'none';
+        });
+    
         taeText.textContent = '';
         kooText.textContent = '';
         showFullBtn.style.display = 'none';
@@ -156,11 +181,111 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Start Cooking
     startCookingBtn.addEventListener('click', () => {
-        fullPanel.classList.add('hidden');
-        // Move to first step of actual cooking scene
-        kitchenScene.classList.add('hidden');
-        // e.g., show ingredient collection scene
-        document.getElementById('ingredientScene').classList.remove('hidden');
+        fullPanel.classList.add('hidden');  // hide full instructions
+        kitchenScene.classList.remove('hidden'); // show kitchen scene
+    
+        // Play chime
+        const chime = new Audio("/static/audio/spooky-chimes.mp3");
+        chime.play();
+    
+        // Start restaurant chat sequence
+        startRestaurantChat();
     });
 
+    let restaurantStep = 0;
+    
+    function startRestaurantChat() {
+        restaurantStep = 0;
+        showNextRestaurantChat();
+    }
+    
+    function showNextRestaurantChat() {
+        // Hide all bubbles first
+        restaurantChatSteps.forEach(step => {
+            const bubble = document.getElementById(step.id);
+            if (bubble) bubble.style.display = 'none';
+        });
+    
+        // Show current bubble
+        const currentBubble = document.getElementById(restaurantChatSteps[restaurantStep].id);
+        if (!currentBubble) return;
+    
+        currentBubble.querySelector('p').innerHTML = restaurantChatSteps[restaurantStep].text;
+        currentBubble.style.display = 'block';
+        currentBubble.classList.add('vibrate');
+        setTimeout(() => currentBubble.classList.remove('vibrate'), 300);
+    
+        restaurantStep++;
+        if (restaurantStep < restaurantChatSteps.length) {
+            setTimeout(showNextRestaurantChat, 2000); // 2 sec delay between bubbles
+        } else {
+            // After last bubble, go to order selection
+            setTimeout(showOrderOptions, 500);
+        }
+    }
+
+    function getRandomRecipe() {
+        const index = Math.floor(Math.random() * recipes.length);
+        return recipes[index];
+    }
+    
+    function showOrderOptions() {
+        const order = getRandomRecipe();
+    
+        restaurantChatSteps.push(
+            { id: 'taeBubble', text: `The customer wants to order <br><strong>${order.name}!</strong>` },
+            { id: 'kooBubble', text: "Time to head to the kitchen and start cooking!" }
+        );
+    
+        // Show new chat steps
+        startRestaurantChat();
+        
+        // Save order for next steps
+        window.currentOrder = order;
+    }
+
+    function showOrderOptionsButtons() {
+        const optionsContainer = document.getElementById('orderOptions'); // div in HTML
+        optionsContainer.innerHTML = `
+            <button id="prepareOrderBtn">Prepare Order</button>
+            <button id="readRecipeBtn">Read Recipe</button>
+        `;
+        optionsContainer.style.display = 'flex';
+        optionsContainer.style.justifyContent = 'center';
+        optionsContainer.style.gap = '20px';
+    
+        document.getElementById('prepareOrderBtn').addEventListener('click', () => {
+            optionsContainer.style.display = 'none';
+            startIngredientMiniGame();
+        });
+    
+        document.getElementById('readRecipeBtn').addEventListener('click', () => {
+            optionsContainer.style.display = 'none';
+            showRecipePanel(window.currentOrder);
+        });
+    }
+    
+    function showRecipePanel(order) {
+        const recipePanel = document.getElementById('recipePanel');
+        recipePanel.innerHTML = `
+            <h3>${order.name}</h3>
+            <p><strong>Ingredients:</strong> ${order.ingredients.join(", ")}</p>
+            <p><strong>Instructions:</strong> ${order.instructions}</p>
+            <button id="startPrepBtn">Prepare Order</button>
+        `;
+        recipePanel.style.display = 'block';
+    
+        document.getElementById('startPrepBtn').addEventListener('click', () => {
+            recipePanel.style.display = 'none';
+            startIngredientMiniGame();
+        });
+    }
+    
+    function startIngredientMiniGame() {
+        kitchenScene.classList.add('hidden');
+        document.getElementById('ingredientScene').classList.remove('hidden');
+        // mini-game logic goes here
+    }
+    
+    
 });

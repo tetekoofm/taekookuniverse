@@ -25,6 +25,17 @@ body {
     display: none !important;
 }
 
+#landingScene {
+    display: flex;
+    flex-direction: column;    /* stack vertically */
+    justify-content: center;   /* center GIFs vertically */
+    align-items: center;       /* center horizontally */
+    height: 100vh;             /* full viewport height */
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;        /* for absolute children like button */
+}
+
 /* Landing Scene */
 .taekook-row {
     display: flex;
@@ -71,17 +82,7 @@ body {
     object-fit: cover;    /* crop bottom portion naturally */
 }
 
-#startRideBtn {
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    background-color: #8affc1;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
 /* Ride Scene */
-/* Night sky with neon stars, neon road, and glowing clouds */
 #rideScene {
     background: #061028; /* deep navy blue */
     position: relative;
@@ -277,27 +278,6 @@ body {
     pointer-events: auto;
 }
 
-#headToKitchenBtn {
-    margin-top: 20px;
-    padding: 12px 25px;
-    font-size: 1.4rem;
-    font-family: 'Orbitron', sans-serif;
-    color: #000; 
-    background: linear-gradient(90deg, #8affc1, #c88aff);
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    position: relative; /* required for z-index */
-    z-index: 11; /* above all */
-}
-
-
-#headToKitchenBtn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 25px #8affc1, 0 0 50px #c88aff;
-}
-
 /* Floating animation for welcome image */
 @keyframes float {
     0% { transform: translateY(0px); }
@@ -330,7 +310,7 @@ body {
     transform: translateX(-50%);
     width: 90%;
     max-width: 800px;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0,0,0,0.9);
     border: 2px solid #8affc1;
     border-radius: 12px;
     padding: 12px 20px;
@@ -427,12 +407,8 @@ body {
     animation: vibrate 0.3s ease-in-out;
 }
 
-/* Next button */
-#nextInstructionBtn {
-    position: absolute;
-    bottom: 80px;
-    left: 50%;
-    transform: translateX(-50%);
+/* All button */
+#startRideBtn, #headToKitchenBtn, #startCookingBtn, #showFullInstructionsBtn {
     padding: 10px 20px;
     font-size: 1.2rem;
     font-family: 'Orbitron', sans-serif;
@@ -441,13 +417,44 @@ body {
     border: none;
     border-radius: 12px;
     cursor: pointer;
-    z-index: 3;
     box-shadow: 0 0 15px #8affc1, 0 0 25px #c88aff;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-#nextInstructionBtn:hover {
+#startRideBtn:hover, #headToKitchenBtn:hover, #startCookingBtn:hover, #showFullInstructionsBtn:hover, #nextInstructionBtn:hover {
     transform: translateX(-50%) scale(1.05);
     box-shadow: 0 0 25px #8affc1, 0 0 50px #c88aff;
+}
+
+#startRideBtn {
+    position: absolute;
+    bottom: 400px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+}
+
+#headToKitchenBtn {
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 11; 
+}
+
+#startCookingBtn {
+    position: absolute;
+    bottom: -80px; 
+    transform: translateX(-50%);
+    z-index: 3;
+}
+
+#showFullInstructionsBtn {
+    position: absolute;
+    bottom: 20px; 
+    right: 20px;  
+    transform: translateX(-50%);
+    z-index: 3;
 }
 
 
@@ -461,10 +468,6 @@ body {
     .taekook-hi {
         width: 180px;
         height: 200px;
-    }
-    #startRideBtn {
-        font-size: 1rem;
-        padding: 8px 16px;
     }
     .welcomeText h1 {
         font-size: 1.8rem;
@@ -526,6 +529,46 @@ body {
     #restaurantScene p {
         font-size: 1rem;
     }
+
+    .kitchen-bg {
+        transform: scale(1.1); /* zoom in 10% */
+        transform-origin: center center;
+    }
+
+    .chat-bubble {
+        max-width: 160px;
+        font-size: 0.9rem;
+        padding: 8px 12px;
+    }
+
+    .chat-bubble.left {
+        left: 10%;
+        top: 30%;
+    }
+
+    .chat-bubble.right {
+        right: 10%;
+        top: 30%;
+    }
+
+    .instruction-panel {
+        width: 95%;
+        font-size: 1.1rem;
+        padding: 10px 15px;
+    }
+
+    .taekook-kitchen {
+        width: 70vw;
+        max-width: 500px;
+    }
+
+    #startRideBtn, #headToKitchenBtn, #startCookingBtn, #showFullInstructionsBtn {
+        font-size: 1rem;
+    }
+
+    #startRideBtn {
+        bottom: 300px;
+    }
 }
 
 /* ------------------ Mobile ------------------ */
@@ -545,15 +588,11 @@ body {
         object-fit: cover;         /* crop bottom if needed, keep proportions */
     }
 
-    #startRideBtn {
-        font-size: 0.9rem;
-        padding: 6px 12px;
-    }
     .welcomeText h1 {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
     }
     .welcomeText p {
-        font-size: 0.9rem;
+        font-size: 0.7rem;
     }
 
     /* Ride Scene */
@@ -579,8 +618,7 @@ body {
         background: linear-gradient(90deg, #00ff88, #a100ff, #00ff88);
         opacity: 0.8;
         animation: moveRoad 80s linear infinite;  /* very slow movement */
-    }
-    
+    }    
     
     .neon-road::after {
         content: "";
@@ -603,7 +641,6 @@ body {
         to   { transform: translateX(-50%) rotate(-1deg); }
     }
     
-
     /* Restaurant Scene */
     .taekook-welcome {
         width: 80vw;
@@ -617,5 +654,45 @@ body {
     }
     #restaurantScene p {
         font-size: 0.9rem;
+    }
+
+    .kitchen-bg {
+        transform: scale(1.2); /* zoom in 20% */
+        transform-origin: center center;
+    }
+
+    .chat-bubble {
+        max-width: 140px;
+        font-size: 0.6rem;
+        padding: 6px 10px;
+    }
+
+    .chat-bubble.left {
+        left: 5%;
+        top: 25%;
+    }
+
+    .chat-bubble.right {
+        right: 5%;
+        top: 25%;
+    }
+
+    .instruction-panel {
+        width: 90%;
+        font-size: 0.6rem;
+        padding: 8px 12px;
+    }
+
+    .taekook-kitchen {
+        width: 80vw;
+        max-width: 400px;
+    }
+
+    #startRideBtn, #headToKitchenBtn, #startCookingBtn, #showFullInstructionsBtn {
+        font-size: 0.6rem;
+    }
+
+    #startRideBtn {
+        bottom: 100px;
     }
 }

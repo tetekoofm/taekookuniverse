@@ -1,0 +1,17 @@
+const recipes = [
+    {
+        name: "Kimchi Fried Rice",
+        ingredients: ["Rice", "Kimchi", "Egg", "Soy Sauce", "Sesame Oil"],
+        instructions: "Fry kimchi, add rice, scramble egg, mix soy sauce, drizzle sesame oil."
+    },
+    {
+        name: "Bulgogi",
+        ingredients: ["Beef", "Soy Sauce", "Sugar", "Garlic", "Green Onion"],
+        instructions: "Marinate beef with sauce, cook on pan until done."
+    },
+    {
+        name: "Tteokbokki",
+        ingredients: ["Rice Cakes", "Fish Cake", "Gochujang", "Sugar", "Boiled Egg"],
+        instructions: "Cook rice cakes in spicy sauce, add fish cake, serve with boiled egg."
+    }
+];
