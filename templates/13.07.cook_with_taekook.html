@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cook with Taekook</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/cook_with_taekook.css') }}">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
 </head>
 <body>
 
@@ -36,7 +38,10 @@
 
 <!-- Ride Scene -->
 <div id="rideScene" class="scene hidden">
+    <div id="sky"></div> 
     <div class="neon-road"></div>
+    <div class="star" style="top:10%; left:20%;"></div>
+    <div class="star" style="top:50%; left:70%;"></div>
     <img id="motorbike" src="{{ url_for('static', filename='images/games/cookwithtaekook/ridetorestaurant1.png') }}" alt="Tae & Koo on Harley">
 </div>
 
@@ -52,7 +57,8 @@
              src="{{ url_for('static', filename='images/games/cookwithtaekook/taekook_welcome.png') }}" 
              alt="Tae & Koo Welcome">
 
-        <h1>Welcome to BearBun Snacks! 🍳🍹</h1>
+        <h2>Welcome to</h2>
+        <h1>My Universe Cafe!</h1>
         <p>Let’s start cooking your first dish!</p>
     </div>
 </div>
