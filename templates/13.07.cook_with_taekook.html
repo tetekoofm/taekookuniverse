@@ -4,124 +4,59 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cook with Taekook</title>
-<style>
-  /* ---- Global ---- */
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Comic Sans MS', sans-serif;
-    background: #ffe6f0; /* pastel pink kitchen vibe */
-    overflow: hidden;
-  }
-
-  /* ---- Kitchen Background ---- */
-  .kitchen {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    background: linear-gradient(to top, #ffe6f0 0%, #fff 70%);
-    overflow: hidden;
-  }
-
-  /* ---- Countertop ---- */
-  .counter {
-    position: absolute;
-    bottom: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    height: 120px;
-    background: #ffd699;
-    border-radius: 20px;
-    box-shadow: 0 10px 15px rgba(0,0,0,0.2);
-  }
-
-  /* ---- Taekook Characters ---- */
-  .taekook {
-    position: absolute;
-    bottom: 150px;
-    width: 80px;
-    height: 80px;
-    background: url('https://i.imgur.com/VkXv2fQ.png') no-repeat center/contain; /* placeholder chibi */
-    transition: left 0.3s ease;
-  }
-
-  /* ---- Ingredients ---- */
-  .ingredient {
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    background: url('https://i.imgur.com/w1lBZ8X.png') no-repeat center/contain; /* placeholder ingredient */
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    animation: drop 3s infinite linear;
-  }
-
-  @keyframes drop {
-    0% { top: -50px; }
-    100% { top: 400px; }
-  }
-
-  /* ---- Score Display ---- */
-  .score-board {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: #fff;
-    padding: 10px 20px;
-    border-radius: 15px;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-    font-size: 20px;
-    font-weight: bold;
-    color: #ff6699;
-  }
-
-</style>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/cook_with_taekook.css') }}">
 </head>
 <body>
-<div class="kitchen">
-  <div class="counter"></div>
-  <div class="taekook" id="player" style="left: 50%;"></div>
-  <div class="ingredient" id="ingredient"></div>
-  <div class="score-board" id="score">Score: 0</div>
+
+<!-- Landing Scene -->
+<div id="landingScene" class="scene">
+
+    <div class="welcomeText">
+        <h1>Hi! We’re Tae & Koo 👋</h1>
+        <p>Follow us to our restaurant and start cooking!</p>
+    </div>
+
+    <div class="taekook-row">
+        <!-- Tae -->
+        <img class="taekook-hi"
+             src="{{ url_for('static', filename='images/games/cookwithtaekook/tae_hello.gif') }}"
+             alt="Tae says hi">
+
+        <!-- Koo (cropped) -->
+        <div class="crop-box">
+            <img class="taekook-hi koo-img"
+                 src="{{ url_for('static', filename='images/games/cookwithtaekook/koo_hello.gif') }}"
+                 alt="Koo says hi">
+        </div>
+    </div>
+
+    <button id="startRideBtn">Start the Ride 🏍️</button>
 </div>
 
-<script>
-  const player = document.getElementById('player');
-  let score = 0;
 
-  // Move player with arrow keys
-  document.addEventListener('keydown', (e) => {
-    let left = parseInt(player.style.left);
-    if(e.key === 'ArrowLeft') left -= 20;
-    if(e.key === 'ArrowRight') left += 20;
-    if(left < 0) left = 0;
-    if(left > window.innerWidth - 80) left = window.innerWidth - 80;
-    player.style.left = left + 'px';
-  });
+<!-- Ride Scene -->
+<div id="rideScene" class="scene hidden">
+    <div class="neon-road"></div>
+    <img id="motorbike" src="{{ url_for('static', filename='images/games/cookwithtaekook/ridetorestaurant1.png') }}" alt="Tae & Koo on Harley">
+</div>
 
-  // Simple collision detection
-  const ingredient = document.getElementById('ingredient');
-  function checkCollision() {
-    const playerRect = player.getBoundingClientRect();
-    const ingRect = ingredient.getBoundingClientRect();
-    if (
-      playerRect.left < ingRect.left + ingRect.width &&
-      playerRect.left + playerRect.width > ingRect.left &&
-      playerRect.top < ingRect.top + ingRect.height &&
-      playerRect.height + playerRect.top > ingRect.top
-    ) {
-      score += 1;
-      document.getElementById('score').innerText = 'Score: ' + score;
-      // reset ingredient
-      ingredient.style.top = '-50px';
-      ingredient.style.left = Math.random() * (window.innerWidth - 50) + 'px';
-    }
-    requestAnimationFrame(checkCollision);
-  }
+<!-- Restaurant Scene -->
+<div id="restaurantScene" class="scene hidden">
 
-  checkCollision();
-</script>
+    <!-- Background -->
+    <div class="restaurant-bg"></div>
+
+    <!-- Welcome content -->
+    <div class="restaurant-content">
+        <img class="taekook-welcome" 
+             src="{{ url_for('static', filename='images/games/cookwithtaekook/taekook_welcome.png') }}" 
+             alt="Tae & Koo Welcome">
+
+        <h1>Welcome to BearBun Snacks! 🍳🍹</h1>
+        <p>Let’s start cooking your first dish!</p>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/cook_with_taekook.js') }}"></script>
 </body>
 </html>
