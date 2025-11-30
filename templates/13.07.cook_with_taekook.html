@@ -12,12 +12,10 @@
 
 <!-- Landing Scene -->
 <div id="landingScene" class="scene">
-
     <div class="welcomeText">
         <h1>Hi! We’re Tae & Koo 👋</h1>
         <p>Follow us to our restaurant and start cooking!</p>
     </div>
-
     <div class="taekook-row">
         <!-- Tae -->
         <img class="taekook-hi"
@@ -31,7 +29,6 @@
                  alt="Koo says hi">
         </div>
     </div>
-
     <button id="startRideBtn">Start the Ride 🏍️</button>
 </div>
 
@@ -44,51 +41,55 @@
     <!-- <div class="star" style="top:50%; left:70%;"></div> -->
     <img id="motorbike" src="{{ url_for('static', filename='images/games/cookwithtaekook/ridetorestaurant1.png') }}" alt="Tae & Koo on Harley">
 </div>
-
 <!-- Restaurant Scene -->
 <div id="restaurantScene" class="scene hidden">
-
     <!-- Background -->
     <div class="restaurant-bg"></div>
-
     <!-- Welcome content -->
     <div class="restaurant-content">
         <img class="taekook-welcome" 
              src="{{ url_for('static', filename='images/games/cookwithtaekook/taekook_welcome.png') }}" 
              alt="Tae & Koo Welcome">
-
         <h2>Welcome to</h2>
         <h1>My Universe Cafe!</h1>
         <p>Ready for your first dish?</p>
-        <button id="startCookingBtn">Start Cooking 🍳</button>
+        <button id="headToKitchenBtn">Head to Kitchen</button>
     </div>
 </div>
 
 <!-- Kitchen Scene -->
 <div id="kitchenScene" class="scene hidden">
-
     <!-- Background -->
-    <div class="kitchen-bg"></div>
-
+    <div class="kitchen-bg" style="background-image: url('{{ url_for('static', filename='images/games/cookwithtaekook/taekook_cooking.png') }}');"></div>
     <!-- Top Instruction Panel -->
     <div class="instruction-panel">
-        <p id="instructionText">Follow Tae & Koo's instructions to cook your first dish!</p>
+        <p id="instructionText">Follow Tae & Koo's instructions to learn how the game works!</p>
     </div>
-
-    <!-- Characters behind counter (single image now) -->
-    <div class="counter-area">
-        <img class="taekook-kitchen" src="{{ url_for('static', filename='images/games/cookwithtaekook/taekook_cooking.png') }}" alt="Tae & Koo cooking">
+    <!-- Chat Bubbles -->
+    <div class="chat-bubble left" id="taeBubble">
+        <p id="taeText"></p>
     </div>
-
-    <!-- Chat Bubble -->
-    <div class="chat-bubble hidden" id="chatBubble">
-        <p id="chatText">Hi! Let's start cooking!</p>
+    <div class="chat-bubble right" id="kooBubble">
+        <p id="kooText"></p>
     </div>
-
-    <!-- Next Step Button -->
-    <button id="nextInstructionBtn" class="hidden">Next 🍳</button>
-
+    <!-- Full instructions panel (hidden initially) -->
+    <div class="instruction-panel hidden" id="fullInstructionPanel">
+        <h2>How the Game Works</h2>
+        <ol>
+            <li>Customer arrives and chooses a dish from the menu.</li>
+            <li>Check the recipe or skip directly to preparation.</li>
+            <li>Collect ingredients in the mini-game.</li>
+            <li>Cook the order with Tae & Koo’s help.</li>
+            <li>Deliver the order to the customer.</li>
+            <li>Everyone is happy!</li>
+            <li>Continue with the next customer or exit the game.</li>
+        </ol>
+        <button id="startCookingBtn">Start Cooking 🍳</button>
+    </div>
+    <!-- Show full instructions button -->
+    <button id="showFullInstructionsBtn">Show Full Instructions 📖</button>
 </div>
+
 
 
 <script src="{{ url_for('static', filename='js/cook_with_taekook.js') }}"></script>

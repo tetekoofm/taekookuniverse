@@ -10,15 +10,19 @@ body {
     position: relative;
     width: 100%;
     height: 100vh;
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
     text-align: center;
+    overflow: hidden;
+}
+
+.scene:not(.hidden) {
+    display: block;
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 /* Landing Scene */
@@ -273,7 +277,7 @@ body {
     pointer-events: auto;
 }
 
-#startCookingBtn {
+#headToKitchenBtn {
     margin-top: 20px;
     padding: 12px 25px;
     font-size: 1.4rem;
@@ -289,7 +293,7 @@ body {
 }
 
 
-#startCookingBtn:hover {
+#headToKitchenBtn:hover {
     transform: scale(1.05);
     box-shadow: 0 0 25px #8affc1, 0 0 50px #c88aff;
 }
@@ -305,6 +309,17 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+.kitchen-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
 }
 
 /* Instruction panel at top */
@@ -351,19 +366,65 @@ body {
 /* Chat bubble */
 .chat-bubble {
     position: absolute;
-    bottom: 250px;
-    left: 50%;
-    transform: translateX(-50%);
     max-width: 300px;
-    background: linear-gradient(145deg, #8affc1, #c88aff);
-    color: #000;
-    border-radius: 15px;
     padding: 10px 15px;
     font-family: 'Orbitron', sans-serif;
     font-size: 1rem;
     text-align: center;
+    border-radius: 20px;
+    /* color: #8affc1; */
+    /* box-shadow: 0 0 10px #8affc1, 0 0 20px #c88aff; */
     z-index: 3;
-    box-shadow: 0 0 15px #8affc1, 0 0 25px #c88aff;
+    display: none; /* hide by default */
+}
+
+/* Tae (left) bubble */
+.chat-bubble.left {
+    background: linear-gradient(145deg, #024b2f, #2a9f5d);
+    color: #8affc1;
+    left: 25%; 
+    top: 35%;            /* vertical position */
+}
+
+.chat-bubble.left::after {
+    content: '';
+    position: absolute;
+    top: 100%;           /* arrow below bubble */
+    right: 20px;          /* offset from left */
+    border-width: 20px;
+    border-style: solid;
+    border-color: #2a9f5d transparent transparent transparent; /* downward arrow */
+}
+
+/* Koo (right) bubble */
+.chat-bubble.right {
+    background: linear-gradient(145deg, #620092, #7c2dc1);
+    color: #d6b6f3;
+    right: 25%; 
+    top: 35%;            /* same vertical as left bubble */
+}
+
+.chat-bubble.right::after {
+    content: '';
+    position: absolute;
+    top: 100%;           /* arrow below bubble */
+    left: 20px;         /* offset from right */
+    border-width: 20px;
+    border-style: solid;
+    border-color: #620092 transparent transparent transparent; /* downward arrow */
+}
+
+@keyframes vibrate {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-2px); }
+    40% { transform: translateX(2px); }
+    60% { transform: translateX(-2px); }
+    80% { transform: translateX(2px); }
+    100% { transform: translateX(0); }
+}
+
+.chat-bubble.vibrate {
+    animation: vibrate 0.3s ease-in-out;
 }
 
 /* Next button */
