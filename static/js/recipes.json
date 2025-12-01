@@ -1,17 +1,140 @@
-const recipes = [
+{
+  "beverages": [
     {
-        name: "Kimchi Fried Rice",
-        ingredients: ["Rice", "Kimchi", "Egg", "Soy Sauce", "Sesame Oil"],
-        instructions: "Fry kimchi, add rice, scramble egg, mix soy sauce, drizzle sesame oil."
+      "name": "Strawberry Milkshake",
+      "ingredients": ["Strawberries", "Milk", "Sugar", "Ice Cream"],
+      "ingredientsEmoji": ["🍓", "🥛", "🍬", "🍦"],
+      "instructions": "Blend strawberries with milk, sugar, and ice cream until smooth."
     },
     {
-        name: "Bulgogi",
-        ingredients: ["Beef", "Soy Sauce", "Sugar", "Garlic", "Green Onion"],
-        instructions: "Marinate beef with sauce, cook on pan until done."
+      "name": "Banana Milkshake",
+      "ingredients": ["Banana", "Milk", "Honey", "Ice Cream"],
+      "ingredientsEmoji": ["🍌", "🥛", "🍯", "🍦"],
+      "instructions": "Blend banana with milk, honey, and ice cream until smooth."
     },
     {
-        name: "Tteokbokki",
-        ingredients: ["Rice Cakes", "Fish Cake", "Gochujang", "Sugar", "Boiled Egg"],
-        instructions: "Cook rice cakes in spicy sauce, add fish cake, serve with boiled egg."
+      "name": "Hot Chocolate",
+      "ingredients": ["Cocoa Powder", "Milk", "Sugar", "Whipped Cream"],
+      "ingredientsEmoji": ["🍫", "🥛", "🍬", "🍦"],
+      "instructions": "Heat milk with cocoa powder and sugar, top with whipped cream."
+    },
+    {
+      "name": "Chocolate Milk",
+      "ingredients": ["Milk", "Chocolate Syrup"],
+      "ingredientsEmoji": ["🥛", "🍫"],
+      "instructions": "Mix milk with chocolate syrup and serve chilled."
+    },
+    {
+      "name": "Milk Tea",
+      "ingredients": ["Tea", "Milk", "Sugar", "Boba (optional)"],
+      "ingredientsEmoji": ["🍵", "🥛", "🍬", "🟤"],
+      "instructions": "Brew tea, mix with milk and sugar. Add boba if desired."
+    },
+    {
+      "name": "Coffee",
+      "ingredients": ["Coffee Powder", "Milk", "Sugar"],
+      "ingredientsEmoji": ["☕", "🥛", "🍬"],
+      "instructions": "Brew coffee and mix with milk and sugar."
+    },
+    {
+      "name": "Lemonade",
+      "ingredients": ["Lemon", "Water", "Sugar", "Ice"],
+      "ingredientsEmoji": ["🍋", "💧", "🍬", "🧊"],
+      "instructions": "Mix lemon juice with water, sugar, and ice cubes."
     }
-];
+  ],
+  "food": [
+    {
+      "name": "Scrambled Eggs",
+      "ingredients": ["Eggs", "Salt", "Butter", "Milk"],
+      "ingredientsEmoji": ["🥚", "🧂", "🧈", "🥛"],
+      "instructions": "Beat eggs with milk and salt, cook in butter until soft."
+    },
+    {
+      "name": "Mashed Potatoes",
+      "ingredients": ["Potatoes", "Butter", "Milk", "Salt", "Pepper"],
+      "ingredientsEmoji": ["🥔", "🧈", "🥛", "🧂", "🧂"],
+      "instructions": "Boil potatoes, mash with butter, milk, salt, and pepper."
+    },
+    {
+      "name": "Blueberry Pancakes",
+      "ingredients": ["Flour", "Eggs", "Milk", "Sugar", "Baking Powder", "Blueberries"],
+      "ingredientsEmoji": ["🌾", "🥚", "🥛", "🍬", "🥣", "🫐"],
+      "instructions": "Mix ingredients, cook batter on pan, add berries as topping."
+    },
+    {
+      "name": "Strawberry Pancakes",
+      "ingredients": ["Flour", "Eggs", "Milk", "Sugar", "Baking Powder", "Strawberries"],
+      "ingredientsEmoji": ["🌾", "🥚", "🥛", "🍬", "🥣", "🍓"],
+      "instructions": "Mix ingredients, cook batter on pan, add berries as topping."
+    },
+    {
+      "name": "French Toast",
+      "ingredients": ["Bread Slices", "Eggs", "Milk", "Sugar", "Cinnamon"],
+      "ingredientsEmoji": ["🍞", "🥚", "🥛", "🍬", "🌿"],
+      "instructions": "Dip bread in egg mixture and fry until golden brown."
+    },
+    {
+      "name": "Salad",
+      "ingredients": ["Lettuce", "Tomatoes", "Cucumber", "Olive Oil", "Salt"],
+      "ingredientsEmoji": ["🥬", "🍅", "🥒", "🫒", "🧂"],
+      "instructions": "Chop vegetables, mix with olive oil and salt."
+    },
+    {
+      "name": "Grilled Cheese Sandwich",
+      "ingredients": ["Bread", "Cheese", "Butter"],
+      "ingredientsEmoji": ["🍞", "🧀", "🧈"],
+      "instructions": "Butter bread, add cheese, grill until golden and melted."
+    },
+    {
+      "name": "Spaghetti",
+      "ingredients": ["Spaghetti", "Tomato Sauce", "Salt", "Olive Oil", "Parmesan Cheese"],
+      "ingredientsEmoji": ["🍝", "🍅", "🧂", "🫒", "🧀"],
+      "instructions": "Cook spaghetti, mix with sauce, drizzle olive oil and sprinkle cheese."
+    },
+    {
+      "name": "Kimchi Fried Rice",
+      "ingredients": ["Rice", "Kimchi", "Vegetables", "Egg", "Soy sauce", "Sesame oil"],
+      "ingredientsEmoji": ["🍚", "🥬", "🥕", "🥚", "🧂", "🫒"],
+      "instructions": "Stir-fry kimchi and vegetables, add rice and seasonings, top with fried egg."
+    },
+    {
+      "name": "Tteokbokki",
+      "ingredients": ["Rice cakes", "Fish cakes", "Gochujang sauce", "Sugar", "Green onions"],
+      "ingredientsEmoji": ["🍚", "🐟", "🌶️", "🍬", "🧅"],
+      "instructions": "Cook rice cakes and fish cakes in sauce until tender."
+    },
+    {
+      "name": "Fruit Salad",
+      "ingredients": ["Apple", "Banana", "Orange", "Grapes", "Honey"],
+      "ingredientsEmoji": ["🍎", "🍌", "🍊", "🍇", "🍯"],
+      "instructions": "Chop all fruits and drizzle with honey."
+    }
+  ],
+  "chefKooSpecial": [
+    {
+      "name": "Uni Cream Shrimp Pasta",
+      "ingredients": ["Pasta", "Shrimp", "Garlic", "Uni soy sauce", "Heavy cream", "Butter", "Sugar", "Cheese", "Green onion"],
+      "ingredientsEmoji": ["🍝", "🍤", "🧄", "🧂", "🥛", "🧈", "🍬", "🧀", "🧅"],
+      "instructions": "Infuse oil with green onion and shrimp heads. Boil pasta. Stir-fry garlic and seasonings, add uni soy sauce, heavy cream, butter, sugar, chopped shrimp. Simmer, add pasta, toss, finish with cheese and green onion."
+    },
+    {
+      "name": "Bulguri Ramen",
+      "ingredients": ["Noodles", "Buldak liquid sauce", "Neoguri garnish", "Water", "Sesame", "Mayo", "Seaweed"],
+      "ingredientsEmoji": ["🍜", "🌶️", "🦀", "💧", "🧂", "🥄", "🌿"],
+      "instructions": "Add 650-680ml water to pan, add sauce and garnish, boil, add noodles, thicken broth, top with garnish."
+    },
+    {
+      "name": "BulMayo Perilla Oil Makguksu",
+      "ingredients": ["Buckwheat noodles", "Perilla oil", "Cham sauce", "Buldak sauce", "Buldak mayo", "Egg yolk", "Seaweed flakes"],
+      "ingredientsEmoji": ["🍜", "🫒", "🌶️", "🌶️", "🥄", "🥚", "🌿"],
+      "instructions": "Boil noodles, rinse in cold water, mix sauces and egg yolk, pour over noodles, top with seaweed."
+    },
+    {
+      "name": "Scrambled Egg Toast with Jam",
+      "ingredients": ["Bread", "Eggs", "Milk", "Salt", "Pepper", "Butter", "Strawberry jam"],
+      "ingredientsEmoji": ["🍞", "🥚", "🥛", "🧂", "🧂", "🧈", "🍓"],
+      "instructions": "Beat eggs with milk, cook scrambled eggs, toast bread, spread butter and jam, top with eggs."
+    }
+  ]
+}

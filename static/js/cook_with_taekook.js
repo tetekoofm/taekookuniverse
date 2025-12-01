@@ -37,9 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const restaurantChatSteps = [    
         { id: 'taeBubble', text: "Oh! Our first customer is here!" },
         { id: 'kooBubble', text: "Let's see what they want to order." }
-        // { id: 'taeBubble', text: "The customer wants to order <br><strong>Kimchi Fried Rice!</strong>" },
-        // { id: 'kooBubble', text: "Time to head to the kitchen and start cooking!" }
     ];
+
     /* -------------------------------------------
        INITIAL VISIBILITY
     -------------------------------------------*/
@@ -78,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let pos = -300;
 
         const interval = setInterval(() => {
-            pos += 70;
+            pos += 7;
             motorbike.style.right = pos + 'px';
 
             // when bike leaves the screen → show restaurant
@@ -104,8 +103,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* -------------------------------------------
-       INSTRUCTIONS SYSTEM
+       RECIPE PREPARATION
     -------------------------------------------*/
+    let chatTimeout; 
     let currentStep = 0;
     const chatPositions = ["35%", "45%"]; 
 
@@ -138,14 +138,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (bubble) bubble.style.display = 'none';
         });
     
-        // Don't show bubble if full instructions panel is visible
-        if (!fullPanel.classList.contains('hidden')) {
-            currentStep++;
-            if (currentStep < chatSteps.length) {
-                setTimeout(showNextChat, 2500);
-            }
-            return; // exit early
-        }
+        // Stop if full instructions panel is visible
+        if (!fullPanel.classList.contains('hidden')) return;
     
         // Show current bubble
         const currentBubble = document.getElementById(chatSteps[currentStep].id);
@@ -160,15 +154,16 @@ document.addEventListener('DOMContentLoaded', () => {
         // Move to next step
         currentStep++;
         if (currentStep < chatSteps.length) {
-            setTimeout(showNextChat, 2500);
+            chatTimeout = setTimeout(showNextChat, 2500); // store timeout ID
         }
     }
-    
 
     // Show full instructions
     showFullBtn.addEventListener('click', () => {
+        clearTimeout(chatTimeout); // cancel pending bubble
+    
         fullPanel.classList.remove('hidden');
-
+    
         chatSteps.forEach(step => {
             const bubble = document.getElementById(step.id);
             if (bubble) bubble.style.display = 'none';
@@ -181,22 +176,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Start Cooking
     startCookingBtn.addEventListener('click', () => {
+        const chime = new Audio("/static/audio/bell.mp3");
+        chime.play();
         fullPanel.classList.add('hidden');  // hide full instructions
         kitchenScene.classList.remove('hidden'); // show kitchen scene
-    
-        // Play chime
-        const chime = new Audio("/static/audio/spooky-chimes.mp3");
-        chime.play();
     
         // Start restaurant chat sequence
         startRestaurantChat();
     });
 
+
     let restaurantStep = 0;
     
     function startRestaurantChat() {
         restaurantStep = 0;
-        showNextRestaurantChat();
+        setTimeout(() => {
+            showNextRestaurantChat();
+        }, 3000); // wait 2 seconds before starting
     }
     
     function showNextRestaurantChat() {
@@ -224,45 +220,130 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    let recipes = [];
+
+    fetch('/static/js/recipes.json')
+        .then(res => res.json())
+        .then(data => {
+            recipes = [
+                ...data.beverages,
+                ...data.food,
+                ...data.chefKooSpecial
+            ];
+        });
+        
     function getRandomRecipe() {
+        if (!recipes.length) {
+            console.warn("Recipes not loaded yet!");
+            return { name: "Mystery Dish", ingredients: [], instructions: "Please wait..." };
+        }
         const index = Math.floor(Math.random() * recipes.length);
         return recipes[index];
     }
     
+    // ------------------------
+    // ORDER / RESTAURANT FLOW
+    // ------------------------
+
     function showOrderOptions() {
-        const order = getRandomRecipe();
-    
-        restaurantChatSteps.push(
-            { id: 'taeBubble', text: `The customer wants to order <br><strong>${order.name}!</strong>` },
-            { id: 'kooBubble', text: "Time to head to the kitchen and start cooking!" }
-        );
-    
-        // Show new chat steps
-        startRestaurantChat();
-        
-        // Save order for next steps
+        console.log("showOrderOptions() called — picking recipe...");
+        // Ensure we have a recipe; fallback if not loaded
+        let order = getRandomRecipe();
+        if (!order || !order.name) {
+            console.warn("No recipes loaded yet — using fallback dish.");
+            order = { name: "Mystery Dish", ingredients: ["Ingredient A", "Ingredient B"], instructions: "Please wait..." };
+        }
         window.currentOrder = order;
+
+        // small delay so the bell/last bubble feels complete (adjust timing if needed)
+        setTimeout(() => {
+            const orderChat = [
+                { id: 'taeBubble', text: `The customer wants to order <br><strong>${order.name}!</strong>` },
+                { id: 'kooBubble', text: "Tete, can you get the ingredients from the pantry?" },
+                { id: 'taeBubble', text: "Yes Kookie!" }
+            ];
+
+            console.log("Starting dynamic restaurant chat for order:", order.name);
+            showDynamicRestaurantChat(orderChat, () => {
+                console.log("Order chat finished — showing order option buttons");
+                showOrderOptionsButtons();
+            });
+        }, 350); // small breathing room
+    }
+
+    function showDynamicRestaurantChat(chatArray, callback) {
+        console.log("showDynamicRestaurantChat() start", chatArray);
+        let step = 0;
+
+        function showNext() {
+            // hide all bubbles first (safety)
+            chatArray.forEach(stepObj => {
+                const bubble = document.getElementById(stepObj.id);
+                if (bubble) bubble.style.display = 'none';
+            });
+
+            if (step >= chatArray.length) {
+                console.log("dynamic chat complete");
+                if (typeof callback === 'function') callback();
+                return;
+            }
+
+            const stepObj = chatArray[step];
+            const currentBubble = document.getElementById(stepObj.id);
+            if (!currentBubble) {
+                console.warn("Bubble element not found for id:", stepObj.id);
+                step++;
+                setTimeout(showNext, 500);
+                return;
+            }
+
+            currentBubble.querySelector('p').innerHTML = stepObj.text;
+            currentBubble.style.display = 'block';
+            currentBubble.classList.add('vibrate');
+            setTimeout(() => currentBubble.classList.remove('vibrate'), 300);
+
+            step++;
+            setTimeout(showNext, 1800); // show next bubble after 1.8s
+        }
+
+        showNext();
     }
 
     function showOrderOptionsButtons() {
-        const optionsContainer = document.getElementById('orderOptions'); // div in HTML
+        console.log("showOrderOptionsButtons() called");
+        const optionsContainer = document.getElementById('orderOptions');
+
+        // If container missing: log and fallback to directly starting mini-game
+        if (!optionsContainer) {
+            console.error("#orderOptions container not found. Falling back to startIngredientMiniGame().");
+            // Safety: small delay so the player sees the last bubble briefly
+            setTimeout(() => startIngredientMiniGame(), 400);
+            return;
+        }
+
+        // Build buttons
         optionsContainer.innerHTML = `
-            <button id="prepareOrderBtn">Prepare Order</button>
-            <button id="readRecipeBtn">Read Recipe</button>
+            <button id="prepareOrderBtn" class="action-btn">Prepare Order</button>
         `;
         optionsContainer.style.display = 'flex';
         optionsContainer.style.justifyContent = 'center';
-        optionsContainer.style.gap = '20px';
-    
-        document.getElementById('prepareOrderBtn').addEventListener('click', () => {
+        optionsContainer.style.gap = '16px';
+        optionsContainer.style.zIndex = '50'; // ensure visible above background
+
+        // Hook listeners
+        const prepareBtn = document.getElementById('prepareOrderBtn');
+
+        prepareBtn?.addEventListener('click', () => {
+            console.log("Prepare Order clicked");
             optionsContainer.style.display = 'none';
-            startIngredientMiniGame();
-        });
-    
-        document.getElementById('readRecipeBtn').addEventListener('click', () => {
-            optionsContainer.style.display = 'none';
-            showRecipePanel(window.currentOrder);
-        });
+            
+            // Use the new ingredients mini-game
+            startIngredientsMiniGame(window.currentOrder);
+        });       
+
+        // Optional: briefly highlight the buttons (visual cue)
+        prepareBtn.classList.add('pulse');
+        setTimeout(() => prepareBtn.classList.remove('pulse'), 900);
     }
     
     function showRecipePanel(order) {
@@ -274,17 +355,114 @@ document.addEventListener('DOMContentLoaded', () => {
             <button id="startPrepBtn">Prepare Order</button>
         `;
         recipePanel.style.display = 'block';
-    
-        document.getElementById('startPrepBtn').addEventListener('click', () => {
-            recipePanel.style.display = 'none';
-            startIngredientMiniGame();
-        });
     }
     
-    function startIngredientMiniGame() {
+    function startIngredientsMiniGame(order) {
         kitchenScene.classList.add('hidden');
-        document.getElementById('ingredientScene').classList.remove('hidden');
-        // mini-game logic goes here
+        const miniGameContainer = document.getElementById('ingredientScene');
+        miniGameContainer.innerHTML = `
+            <div id="ingredientHUD">
+                <h2>${order.name}</h2>
+                <p><strong>Ingredients:</strong> ${order.ingredientsEmoji.join(" ")}</p>
+                <p><strong>Instructions:</strong> ${order.instructions}</p>
+                <button id="startCollectBtn">Start Collecting</button>
+                <div id="collectedStatus"></div>
+            </div>
+            <canvas id="ingredientGameCanvas"></canvas>
+        `;
+        miniGameContainer.classList.remove('hidden');
+    
+        document.getElementById('startCollectBtn').addEventListener('click', () => {
+            document.getElementById('startCollectBtn').style.display = 'none';
+            runIngredientsGame(order); // Santa Dash–style ingredients falling game
+        });
+    }    
+    
+    function runIngredientsGame(order) {
+        const canvas = document.getElementById('ingredientGameCanvas');
+        const ctx = canvas.getContext('2d');
+    
+        canvas.width = document.getElementById('ingredientScene').clientWidth;
+        canvas.height = window.innerHeight * 0.6;
+    
+        const playerImg = new Image();
+        playerImg.src = '/static/images/games/cookwithtaekook/tae_ingredients.png';
+        const player = { x: canvas.width / 2, y: canvas.height - 80, width: 80, height: 80 };
+    
+        const ingredients = [];
+        const collected = {};
+    
+        order.ingredientsEmoji.forEach(emoji => collected[emoji] = false);
+    
+        // Track mouse movement
+        canvas.addEventListener('mousemove', e => {
+            const rect = canvas.getBoundingClientRect();
+            let mouseX = e.clientX - rect.left;
+            // Player should move to container corners
+            if (mouseX < 0) mouseX = 0;
+            if (mouseX > canvas.width - player.width) mouseX = canvas.width - player.width;
+            player.x = mouseX;
+        });
+    
+        function spawnIngredient() {
+            // Mix main ingredients + obstacles
+            const pool = [...order.ingredientsEmoji, ...obstacles];
+            const emoji = pool[Math.floor(Math.random() * pool.length)];
+            ingredients.push({
+                emoji,
+                x: Math.random() * (canvas.width - 40),
+                y: -40,
+                speed: 2 + Math.random() * 3
+            });
+        }
+    
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+            // Draw player (Tae)
+            ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
+    
+            // Draw ingredients
+            ingredients.forEach((ing, i) => {
+                ctx.font = "40px serif";
+                ctx.fillText(ing.emoji, ing.x, ing.y);
+                ing.y += ing.speed;
+    
+                // Collision detection
+                if (
+                    ing.y + 30 >= player.y &&
+                    ing.y <= player.y + player.height &&
+                    ing.x + 30 >= player.x &&
+                    ing.x <= player.x + player.width
+                ) {
+                    // Check if ingredient is main
+                    if (order.ingredientsEmoji.includes(ing.emoji)) {
+                        collected[ing.emoji] = true;
+                    }
+                    ingredients.splice(i, 1);
+                    updateCollectedStatus();
+                }
+    
+                // Remove if falls below canvas
+                if (ing.y > canvas.height + 40) ingredients.splice(i, 1);
+            });
+    
+            requestAnimationFrame(draw);
+        }
+    
+        function updateCollectedStatus() {
+            const statusDiv = document.getElementById('collectedStatus');
+            statusDiv.textContent = "Collected: " + order.ingredientsEmoji.map(e => collected[e] ? e : "⬜").join(" ");
+    
+            if (Object.values(collected).every(v => v)) {
+                alert("You collected all ingredients! Returning to kitchen.");
+                document.getElementById('ingredientScene').classList.add('hidden');
+                kitchenScene.classList.remove('hidden');
+            }
+        }
+    
+        setInterval(spawnIngredient, 800); // ingredients fall faster
+        draw();
     }
     
     

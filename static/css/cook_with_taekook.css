@@ -428,7 +428,7 @@ body {
 
 #startRideBtn {
     position: absolute;
-    bottom: 400px;
+    bottom: 350px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 3;
@@ -457,7 +457,185 @@ body {
     z-index: 3;
 }
 
+#orderOptions {
+    display: none; 
+    margin-top: 20px; 
+    justify-content: center; 
+    gap: 20px;
+}
 
+#recipePanel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    background: rgba(0,0,0,0.8);
+    border: 2px solid #8affc1;
+    border-radius: 12px;
+    color: #c88aff;
+    padding: 20px;
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+    z-index: 10;
+}
+#recipePanel h3 {
+    margin-bottom: 10px;
+}
+#recipePanel p {
+    margin-bottom: 12px;
+}
+#recipePanel button {
+    padding: 8px 16px;
+    font-family: 'Orbitron', sans-serif;
+    background: linear-gradient(90deg, #8affc1, #c88aff);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#ingredientScene {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    color: #fff;
+    text-align: center;
+    z-index: 10;
+    padding-top: 60px;
+}
+
+#ingredientsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.ingredient-item {
+    width: 80px;
+    height: 80px;
+    font-size: 2rem; /* emoji size */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.2);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.ingredient-item.collected {
+    transform: scale(0);
+    opacity: 0;
+    pointer-events: none;
+}
+
+#recipePanel,
+#orderOptions {
+    display: none;
+}
+
+/* quick button style for order options */
+#orderOptions { 
+    position: absolute; 
+    bottom: 90px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    z-index: 60; 
+}
+
+.action-btn {
+    padding: 10px 18px;
+    border-radius: 10px;
+    border: none;
+    font-family: 'Orbitron', sans-serif;
+    cursor: pointer;
+    background: linear-gradient(90deg, #8affc1, #c88aff);
+    color: #000;
+    box-shadow: 0 0 12px rgba(138,255,193,0.12);
+}
+
+.action-btn:hover { 
+    transform: scale(1.02); 
+}
+
+/* small pulse to draw attention */
+.pulse { 
+    animation: pulseAnim 0.9s ease-in-out; 
+}
+@keyframes pulseAnim { 0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)} }
+
+#miniGamePage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    font-family: sans-serif;
+    color: #fff;
+    background: #111; /* night theme */
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#recipeInfo {
+    background: rgba(0,0,0,0.7);
+    padding: 15px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+}
+
+#startCollectingBtn {
+    padding: 10px 20px;
+    font-size: 1.1em;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background: #8affc1;
+    color: #111;
+    transition: 0.2s;
+}
+#startCollectingBtn:hover { background: #5fd6a5; }
+
+#ingredientScene {
+    text-align: center;
+    padding: 10px;
+}
+
+#ingredientGameCanvas {
+    border: 2px solid #fff;
+    background: #222;
+    display: block;
+    margin: 0 auto;
+    width: 80%;
+    height: 1000px;
+    border-radius: 15px;
+}
+
+#collectedStatus {
+    margin: 10px 0;
+    font-size: 24px;
+    color: #fff;
+}
+
+#startGameBtn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 20px;
+    cursor: pointer;
+    background: #8affc1;
+    border: none;
+    border-radius: 10px;
+    color: #222;
+}
+  
 /* ------------------ Tablet ------------------ */
 @media (max-width: 1024px) {
     /* Landing Scene */
