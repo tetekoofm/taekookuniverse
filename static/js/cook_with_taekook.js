@@ -42,15 +42,15 @@ document.addEventListener('DOMContentLoaded', () => {
     /* -------------------------------------------
        INITIAL VISIBILITY
     -------------------------------------------*/
-    // landingScene.classList.remove('hidden');
-    // rideScene.classList.add('hidden');
-    // restaurantScene.classList.add('hidden');
-    // kitchenScene.classList.add('hidden');
-
-    landingScene.classList.add('hidden');
+    landingScene.classList.remove('hidden');
     rideScene.classList.add('hidden');
     restaurantScene.classList.add('hidden');
-    kitchenScene.classList.remove('hidden');
+    kitchenScene.classList.add('hidden');
+
+  //  landingScene.classList.add('hidden');
+   // rideScene.classList.add('hidden');
+   // restaurantScene.classList.add('hidden');
+  //  kitchenScene.classList.remove('hidden');
 
     /* -------------------------------------------
        STARS IN SKY
