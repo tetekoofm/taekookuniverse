@@ -408,7 +408,8 @@ body {
 }
 
 /* All button */
-#startRideBtn, #headToKitchenBtn, #startCookingBtn, #showFullInstructionsBtn {
+#startRideBtn, #headToKitchenBtn, #startCookingBtn, 
+#showFullInstructionsBtn, #startCollectBtn, #startGameBtn {
     padding: 10px 20px;
     font-size: 1.2rem;
     font-family: 'Orbitron', sans-serif;
@@ -419,43 +420,22 @@ body {
     cursor: pointer;
     box-shadow: 0 0 15px #8affc1, 0 0 25px #c88aff;
     transition: transform 0.2s, box-shadow 0.2s;
+    display: block;       /* make it a block so margin works */
+    margin: 20px auto 0; 
 }
 
 #startRideBtn:hover, #headToKitchenBtn:hover, #startCookingBtn:hover, #showFullInstructionsBtn:hover, #nextInstructionBtn:hover {
-    transform: translateX(-50%) scale(1.05);
+    /* transform: translateX(-50%) scale(1.05); */
     box-shadow: 0 0 25px #8affc1, 0 0 50px #c88aff;
-}
-
-#startRideBtn {
-    position: absolute;
-    bottom: 350px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 3;
-}
-
-#headToKitchenBtn {
-    position: absolute;
-    bottom: -50px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 11; 
-}
-
-#startCookingBtn {
-    position: absolute;
-    bottom: -80px; 
-    transform: translateX(-50%);
-    z-index: 3;
 }
 
 #showFullInstructionsBtn {
     position: absolute;
     bottom: 20px; 
     right: 20px;  
-    transform: translateX(-50%);
+    /* transform: translateX(-50%); */
     z-index: 3;
-}
+} 
 
 #orderOptions {
     display: none; 
@@ -570,72 +550,66 @@ body {
 }
 @keyframes pulseAnim { 0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)} }
 
-#miniGamePage {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    font-family: sans-serif;
-    color: #fff;
-    background: #111; /* night theme */
-    min-height: 100vh;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-#recipeInfo {
-    background: rgba(0,0,0,0.7);
-    padding: 15px;
-    border-radius: 10px;
-    width: 80%;
-    max-width: 600px;
-    text-align: center;
-}
-
-#startCollectingBtn {
-    padding: 10px 20px;
-    font-size: 1.1em;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    background: #8affc1;
-    color: #111;
-    transition: 0.2s;
-}
-#startCollectingBtn:hover { background: #5fd6a5; }
-
+/* Container for the ingredient mini-game */
 #ingredientScene {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
     text-align: center;
-    padding: 10px;
+    background: rgba(0, 0, 0, 0.85);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 255, 200, 0.3);
+    color: #fff;
 }
 
+/* Recipe & game instructions */
+#ingredientHUD {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+#ingredientHUD h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: #8affc1;
+}
+
+#ingredientHUD p, #collectedStatus {    
+    font-family: 'Pacifico', cursive;
+    font-size: 1.2em;
+    margin: 5px 0;
+    color: #c88aff;
+}
+
+/* Canvas for the game */
 #ingredientGameCanvas {
-    border: 2px solid #fff;
-    background: #222;
     display: block;
-    margin: 0 auto;
-    width: 80%;
-    height: 1000px;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 1200px;
+    height: 60vh;
+    background: #222;
+    border: 3px solid #8affc1;
     border-radius: 15px;
 }
 
-#collectedStatus {
-    margin: 10px 0;
-    font-size: 24px;
-    color: #fff;
+/* Buttons */
+#startCollectBtn, #startGameBtn {
+    margin-top: 15px;
 }
 
-#startGameBtn {
-    margin-top: 10px;
-    padding: 10px 20px;
-    font-size: 20px;
-    cursor: pointer;
-    background: #8affc1;
-    border: none;
-    border-radius: 10px;
-    color: #222;
+#startCollectBtn:hover, #startGameBtn:hover {
+    background: #5fd6a5;
 }
-  
+
 /* ------------------ Tablet ------------------ */
 @media (max-width: 1024px) {
     /* Landing Scene */
@@ -747,6 +721,12 @@ body {
     #startRideBtn {
         bottom: 300px;
     }
+
+    #ingredientGameCanvas { 
+        max-width: 768px; 
+        height: 85vh; 
+    }
+
 }
 
 /* ------------------ Mobile ------------------ */
@@ -872,5 +852,20 @@ body {
 
     #startRideBtn {
         bottom: 100px;
+    }
+
+    #ingredientHUD h2 {
+        font-size: 1.5em;
+    }
+
+    #ingredientHUD p, #collectedStatus {
+        font-size: 1em;
+    }
+
+    #ingredientGameCanvas { 
+        max-width: 95%; 
+        height: 80vh; 
+        border-width: 1px; 
+        margin: 10px auto; 
     }
 }

@@ -98,9 +98,7 @@
 <div id="recipePanel" class="hidden"></div>
 
 <!-- Ingredient Mini-Game Scene -->
-<div id="ingredientScene" class="hidden">
-    <div class="mini-game-bg"></div> <!-- optional background -->
-    
+<div id="ingredientScene" class="hidden">    
     <h2>Collect Ingredients!</h2>
     <p>Grab all the ingredients for <span id="currentDishName"></span></p>
     
@@ -109,14 +107,7 @@
     <button id="finishMiniGameBtn">Done</button>
 </div>
 
-<div id="ingredientScene" class="hidden">
-    <h2 id="currentDishName"></h2>
-    <p id="recipeText"></p>
-    <canvas id="ingredientCanvas"></canvas>
-    <button id="startGameBtn">Start Collecting</button>
-</div>
-
-  
+ 
 <script src="{{ url_for('static', filename='js/cook_with_taekook.js') }}"></script>
 </body>
 </html>
