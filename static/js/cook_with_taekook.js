@@ -31,7 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 'taeBubble', text: "After that, help cook the dish with us." },
         { id: 'kooBubble', text: "Once done, deliver the order to the customer." },
         { id: 'taeBubble', text: "Then, a new customer arrives or you can choose to exit." },
-        { id: 'kooBubble', text: "Ready? Let's start cooking and have fun!" }
+        { id: 'kooBubble', text: "Ready? Let's start cooking and have fun!" },
+        { id: 'taeBubble', text: "Click on the 'Show Full Instructions' button." }
     ];
 
     const restaurantChatSteps = [    
@@ -377,15 +378,27 @@ document.addEventListener('DOMContentLoaded', () => {
     function runIngredientsGame(order, allRecipes) {
         const canvas = document.getElementById('ingredientGameCanvas');
         const ctx = canvas.getContext('2d');
-        const miniGameContainer = document.getElementById('ingredientScene');
-
-        canvas.width = canvas.clientWidth;
-        canvas.height = canvas.clientHeight;
     
+        // Make canvas responsive
+        function resizeCanvas() {
+            const containerWidth = canvas.parentElement.clientWidth;
+            canvas.width = containerWidth;
+    
+            // Height proportional to width, capped at 60% viewport height
+            const maxHeight = window.innerHeight * 0.6;
+            const idealHeight = containerWidth * 0.5; // 2:1 width:height ratio
+            canvas.height = Math.min(maxHeight, idealHeight);
+        }
+    
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+    
+        // Player setup
         const playerImg = new Image();
         playerImg.src = '/static/images/games/cookwithtaekook/tae_ingredients.png';
         const player = { x: canvas.width / 2, y: canvas.height - 80, width: 80, height: 80 };
     
+        // Ingredients
         const ingredients = [];
         const collected = {};
         order.ingredientsEmoji.forEach(e => collected[e] = false);
@@ -400,17 +413,15 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     
-        // Mouse movement
+        // Track mouse movement
         canvas.addEventListener('mousemove', e => {
             const rect = canvas.getBoundingClientRect();
-            let mouseX = e.clientX - rect.left; // mouse relative to canvas
-            // Clamp to canvas boundaries
-            if (mouseX < 0) mouseX = 0;
-            if (mouseX > canvas.width) mouseX = canvas.width;
-            player.x = Math.max(0, Math.min(mouseX, canvas.width - player.width));
+            let mouseX = e.clientX - rect.left - player.width / 2; // center player on cursor
+            player.x = Math.max(0, Math.min(mouseX, canvas.width - player.width)); // clamp to canvas
         });
-        
     
+    
+        // Spawn ingredients
         function spawnIngredient() {
             const pool = [...order.ingredientsEmoji, ...obstaclePool];
             if (!pool.length) return;
@@ -423,19 +434,36 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     
+        // Game finished flag
+        let gameFinished = false;
+
+        // Update collected display
+        function updateCollectedStatus() {
+            const statusDiv = document.getElementById('collectedStatus');
+            statusDiv.textContent = "Collected: " + order.ingredientsEmoji.map(e => collected[e] ? e : "⬜").join(" ");
+
+            if (!gameFinished && Object.values(collected).every(v => v)) {
+                gameFinished = true;
+                alert("All ingredients collected! Returning to kitchen.");
+                document.getElementById('ingredientScene').classList.add('hidden');
+                kitchenScene.classList.remove('hidden');
+            }
+        }
+
+        // Draw loop
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
+
             // Draw player
             ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
-    
+
             // Draw ingredients
             ingredients.forEach((ing, i) => {
                 ctx.font = "40px serif";
                 ctx.fillText(ing.emoji, ing.x, ing.y);
                 ing.y += ing.speed;
-    
-                // Collision
+
+                // Collision detection
                 if (
                     ing.y + 30 >= player.y &&
                     ing.y <= player.y + player.height &&
@@ -446,31 +474,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     ingredients.splice(i, 1);
                     updateCollectedStatus();
                 }
-    
-                // Remove if below canvas
+
+                // Remove if falls below canvas
                 if (ing.y > canvas.height + 40) ingredients.splice(i, 1);
             });
-    
+
             requestAnimationFrame(draw);
         }
-    
-        let gameFinished = false;
 
-        function updateCollectedStatus() {
-            const statusDiv = document.getElementById('collectedStatus');
-            statusDiv.textContent = "Collected: " + order.ingredientsEmoji.map(e => collected[e] ? e : "⬜").join(" ");
-        
-            if (!gameFinished && Object.values(collected).every(v => v)) {
-                gameFinished = true;  // prevent further alerts
-                alert("All ingredients collected! Returning to kitchen.");
-                document.getElementById('ingredientScene').classList.add('hidden');
-                kitchenScene.classList.remove('hidden');
-            }
-        }
-    
-        setInterval(spawnIngredient, 800);
-        playerImg.onload = draw; // start drawing after image loaded
+        // Start game after player image loads
+        playerImg.onload = () => {
+            draw();
+            setInterval(spawnIngredient, 800);
+        };
     }
-    
     
 });

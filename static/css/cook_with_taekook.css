@@ -321,6 +321,10 @@ body {
     text-align: center;
 }
 
+.instruction-panel li{
+    text-align: left;
+}
+
 /* kitchen counter */
 .counter-area {
     position: relative;
@@ -412,30 +416,25 @@ body {
 #showFullInstructionsBtn, #startCollectBtn, #startGameBtn {
     padding: 10px 20px;
     font-size: 1.2rem;
+    font-weight: bold;
     font-family: 'Orbitron', sans-serif;
-    color: #000;
+    color: #054523;
     background: linear-gradient(90deg, #8affc1, #c88aff);
     border: none;
     border-radius: 12px;
     cursor: pointer;
     box-shadow: 0 0 15px #8affc1, 0 0 25px #c88aff;
     transition: transform 0.2s, box-shadow 0.2s;
-    display: block;       /* make it a block so margin works */
+    display: block;
     margin: 20px auto 0; 
+    position: relative;   /* add this */
+    z-index: 100;         /* now works */
 }
 
 #startRideBtn:hover, #headToKitchenBtn:hover, #startCookingBtn:hover, #showFullInstructionsBtn:hover, #nextInstructionBtn:hover {
     /* transform: translateX(-50%) scale(1.05); */
     box-shadow: 0 0 25px #8affc1, 0 0 50px #c88aff;
 }
-
-#showFullInstructionsBtn {
-    position: absolute;
-    bottom: 20px; 
-    right: 20px;  
-    /* transform: translateX(-50%); */
-    z-index: 3;
-} 
 
 #orderOptions {
     display: none; 
@@ -593,9 +592,9 @@ body {
 #ingredientGameCanvas {
     display: block;
     margin: 20px auto;
-    width: 100%;
-    max-width: 1200px;
-    height: 60vh;
+    width: 90%;
+    max-width: 1200px;        /* full size for desktop */
+    height: auto;              /* height will be set via JS */
     background: #222;
     border: 3px solid #8affc1;
     border-radius: 15px;
@@ -718,9 +717,9 @@ body {
         font-size: 1rem;
     }
 
-    #startRideBtn {
+    /* #startRideBtn {
         bottom: 300px;
-    }
+    } */
 
     #ingredientGameCanvas { 
         max-width: 768px; 
@@ -836,9 +835,12 @@ body {
     }
 
     .instruction-panel {
-        width: 90%;
-        font-size: 0.6rem;
+        width: 90%;               /* more responsive width */
+        max-width: none;          /* remove max-width for small screens */
+        font-size: 0.6rem;        /* readable on mobile */
         padding: 8px 12px;
+        left: 50%;
+        transform: translateX(-50%);
     }
 
     .taekook-kitchen {
@@ -850,9 +852,9 @@ body {
         font-size: 0.6rem;
     }
 
-    #startRideBtn {
+    /* #startRideBtn { 
         bottom: 100px;
-    }
+    } */
 
     #ingredientHUD h2 {
         font-size: 1.5em;
