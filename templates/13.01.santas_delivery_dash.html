@@ -102,19 +102,20 @@
   #gameArea {
     position: relative;
     width: 1200px;
-    height: 1000px;
+    height: 800px;
     margin: 20px auto;
     background: #000;
     border: 2px solid #fff;
     overflow: hidden;
   }
+
   canvas {
     position: absolute;
     pointer-events: none;
   }
 
   /* ===== Leaderboard ===== */
-  .leaderboard-section {
+  .post-game-menu {
     width: 100%;
     max-width: 500px;
     margin-top: 40px;
@@ -125,7 +126,7 @@
     text-align: center;
     z-index: 2;
   }
-  .leaderboard-section h2 {
+  .post-game-menu h2 {
     font-family: 'Orbitron', sans-serif;
     color: #a855f7;
     font-size: 2rem;
@@ -237,23 +238,27 @@
     #score-popup .popup-content { padding: 18px; max-width: 350px; }
     #score-popup input { font-size: 0.95rem; padding: 10px 12px; }
     #score-popup button { font-size: 0.95rem; padding: 8px 16px; }
-    .leaderboard-section { padding: 12px; }
-    .leaderboard-section h2 { font-size: 1.3rem; }
-    .leaderboard-section li { font-size: 0.7rem; }
+    .post-game-menu { padding: 12px; }
+    #score-popup .popup-content h2 { font-size: 1.5rem; }
+    #score-popup .popup-content h3 { font-size: 1.2rem; }
+    #score-popup .popup-content p { font-size: 1rem; }
+    #score-popup #leaderboard li { font-size: 1rem; padding: 6px 10px; }
   }
 
   /* Responsive: 768px */
   @media (max-width: 768px) {
   #scoreBoard { font-size: 20px; }
   #timer { font-size: 16px; }
-  #stopBtn { font-size: 16px; padding: 8px 14px; }
+  #stopBtn { font-size: 12px; padding: 8px 14px; }
   #gameArea { max-width: 95%; height: 80vh; border-width: 1px; margin: 10px auto; }
-  #score-popup .popup-content { padding: 15px; max-width: 300px; }
-  #score-popup input { font-size: 0.9rem; padding: 8px 10px; }
-  #score-popup button { font-size: 0.9rem; padding: 6px 14px; }
-  .leaderboard-section { padding: 10px; }
-  .leaderboard-section h2 { font-size: 1rem; }
-  .leaderboard-section li { font-size: 0.6rem; }
+  #score-popup .popup-content { padding: 15px; max-width: 300px; max-height: 70vh; overflow-y: auto; }
+  #score-popup input { font-size: 0.8rem; padding: 8px 10px; }
+  #score-popup button { font-size: 0.8rem; padding: 6px 14px; }
+  .post-game-menu { padding: 10px; }
+  #score-popup .popup-content h2 { font-size: 1.2rem; }
+  #score-popup .popup-content h3 { font-size: 1rem; }
+  #score-popup .popup-content p { font-size: 0.9rem; }
+  #score-popup #leaderboard li { font-size: 0.8rem; padding: 6px 10px; }
 
   /* --- Smaller Instruction Container --- */
   #instructions {
@@ -329,13 +334,9 @@
     </div>
   </div>
 
-  <section class="leaderboard-section" id="leaderboard-section" style="display:none;">
-    <h2>🏆 Top Players</h2>
-    <ul id="leaderboard"></ul>
-  </section>
-
   <div id="confetti"></div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <script>
 const gameArea = document.getElementById('gameArea');
@@ -392,8 +393,8 @@ startTimer();
 function setInitialSizes() {
   const width = window.innerWidth;
   if(width <= 768) { santaSize=80; objectSize=35; }
-  else if(width <= 1024) { santaSize=120; objectSize=50; }
-  else { santaSize=150; objectSize=70; }
+  else if(width <= 1024) { santaSize=100; objectSize=50; }
+  else { santaSize=120; objectSize=50; }
 
   // Initialize Santa X based on current game width
   const { width: gameWidth } = getGameDimensions();
@@ -539,9 +540,6 @@ function showPostGameMenu(){
   document.getElementById('username-input').style.display='none';
   document.querySelectorAll('.username-btn').forEach(btn=>btn.style.display='none');
 
-  // Show leaderboard section
-  document.getElementById('leaderboard-section').style.display = 'block';
-
   updateLeaderboard();
   document.getElementById('post-game-menu').style.display='block';
 }
@@ -551,7 +549,7 @@ function updateLeaderboard(){
   const list=document.getElementById('leaderboard');
   list.innerHTML='';
   if(leaderboard.length===0){ const li=document.createElement('li'); li.textContent='No scores yet!'; list.appendChild(li); return; }
-  leaderboard.slice(0,10).forEach((item,index)=>{
+  leaderboard.slice(0,5).forEach((item,index)=>{
     const li=document.createElement('li');
     li.textContent=`${index+1}. ${item.username} — ${item.score}`;
     list.appendChild(li);

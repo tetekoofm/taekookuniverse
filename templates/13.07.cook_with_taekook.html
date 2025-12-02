@@ -96,16 +96,46 @@
 <!-- Recipe Panel -->
 <div id="recipePanel" class="hidden"></div>
 
-<!-- Ingredient Mini-Game Scene -->
-<div id="ingredientScene" class="hidden">    
-    <h2>Collect Ingredients!</h2>
-    <p>Grab all the ingredients for <span id="currentDishName"></span></p>
-    
-    <div id="ingredientsContainer"></div>
-    
-    <button id="finishMiniGameBtn">Done</button>
-</div>
+<!-- INGREDIENT COLLECTION SCENE -->   
+<div id="ingredientScene" class="ingredient-scene hidden" aria-hidden="true">
+    <div class="ingredient-backdrop"></div>
+  
+    <div class="ingredient-panel" role="dialog" aria-modal="true">
+      <div class="ingredient-hud">
+        <h2 id="ingDishName">Dish Name</h2>
 
+        <div class="ingredient-group">
+            <label>Ingredients:</label>
+            <div id="ingEmojiList" class="ing-emoji-list" aria-hidden="true"></div>
+        </div>
+
+        <p id="ingInstructions" class="ing-instructions"></p>
+  
+        <div class="ingredient-group">
+            <label>Collected:</label>
+            <div id="collectedStatus" class="collected-status" aria-live="polite"></div>
+        </div>
+
+        <div class="ing-controls">
+          <button id="startCollectBtn" class="btn">Collect</button>
+          <button id="cancelCollectBtn" class="btn">Cancel</button>
+        </div>
+      </div>
+  
+      <div class="ingredient-canvas-wrap">
+        <canvas id="ingredientGameCanvas"></canvas>
+      </div>
+    </div>
+  
+    <!-- completion popup (hidden) -->
+    <div id="ingCompletePopup" class="ing-popup hidden">
+      <div class="popup-inner">
+        <h3>All ingredients collected! ✅</h3>
+        <button id="ingCompleteOk" class="btn">OK</button>
+      </div>
+    </div>
+  </div>
+  
  
 <script src="{{ url_for('static', filename='js/cook_with_taekook.js') }}"></script>
 </body>
