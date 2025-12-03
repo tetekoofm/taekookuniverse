@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Orbitron', sans-serif;
     background: linear-gradient(to bottom, #000000, #1a1a1a);
     color: white;
     overflow: hidden;
@@ -413,8 +413,8 @@ body {
 }
 
 /* All button */
-#startRideBtn, #headToKitchenBtn, #startCookingBtn, 
-#showFullInstructionsBtn, #startCollectBtn, #cancelCollectBtn {
+#startRideBtn, #headToKitchenBtn, #startCookingBtn, #showFullInstructionsBtn, 
+.action-btn, #startCollectBtn, #cancelCollectBtn, #ingCompleteOk {
     padding: 10px 20px;
     font-size: 1.2rem;
     font-weight: bold;
@@ -428,12 +428,12 @@ body {
     transition: transform 0.2s, box-shadow 0.2s;
     display: block;
     margin: 20px auto 0; 
-    position: relative;   /* add this */
-    z-index: 100;         /* now works */
+    position: relative;
+    z-index: 100;
 }
 
-#startRideBtn:hover, #headToKitchenBtn:hover, #startCookingBtn:hover, #showFullInstructionsBtn:hover, #nextInstructionBtn:hover {
-    /* transform: translateX(-50%) scale(1.05); */
+#startRideBtn:hover, #headToKitchenBtn:hover, #startCookingBtn:hover, #showFullInstructionsBtn:hover, 
+.action-btn:hover, #startCollectBtn:hover, #cancelCollectBtn:hover {
     box-shadow: 0 0 25px #8affc1, 0 0 50px #c88aff;
 }
 
@@ -489,21 +489,6 @@ body {
     z-index: 60; 
 }
 
-.action-btn {
-    padding: 10px 18px;
-    border-radius: 10px;
-    border: none;
-    font-family: 'Orbitron', sans-serif;
-    cursor: pointer;
-    background: linear-gradient(90deg, #8affc1, #c88aff);
-    color: #000;
-    box-shadow: 0 0 12px rgba(138,255,193,0.12);
-}
-
-.action-btn:hover { 
-    transform: scale(1.02); 
-}
-
 /* small pulse to draw attention */
 .pulse { 
     animation: pulseAnim 0.9s ease-in-out; 
@@ -542,17 +527,17 @@ body {
     box-shadow: 0 18px 60px rgba(0,0,0,0.6);
     display: grid;
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 4px;
     overflow: hidden;
   }
    
   .ingredient-hud {
-    padding: 8px 12px;
+    padding: 2px 2px;
     color: #e9fef0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 2px;
     min-width: 260px;
   }
   
@@ -565,58 +550,83 @@ body {
   }
   
   .ingredient-group {
-    margin: 6px 0;
+    margin: 2px 0;
     text-align: center;
   }
   
   .ingredient-group label {
-    display: block;
     font-family: 'Orbitron', sans-serif;
     font-size: 1.2rem;
     color: #c8b6ff;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
     font-weight: 500;
   }
  
   .ing-instructions {
-    font-family: 'Pacifico', Cursive;
-    font-size: 1rem;
+    font-family: 'Lobster', cursive;
+    font-size: 1.2rem;
     color: #c8b6ff;
-    text-align: left;       /* Left align the list numbers and text */
-    margin: 20px auto;      /* Center the container horizontally */
-    line-height: 1.3;
-    max-width: 400px;       /* Optional: limits width for better readability */
-    padding: 10px;
+    text-align: center; 
+    margin: 5px auto; 
+    line-height: 1.2;
+    max-width: 400px; 
+    padding: 2px;
     display: block;
   }
-  
+
   .ing-controls {
-    margin-top: 8px;
+    margin-top: 2px;
     display: flex;
-    gap: 12px;
+    gap: 8px;
     justify-content: center; /* center horizontally */
     flex-wrap: nowrap;       /* prevent stacking */
   }
 
+  .ing-emoji-list {
+    font-size: 3rem;
+  }
+
   /* collected status */
   .collected-status {
+    margin: 4px 0;
     font-size: 1.3rem;
     font-weight: 600;
     letter-spacing: 8px;
     text-align: center;
   }
   
-   .ingredient-canvas-wrap {
+  .ingredient-canvas-wrap {
     width: 100%;
-    height: 100%;
-    padding: 6px;
+    height: 70vh; /* or 75vh, adjust so chef is fully visible */
+    max-height: 600px; /* optional for large desktop */
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* keep chef at bottom */
+    position: relative;
+  }
+  
+  .ingredient-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('/static/images/games/cookwithtaekook/refrigerator.png');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.1; /* make it very faint */
+    pointer-events: none; /* so canvas still receives events */
+    z-index: 0;
+    border-radius: 8px;
   }
   
   #ingredientGameCanvas {
+    /* position: relative; */
+    z-index: 1; 
+    margin-top: 2px;
     width: 100%;
     height: 100%;
+    display: block;
+    max-width: 100%;
     border-radius: 8px;
-    background: linear-gradient(180deg,#141414,#111);
+    background: transparent;
     border: 2px solid rgba(138,255,193,0.14);
   }
   
@@ -635,7 +645,8 @@ body {
   }
   
   .ing-popup .popup-inner {
-    background: rgba(255,255,255,0.96);
+    background: linear-gradient(90deg, #8affc1, #c88aff);
+    font-size: 1rem;
     color: #111;
     padding: 18px 24px;
     border-radius: 12px;
@@ -649,22 +660,6 @@ body {
   }
   
   .ing-popup.hidden { display: none; }
-  
-  .btn {
-    padding: 10px 14px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1rem;
-    background: linear-gradient(90deg, #8affc1, #c88aff);
-    color: #111;
-    align-items: center;
-  }
-  
-  .btn:hover { transform: translateY(-2px); }
-   
-
 
 /* ------------------ Tablet ------------------ */
 @media (max-width: 1024px) {
@@ -770,7 +765,8 @@ body {
         max-width: 500px;
     }
 
-    #startRideBtn, #headToKitchenBtn, #startCookingBtn, #showFullInstructionsBtn {
+    #startRideBtn, #headToKitchenBtn, #startCookingBtn, 
+    #showFullInstructionsBtn, #startCollectBtn, #cancelCollectBtn, #ingCompleteOk {
         font-size: 1rem;
     }
   
@@ -783,10 +779,10 @@ body {
     }
   
     .ingredient-hud {
-      flex-direction: row;
+      flex-direction: column;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 12px;
+      gap: 4px;
     }
   
     .ingredient-hud h2 {
@@ -800,17 +796,25 @@ body {
     }
   
     .ing-instructions {
-      font-size: 0.9rem;
-      width: 100%;
+        font-family: 'Lobster', cursive;  /* inherit from desktop */
+        font-size: 1rem !important;
+        color: #c8b6ff;
+        text-align: center;               /* CENTER text on tablet too */
+        margin: 5px auto;                 /* center the block */
+        line-height: 1.2;
+        max-width: 400px;                 /* optional, same as desktop */
+        padding: 2px;
+        display: block;
+        width: auto;                      /* do NOT force full width */
     }
-  
+
     .ingredient-canvas-wrap {
       height: 55vh; /* prevent overflow */
     }
 }
 
 /* ------------------ Mobile ------------------ */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     /* Landing Scene */
     .taekook-row {
         display: flex;
@@ -929,7 +933,8 @@ body {
         max-width: 400px;
     }
 
-    #startRideBtn, #headToKitchenBtn, #startCookingBtn, #showFullInstructionsBtn {
+    #startRideBtn, #headToKitchenBtn, #startCookingBtn, 
+    #showFullInstructionsBtn, #startCollectBtn, #cancelCollectBtn, #ingCompleteOk {
         font-size: 0.6rem;
     }
   
@@ -949,11 +954,17 @@ body {
     }
 
     .ingredient-hud h2 {
-        font-size: 1.2rem;
+        font-size: 0.9rem;
+    }
+
+    .ingredient-group label {
+        font-size: 0.8rem;
+        margin: 2px 0;
+        text-align: center;
     }
 
     .ing-emoji-list {
-        font-size: 1.2rem;
+        font-size: 0.6rem;
         letter-spacing: 4px;
     }
 
@@ -963,7 +974,7 @@ body {
     }
 
     .collected-status {
-        font-size: 1.2rem;
+        font-size: 0.6rem;
         letter-spacing: 6px;
     }
     /* Canvas becomes ratio-locked to avoid overflow */
@@ -971,20 +982,12 @@ body {
         height: 60vh;
     }
 
-    /* Canvas becomes ratio-locked to avoid overflow */
-    .ingredient-canvas-wrap {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 1 / 1.2;   /* 100% responsive, no scrolling */
-    }
-
     #ingredientGameCanvas {
         height: 100%;
     }
 
-    .btn {
-        font-size: 0.85rem;
-        padding: 8px 12px;
+    .ing-popup .popup-inner {
+        font-size: 0.6rem;
     }
 
 }

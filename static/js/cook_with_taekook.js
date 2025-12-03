@@ -43,16 +43,18 @@ document.addEventListener('DOMContentLoaded', () => {
     /* -------------------------------------------
        INITIAL VISIBILITY
     -------------------------------------------*/
-    landingScene.classList.remove('hidden');
-    rideScene.classList.add('hidden');
-    restaurantScene.classList.add('hidden');
-    kitchenScene.classList.add('hidden');
-
-  //  landingScene.classList.add('hidden');
-   // rideScene.classList.add('hidden');
-   // restaurantScene.classList.add('hidden');
-  //  kitchenScene.classList.remove('hidden');
-
+    // landingScene.classList.remove('hidden');
+    // rideScene.classList.add('hidden');
+    // restaurantScene.classList.add('hidden');
+    // kitchenScene.classList.add('hidden');
+    // ingredientScene.classList.add('hidden');
+    
+   landingScene.classList.add('hidden');
+   rideScene.classList.add('hidden');
+   restaurantScene.classList.add('hidden');
+   kitchenScene.classList.add('hidden');
+  ingredientScene.classList.remove('hidden');
+  populateIngredientHUD(getRandomRecipe());
     /* -------------------------------------------
        STARS IN SKY
     -------------------------------------------*/
@@ -222,27 +224,70 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    let recipes = [];
+    // -----------------------------------
+    // GUARANTEED RECIPE INITIALIZATION
+    // -----------------------------------
+    function populateIngredientHUD(recipe) {
+        const dishNameEl = document.getElementById("ingDishName");
+        const emojiListEl = document.getElementById("ingEmojiList");
+        const instEl = document.getElementById("ingInstructions");
+        const collectedEl = document.getElementById("collectedStatus");
 
-    fetch('/static/js/recipes.json')
-        .then(res => res.json())
-        .then(data => {
-            recipes = [
-                ...data.beverages,
-                ...data.food,
-                ...data.chefKooSpecial
-            ];
-        });
-        
-    function getRandomRecipe() {
-        if (!recipes.length) {
-            console.warn("Recipes not loaded yet!");
-            return { name: "Mystery Dish", ingredients: [], instructions: "Please wait..." };
-        }
-        const index = Math.floor(Math.random() * recipes.length);
-        return recipes[index];
+        // Set the dish name
+        dishNameEl.textContent = recipe.name;
+
+        // Set emoji ingredients
+        emojiListEl.textContent = (recipe.ingredientsEmoji || []).join(" ");
+
+        // Set instructions
+        instEl.innerHTML = `
+            <h2>How the Game Works</h2>
+            <ol>
+                ${(recipe.instructions || []).map(inst => `<li>${inst}</li>`).join('')}
+            </ol>
+        `;
+
+        // Reset collected status
+        collectedEl.textContent = (recipe.ingredientsEmoji || []).map(() => "⬜").join(" ");
     }
+
+
+    // Load additional recipes
+    fetch('/static/js/recipes.json')
+        .then(r => r.json())
+        .then(data => {
+            window.recipes.push(
+                ...(data.beverages || []),
+                ...(data.food || []),
+                ...(data.chefKooSpecial || [])
+            );
+            console.log("Recipes loaded:", window.recipes);
+        })
+        .catch(err => console.warn("Failed to load recipes.json", err));
+
     
+    // ----- Quick Test: Start Ingredient Game Immediately -----
+    const testOrder = getRandomRecipe();
+    startIngredientsMiniGame(testOrder, window.recipes || []);
+    
+    function getRandomRecipe() {
+        if (!window.recipes || window.recipes.length === 0) {
+            console.warn("No recipes — using inline fallback.");
+            return {
+            name: "Kimchi Fried Rice",
+            ingredients: ["Rice", "Kimchi", "Egg", "Sesame Oil"],
+            ingredientsEmoji: ["🍚", "🥬", "🍳", "🫒"],
+            instructions: [
+                "Heat oil in a pan.",
+                "Add kimchi and stir-fry.",
+                "Add rice and mix well.",
+                "Top with a fried egg."
+            ]
+          };
+        }
+        return window.recipes[Math.floor(Math.random() * window.recipes.length)];
+    }
+      
     // ------------------------
     // ORDER / RESTAURANT FLOW
     // ------------------------
@@ -384,9 +429,7 @@ function startIngredientsMiniGame(order, allRecipes = []) {
         ? order.ingredientsEmoji.join(" ") 
         : (order.ingredients || []).join(", ");
     
-    instEl.textContent = 
-        "Move Tete left or right with your mouse or finger. Catch only the required ingredients.";
-    
+        
     instEl.innerHTML = `
         <h2>How the Game Works</h2>
         <ol>
@@ -430,14 +473,34 @@ function startIngredientsMiniGame(order, allRecipes = []) {
   
     // Canvas resizing with devicePixelRatio
     function resizeCanvasNow() {
-      const rect = canvas.getBoundingClientRect();
-      const dpr = window.devicePixelRatio || 1;
-      canvas.width = Math.max(300, Math.floor(rect.width * dpr));
-      canvas.height = Math.max(200, Math.floor(rect.height * dpr));
-      canvas.style.width = rect.width + 'px';
-      canvas.style.height = rect.height + 'px';
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        if (!canvas || !ctx) return;
+    
+        const container = canvas.parentElement;
+        const dpr = window.devicePixelRatio || 1;
+    
+        // use container dimensions
+        const cw = container.clientWidth;
+        const ch = container.clientHeight;
+    
+        canvas.width = cw * dpr;
+        canvas.height = ch * dpr;
+    
+        // scale context
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    
+        // reposition chef
+        positionChef();
+    
+        // resize emojis
+        gameState.items.forEach(item => {
+            item.size = Math.max(18, Math.floor(cw * gameState.emojiMultiplier));
+            item.x = Math.min(item.x, cw - item.size);
+            item.y = Math.min(item.y, ch - item.size);
+        });
+    
+        if (!gameState.running) drawInitialFrame();
     }
+    
   
     const ctx = canvas.getContext('2d', { alpha: true });
   
@@ -452,15 +515,31 @@ function startIngredientsMiniGame(order, allRecipes = []) {
     };
   
     function positionChef() {
-      const pw = canvas.clientWidth;
-      const ph = canvas.clientHeight;
-      gameState.chef.w = Math.max(60, Math.floor(pw * 0.12));
-      gameState.chef.h = Math.max(60, Math.floor(ph * 0.16));
-      gameState.chef.x = Math.floor((pw - gameState.chef.w) / 2);
-      gameState.chef.y = Math.floor(ph - gameState.chef.h - 8);
+        const pw = canvas.clientWidth;
+        const ph = canvas.clientHeight;
+    
+        let chefMultiplier, emojiMultiplier;
+    
+        if (window.innerWidth <= 600) {        // mobile
+            chefMultiplier = 0.18;
+            emojiMultiplier = 0.07;
+        } else if (window.innerWidth <= 1024) { // tablet
+            chefMultiplier = 0.15;
+            emojiMultiplier = 0.05;
+        } else {                               // desktop
+            chefMultiplier = 0.12;
+            emojiMultiplier = 0.03;
+        }
+    
+        gameState.chef.w = pw * chefMultiplier;
+        gameState.chef.h = ph * (chefMultiplier * 1.4);
+    
+        gameState.chef.x = (pw - gameState.chef.w) / 2;
+        gameState.chef.y = ph - gameState.chef.h; // use canvas height
+        gameState.emojiMultiplier = emojiMultiplier;
     }
-  
-    // draw one frame
+    
+      // draw one frame
     function drawInitialFrame() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       // draw chef (if loaded)
@@ -475,24 +554,29 @@ function startIngredientsMiniGame(order, allRecipes = []) {
   
     // spawn items
     function spawnOnce() {
-      const pool = [...(order.ingredientsEmoji || []), ...obstacleArray];
-      if (!pool.length) return;
-      const emoji = pool[Math.floor(Math.random() * pool.length)];
-      const spawnX = Math.random() * (canvas.clientWidth - 48) + 12;
-      gameState.items.push({
-        emoji,
-        x: spawnX,
-        y: -40,
-        speed: 2 + Math.random() * 3,
-        size: Math.max(28, Math.floor(canvas.clientWidth * 0.06))
-      });
+        const pool = [...(order.ingredientsEmoji || []), ...obstacleArray];
+        if (!pool.length) return;
+    
+        const emoji = pool[Math.floor(Math.random() * pool.length)];
+        const spawnX = Math.random() * (canvas.clientWidth - 40) + 20;
+    
+        const baseSize = Math.max(18, Math.floor(canvas.clientWidth * gameState.emojiMultiplier));
+    
+        gameState.items.push({
+            emoji,
+            x: spawnX,
+            y: -40,
+            speed: 2 + Math.random() * 3,
+            size: baseSize
+        });
     }
+    
   
     // draw loop
     function drawLoop() {
       if (!gameState.running) return;
       // clear (logical pixels)
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
   
       // draw items
       gameState.items.forEach((it) => {
@@ -604,7 +688,9 @@ function startIngredientsMiniGame(order, allRecipes = []) {
     function onResize() { resizeCanvasNow(); positionChef(); }
     canvas.addEventListener('mousemove', onMouseMove);
     canvas.addEventListener('touchmove', onTouchMove, { passive: true });
-    window.addEventListener('resize', onResize);
+    window.addEventListener('resize', () => {
+        resizeCanvasNow();
+    });
   
     // hook buttons
     startBtn.onclick = () => {
@@ -654,9 +740,13 @@ function startIngredientsMiniGame(order, allRecipes = []) {
     scene._cleanup = cleanupAll;
 }
   
-    function resetIngredientHUD() {
-        instEl.style.display = "block";
-        startBtn.style.display = "block";
-    }
+function resetIngredientHUD() {
+    // safely query the DOM each time (avoids reliance on local variables)
+    const instEl = document.getElementById('ingInstructions') || document.querySelector('.ing-instructions');
+    const startBtn = document.getElementById('startCollectBtn') || document.querySelector('#startCollectBtn');
+    if (instEl) instEl.style.display = "block";
+    if (startBtn) startBtn.style.display = "block";
+}
+
     
 });
