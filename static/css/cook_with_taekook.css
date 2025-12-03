@@ -525,15 +525,16 @@ body {
     border-radius: 14px;
     padding: 18px;
     box-shadow: 0 18px 60px rgba(0,0,0,0.6);
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 4px;
+    display: flex;
+    flex-direction: column;   /* stack HUD and canvas */
+    gap: 12px;
     overflow: hidden;
   }
    
   .ingredient-hud {
     padding: 2px 2px;
     color: #e9fef0;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -547,22 +548,33 @@ body {
     font-weight: 700;
     color: #8affc1;
     text-align: center;
+    width: 100%;
+  }
+
+  .ingredient-hud .ingredient-row {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 50px;  /* space between Ingredients and Collected */
+    width: 100%;
   }
   
   .ingredient-group {
-    margin: 2px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-  }
-  
+}
+
   .ingredient-group label {
     font-family: 'Orbitron', sans-serif;
     font-size: 1.2rem;
     color: #c8b6ff;
-    margin-bottom: 2px;
     font-weight: 500;
+    margin-bottom: 4px;
   }
- 
-  .ing-instructions {
+
+   .ing-instructions {
     font-family: 'Lobster', cursive;
     font-size: 1.2rem;
     color: #c8b6ff;
@@ -575,15 +587,22 @@ body {
   }
 
   .ing-controls {
-    margin-top: 2px;
+    margin-top: 8px;
     display: flex;
+    justify-content: center;
     gap: 8px;
-    justify-content: center; /* center horizontally */
-    flex-wrap: nowrap;       /* prevent stacking */
+    flex-wrap: nowrap;
   }
 
   .ing-emoji-list {
-    font-size: 3rem;
+    font-size: 2.5rem;
+  }
+
+  .ingredient-icon {
+    width: 32px;
+    height: 32px;
+    margin: 0 4px;
+    vertical-align: middle;
   }
 
   /* collected status */
@@ -597,12 +616,14 @@ body {
   
   .ingredient-canvas-wrap {
     width: 100%;
-    height: 70vh; /* or 75vh, adjust so chef is fully visible */
-    max-height: 600px; /* optional for large desktop */
+    flex-grow: 1;          /* takes all remaining space */
     display: flex;
     justify-content: center;
-    align-items: flex-end; /* keep chef at bottom */
+    align-items: flex-end;
     position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 12px;
   }
   
   .ingredient-bg {
@@ -611,20 +632,17 @@ body {
     background-image: url('/static/images/games/cookwithtaekook/refrigerator.png');
     background-size: cover;
     background-position: center;
-    opacity: 0.1; /* make it very faint */
-    pointer-events: none; /* so canvas still receives events */
+    opacity: 0.1;
+    pointer-events: none;
     z-index: 0;
     border-radius: 8px;
   }
   
   #ingredientGameCanvas {
-    /* position: relative; */
-    z-index: 1; 
-    margin-top: 2px;
     width: 100%;
     height: 100%;
     display: block;
-    max-width: 100%;
+    z-index: 1;
     border-radius: 8px;
     background: transparent;
     border: 2px solid rgba(138,255,193,0.14);
@@ -661,6 +679,57 @@ body {
   
   .ing-popup.hidden { display: none; }
 
+    /* Only for HUD outside canvas */
+    #collectedStatus {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        justify-content: center;
+    }
+    
+    #collectedStatus .hud-ingredient-wrapper {
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    #collectedStatus .hud-ingredient-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+    
+    @media (max-width: 768px) {
+        #collectedStatus .hud-ingredient-wrapper {
+            width: 30px;
+            height: 30px;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        #collectedStatus .hud-ingredient-wrapper {
+            width: 25px;
+            height: 25px;
+        }
+    }
+    
+  .bubble-popup{position:fixed;top:20px;right:20px;padding:10px 18px;border-radius:18px;font-size:18px;backdrop-filter:blur(6px);animation:fadeUp 2s forwards;}
+  .bubble-popup.good{background:#5aeb5a40;color:#8fff9f;}
+  .bubble-popup.bad{background:#ff5d5d40;color:#ff8c94;}
+  .bubble-popup.angry{background:#ff000040;color:#ff4444;font-weight:bold;}
+  @keyframes fadeUp{0%{opacity:0;transform:translateY(20px);}30%{opacity:1;}100%{opacity:0;transform:translateY(-100px);}}
+  
+  .shake{animation:shakeAnim 0.4s;}
+  @keyframes shakeAnim{0%{transform:translateX(0)}25%{transform:translateX(-8px)}50%{transform:translateX(8px)}75%{transform:translateX(-8px)}100%{transform:translateX(0)}}
+  
+  .float-emoji{position:fixed;bottom:20px;font-size:32px;animation:floatUp 1.5s ease-out forwards;}
+  @keyframes floatUp{0%{opacity:0;transform:translateY(20px);}30%{opacity:1;}100%{opacity:0;transform:translateY(-100px);}}
+  
+  .heart-rain{position:fixed;top:-20px;font-size:24px;animation:rainDown 2s linear forwards;}
+  @keyframes rainDown{to{top:110vh;opacity:0;}}
+    
 /* ------------------ Tablet ------------------ */
 @media (max-width: 1024px) {
     /* Landing Scene */
@@ -771,20 +840,32 @@ body {
     }
   
     .ingredient-panel {
-      margin: 0 auto;  
-      grid-template-columns: 1fr; /* stack */
-      height: 92vh;               /* give more height */
-      overflow-y: auto;           /* allows scrolling */
-      align-items: start;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 12px;
+        height: 100vh;              /* full viewport */
+        overflow: hidden;    
     }
   
     .ingredient-hud {
-      flex-direction: column;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 4px;
+        width: 95%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;  
     }
-  
+
+    .ingredient-group {
+        display: inline-block;
+        width: 45%;
+        text-align: center;
+    }
+
+    .ingredient-hud > .ingredient-group:nth-of-type(1) { float: left; }
+    .ingredient-hud > .ingredient-group:nth-of-type(2) { float: right; }
+
     .ingredient-hud h2 {
       font-size: 1.3rem;
       width: 100%;
@@ -792,7 +873,7 @@ body {
     }
   
     .ing-emoji-list {
-      font-size: 1.5rem;
+      font-size: 1.5rem !important;
     }
   
     .ing-instructions {
@@ -808,8 +889,29 @@ body {
         width: auto;                      /* do NOT force full width */
     }
 
+    .ing-controls {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 18px;
+        margin-top: 8px;
+        clear: both;
+    }
+
     .ingredient-canvas-wrap {
-      height: 55vh; /* prevent overflow */
+        width: 100%;
+        height: 80vh !important;        /* expandable area WORKS now */
+        flex-grow: 1;    
+        margin-top: 10px;
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    #ingredientGameCanvas {
+        width: 100%;
+        height: 100%;
+        display: block;
     }
 }
 
@@ -939,7 +1041,7 @@ body {
     }
   
     .ingredient-panel {
-        padding: 12px;
+        padding: 2px;
         height: auto;           /* remove forced height */
         max-height: 100vh;
         overflow-y: auto;
@@ -950,7 +1052,7 @@ body {
         max-width: 350px;
         margin: 0 auto;
         text-align: center;
-        padding: 10px 0;
+        padding: 2px 0;
     }
 
     .ingredient-hud h2 {
@@ -959,23 +1061,20 @@ body {
 
     .ingredient-group label {
         font-size: 0.8rem;
-        margin: 2px 0;
         text-align: center;
     }
 
     .ing-emoji-list {
-        font-size: 0.6rem;
-        letter-spacing: 4px;
+        font-size: 1rem !important;
     }
 
     .ing-instructions {
-        font-size: 0.8rem;
+        font-size: 0.8rem !important;
         display: block;
     }
 
     .collected-status {
         font-size: 0.6rem;
-        letter-spacing: 6px;
     }
     /* Canvas becomes ratio-locked to avoid overflow */
     .ingredient-canvas-wrap {

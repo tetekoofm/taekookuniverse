@@ -2,139 +2,271 @@
   "beverages": [
     {
       "name": "Strawberry Milkshake",
-      "ingredients": ["Strawberries", "Milk", "Sugar", "Ice Cream"],
-      "ingredientsEmoji": ["🍓", "🥛", "🍬", "🍦"],
-      "instructions": "Blend strawberries with milk, sugar, and ice cream until smooth."
+      "ingredients": [
+        {"name": "Strawberries", "emoji": "🍓", "image": "strawberries.png"},
+        {"name": "Milk", "emoji": "🥛", "image": "milk.png"},
+        {"name": "Sugar", "emoji": "🍬", "image": "sugar.png"},
+        {"name": "Ice Cream", "emoji": "🍦", "image": "icecream.png"}
+      ],
+      "instructions": "Blend strawberries with milk, sugar, and ice cream until smooth.",
+      "appliance": {"name": "Blender", "emoji": "🔌", "image": "blender.png"}
     },
     {
       "name": "Banana Milkshake",
-      "ingredients": ["Banana", "Milk", "Honey", "Ice Cream"],
-      "ingredientsEmoji": ["🍌", "🥛", "🍯", "🍦"],
-      "instructions": "Blend banana with milk, honey, and ice cream until smooth."
+      "ingredients": [
+        {"name": "Banana", "emoji": "🍌", "image": "banana.png"},
+        {"name": "Milk", "emoji": "🥛", "image": "milk.png"},
+        {"name": "Honey", "emoji": "🍯", "image": "honey.png"},
+        {"name": "Ice Cream", "emoji": "🍦", "image": "icecream.png"}
+      ],
+      "instructions": "Blend banana with milk, honey, and ice cream until smooth.",
+      "appliance": {"name": "Blender", "emoji": "🔌", "image": "blender.png"}
     },
     {
       "name": "Hot Chocolate",
-      "ingredients": ["Cocoa Powder", "Milk", "Sugar", "Whipped Cream"],
-      "ingredientsEmoji": ["🍫", "🥛", "🍬", "🍦"],
-      "instructions": "Heat milk with cocoa powder and sugar, top with whipped cream."
+      "ingredients": [
+        {"name": "Cocoa Powder", "emoji": "🍫", "image": "cocoa.png"},
+        {"name": "Milk", "emoji": "🥛", "image": "milk.png"},
+        {"name": "Sugar", "emoji": "🍬", "image": "sugar.png"},
+        {"name": "Whipped Cream", "emoji": "🍦", "image": "whipped_cream.png"}
+      ],
+      "instructions": "Heat milk with cocoa powder and sugar, top with whipped cream.",
+      "appliance": {"name": "Saucepan", "emoji": "🍳", "image": "saucepan.png"}
     },
     {
       "name": "Chocolate Milk",
-      "ingredients": ["Milk", "Chocolate Syrup"],
-      "ingredientsEmoji": ["🥛", "🍫"],
-      "instructions": "Mix milk with chocolate syrup and serve chilled."
+      "ingredients": [
+        {"name": "Milk", "emoji": "🥛", "image": "milk.png"},
+        {"name": "Chocolate Syrup", "emoji": "🍫", "image": "chocolate_syrup.png"}
+      ],
+      "instructions": "Mix milk with chocolate syrup and serve chilled.",
+      "appliance": {"name": "Glass", "emoji": "🥛", "image": "glass.png"}
     },
     {
       "name": "Milk Tea",
-      "ingredients": ["Tea", "Milk", "Sugar", "Boba (optional)"],
-      "ingredientsEmoji": ["🍵", "🥛", "🍬", "🟤"],
-      "instructions": "Brew tea, mix with milk and sugar. Add boba if desired."
+      "ingredients": [
+        {"name": "Tea", "emoji": "🍵", "image": "tea.png"},
+        {"name": "Milk", "emoji": "🥛", "image": "milk.png"},
+        {"name": "Sugar", "emoji": "🍬", "image": "sugar.png"},
+        {"name": "Boba (optional)", "emoji": "🟤", "image": "boba.png"}
+      ],
+      "instructions": "Brew tea, mix with milk and sugar. Add boba if desired.",
+      "appliance": {"name": "Teapot", "emoji": "🍵", "image": "teapot.png"}
     },
     {
       "name": "Coffee",
-      "ingredients": ["Coffee Powder", "Milk", "Sugar"],
-      "ingredientsEmoji": ["☕", "🥛", "🍬"],
-      "instructions": "Brew coffee and mix with milk and sugar."
+      "ingredients": [
+        {"name": "Coffee Powder", "emoji": "☕", "image": "coffee_powder.png"},
+        {"name": "Milk", "emoji": "🥛", "image": "milk.png"},
+        {"name": "Sugar", "emoji": "🍬", "image": "sugar.png"}
+      ],
+      "instructions": "Brew coffee and mix with milk and sugar.",
+      "appliance": {"name": "Coffee Machine", "emoji": "☕", "image": "coffee_machine.png"}
     },
     {
       "name": "Lemonade",
-      "ingredients": ["Lemon", "Water", "Sugar", "Ice"],
-      "ingredientsEmoji": ["🍋", "💧", "🍬", "🧊"],
-      "instructions": "Mix lemon juice with water, sugar, and ice cubes."
+      "ingredients": [
+        {"name": "Lemon", "emoji": "🍋", "image": "lemon.png"},
+        {"name": "Water", "emoji": "💧", "image": "water.png"},
+        {"name": "Sugar", "emoji": "🍬", "image": "sugar.png"},
+        {"name": "Ice", "emoji": "🧊", "image": "ice.png"}
+      ],
+      "instructions": "Mix lemon juice with water, sugar, and ice cubes.",
+      "appliance": {"name": "Pitcher", "emoji": "🍶", "image": "pitcher.png"}
     }
   ],
   "food": [
     {
       "name": "Scrambled Eggs",
-      "ingredients": ["Eggs", "Salt", "Butter", "Milk"],
-      "ingredientsEmoji": ["🥚", "🧂", "🧈", "🥛"],
-      "instructions": "Beat eggs with milk and salt, cook in butter until soft."
+      "ingredients": [
+        {"name": "Eggs", "emoji": "🥚", "image": "eggs.png"},
+        {"name": "Salt", "emoji": "🧂", "image": "salt.png"},
+        {"name": "Butter", "emoji": "🧈", "image": "butter.png"},
+        {"name": "Milk", "emoji": "🥛", "image": "milk.png"}
+      ],
+      "instructions": "Beat eggs with milk and salt, cook in butter until soft.",
+      "appliance": {"name": "Pan", "emoji": "🍳", "image": "pan.png"}
     },
     {
       "name": "Mashed Potatoes",
-      "ingredients": ["Potatoes", "Butter", "Milk", "Salt", "Pepper"],
-      "ingredientsEmoji": ["🥔", "🧈", "🥛", "🧂", "🧂"],
-      "instructions": "Boil potatoes, mash with butter, milk, salt, and pepper."
+      "ingredients": [
+        {"name": "Potatoes", "emoji": "🥔", "image": "potatoes.png"},
+        {"name": "Butter", "emoji": "🧈", "image": "butter.png"},
+        {"name": "Milk", "emoji": "🥛", "image": "milk.png"},
+        {"name": "Salt", "emoji": "🧂", "image": "salt.png"},
+        {"name": "Pepper", "emoji": "🧂", "image": "pepper.png"}
+      ],
+      "instructions": "Boil potatoes, mash with butter, milk, salt, and pepper.",
+      "appliance": {"name": "Pot / Masher", "emoji": "🍲", "image": "pot_masher.png"}
     },
     {
       "name": "Blueberry Pancakes",
-      "ingredients": ["Flour", "Eggs", "Milk", "Sugar", "Baking Powder", "Blueberries"],
-      "ingredientsEmoji": ["🌾", "🥚", "🥛", "🍬", "🥣", "🫐"],
-      "instructions": "Mix ingredients, cook batter on pan, add berries as topping."
+      "ingredients": [
+        {"name": "Flour", "emoji": "🌾", "image": "flour.png"},
+        {"name": "Eggs", "emoji": "🥚", "image": "eggs.png"},
+        {"name": "Milk", "emoji": "🥛", "image": "milk.png"},
+        {"name": "Sugar", "emoji": "🍬", "image": "sugar.png"},
+        {"name": "Baking Powder", "emoji": "🥣", "image": "baking_powder.png"},
+        {"name": "Blueberries", "emoji": "🫐", "image": "blueberries.png"}
+      ],
+      "instructions": "Mix ingredients, cook batter on pan, add berries as topping.",
+      "appliance": {"name": "Pan / Spatula", "emoji": "🍳", "image": "pan_spatula.png"}
     },
     {
       "name": "Strawberry Pancakes",
-      "ingredients": ["Flour", "Eggs", "Milk", "Sugar", "Baking Powder", "Strawberries"],
-      "ingredientsEmoji": ["🌾", "🥚", "🥛", "🍬", "🥣", "🍓"],
-      "instructions": "Mix ingredients, cook batter on pan, add berries as topping."
+      "ingredients": [
+        {"name": "Flour", "emoji": "🌾", "image": "flour.png"},
+        {"name": "Eggs", "emoji": "🥚", "image": "eggs.png"},
+        {"name": "Milk", "emoji": "🥛", "image": "milk.png"},
+        {"name": "Sugar", "emoji": "🍬", "image": "sugar.png"},
+        {"name": "Baking Powder", "emoji": "🥣", "image": "baking_powder.png"},
+        {"name": "Strawberries", "emoji": "🍓", "image": "strawberries.png"}
+      ],
+      "instructions": "Mix ingredients, cook batter on pan, add berries as topping.",
+      "appliance": {"name": "Pan / Spatula", "emoji": "🍳", "image": "pan_spatula.png"}
     },
     {
       "name": "French Toast",
-      "ingredients": ["Bread Slices", "Eggs", "Milk", "Sugar", "Cinnamon"],
-      "ingredientsEmoji": ["🍞", "🥚", "🥛", "🍬", "🌿"],
-      "instructions": "Dip bread in egg mixture and fry until golden brown."
-    },
+      "ingredients": [
+        {"name": "Bread Slices", "emoji": "🍞", "image": "bread.png"},
+        {"name": "Eggs", "emoji": "🥚", "image": "eggs.png"},
+        {"name": "Milk", "emoji": "🥛", "image": "milk.png"},
+        {"name": "Sugar", "emoji": "🍬", "image": "sugar.png"},
+        {"name": "Cinnamon", "emoji": "🌿", "image": "cinnamon.png"}
+      ],
+      "instructions": "Dip bread in egg mixture and fry until golden brown.",
+      "appliance": {"name": "Pan", "emoji": "🍳", "image": "pan.png"}
+    }
     {
       "name": "Salad",
-      "ingredients": ["Lettuce", "Tomatoes", "Cucumber", "Olive Oil", "Salt"],
-      "ingredientsEmoji": ["🥬", "🍅", "🥒", "🫒", "🧂"],
-      "instructions": "Chop vegetables, mix with olive oil and salt."
+      "ingredients": [
+        {"name": "Lettuce", "emoji": "🥬", "image": "lettuce.png"},
+        {"name": "Tomatoes", "emoji": "🍅", "image": "tomatoes.png"},
+        {"name": "Cucumber", "emoji": "🥒", "image": "cucumber.png"},
+        {"name": "Olive Oil", "emoji": "🫒", "image": "olive_oil.png"},
+        {"name": "Salt", "emoji": "🧂", "image": "salt.png"}
+      ],
+      "instructions": "Chop vegetables, mix with olive oil and salt.",
+      "appliance": {"name": "Bowl / Knife", "emoji": "🥣", "image": "bowl_knife.png"}
     },
     {
       "name": "Grilled Cheese Sandwich",
-      "ingredients": ["Bread", "Cheese", "Butter"],
-      "ingredientsEmoji": ["🍞", "🧀", "🧈"],
-      "instructions": "Butter bread, add cheese, grill until golden and melted."
+      "ingredients": [
+        {"name": "Bread", "emoji": "🍞", "image": "bread.png"},
+        {"name": "Cheese", "emoji": "🧀", "image": "cheese.png"},
+        {"name": "Butter", "emoji": "🧈", "image": "butter.png"}
+      ],
+      "instructions": "Butter bread, add cheese, grill until golden and melted.",
+      "appliance": {"name": "Pan / Sandwich Press", "emoji": "🍳", "image": "pan_sandwich_press.png"}
     },
     {
       "name": "Spaghetti",
-      "ingredients": ["Spaghetti", "Tomato Sauce", "Salt", "Olive Oil", "Parmesan Cheese"],
-      "ingredientsEmoji": ["🍝", "🍅", "🧂", "🫒", "🧀"],
-      "instructions": "Cook spaghetti, mix with sauce, drizzle olive oil and sprinkle cheese."
+      "ingredients": [
+        {"name": "Spaghetti", "emoji": "🍝", "image": "spaghetti.png"},
+        {"name": "Tomato Sauce", "emoji": "🍅", "image": "tomato_sauce.png"},
+        {"name": "Salt", "emoji": "🧂", "image": "salt.png"},
+        {"name": "Olive Oil", "emoji": "🫒", "image": "olive_oil.png"},
+        {"name": "Parmesan Cheese", "emoji": "🧀", "image": "parmesan.png"}
+      ],
+      "instructions": "Cook spaghetti, mix with sauce, drizzle olive oil and sprinkle cheese.",
+      "appliance": {"name": "Pot / Pan", "emoji": "🍲", "image": "pot_pan.png"}
     },
     {
       "name": "Kimchi Fried Rice",
-      "ingredients": ["Rice", "Kimchi", "Vegetables", "Egg", "Soy sauce", "Sesame oil"],
-      "ingredientsEmoji": ["🍚", "🥬", "🥕", "🥚", "🧂", "🫒"],
-      "instructions": "Stir-fry kimchi and vegetables, add rice and seasonings, top with fried egg."
+      "ingredients": [
+        {"name": "Rice", "emoji": "🍚", "image": "rice.png"},
+        {"name": "Kimchi", "emoji": "🥬", "image": "kimchi.png"},
+        {"name": "Vegetables", "emoji": "🥕", "image": "vegetables.png"},
+        {"name": "Egg", "emoji": "🥚", "image": "egg.png"},
+        {"name": "Soy Sauce", "emoji": "🧂", "image": "soy_sauce.png"},
+        {"name": "Sesame Oil", "emoji": "🫒", "image": "sesame_oil.png"}
+      ],
+      "instructions": "Stir-fry kimchi and vegetables, add rice and seasonings, top with fried egg.",
+      "appliance": {"name": "Wok / Pan", "emoji": "🍳", "image": "wok_pan.png"}
     },
     {
       "name": "Tteokbokki",
-      "ingredients": ["Rice cakes", "Fish cakes", "Gochujang sauce", "Sugar", "Green onions"],
-      "ingredientsEmoji": ["🍚", "🐟", "🌶️", "🍬", "🧅"],
-      "instructions": "Cook rice cakes and fish cakes in sauce until tender."
+      "ingredients": [
+        {"name": "Rice cakes", "emoji": "🍚", "image": "rice_cakes.png"},
+        {"name": "Fish cakes", "emoji": "🐟", "image": "fish_cakes.png"},
+        {"name": "Gochujang sauce", "emoji": "🌶️", "image": "gochujang.png"},
+        {"name": "Sugar", "emoji": "🍬", "image": "sugar.png"},
+        {"name": "Green onions", "emoji": "🧅", "image": "green_onions.png"}
+      ],
+      "instructions": "Cook rice cakes and fish cakes in sauce until tender.",
+      "appliance": {"name": "Pan / Pot", "emoji": "🍲", "image": "pan_pot.png"}
     },
     {
       "name": "Fruit Salad",
-      "ingredients": ["Apple", "Banana", "Orange", "Grapes", "Honey"],
-      "ingredientsEmoji": ["🍎", "🍌", "🍊", "🍇", "🍯"],
-      "instructions": "Chop all fruits and drizzle with honey."
+      "ingredients": [
+        {"name": "Apple", "emoji": "🍎", "image": "apple.png"},
+        {"name": "Banana", "emoji": "🍌", "image": "banana.png"},
+        {"name": "Orange", "emoji": "🍊", "image": "orange.png"},
+        {"name": "Grapes", "emoji": "🍇", "image": "grapes.png"},
+        {"name": "Honey", "emoji": "🍯", "image": "honey.png"}
+      ],
+      "instructions": "Chop all fruits and drizzle with honey.",
+      "appliance": {"name": "Bowl / Knife", "emoji": "🥣", "image": "bowl_knife.png"}
     }
   ],
   "chefKooSpecial": [
     {
       "name": "Uni Cream Shrimp Pasta",
-      "ingredients": ["Pasta", "Shrimp", "Garlic", "Uni soy sauce", "Heavy cream", "Butter", "Sugar", "Cheese", "Green onion"],
-      "ingredientsEmoji": ["🍝", "🍤", "🧄", "🧂", "🥛", "🧈", "🍬", "🧀", "🧅"],
-      "instructions": "Infuse oil with green onion and shrimp heads. Boil pasta. Stir-fry garlic and seasonings, add uni soy sauce, heavy cream, butter, sugar, chopped shrimp. Simmer, add pasta, toss, finish with cheese and green onion."
+      "ingredients": [
+        {"name": "Pasta", "emoji": "🍝", "image": "pasta.png"},
+        {"name": "Shrimp", "emoji": "🍤", "image": "shrimp.png"},
+        {"name": "Garlic", "emoji": "🧄", "image": "garlic.png"},
+        {"name": "Uni soy sauce", "emoji": "🧂", "image": "uni_sauce.png"},
+        {"name": "Heavy cream", "emoji": "🥛", "image": "cream.png"},
+        {"name": "Butter", "emoji": "🧈", "image": "butter.png"},
+        {"name": "Sugar", "emoji": "🍬", "image": "sugar.png"},
+        {"name": "Cheese", "emoji": "🧀", "image": "cheese.png"},
+        {"name": "Green onion", "emoji": "🧅", "image": "green_onion.png"}
+      ],
+      "instructions": "Infuse oil with green onion and shrimp heads. Boil pasta. Stir-fry garlic and seasonings, add uni soy sauce, heavy cream, butter, sugar, chopped shrimp. Simmer, add pasta, toss, finish with cheese and green onion.",
+      "appliance": {"name": "Pan / Pot", "emoji": "🍳", "image": "pan_pot.png"}
     },
     {
       "name": "Bulguri Ramen",
-      "ingredients": ["Noodles", "Buldak liquid sauce", "Neoguri garnish", "Water", "Sesame", "Mayo", "Seaweed"],
-      "ingredientsEmoji": ["🍜", "🌶️", "🦀", "💧", "🧂", "🥄", "🌿"],
-      "instructions": "Add 650-680ml water to pan, add sauce and garnish, boil, add noodles, thicken broth, top with garnish."
+      "ingredients": [
+        {"name": "Noodles", "emoji": "🍜", "image": "noodles.png"},
+        {"name": "Buldak liquid sauce", "emoji": "🌶️", "image": "buldak_sauce.png"},
+        {"name": "Neoguri garnish", "emoji": "🦀", "image": "neoguri_garnish.png"},
+        {"name": "Water", "emoji": "💧", "image": "water.png"},
+        {"name": "Sesame", "emoji": "🧂", "image": "sesame.png"},
+        {"name": "Mayo", "emoji": "🥄", "image": "mayo.png"},
+        {"name": "Seaweed", "emoji": "🌿", "image": "seaweed.png"}
+      ],
+      "instructions": "Add 650-680ml water to pan, add sauce and garnish, boil, add noodles, thicken broth, top with garnish.",
+      "appliance": {"name": "Pot / Pan", "emoji": "🍲", "image": "pot_pan.png"}
     },
     {
       "name": "BulMayo Perilla Oil Makguksu",
-      "ingredients": ["Buckwheat noodles", "Perilla oil", "Cham sauce", "Buldak sauce", "Buldak mayo", "Egg yolk", "Seaweed flakes"],
-      "ingredientsEmoji": ["🍜", "🫒", "🌶️", "🌶️", "🥄", "🥚", "🌿"],
-      "instructions": "Boil noodles, rinse in cold water, mix sauces and egg yolk, pour over noodles, top with seaweed."
+      "ingredients": [
+        {"name": "Buckwheat noodles", "emoji": "🍜", "image": "buckwheat_noodles.png"},
+        {"name": "Perilla oil", "emoji": "🫒", "image": "perilla_oil.png"},
+        {"name": "Cham sauce", "emoji": "🌶️", "image": "cham_sauce.png"},
+        {"name": "Buldak sauce", "emoji": "🌶️", "image": "buldak_sauce.png"},
+        {"name": "Buldak mayo", "emoji": "🥄", "image": "buldak_mayo.png"},
+        {"name": "Egg yolk", "emoji": "🥚", "image": "egg_yolk.png"},
+        {"name": "Seaweed flakes", "emoji": "🌿", "image": "seaweed_flakes.png"}
+      ],
+      "instructions": "Boil noodles, rinse in cold water, mix sauces and egg yolk, pour over noodles, top with seaweed.",
+      "appliance": {"name": "Pot / Bowl", "emoji": "🍲", "image": "pot_bowl.png"}
     },
     {
       "name": "Scrambled Egg Toast with Jam",
-      "ingredients": ["Bread", "Eggs", "Milk", "Salt", "Pepper", "Butter", "Strawberry jam"],
-      "ingredientsEmoji": ["🍞", "🥚", "🥛", "🧂", "🧂", "🧈", "🍓"],
-      "instructions": "Beat eggs with milk, cook scrambled eggs, toast bread, spread butter and jam, top with eggs."
+      "ingredients": [
+        {"name": "Bread", "emoji": "🍞", "image": "bread.png"},
+        {"name": "Eggs", "emoji": "🥚", "image": "eggs.png"},
+        {"name": "Milk", "emoji": "🥛", "image": "milk.png"},
+        {"name": "Salt", "emoji": "🧂", "image": "salt.png"},
+        {"name": "Pepper", "emoji": "🧂", "image": "pepper.png"},
+        {"name": "Butter", "emoji": "🧈", "image": "butter.png"},
+        {"name": "Strawberry jam", "emoji": "🍓", "image": "strawberry_jam.png"}
+      ],
+      "instructions": "Beat eggs with milk, cook scrambled eggs, toast bread, spread butter and jam, top with eggs.",
+      "appliance": {"name": "Pan / Toaster", "emoji": "🍳", "image": "pan_toaster.png"}
     }
   ]
 }
