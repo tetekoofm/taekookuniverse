@@ -594,11 +594,30 @@ body {
     flex-wrap: nowrap;
   }
 
-  .ing-emoji-list {
-    font-size: 2.5rem;
-  }
+  #ingEmojiList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    font-size: 2.5rem; /* emoji size */
+    margin-bottom: 8px;
+}
 
-  .ingredient-icon {
+#ingEmojiList .hud-ingredient-wrapper {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#ingEmojiList .hud-ingredient-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.ingredient-icon {
     width: 32px;
     height: 32px;
     margin: 0 4px;
@@ -638,20 +657,45 @@ body {
     border-radius: 8px;
   }
   
+  #ingredientScene {
+    position: fixed;
+    inset: 0;        /* top:0; right:0; bottom:0; left:0 */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    z-index: 1000;
+    background: url('/static/images/games/kitchen_bg.png') center/cover no-repeat;
+  }
+
   #ingredientGameCanvas {
     width: 100%;
-    height: 100%;
+    height: 300px;
     display: block;
-    z-index: 1;
-    border-radius: 8px;
     background: transparent;
-    border: 2px solid rgba(138,255,193,0.14);
+    position: relative;
   }
   
+  #ingredientGameCanvas {
+    touch-action: none;      /* prevent pinch-zoom & pan on mobile */
+    user-select: none;       /* prevent text/image selection */
+    -webkit-user-drag: none; /* prevent drag in Safari/Chrome */
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
+
+  #ingredientHUD {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin-top: 10px;
+    z-index: 10;
+  }
+
   .ing-popup {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: fixed;
+    top: 50%;
+    left: 50%;
     width: 100%;   /* span game panel */
     height: 100%;
     display: flex;
@@ -659,6 +703,10 @@ body {
     justify-content: center;
     pointer-events: auto;
     background: rgba(0,0,0,0.5); /* semi-transparent overlay for game panel only */
+    border-radius: 10px;
+    transform: translate(-50%, -50%);
+    z-index: 99999;
+    padding: 20px;
     border-radius: 10px;
   }
   
@@ -687,32 +735,36 @@ body {
         justify-content: center;
     }
     
-    #collectedStatus .hud-ingredient-wrapper {
-        width: 20px;
-        height: 20px;
+    .hud-ingredient-wrapper {
+        width: 32px;       /* or larger if needed */
+        height: 32px;
         display: flex;
         align-items: center;
         justify-content: center;
+        font-size: 28px;   /* ensures emoji are visible */
+        line-height: 1;
     }
     
-    #collectedStatus .hud-ingredient-wrapper img {
+    .hud-ingredient-wrapper img {
         width: 100%;
         height: 100%;
         object-fit: contain;
     }
     
-    @media (max-width: 768px) {
+    @media (max-width: 1024) {
         #collectedStatus .hud-ingredient-wrapper {
             width: 30px;
             height: 30px;
         }
+        #ingEmojiList .hud-ingredient-wrapper { width: 28px; height: 28px; }
     }
     
-    @media (max-width: 480px) {
+    @media (max-width: 768) {
         #collectedStatus .hud-ingredient-wrapper {
             width: 25px;
             height: 25px;
         }
+        #ingEmojiList .hud-ingredient-wrapper { width: 24px; height: 24px; }
     }
     
   .bubble-popup{position:fixed;top:20px;right:20px;padding:10px 18px;border-radius:18px;font-size:18px;backdrop-filter:blur(6px);animation:fadeUp 2s forwards;}

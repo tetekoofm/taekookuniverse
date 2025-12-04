@@ -161,44 +161,85 @@ document.addEventListener('DOMContentLoaded', () => {
     /* -------------------------------------------
        LOAD RECIPES & START RESTAURANT DYNAMIC CHAT
     -------------------------------------------*/
-    function populateIngredientHUD(order) {
+    function populateIngredientHUDPreGame(order) {
         if (!order) return;
     
         const dishNameEl = document.getElementById('ingDishName');
+        const ingredientsEl = document.getElementById('ingEmojiList'); 
         const collectedEl = document.getElementById('collectedStatus');
     
         dishNameEl.textContent = order.name || "Unknown Dish";
     
-        const flatIngredients = (order.ingredients || []).map(ing => ({
-            name: ing.name,
-            emoji: ing.emoji,
-            image: ing.image
-        }));
+        ingredientsEl.innerHTML = "";
+        collectedEl.innerHTML = ""; // start empty
     
-        window.currentOrderFlatIngredients = flatIngredients;
+        // Reset collectedMap
+        window.gameState = window.gameState || {};
+        gameState.chef = gameState.chef || {};
+        gameState.items = gameState.items || [];  // keep for falling items
+        gameState.collectedMap = gameState.collectedMap || {};
+        gameState.running = false;
     
-        collectedEl.innerHTML = "";
-    
-        flatIngredients.forEach(ing => {
-            const wrapper = document.createElement('span');
-            wrapper.className = 'hud-ingredient-wrapper';
-    
-            const img = new Image();
-            img.className = 'hud-ingredient';
-            img.alt = ing.name;
-            img.src = `/static/images/games/cookwithtaekook/${ing.image}`;
-    
-            // fallback if image fails to load
-            img.onerror = () => {
-                wrapper.textContent = ing.emoji;
+        (order.ingredients || []).forEach(ing => {
+            // Initialize collected map
+            window.gameState.collectedMap[ing.name] = { 
+                collected: false, 
+                emoji: ing.emoji, 
+                image: ing.image, 
+                name: ing.name 
             };
     
-            wrapper.appendChild(img);
-            collectedEl.appendChild(wrapper);
+            // HUD display
+            const wrapper = document.createElement("div");
+            wrapper.className = "hud-ingredient-wrapper";
+    
+            if (ing.image) {
+                const img = new Image();
+                img.src = `/static/images/games/cookwithtaekook/${ing.image}`;
+                img.alt = ing.name || ing.emoji;
+                img.onerror = () => { wrapper.textContent = ing.emoji || "⬜"; };
+                wrapper.appendChild(img);
+            } else {
+                wrapper.textContent = ing.emoji || "⬜";
+                wrapper.style.opacity = "0.5";
+            }
+    
+            ingredientsEl.appendChild(wrapper);
         });
     }
     
     
+    function updateCollectedHUD() {
+        const collectedEl = document.getElementById('collectedStatus');
+        if (!collectedEl || !gameState || !gameState.collectedMap) return;
+    
+        collectedEl.innerHTML = "";
+    
+        // ONLY display collected ingredients
+        Object.values(gameState.collectedMap).forEach(item => {
+            if (!item.collected) return; // skip uncollected
+    
+            const wrapper = document.createElement("div");
+            wrapper.className = "hud-ingredient-wrapper";
+    
+            if (item.image) {
+                const img = new Image();
+                img.src = `/static/images/games/cookwithtaekook/${item.image}`;
+                img.alt = item.name || item.emoji;
+                img.style.width = "100%";
+                img.style.height = "100%";
+                wrapper.appendChild(img);
+            } else {
+                wrapper.textContent = item.emoji || "⬜";
+                wrapper.style.fontSize = "2rem";
+                wrapper.style.textAlign = "center";
+            }
+    
+            collectedEl.appendChild(wrapper);
+        });
+    }
+    
+
     function loadRecipesAndStartRestaurantChat() {
         fetch('/static/js/recipes.json')
             .then(r => r.json())
@@ -271,7 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.currentOrder = order;
     
         // populate HUD (only emojis)
-        populateIngredientHUD(order);
+        populateIngredientHUDPreGame(order);
     
         // show dialogue bubbles then show Prepare button
         setTimeout(() => {
@@ -288,39 +329,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     window.getRandomRecipe = function() {
-        if (!window.recipes || !window.recipes.length) {
+        if (!window.recipes) {
             console.warn("Recipes not loaded yet. Using fallback dish.");
-            return {
-                name: "Kimchi Fried Rice",
-                ingredients: [
-                    { name: "Rice", emoji: "🍚", image: "rice.png" },
-                    { name: "Kimchi", emoji: "🥬", image: "kimchi.png" },
-                    { name: "Egg", emoji: "🍳", image: "egg.png" },
-                    { name: "Sesame Oil", emoji: "🫒", image: "sesame_oil.png" }
-                ]
-            };
+            return fallbackRecipe();
         }
     
-        // flatten categories if necessary
         let allRecipes = [];
-        if (window.recipes.beverages) allRecipes = allRecipes.concat(window.recipes.beverages);
         if (window.recipes.food) allRecipes = allRecipes.concat(window.recipes.food);
+        if (window.recipes.beverages) allRecipes = allRecipes.concat(window.recipes.beverages);
+        if (window.recipes.chefKooSpecial) allRecipes = allRecipes.concat(window.recipes.chefKooSpecial);
     
-        if (!allRecipes.length) return null;
+        if (!allRecipes.length) return fallbackRecipe();
     
-        // pick a random recipe
         const selected = allRecipes[Math.floor(Math.random() * allRecipes.length)];
-    
-        // ensure ingredients have emoji and image
         selected.ingredients = selected.ingredients.map(ing => ({
             name: ing.name || "Unknown",
             emoji: ing.emoji || "❔",
-            image: ing.image || "placeholder.png"
+            image: ing.image || null
         }));
-    
         return selected;
     };
     
+    function fallbackRecipe() {
+        return {
+            name: "Kimchi Fried Rice",
+            ingredients: [
+                { name: "Rice", emoji: "🍚", image: "rice.png" },
+                { name: "Kimchi", emoji: "🥬", image: "kimchi.png" },
+                { name: "Egg", emoji: "🍳", image: "egg.png" },
+                { name: "Sesame Oil", emoji: "🫒", image: "sesame_oil.png" }
+            ]
+        };
+    }
 
     function showOrderOptionsButtons() {
         const optionsContainer = document.getElementById('orderOptions');
@@ -335,7 +375,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const prepareBtn = document.getElementById('prepareOrderBtn');
         prepareBtn.addEventListener('click', () => {
             optionsContainer.style.display = 'none';
-            startIngredientsMiniGame(window.currentOrder, window.recipes);
+            const allRecipesFlat = [
+                ...(window.recipes.beverages || []),
+                ...(window.recipes.food || []),
+                ...(window.recipes.chefKooSpecial || [])
+            ];
+            startIngredientsMiniGame(window.currentOrder, allRecipesFlat);
         });
 
         prepareBtn.classList.add('pulse');
@@ -357,9 +402,32 @@ document.addEventListener('DOMContentLoaded', () => {
     function startIngredientsMiniGame(order, allRecipes = []) {
         if (!order) return console.warn("No order provided");
     
+        // Initialize gameState
+        window.gameState = window.gameState || {};
+        gameState.items = [];       // falling ingredients/obstacles
+        gameState.chef = gameState.chef || {};
+        gameState.running = false;
+        gameState.collectedMap = gameState.collectedMap || {};
+        let totalCollected = 0;
+        let correctStreak = 0;
+        let wrongStreak = 0;
+
+        // Initialize collected map
+        (order.ingredients || []).forEach(ing => {
+            const key = ing.name;
+            gameState.collectedMap[key] = {
+                collected: false,
+                emoji: ing.emoji || null,
+                image: ing.image || null,
+                name: ing.name
+            };
+        });
+    
+        // Populate HUD (Ingredients only)
+        populateIngredientHUDPreGame(order);
+    
         const scene = document.getElementById('ingredientScene');
         const canvas = document.getElementById('ingredientGameCanvas');
-        const collectedEl = document.getElementById('collectedStatus');
         const startBtn = document.getElementById('startCollectBtn');
         const cancelBtn = document.getElementById('cancelCollectBtn');
         const popup = document.getElementById('ingCompletePopup');
@@ -368,208 +436,125 @@ document.addEventListener('DOMContentLoaded', () => {
         scene.classList.remove('hidden');
         scene.setAttribute('aria-hidden', 'false');
     
-        let wrongStreak = 0;
-        let correctStreak = 0;
-        let totalCollected = 0;
-    
-        const gameState = {
-            running: false,
-            rafId: null,
-            spawnInterval: null,
-            items: [],
-            collectedMap: {},
-            chef: { x: 0, y: 0, w: 90, h: 90, img: null },
-            emojiMultiplier: 0.05
-        };
-    
-        const flatIngredients = (order.ingredients || []).map(ing => ({
-            name: ing.name,
-            emoji: ing.emoji,
-            image: ing.image
-        }));
-    
-        // Initialize collectedMap
-        flatIngredients.forEach(ing => {
-            gameState.collectedMap[ing.name] = { collected: false, emoji: ing.emoji, image: ing.image };
-        });
-    
-        // --- OBSTACLE POOL ---
+        // Obstacle pool
         const obstaclePool = new Set();
         allRecipes.forEach(r => {
-            if (!r.ingredients) return;
-            r.ingredients.forEach(ing => {
-                if (!(order.ingredients || []).some(o => o.name === ing.name)) {
-                    obstaclePool.add(ing.name);
-                }
+            (r.ingredientsEmoji || []).forEach(e => {
+                if (!(order.ingredientsEmoji || []).includes(e)) obstaclePool.add(e);
             });
         });
-        if (!obstaclePool.size) {
-            ["Socks","Glue","Pebbles","Leaf","OnionPeel","Battery"].forEach(i => obstaclePool.add(i));
-        }
+        if (obstaclePool.size === 0) ["🍫","🥜","🌶","🥩","🧂","🍬"].forEach(x => obstaclePool.add(x));
         const obstacleArray = Array.from(obstaclePool);
-    
-        // --- PRELOAD IMAGES ---
-        const ingredientImages = {};
-        [...flatIngredients, ...obstacleArray.map(name => ({name, image: `${name}.png`}))].forEach(ing => {
-            const img = new Image();
-            img.src = `/static/images/games/cookwithtaekook/${ing.image}`;
-            ingredientImages[ing.name] = img;
-        });
     
         const ctx = canvas.getContext('2d', { alpha: true });
     
-        // Chef
+        // Chef image
         const chefImg = new Image();
         chefImg.src = '/static/images/games/cookwithtaekook/tae_ingredients.png';
-        chefImg.onload = () => { gameState.chef.img = chefImg; positionChef(); drawInitialFrame(); };
+        chefImg.onload = () => { 
+            gameState.chef.img = chefImg; 
+            drawInitialFrame(); 
+        };
     
         function positionChef() {
-            const pw = canvas.clientWidth;
-            const ph = canvas.clientHeight;
-            const chefMultiplier = window.innerWidth <= 600 ? 0.18 : window.innerWidth <= 1024 ? 0.15 : 0.12;
-            const emojiMultiplier = window.innerWidth <= 600 ? 0.07 : window.innerWidth <= 1024 ? 0.05 : 0.03;
+            if (!gameState.chef) gameState.chef = {};
+            const pw = canvas.clientWidth, ph = canvas.clientHeight;
+            let chefMultiplier, emojiMultiplier;
+            if (window.innerWidth <= 600) { chefMultiplier = 0.18; emojiMultiplier = 0.07; }
+            else if (window.innerWidth <= 1024) { chefMultiplier = 0.15; emojiMultiplier = 0.05; }
+            else { chefMultiplier = 0.12; emojiMultiplier = 0.03; }
     
             gameState.chef.w = pw * chefMultiplier;
-            gameState.chef.h = ph * (chefMultiplier * 1.4);
-            gameState.chef.x = (pw - gameState.chef.w) / 2;
+            gameState.chef.h = ph * chefMultiplier * 1.4;
+            gameState.chef.x = (pw - gameState.chef.w)/2;
             gameState.chef.y = ph - gameState.chef.h;
             gameState.emojiMultiplier = emojiMultiplier;
         }
     
+        function resizeCanvasNow() {
+            const container = canvas.parentElement;
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = container.clientWidth * dpr;
+            canvas.height = container.clientHeight * dpr;
+            ctx.setTransform(dpr,0,0,dpr,0,0);
+            positionChef();
+        }
+    
         function drawInitialFrame() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            if (gameState.chef.img) ctx.drawImage(gameState.chef.img, gameState.chef.x, gameState.chef.y, gameState.chef.w, gameState.chef.h);
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            if (gameState.chef.img) {
+                ctx.drawImage(gameState.chef.img, gameState.chef.x, gameState.chef.y, gameState.chef.w, gameState.chef.h);
+            }
         }
     
         function spawnOnce() {
-            const pool = [...flatIngredients.map(i => i.name), ...obstacleArray];
-            if (!pool.length) return;
-    
-            const ingName = pool[Math.floor(Math.random() * pool.length)];
-            const ingData = flatIngredients.find(i => i.name === ingName);
-    
-            gameState.items.push({
-                name: ingName,
-                img: ingredientImages[ingName] || null,
-                emoji: ingData ? ingData.emoji : "⚠️",
-                x: Math.random() * (canvas.clientWidth - 40) + 20,
-                y: -50,
-                speed: 2 + Math.random() * 3,
-                size: Math.max(20, Math.floor(canvas.clientWidth * gameState.emojiMultiplier))
-            });
+            const spawnX = Math.random() * (canvas.clientWidth - 40) + 20;
+            const baseSize = Math.max(18, Math.floor(canvas.clientWidth * gameState.emojiMultiplier));
+        
+            const ingredientPool = (window.currentOrder.ingredients || []).map(ing => ({
+                key: ing.name,
+                emoji: ing.emoji,
+                image: ing.image && ing.image.trim() !== "" ? ing.image : null
+            }));
+        
+            const isIngredient = Math.random() < 0.6 && ingredientPool.length > 0;
+        
+            if (isIngredient) {
+                const ing = ingredientPool[Math.floor(Math.random() * ingredientPool.length)];
+        
+                gameState.items.push({
+                    key: ing.key,
+                    emoji: ing.image ? null : ing.emoji,  // only show emoji if no image
+                    image: ing.image ? ing.image : null,  // make sure image exists
+                    x: spawnX,
+                    y: -40,
+                    speed: 2 + Math.random() * 3,
+                    size: baseSize
+                });
+            } else {
+                // Spawn obstacle
+                const obs = obstacleArray[Math.floor(Math.random() * obstacleArray.length)];
+                gameState.items.push({
+                    key: null,
+                    emoji: obs,
+                    x: spawnX,
+                    y: -40,
+                    speed: 2 + Math.random() * 3,
+                    size: baseSize
+                });
+            }
         }
+        
+        function updateCollectedHUD() {
+            const collectedEl = document.getElementById('collectedStatus');
+            if (!collectedEl || !gameState || !gameState.collectedMap) return;
     
-        function drawLoop() {
-            if (!gameState.running) return;
+            collectedEl.innerHTML = "";
     
-            ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+            // Only collected
+            Object.values(gameState.collectedMap).forEach(item => {
+                if (!item.collected) return;
     
-            // Draw items
-            gameState.items.forEach(it => {
-                if (it.img && it.img.complete && it.img.naturalWidth > 0) {
-                    ctx.drawImage(it.img, it.x, it.y, it.size, it.size);
+                const wrapper = document.createElement("div");
+                wrapper.className = "hud-ingredient-wrapper";
+    
+                if (item.image) {
+                    const img = new Image();
+                    img.src = `/static/images/games/cookwithtaekook/${item.image}`;
+                    img.alt = item.name || item.emoji;
+                    img.style.width = "32px";
+                    img.style.height = "32px";
+                    img.style.filter = item.collected ? "none" : "grayscale(80%)";
+                    img.onerror = () => { wrapper.textContent = item.emoji || "⬜"; };
+                    wrapper.appendChild(img);
                 } else {
-                    ctx.font = `${it.size}px serif`;
-                    ctx.textAlign = 'center';
-                    ctx.textBaseline = 'middle';
-                    ctx.fillText(it.emoji || "?", it.x + it.size/2, it.y + it.size/2);
+                    wrapper.textContent = item.emoji || "⬜";
+                    wrapper.style.opacity = item.collected ? "1" : "0.5";
                 }
+    
+                collectedEl.appendChild(wrapper);
             });
-    
-            // Draw chef
-            if (gameState.chef.img) ctx.drawImage(gameState.chef.img, gameState.chef.x, gameState.chef.y, gameState.chef.w, gameState.chef.h);
-    
-            // Update positions and check collisions
-            const toRemove = [];
-            gameState.items.forEach((it, idx) => {
-                it.y += it.speed;
-    
-                if (it.y + it.size >= gameState.chef.y &&
-                    it.x >= gameState.chef.x - it.size/2 &&
-                    it.x <= gameState.chef.x + gameState.chef.w + it.size/2) {
-    
-                    if ((order.ingredients || []).some(o => o.name === it.name)) {
-                        gameState.collectedMap[it.name].collected = true;
-                        handleCorrectHit();
-                    } else {
-                        handleObstacleHit();
-                    }
-                    toRemove.push(idx);
-                } else if (it.y > canvas.clientHeight + 60) {
-                    toRemove.push(idx);
-                }
-            });
-            for (let i = toRemove.length - 1; i >= 0; i--) gameState.items.splice(toRemove[i], 1);
-    
-            // Update collected HUD
-            collectedEl.innerHTML = flatIngredients
-                .map(ing => gameState.collectedMap[ing.name].collected ? ing.emoji : "⬜")
-                .join(" ");
-    
-            // Check if all collected
-            if (flatIngredients.every(ing => gameState.collectedMap[ing.name].collected)) return endGameSuccess();
-    
-            gameState.rafId = requestAnimationFrame(drawLoop);
         }
-    
-        function endGameSuccess() {
-            gameState.running = false;
-            if (gameState.spawnInterval) clearInterval(gameState.spawnInterval);
-            if (gameState.rafId) cancelAnimationFrame(gameState.rafId);
-            popup.classList.remove('hidden');
-        }
-    
-        function cleanupAndClose() {
-            gameState.running = false;
-            if (gameState.spawnInterval) clearInterval(gameState.spawnInterval);
-            if (gameState.rafId) cancelAnimationFrame(gameState.rafId);
-            gameState.items.length = 0;
-            popup.classList.add('hidden');
-            scene.classList.add('hidden');
-            scene.setAttribute('aria-hidden', 'true');
-            kitchenScene.classList.remove('hidden');
-            resetIngredientHUD();
-        }
-    
-        function startGame() {
-            if (gameState.running) return;
-            resizeCanvas();
-            positionChef();
-            gameState.items.length = 0;
-            gameState.running = true;
-            gameState.spawnInterval = setInterval(spawnOnce, window.innerWidth <= 768 ? 650 : 800);
-            drawLoop();
-        }
-    
-        function resizeCanvas() {
-            const dpr = window.devicePixelRatio || 1;
-            canvas.width = canvas.parentElement.clientWidth * dpr;
-            canvas.height = canvas.parentElement.clientHeight * dpr;
-            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        }
-    
-        function handleMove(clientX) {
-            const rect = canvas.getBoundingClientRect();
-            let x = clientX - rect.left - gameState.chef.w / 2;
-            gameState.chef.x = Math.max(0, Math.min(x, rect.width - gameState.chef.w));
-        }
-    
-        canvas.addEventListener('mousemove', e => handleMove(e.clientX));
-        canvas.addEventListener('touchmove', e => { if (!e.touches[0]) return; handleMove(e.touches[0].clientX); }, { passive: true });
-        window.addEventListener('resize', () => { resizeCanvas(); positionChef(); });
-    
-        startBtn.onclick = () => {
-            startBtn.style.display = "none";
-            preloadImages(ingredientImages, () => startGame());
-        };
-        cancelBtn.onclick = cleanupAndClose;
-        popupOk.onclick = cleanupAndClose;
-    
-        scene._cleanup = cleanupAndClose;
-    
-        // --- FUN EFFECTS ---
-        const badMessages = ["👀 You okay bro?", "🤨 That was not even close", "😤 Patience -1", "🫠 Hyung please focus", "🔥 Kookie gonna explode!!"];
-        const goodMessages = ["💜 Good job hyung!!", "✨ Chef Taehyung is proud", "😎 Smooth smooth"];
     
         function playSound(type){
             const sfx = {
@@ -580,75 +565,124 @@ document.addEventListener('DOMContentLoaded', () => {
             };
             sfx[type]?.play();
         }
-    
-        function showBubble(type, text){
-            const el = document.createElement("div");
-            el.className = "bubble-popup " + type;
-            el.innerText = text;
-            document.body.appendChild(el);
-            setTimeout(()=>el.remove(), 2000);
-        }
-    
-        function screenShake(){
-            document.body.classList.add("shake");
-            setTimeout(()=>document.body.classList.remove("shake"),400);
-        }
-    
-        function spawnFloatingEmoji(symbol){
-            const e = document.createElement("div");
-            e.className = "float-emoji";
-            e.innerText = symbol;
-            e.style.left = Math.random()*90 + "%";
-            document.body.appendChild(e);
-            setTimeout(()=>e.remove(),1500);
-        }
-    
-        function rainHearts(){
-            for(let i=0;i<20;i++){
-                const h=document.createElement("div");
-                h.className="heart-rain";
-                h.innerText = Math.random()<0.5?"💜":"💚";
-                h.style.left = Math.random()*100 + "%";
-                document.body.appendChild(h);
-                setTimeout(()=>h.remove(),2000);
-            }
-        }
-    
-        function handleCorrectHit(){
-            correctStreak++;
-            wrongStreak=0;
+
+        function handleCorrectHit(name, item) {
+            const data = gameState.collectedMap[name];
+            if (!data) return;
+        
+            if (data.image && !item.image) return;
+        
+            data.collected = true;
+            updateCollectedHUD();
+        
             totalCollected++;
+            correctStreak++;
+            wrongStreak = 0;
+        
             playSound("correct");
-            spawnFloatingEmoji("💚");
-    
-            if(correctStreak===3){
-                playSound("yay");
-                showBubble("good","💚 Tae patted your head");
-            }
-    
-            if(totalCollected%10===0){
-                rainHearts();
-                showBubble("good","💜 Taekook showering love!!");
-            }
+            // spawnFloatingEmoji("💚"); <-- remove or comment out
+        
+            if (Object.values(gameState.collectedMap).every(d => d.collected)) endGameSuccess();
         }
+
     
-        function handleObstacleHit(){
-            wrongStreak++;
-            correctStreak=0;
+        function handleObstacleHit() {
             playSound("wrong");
             screenShake();
-            showBubble("bad", badMessages[Math.min(wrongStreak-1,badMessages.length-1)]);
-            if(wrongStreak>=5){
-                playSound("angry");
-                showBubble("angry","🔥 Kookie MAD MODE 🔥");
-                wrongStreak=0;
-            }
+            showBubble("bad", "❌ That ingredient is not needed!");
         }
-    }
     
-    function resetIngredientHUD() {
-        const collectedEl = document.getElementById('collectedStatus');
-        if (collectedEl) collectedEl.innerHTML = "";
-    }   
+        function drawLoop() {
+            if (!gameState.running) return;
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+    
+            // Draw items
+            const toRemove = [];
+            gameState.items.forEach((it, idx) => {
+                it.y += it.speed;
+    
+                if (
+                    it.y + it.size >= gameState.chef.y &&
+                    it.x >= gameState.chef.x - it.size/2 &&
+                    it.x <= gameState.chef.x + gameState.chef.w + it.size/2
+                ) {
+                    if (it.key) handleCorrectHit(it.key, it);
+                    else handleObstacleHit();
+                    toRemove.push(idx);
+                } else if (it.y > canvas.clientHeight + 60) {
+                    toRemove.push(idx);
+                }
+            });
+    
+            for (let i = toRemove.length - 1; i >= 0; i--) gameState.items.splice(toRemove[i],1);
+    
+            // Draw items
+            gameState.items.forEach(it => {
+                if (it.imageObj) {
+                    ctx.drawImage(it.imageObj, it.x - it.size/2, it.y - it.size/2, it.size, it.size);
+                } else if (it.emoji) {
+                    ctx.font = `${it.size}px serif`;
+                    ctx.textAlign = "center";
+                    ctx.textBaseline = "middle";
+                    ctx.fillText(it.emoji, it.x, it.y);
+                }
+            });
+
+            // Draw chef
+            if (gameState.chef.img) {
+                ctx.drawImage(gameState.chef.img, gameState.chef.x, gameState.chef.y, gameState.chef.w, gameState.chef.h);
+            }
+    
+            gameState.rafId = requestAnimationFrame(drawLoop);
+        }
+    
+        function endGameSuccess() {
+            gameState.running=false;
+            if(gameState.spawnInterval) clearInterval(gameState.spawnInterval);
+            if(gameState.rafId) cancelAnimationFrame(gameState.rafId);
+            popup.classList.remove('hidden');
+        }
+    
+        function cleanupAndClose() {
+            gameState.running=false;
+            if(gameState.spawnInterval) clearInterval(gameState.spawnInterval);
+            if(gameState.rafId) cancelAnimationFrame(gameState.rafId);
+            gameState.items.length=0;
+            popup.classList.add('hidden');
+            scene.classList.add('hidden');
+            scene.setAttribute('aria-hidden','true');
+            document.getElementById('kitchenScene').classList.remove('hidden');
+        }
+    
+        function startGame() {
+            if(gameState.running) return;
+            resizeCanvasNow();
+            positionChef();
+            gameState.running=true;
+            gameState.spawnInterval = setInterval(spawnOnce,(window.innerWidth<=768)?650:800);
+            drawLoop();
+        }
+    
+        function handleMove(clientX){
+            const rect = canvas.getBoundingClientRect();
+            let x = clientX - rect.left - gameState.chef.w / 2;
+            if (x < 0) x = 0;
+            if (x > rect.width - gameState.chef.w) x = rect.width - gameState.chef.w;
+            gameState.chef.x = x;
+        }
+    
+        canvas.addEventListener('mousemove', e => handleMove(e.clientX));
+        canvas.addEventListener('touchmove', e => handleMove(e.touches[0].clientX), {passive:true});
+        window.addEventListener('resize', resizeCanvasNow);
+    
+        startBtn.onclick = () => {
+            startBtn.style.display = "none";
+            startGame();
+        };
+        cancelBtn.onclick = cleanupAndClose;
+        popupOk.onclick = cleanupAndClose;
+    
+        setTimeout(()=>{ resizeCanvasNow(); drawInitialFrame(); },60);
+    }
     
 });

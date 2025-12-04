@@ -136,7 +136,7 @@
       ],
       "instructions": "Dip bread in egg mixture and fry until golden brown.",
       "appliance": {"name": "Pan", "emoji": "🍳", "image": "pan.png"}
-    }
+    },
     {
       "name": "Salad",
       "ingredients": [
