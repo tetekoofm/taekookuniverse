@@ -161,53 +161,53 @@ document.addEventListener('DOMContentLoaded', () => {
     /* -------------------------------------------
        LOAD RECIPES & START RESTAURANT DYNAMIC CHAT
     -------------------------------------------*/
-    function populateIngredientHUDPreGame(order) {
-        if (!order) return;
-    
-        const dishNameEl = document.getElementById('ingDishName');
-        const ingredientsEl = document.getElementById('ingEmojiList'); 
-        const collectedEl = document.getElementById('collectedStatus');
-    
-        dishNameEl.textContent = order.name || "Unknown Dish";
-    
-        ingredientsEl.innerHTML = "";
-        collectedEl.innerHTML = ""; // start empty
-    
-        // Reset collectedMap
-        window.gameState = window.gameState || {};
-        gameState.chef = gameState.chef || {};
-        gameState.items = gameState.items || [];  // keep for falling items
-        gameState.collectedMap = gameState.collectedMap || {};
-        gameState.running = false;
-    
-        (order.ingredients || []).forEach(ing => {
-            // Initialize collected map
-            window.gameState.collectedMap[ing.name] = { 
-                collected: false, 
-                emoji: ing.emoji, 
-                image: ing.image, 
-                name: ing.name 
-            };
-    
-            // HUD display
-            const wrapper = document.createElement("div");
-            wrapper.className = "hud-ingredient-wrapper";
-    
-            if (ing.image) {
-                const img = new Image();
-                img.src = `/static/images/games/cookwithtaekook/${ing.image}`;
-                img.alt = ing.name || ing.emoji;
-                img.onerror = () => { wrapper.textContent = ing.emoji || "⬜"; };
-                wrapper.appendChild(img);
-            } else {
-                wrapper.textContent = ing.emoji || "⬜";
-                wrapper.style.opacity = "0.5";
-            }
-    
-            ingredientsEl.appendChild(wrapper);
-        });
-    }
-    
+function populateIngredientHUDPreGame(order) {
+    if (!order) return;
+
+    const dishNameEl = document.getElementById('ingDishName');
+    const ingredientsEl = document.getElementById('ingEmojiList'); 
+    const collectedEl = document.getElementById('collectedStatus');
+
+    dishNameEl.textContent = order.name || "Unknown Dish";
+
+    ingredientsEl.innerHTML = "";
+    collectedEl.innerHTML = ""; // start empty
+
+    // Reset collectedMap
+    window.gameState = window.gameState || {};
+    gameState.chef = gameState.chef || {};
+    gameState.items = gameState.items || [];  // keep for falling items
+    gameState.collectedMap = gameState.collectedMap || {};
+    gameState.running = false;
+
+    (order.ingredients || []).forEach(ing => {
+        // Initialize collected map
+        window.gameState.collectedMap[ing.name] = { 
+            collected: false, 
+            emoji: ing.emoji, 
+            image: ing.image, 
+            name: ing.name 
+        };
+
+        // HUD display
+        const wrapper = document.createElement("div");
+        wrapper.className = "hud-ingredient-wrapper";
+
+        if (ing.image) {
+            const img = new Image();
+            img.src = `/static/images/games/cookwithtaekook/${ing.image}`;
+            img.alt = ing.name || ing.emoji;
+            img.onerror = () => { wrapper.textContent = ing.emoji || "⬜"; };
+            wrapper.appendChild(img);
+        } else {
+            wrapper.textContent = ing.emoji || "⬜";
+            wrapper.style.opacity = "0.5";
+        }
+
+        ingredientsEl.appendChild(wrapper);
+    });
+}
+
     
     function updateCollectedHUD() {
         const collectedEl = document.getElementById('collectedStatus');
