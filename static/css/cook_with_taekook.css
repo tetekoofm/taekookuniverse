@@ -375,7 +375,7 @@ body {
     content: '';
     position: absolute;
     top: 100%;           /* arrow below bubble */
-    right: 20px;          /* offset from left */
+    right: 15px;          /* offset from left */
     border-width: 20px;
     border-style: solid;
     border-color: #2a9f5d transparent transparent transparent; /* downward arrow */
@@ -393,7 +393,7 @@ body {
     content: '';
     position: absolute;
     top: 100%;           /* arrow below bubble */
-    left: 20px;         /* offset from right */
+    left: 30px;         /* offset from right */
     border-width: 20px;
     border-style: solid;
     border-color: #620092 transparent transparent transparent; /* downward arrow */
@@ -414,7 +414,7 @@ body {
 
 /* All button */
 #startRideBtn, #headToKitchenBtn, #startCookingBtn, #showFullInstructionsBtn, 
-.action-btn, #startCollectBtn, #cancelCollectBtn, #ingCompleteOk {
+.action-btn, #startCollectIngredientsBtn, #cancelIngredientBtn, #ingCompleteOk {
     padding: 10px 20px;
     font-size: 1.2rem;
     font-weight: bold;
@@ -433,7 +433,7 @@ body {
 }
 
 #startRideBtn:hover, #headToKitchenBtn:hover, #startCookingBtn:hover, #showFullInstructionsBtn:hover, 
-.action-btn:hover, #startCollectBtn:hover, #cancelCollectBtn:hover {
+.action-btn:hover, #startCollectIngredientsBtn:hover, #cancelIngredientBtn:hover {
     box-shadow: 0 0 25px #8affc1, 0 0 50px #c88aff;
 }
 
@@ -495,293 +495,124 @@ body {
 }
 @keyframes pulseAnim { 0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)} }
 
-/* ===============================
-   INGREDIENT COLLECTION SCENE
-   =============================== */
 
-.ingredient-scene {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .ingredient-scene.hidden { display: none; }
-  
-  .ingredient-backdrop {
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.80);
-  }
-  
-  .ingredient-panel {
-    position: relative;
-    width: 96%;
-    max-width: 1200px;
-    height: 88vh;
-    background: linear-gradient(180deg, rgba(10,10,10,0.95), rgba(18,18,18,0.98));
-    border-radius: 14px;
-    padding: 18px;
-    box-shadow: 0 18px 60px rgba(0,0,0,0.6);
-    display: flex;
-    flex-direction: column;   /* stack HUD and canvas */
-    gap: 12px;
-    overflow: hidden;
-  }
-   
-  .ingredient-hud {
-    padding: 2px 2px;
-    color: #e9fef0;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-    min-width: 260px;
-  }
-  
-  .ingredient-hud h2 {
+/*----------- Ingredient Scene -------------*/
+#ingredientScene {
+    text-align: center;
+    padding: 20px;
+    color: #8affc1; /* light green */
     font-family: 'Orbitron', sans-serif;
-    font-size: 1.5rem;
+}
+
+.dish-title {
+    font-size: 26px;
     font-weight: 700;
-    color: #8affc1;
-    text-align: center;
-    width: 100%;
-  }
-
-  .ingredient-hud .ingredient-row {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 50px;  /* space between Ingredients and Collected */
-    width: 100%;
-  }
-  
-  .ingredient-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    margin-bottom: 10px;
+    color: #c88aff; /* purple */
 }
 
-  .ingredient-group label {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.2rem;
-    color: #c8b6ff;
-    font-weight: 500;
-    margin-bottom: 4px;
-  }
-
-   .ing-instructions {
-    font-family: 'Lobster', cursive;
-    font-size: 1.2rem;
-    color: #c8b6ff;
-    text-align: center; 
-    margin: 5px auto; 
-    line-height: 1.2;
-    max-width: 400px; 
-    padding: 2px;
-    display: block;
-  }
-
-  .ing-controls {
-    margin-top: 8px;
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    flex-wrap: nowrap;
-  }
-
-  #ingEmojiList {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    justify-content: center;
-    font-size: 2.5rem; /* emoji size */
-    margin-bottom: 8px;
-}
-
-#ingEmojiList .hud-ingredient-wrapper {
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#ingEmojiList .hud-ingredient-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.ingredient-icon {
-    width: 32px;
-    height: 32px;
-    margin: 0 4px;
-    vertical-align: middle;
-  }
-
-  /* collected status */
-  .collected-status {
-    margin: 4px 0;
-    font-size: 1.3rem;
+#ingredientLabel {
     font-weight: 600;
-    letter-spacing: 8px;
-    text-align: center;
-  }
-  
-  .ingredient-canvas-wrap {
-    width: 100%;
-    flex-grow: 1;          /* takes all remaining space */
+    margin-bottom: 8px;
+    color: #8affc1;
+}
+
+.ingredient-display {
     display: flex;
     justify-content: center;
-    align-items: flex-end;
-    position: relative;
-    border-radius: 10px;
-    overflow: hidden;
-    margin-top: 12px;
-  }
-  
-  .ingredient-bg {
-    position: absolute;
-    inset: 0;
-    background-image: url('/static/images/games/cookwithtaekook/refrigerator.png');
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.ingredient-display img {
+    width: 2rem; /* match emoji size */
+    height: 2rem;
+    object-fit: contain;
+    border-radius: 5px; /* optional for nicer look */
+}
+
+.ingredient-emoji {
+    font-size: 2rem;
+}
+
+#ingredientInstructions {
+    text-align: center; /* center the whole instructions block */
+    margin-bottom: 15px;
+}
+
+/* H2 inside instructions */
+#ingredientInstructions h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #c88aff; /* purple */
+    margin-bottom: 10px;
+}
+
+/* Ordered list items inside instructions */
+#ingredientInstructions ol {
+    list-style-position: inside; /* nicer alignment */
+    padding-left: 0;
+    display: inline-block; /* shrink width to content for better centering */
+    text-align: left; /* keep numbers aligned left */
+}
+
+#ingredientInstructions li {
+    font-size: 18px;
+    font-weight: 700;
+    color: #8affc1; /* green */
+    margin-bottom: 6px;
+}
+
+.collection-section {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+    color: #fff;
+    font-weight: 700;
+}
+
+#ingredientList img {
+    width: 2rem;
+    height: 2rem;
+    object-fit: contain;
+    margin-right: 5px;
+}
+
+#neededIngredients, #collectedIngredients {
+    font-size: 1.5rem;
+    display: flex;
+    gap: 5px;
+}
+
+.canvas-holder {
+    background: url('/static/images/games/cookwithtaekook/refrigerator.png') no-repeat center center;
     background-size: cover;
     background-position: center;
     opacity: 0.1;
-    pointer-events: none;
-    z-index: 0;
-    border-radius: 8px;
-  }
-  
-  #ingredientScene {
-    position: fixed;
-    inset: 0;        /* top:0; right:0; bottom:0; left:0 */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    z-index: 1000;
-    background: url('/static/images/games/kitchen_bg.png') center/cover no-repeat;
-  }
-
-  #ingredientGameCanvas {
-    width: 100%;
-    height: 300px;
-    display: block;
-    background: transparent;
+    height: 200px; /* initial small size */
+    margin: 15px auto;
+    width: 85%;
+    border-radius: 10px;
     position: relative;
-  }
-  
-  #ingredientGameCanvas {
-    touch-action: none;      /* prevent pinch-zoom & pan on mobile */
-    user-select: none;       /* prevent text/image selection */
-    -webkit-user-drag: none; /* prevent drag in Safari/Chrome */
-    -moz-user-select: none;
-    -ms-user-select: none;
-  }
-
-  #ingredientHUD {
     display: flex;
-    justify-content: space-between;
-    width: 90%;
-    margin-top: 10px;
-    z-index: 10;
-  }
-
-  .ing-popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    width: 100%;   /* span game panel */
-    height: 100%;
-    display: flex;
-    align-items: center;
     justify-content: center;
-    pointer-events: auto;
-    background: rgba(0,0,0,0.5); /* semi-transparent overlay for game panel only */
-    border-radius: 10px;
-    transform: translate(-50%, -50%);
-    z-index: 99999;
-    padding: 20px;
-    border-radius: 10px;
-  }
-  
-  .ing-popup .popup-inner {
-    background: linear-gradient(90deg, #8affc1, #c88aff);
-    font-size: 1rem;
-    color: #111;
-    padding: 18px 24px;
-    border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 12px;
-    max-width: 90%;
-  }
-  
-  .ing-popup.hidden { display: none; }
+    transition: height 0.4s ease; /* smooth expansion */
+}
 
-    /* Only for HUD outside canvas */
-    #collectedStatus {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-        justify-content: center;
-    }
-    
-    .hud-ingredient-wrapper {
-        width: 32px;       /* or larger if needed */
-        height: 32px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 28px;   /* ensures emoji are visible */
-        line-height: 1;
-    }
-    
-    .hud-ingredient-wrapper img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-    }
-    
-    @media (max-width: 1024) {
-        #collectedStatus .hud-ingredient-wrapper {
-            width: 30px;
-            height: 30px;
-        }
-        #ingEmojiList .hud-ingredient-wrapper { width: 28px; height: 28px; }
-    }
-    
-    @media (max-width: 768) {
-        #collectedStatus .hud-ingredient-wrapper {
-            width: 25px;
-            height: 25px;
-        }
-        #ingEmojiList .hud-ingredient-wrapper { width: 24px; height: 24px; }
-    }
-    
-  .bubble-popup{position:fixed;top:20px;right:20px;padding:10px 18px;border-radius:18px;font-size:18px;backdrop-filter:blur(6px);animation:fadeUp 2s forwards;}
-  .bubble-popup.good{background:#5aeb5a40;color:#8fff9f;}
-  .bubble-popup.bad{background:#ff5d5d40;color:#ff8c94;}
-  .bubble-popup.angry{background:#ff000040;color:#ff4444;font-weight:bold;}
-  @keyframes fadeUp{0%{opacity:0;transform:translateY(20px);}30%{opacity:1;}100%{opacity:0;transform:translateY(-100px);}}
-  
-  .shake{animation:shakeAnim 0.4s;}
-  @keyframes shakeAnim{0%{transform:translateX(0)}25%{transform:translateX(-8px)}50%{transform:translateX(8px)}75%{transform:translateX(-8px)}100%{transform:translateX(0)}}
-  
-  .float-emoji{position:fixed;bottom:20px;font-size:32px;animation:floatUp 1.5s ease-out forwards;}
-  @keyframes floatUp{0%{opacity:0;transform:translateY(20px);}30%{opacity:1;}100%{opacity:0;transform:translateY(-100px);}}
-  
-  .heart-rain{position:fixed;top:-20px;font-size:24px;animation:rainDown 2s linear forwards;}
-  @keyframes rainDown{to{top:110vh;opacity:0;}}
-    
+#gameCanvas {
+    width: 100%;
+    height: 100%;
+}
+
+.fade-in { 
+    animation: fadeIn .6s ease; 
+}
+@keyframes fadeIn { 
+    from {opacity:0} to {opacity:1} 
+}
+
 /* ------------------ Tablet ------------------ */
 @media (max-width: 1024px) {
     /* Landing Scene */
@@ -887,83 +718,42 @@ body {
     }
 
     #startRideBtn, #headToKitchenBtn, #startCookingBtn, 
-    #showFullInstructionsBtn, #startCollectBtn, #cancelCollectBtn, #ingCompleteOk {
+    #showFullInstructionsBtn, #startCollectIngredientsBtn, #cancelCollecancelIngredientBtnctBtn, #ingCompleteOk {
         font-size: 1rem;
     }
   
-    .ingredient-panel {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 12px;
-        height: 100vh;              /* full viewport */
-        overflow: hidden;    
-    }
-  
-    .ingredient-hud {
-        width: 95%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 12px;
-        flex-shrink: 0;  
+    .dish-title {
+        font-size: 22px;
     }
 
-    .ingredient-group {
-        display: inline-block;
-        width: 45%;
-        text-align: center;
+    #ingredientLabel {
+        font-size: 14px;
     }
 
-    .ingredient-hud > .ingredient-group:nth-of-type(1) { float: left; }
-    .ingredient-hud > .ingredient-group:nth-of-type(2) { float: right; }
-
-    .ingredient-hud h2 {
-      font-size: 1.3rem;
-      width: 100%;
-      text-align: center;
-    }
-  
-    .ing-emoji-list {
-      font-size: 1.5rem !important;
-    }
-  
-    .ing-instructions {
-        font-family: 'Lobster', cursive;  /* inherit from desktop */
-        font-size: 1rem !important;
-        color: #c8b6ff;
-        text-align: center;               /* CENTER text on tablet too */
-        margin: 5px auto;                 /* center the block */
-        line-height: 1.2;
-        max-width: 400px;                 /* optional, same as desktop */
-        padding: 2px;
-        display: block;
-        width: auto;                      /* do NOT force full width */
+    .ingredient-display img {
+        width: 1.8rem;
+        height: 1.8rem;
     }
 
-    .ing-controls {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        gap: 18px;
-        margin-top: 8px;
-        clear: both;
+    .ingredient-emoji {
+        font-size: 1.8rem;
     }
 
-    .ingredient-canvas-wrap {
-        width: 100%;
-        height: 80vh !important;        /* expandable area WORKS now */
-        flex-grow: 1;    
-        margin-top: 10px;
-        position: relative;
-        border-radius: 10px;
-        overflow: hidden;
+    #ingredientInstructions h2 {
+        font-size: 16px;
     }
 
-    #ingredientGameCanvas {
-        width: 100%;
-        height: 100%;
-        display: block;
+    #ingredientInstructions li {
+        font-size: 14px;
+    }
+
+    .collection-section {
+        padding: 0 15px;
+    }
+
+    .canvas-holder { 
+        width: 90%; 
+        height: 220px; 
     }
 }
 
@@ -1088,57 +878,44 @@ body {
     }
 
     #startRideBtn, #headToKitchenBtn, #startCookingBtn, 
-    #showFullInstructionsBtn, #startCollectBtn, #cancelCollectBtn, #ingCompleteOk {
+    #showFullInstructionsBtn, #startCollectIngredientsBtn, #cancelIngredientBtn, #ingCompleteOk {
         font-size: 0.6rem;
     }
   
-    .ingredient-panel {
-        padding: 2px;
-        height: auto;           /* remove forced height */
-        max-height: 100vh;
-        overflow-y: auto;
+    .dish-title {
+        font-size: 18px;
     }
 
-    .ingredient-hud {
-        width: 100%;
-        max-width: 350px;
-        margin: 0 auto;
-        text-align: center;
-        padding: 2px 0;
+    #ingredientLabel {
+        font-size: 12px;
     }
 
-    .ingredient-hud h2 {
-        font-size: 0.9rem;
+    .ingredient-display img {
+        width: 1.5rem;
+        height: 1.5rem;
     }
 
-    .ingredient-group label {
-        font-size: 0.8rem;
-        text-align: center;
+    .ingredient-emoji {
+        font-size: 1.5rem;
     }
 
-    .ing-emoji-list {
-        font-size: 1rem !important;
+    #ingredientInstructions h2 {
+        font-size: 14px;
     }
 
-    .ing-instructions {
-        font-size: 0.8rem !important;
-        display: block;
+    #ingredientInstructions li {
+        font-size: 10px;
     }
 
-    .collected-status {
-        font-size: 0.6rem;
-    }
-    /* Canvas becomes ratio-locked to avoid overflow */
-    .ingredient-canvas-wrap {
-        height: 60vh;
+    .collection-section {
+        flex-direction: column;
+        gap: 6px;
+        padding: 0 10px;
     }
 
-    #ingredientGameCanvas {
-        height: 100%;
-    }
-
-    .ing-popup .popup-inner {
-        font-size: 0.6rem;
+    .canvas-holder { 
+        width: 95%; 
+        height: 180px; 
     }
 
 }

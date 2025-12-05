@@ -97,19 +97,14 @@
 <div id="recipePanel" class="hidden"></div>
 
 <!-- INGREDIENT COLLECTION SCENE -->   
-<div id="ingredientScene" class="ingredient-scene hidden" aria-hidden="true">
-    <div class="ingredient-backdrop"></div>
-  
-    <div class="ingredient-panel" role="dialog" aria-modal="true">
-      <div class="ingredient-hud">
-        <h2 id="ingDishName">Dish Name</h2>
+<div id="ingredientScene" class="hidden">
+    <div id="ingredientTopBlock">
+        <h2 id="dishTitle" class="dish-title"></h2>
+        <p id="ingredientLabel"></p>
+        <div id="ingredientList" class="ingredient-display"></div>
 
-        <div class="ingredient-group">
-            <label>Ingredients:</label>
-            <div id="ingEmojiList" class="ing-emoji-list" aria-hidden="true"></div>
-        </div>
-
-        <div id="ingInstructions" class="ing-instructions">
+        <!-- Instructions -->
+        <div id="ingredientInstructions" class="game-instructions">
             <h2>How the Game Works</h2>
             <ol>
                 <li>Move Tete left or right with your mouse or finger.</li>
@@ -119,31 +114,29 @@
             </ol>
         </div>
 
-        <div class="ingredient-group">
-            <label>Collected:</label>
-            <div id="collectedStatus" class="collected-status" aria-live="polite"></div>
+        <!-- Buttons -->
+        <div class="btn-row">
+            <button id="startCollectIngredientsBtn" class="btn green">Collect</button>
+            <button id="cancelIngredientBtn" class="btn red">Cancel</button>
+        </div>
+    </div>
+    
+    <!-- Game Canvas + HUD -->
+    <div id="gameReadyUI" class="hidden fade-in">
+        <h2 id="dishTitle2" class="dish-title"></h2>
+
+        <div class="collection-section">
+            <div><strong>Ingredients:</strong> <span id="neededIngredients"></span></div>
+            <div><strong>Collected:</strong> <span id="collectedIngredients"></span></div>
         </div>
 
-        <div class="ing-controls">
-          <button id="startCollectBtn" class="btn">Collect</button>
-          <button id="cancelCollectBtn" class="btn">Cancel</button>
+        <div id="gameCanvasContainer" class="canvas-holder">
+            <canvas id="gameCanvas" width="600" height="400"></canvas>
         </div>
-      </div>
-  
-      <div class="ingredient-canvas-wrap">
-        <div class="ingredient-bg"></div>
-        <canvas id="ingredientGameCanvas"></canvas>
-      </div>
+
+        <button id="cancelDuringGameBtn" class="btn red small">Cancel</button>
     </div>
-  
-    <!-- completion popup (hidden) -->
-    <div id="ingCompletePopup" class="ing-popup hidden">
-      <div class="popup-inner">
-        <h3>All ingredients collected! ✅</h3>
-        <button id="ingCompleteOk" class="btn">OK</button>
-      </div>
-    </div>
-  </div>
+</div>
   
  
 <script src="{{ url_for('static', filename='js/cook_with_taekook.js') }}"></script>
