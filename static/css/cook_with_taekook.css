@@ -357,8 +357,6 @@ body {
     font-size: 1rem;
     text-align: center;
     border-radius: 20px;
-    /* color: #8affc1; */
-    /* box-shadow: 0 0 10px #8affc1, 0 0 20px #c88aff; */
     z-index: 3;
     display: none; /* hide by default */
 }
@@ -385,7 +383,7 @@ body {
 .chat-bubble.right {
     background: linear-gradient(145deg, #620092, #7c2dc1);
     color: #d6b6f3;
-    right: 25%; 
+    right: 20%; 
     top: 35%;            /* same vertical as left bubble */
 }
 
@@ -414,7 +412,7 @@ body {
 
 /* All button */
 #startRideBtn, #headToKitchenBtn, #startCookingBtn, #showFullInstructionsBtn, 
-.action-btn, #startCollectIngredientsBtn, #cancelIngredientBtn, #ingCompleteOk {
+.action-btn, #startCollectIngredientsBtn, #cancelIngredientBtn, #cancelDuringGameBtn, #ingCompleteOk {
     padding: 10px 20px;
     font-size: 1.2rem;
     font-weight: bold;
@@ -433,7 +431,7 @@ body {
 }
 
 #startRideBtn:hover, #headToKitchenBtn:hover, #startCookingBtn:hover, #showFullInstructionsBtn:hover, 
-.action-btn:hover, #startCollectIngredientsBtn:hover, #cancelIngredientBtn:hover {
+.action-btn:hover, #startCollectIngredientsBtn:hover, #cancelIngredientBtn:hover, #cancelDuringGameBtn:hover {
     box-shadow: 0 0 25px #8affc1, 0 0 50px #c88aff;
 }
 
@@ -586,31 +584,49 @@ body {
 }
 
 .canvas-holder {
-    background: url('/static/images/games/cookwithtaekook/refrigerator.png') no-repeat center center;
-    background-size: cover;
-    background-position: center;
-    opacity: 0.1;
-    height: 200px; /* initial small size */
-    margin: 15px auto;
-    width: 85%;
-    border-radius: 10px;
     position: relative;
+    width: 85%;
+    height: 700px;
+    margin: 15px auto;
+    border-radius: 10px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    transition: height 0.4s ease; /* smooth expansion */
+    align-items: flex-end;
+}
+
+.canvas-background {
+    position: absolute;
+    inset: 0;
+    background: url('/static/images/games/cookwithtaekook/refrigerator.png') no-repeat center center;
+    background-size: cover;
+    filter: blur(3px) brightness(0.2); /* lighter blur so chef visible */
+    z-index: 1; /* behind canvas */
+}
+
+#gameCanvasContainer {
+    width: 85%;      /* or any % of parent */
+    max-width: 1000px;
+    height: 700px;   /* fixed desktop height */
+    margin: 15px auto;
+    position: relative;
 }
 
 #gameCanvas {
+    position: absolute;
     width: 100%;
     height: 100%;
+    z-index: 2;
 }
-
 .fade-in { 
     animation: fadeIn .6s ease; 
 }
 @keyframes fadeIn { 
     from {opacity:0} to {opacity:1} 
+}
+
+#gameReadyUI button {
+    position: relative;
+    z-index: 15;
 }
 
 /* ------------------ Tablet ------------------ */
@@ -718,7 +734,7 @@ body {
     }
 
     #startRideBtn, #headToKitchenBtn, #startCookingBtn, 
-    #showFullInstructionsBtn, #startCollectIngredientsBtn, #cancelCollecancelIngredientBtnctBtn, #ingCompleteOk {
+    #showFullInstructionsBtn, #startCollectIngredientsBtn, #ancelIngredientBtn, #cancelDuringGameBtn, #ingCompleteOk {
         font-size: 1rem;
     }
   
@@ -747,13 +763,20 @@ body {
         font-size: 14px;
     }
 
+    #neededIngredients, #collectedIngredients {
+        font-size: 1rem;
+        gap: 6px;
+    }
+
     .collection-section {
+        flex-direction: row;
+        font-size: 1rem;
         padding: 0 15px;
     }
 
     .canvas-holder { 
         width: 90%; 
-        height: 220px; 
+        height: 700px !important; 
     }
 }
 
@@ -878,7 +901,7 @@ body {
     }
 
     #startRideBtn, #headToKitchenBtn, #startCookingBtn, 
-    #showFullInstructionsBtn, #startCollectIngredientsBtn, #cancelIngredientBtn, #ingCompleteOk {
+    #showFullInstructionsBtn, #startCollectIngredientsBtn, #cancelIngredientBtn, #cancelDuringGameBtn, #ingCompleteOk {
         font-size: 0.6rem;
     }
   
@@ -907,15 +930,21 @@ body {
         font-size: 10px;
     }
 
+    #neededIngredients, #collectedIngredients {
+        font-size: 0.8rem;
+        gap: 12px;
+    }
+
     .collection-section {
-        flex-direction: column;
-        gap: 6px;
+        flex-direction: row;
+        font-size: 0.8rem;
+        gap: 12px;
         padding: 0 10px;
     }
 
     .canvas-holder { 
         width: 95%; 
-        height: 180px; 
+        height: 500px !important; 
     }
 
 }

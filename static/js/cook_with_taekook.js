@@ -44,6 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 'kooBubble', text: "Let's see what they want to order." }
     ];
 
+    const cancelReturnChat = [
+        { id: 'kooBubble', text: "😔 Aww... you don't want to try my recipe?" },
+        { id: 'taeBubble', text: "It's okay! We can cook again whenever you’re ready 💜" }
+    ];
+    
     /* -------------------------------------------
        INITIAL VISIBILITY
     -------------------------------------------*/
@@ -217,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
     }
-    
+
     /* -------------------------------------------
        ORDER BUTTONS
     -------------------------------------------*/
@@ -257,19 +262,201 @@ document.addEventListener('DOMContentLoaded', () => {
         window.currentRecipe = recipe; 
         return recipe;
     }    
+
+    /*===============================
+    CANVAS + GAME STATE
+    ===============================*/
+    const gameCanvas = document.getElementById("gameCanvas");
+    const canvasHolder = document.getElementById("gameCanvasContainer");
+    const ctx = gameCanvas.getContext("2d");
     
+    const gameState = {
+        chef: {},
+        items: [],
+        running: false,
+        rafId: null,
+        itemSpawner: null
+    };
+
+    /*===============================
+    LOAD CHEF IMAGE
+    ===============================*/
+    const chefImg = new Image();
+    chefImg.src = "/static/images/games/cookwithtaekook/tae_ingredients.png";
+    chefImg.onload = () => {
+        gameState.chef.img = chefImg;
+        // draw one frame to show chef immediately
+        if (gameState.running) updateGame();
+    };
+    
+    /*===============================
+    POSITION CHEF (REQUIRED)
+    ===============================*/
+    function positionChef() {
+        const pw = canvasHolder.clientWidth;
+        const ph = canvasHolder.clientHeight;
+        const size = window.innerWidth <= 600 ? 0.18 : window.innerWidth <= 1024 ? 0.15 : 0.12;
+        gameState.chef.w = Math.max(40, pw * size);
+        gameState.chef.h = Math.max(40, ph * size * 1.4);
+        gameState.chef.x = (pw - gameState.chef.w) / 2;
+        gameState.chef.y = ph - gameState.chef.h;
+    }
+    
+    // ===========================
+    // Obstacles)
+    // ===========================
+    function getRandomObstacle() {
+        if (!window.recipes || !window.currentOrder) return "💣";
+    
+        // flatten all ingredients
+        const allIngredients = [
+            ...window.recipes.beverages.flatMap(r => r.ingredients),
+            ...window.recipes.food.flatMap(r => r.ingredients),
+            ...(window.recipes.chefKooSpecial || []).flatMap(r => r.ingredients)
+        ];
+    
+        // exclude current recipe ingredients
+        const forbidden = window.currentOrder.ingredients.map(i => i.name);
+        const possible = allIngredients.filter(i => !forbidden.includes(i.name));
+        if (!possible.length) return "💣";
+    
+        const choice = possible[Math.floor(Math.random() * possible.length)];
+        return choice.emoji || "💣";
+    }
+    
+    // ===========================
+    // SPAWN ITEMS (ingredients + obstacles)
+    // ===========================
+    function spawnItem() {
+        const ingredients = window.currentOrder?.ingredients?.map(i => i.emoji).filter(Boolean) || ["🍋","🥛"];
+        const isObstacle = Math.random() < 0.3; // 30% chance
+        const emojiOrImage = isObstacle ? getRandomObstacle() : window.currentOrder.ingredients[Math.floor(Math.random() * window.currentOrder.ingredients.length)]
+        const pool = [...ingredients, ...obstacles];
+        const emoji = pool[Math.floor(Math.random() * pool.length)];
+
+        gameState.items.push({
+            emoji,
+            x: Math.random() * (gameCanvas.width - 40) + 20,
+            y: -40,
+            size: 30 + Math.random() * 20,
+            speed: 2 + Math.random() * 2
+        });
+    }
+    
+    // ===========================
+    // UPDATE GAME LOOP
+    // ===========================
+    function updateGame() {
+        if (!gameState.running) return;
+
+        ctx.clearRect(0,0,gameCanvas.width,gameCanvas.height);
+
+        // draw falling items
+        for (let i = gameState.items.length-1; i>=0; i--) {
+            const it = gameState.items[i];
+            ctx.font = `${it.size}px serif`;
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillStyle = "#FFFFFF";
+            it.y += it.speed;
+
+            // during spawn
+            const ingredientImage = item.image ? new Image() : null;
+            if (ingredientImage) {
+                ingredientImage.src = `/static/images/games/cookwithtaekook/${item.image}`;
+                item.img = ingredientImage;
+            }
+
+            // in updateGame()
+            if (it.img && it.img.complete) {
+                ctx.drawImage(it.img, it.x - it.size/2, it.y - it.size/2, it.size, it.size);
+            } else {
+                ctx.fillText(it.emoji, it.x, it.y);
+            }
+
+            // remove offscreen
+            if (it.y > gameCanvas.height + 50) gameState.items.splice(i,1);
+
+            // collision with chef
+            if (it.y + it.size >= gameState.chef.y &&
+                it.x >= gameState.chef.x - it.size/2 &&
+                it.x <= gameState.chef.x + gameState.chef.w + it.size/2) {
+                gameState.items.splice(i,1);
+                if (window.currentOrder && window.currentOrder.ingredients) {
+                    const collectedElem = document.getElementById("collectedIngredients");
+                    const idx = window.currentOrder.ingredients.findIndex(i => i.emoji === it.emoji && !i.collected);
+                    if (idx !== -1) {
+                        // mark ingredient as collected
+                        window.currentOrder.ingredients[idx].collected = true;
+                        // update UI
+                        const spans = collectedElem.textContent.split(" ");
+                        spans[idx] = it.emoji;
+                        collectedElem.textContent = spans.join(" ");
+                    }
+                }
+            }
+        }
+
+        // draw chef
+        if (gameState.chef.img?.complete) {
+            ctx.drawImage(gameState.chef.img, gameState.chef.x, gameState.chef.y, gameState.chef.w, gameState.chef.h);
+        } else {
+            ctx.font = `${gameState.chef.h*0.6}px serif`;
+            ctx.fillText("👨‍🍳", gameState.chef.x + gameState.chef.w/2, gameState.chef.y + gameState.chef.h/2);
+        }
+
+        gameState.rafId = requestAnimationFrame(updateGame);
+    }
+
+    /*===============================
+    START GAME CANVAS
+    ===============================*/
+    function startGameCanvas() {
+        const rect = canvasHolder.getBoundingClientRect();
+
+        // fallback to defaults if layout not ready
+        gameCanvas.width  = rect.width  || 800;
+        gameCanvas.height = rect.height || 500;
+    
+        console.log("Canvas size:", gameCanvas.width, gameCanvas.height);
+    
+        positionChef();
+        gameState.running = true;    
+    
+        // spawn items repeatedly
+        if (gameState.itemSpawner) clearInterval(gameState.itemSpawner);
+        gameState.itemSpawner = setInterval(spawnItem, 700);
+    
+        // mouse / touch to move chef
+        canvasHolder.addEventListener("mousemove", gameState._mouseMove = (e)=>{
+            const nx = e.clientX - rect.left - gameState.chef.w/2;
+            gameState.chef.x = Math.max(0, Math.min(nx, gameCanvas.width - gameState.chef.w));
+        });
+        canvasHolder.addEventListener("touchmove", gameState._touchMove = (e)=>{
+            if (!e.touches[0]) return;
+            const nx = e.touches[0].clientX - rect.left - gameState.chef.w/2;
+            gameState.chef.x = Math.max(0, Math.min(nx, gameCanvas.width - gameState.chef.w));
+        });
+    
+        updateGame();
+    }
+    
+    // -----------------------
+    // RENDER INGREDIENT SCENE
+    // -----------------------
     function renderIngredientScene(recipe) {
-        kitchenScene.classList.add('hidden');       // hide kitchen
-        ingredientScene.classList.remove('hidden'); // show ingredient scene
-    
+        kitchenScene.classList.add('hidden');
+        ingredientScene.classList.remove('hidden');
+
         const dishTitle = document.getElementById("dishTitle");
         const ingredientLabel = document.getElementById("ingredientLabel");
         const ingredientList = document.getElementById("ingredientList");
-    
+
         dishTitle.textContent = recipe.name;
-        ingredientLabel.textContent = "Ingredients:"; // show label above ingredient list
+        ingredientLabel.textContent = "Ingredients:"; 
         ingredientList.innerHTML = "";
-    
+
+        // Populate ingredient images
         recipe.ingredients.forEach(item => {
             const img = document.createElement("img");
             img.src = `/static/images/games/cookwithtaekook/${item.image}`;
@@ -277,7 +464,7 @@ document.addEventListener('DOMContentLoaded', () => {
             img.title = item.name;
             img.classList.add("ingredient-img");
             img.onerror = () => {
-                img.remove(); // remove broken image
+                img.remove();
                 const span = document.createElement("span");
                 span.textContent = item.emoji;
                 span.classList.add("ingredient-emoji");
@@ -285,78 +472,58 @@ document.addEventListener('DOMContentLoaded', () => {
             };
             ingredientList.appendChild(img);
         });
-    
+
         document.getElementById("startCollectIngredientsBtn").onclick = () => {
+            ingredientScene.classList.remove("hidden");
+            
+            setTimeout(() => {
+                startGameCanvas();
+            }, 50);
+
+            console.log(gameCanvas.width, gameCanvas.height)
             const ingredientInstructions = document.getElementById("ingredientInstructions");
-            const ingredientTopBlock = document.getElementById("ingredientTopBlock"); // wrap top part in a div
+            const ingredientTopBlock = document.getElementById("ingredientTopBlock");
             const gameReadyUI = document.getElementById("gameReadyUI");
             const dishTitle2 = document.getElementById("dishTitle2");
             const neededIngredients = document.getElementById("neededIngredients");
             const collectedIngredients = document.getElementById("collectedIngredients");
-            const canvasHolder = document.getElementById("gameCanvasContainer");
-            const gameCanvas = document.getElementById("gameCanvas");
-        
-            // Hide old top block
+
             if (ingredientTopBlock) ingredientTopBlock.style.display = "none";
-        
-            // Hide instructions
             ingredientInstructions.style.display = "none";
-        
-            // Show game HUD
+
             gameReadyUI.classList.remove("hidden");
-        
-            // Show dish name
             dishTitle2.textContent = window.currentOrder.name;
-        
-            // Populate ingredients (emojis)
+
             neededIngredients.innerHTML = "";
             collectedIngredients.innerHTML = "";
             window.currentOrder.ingredients.forEach(item => {
                 neededIngredients.innerHTML += item.emoji + " ";
-                collectedIngredients.innerHTML += "⬜ "; // empty placeholders
+                collectedIngredients.innerHTML += "⬜ ";
             });
-        
-            // Expand canvas
-            canvasHolder.style.height = "400px";
-        
-            // Show canvas
+
             gameCanvas.style.display = "block";
-        
-            console.log("Collect pressed: HUD visible, canvas ready");
         };
-                
-    
-        // Cancel button
-        document.getElementById("cancelIngredientBtn").onclick = returnToKitchenSad;
-    }   
-    
-    
-    function showGameUI(recipe) {
-        document.getElementById("gameReadyUI").classList.remove("hidden");
-        document.getElementById("dishTitle2").textContent = recipe.name;
-    
-        // Populate required + empty collected slots
-        const needed = document.getElementById("neededIngredients");
-        const collected = document.getElementById("collectedIngredients");
-    
-        needed.innerHTML = "";
-        collected.innerHTML = "";
-    
-        recipe.ingredients.forEach(item => {
-            needed.innerHTML += item.emoji + " ";
-            collected.innerHTML += "⬜ "; // temporary placeholder
-        });
-    
-        // Cancel during gameplay (Step 5)
-        document.getElementById("cancelDuringGameBtn").onclick = returnToKitchenSad;
     }
-    
-    function returnToKitchenSad() {
+
+    function stopAndReturnToKitchen() {
         ingredientScene.classList.add("hidden");
         kitchenScene.classList.remove("hidden");
     
-        // Kookie reacts (Step 5 detail)
-        kooText.innerHTML = "😔 Sorry you don’t want to try my recipe... but maybe next time you will! 💜";
+        gameState.running = false;
+        clearInterval(gameState.itemSpawner);
+        cancelAnimationFrame(gameState.rafId);
+        gameState.items = [];
+    
+        // remove listeners
+        if (canvasHolder && gameState._mouseMove) canvasHolder.removeEventListener("mousemove", gameState._mouseMove);
+        if (canvasHolder && gameState._touchMove) canvasHolder.removeEventListener("touchmove", gameState._touchMove);
+    
+        showDynamicRestaurantChat(cancelReturnChat);
     }
+    
+    // Apply to both cancel buttons
+    document.getElementById("cancelDuringGameBtn").onclick = stopAndReturnToKitchen;
+    document.getElementById("cancelIngredientBtn").onclick = stopAndReturnToKitchen;
+
     
 });

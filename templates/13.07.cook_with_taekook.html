@@ -124,16 +124,17 @@
     <!-- Game Canvas + HUD -->
     <div id="gameReadyUI" class="hidden fade-in">
         <h2 id="dishTitle2" class="dish-title"></h2>
-
+    
         <div class="collection-section">
             <div><strong>Ingredients:</strong> <span id="neededIngredients"></span></div>
             <div><strong>Collected:</strong> <span id="collectedIngredients"></span></div>
         </div>
-
+    
         <div id="gameCanvasContainer" class="canvas-holder">
-            <canvas id="gameCanvas" width="600" height="400"></canvas>
+            <div class="canvas-background"></div>
+            <canvas id="gameCanvas"></canvas>
         </div>
-
+    
         <button id="cancelDuringGameBtn" class="btn red small">Cancel</button>
     </div>
 </div>
