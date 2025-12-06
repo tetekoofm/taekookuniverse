@@ -49,12 +49,36 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 'taeBubble', text: "It's okay! We can cook again whenever you’re ready 💜" }
     ];
     
-    // Dynamic randomized dialogue lines
-    const badCatchLines    = ["👀 You okay Hyung?", "🤨 That was not even close", "😤 Patience hyung", "Kookie judging you"];
-    const goodCatchLines   = ["💜 Nice catch!!", "✨ Chef Taehyung supremacy", "😎 Smooth smooth", "👌 Hyung cooking king"];
-    const almostDoneLines  = ["🔥 You're close!", "💫 Just a few more!!", "📍 Finish line soon"];
-    const finalCatchLines  = ["🎉 Last one incoming!", "💜 Hyung almost done!", "⚡ Final ingredient hype!"];
+    // 🟣 When Tete hits obstacles (Tete voice — frustrated/confused/funny)
+    const badCatchLines = [
+        "😵 Aish!! Why is it always me?",
+        "🥲 I swear that obstacle moved.",
+        "😤 Yah, I'm trying okay??",
+        "🤕 My pride is bruised more than the obstacle."
+    ];
 
+    // 🟢 When Tete catches ingredients fine (Koo voice — praising)
+    const goodCatchLines = [
+        "💜 Nice catch Hyung!!",
+        "✨ Chef Tete supremacy!!!",
+        "😎 Hyung smooth like butter",
+        "👌 King Tete mode activated!"
+    ];
+
+    // 🔥 Close to finishing (Koo motivating)
+    const almostDoneLines = [
+        "🔥 You're close Hyung!",
+        "💫 Just a little more — fighting!!",
+        "📍 You can do it Hyung!"
+    ];
+
+    // 🎉 Final stretch (Koo cheerful & encouraging)
+    const finalCatchLines = [
+        "🎉 Last one Hyung!! Go go go!",
+        "💜 Hyung will finish strong!",
+        "⚡ We’re almost there — don't stop!",
+        "🏁 Final ingredient — LET’S GO!"
+    ];
     /* -------------------------------------------
        INITIAL VISIBILITY
     -------------------------------------------*/
@@ -87,15 +111,24 @@ document.addEventListener('DOMContentLoaded', () => {
         landingScene.classList.add('hidden');
         rideScene.classList.remove('hidden');
         startRideBtn.disabled = true;
+        const bikeAudio = new Audio("/static/audio/harleydavidson.mp3");
+        bikeAudio.loop = true;         // optional — makes engine continuous
+        bikeAudio.volume = 0.8;        // adjust loudness
+        bikeAudio.play();
 
         let pos = -300;
 
         const interval = setInterval(() => {
             pos += 7;
             motorbike.style.right = pos + 'px';
-
+    
+            // When bike reaches end => stop audio + move scene
             if (pos > window.innerWidth) {
                 clearInterval(interval);
+    
+                bikeAudio.pause();
+                bikeAudio.currentTime = 0; // reset for next time
+    
                 rideScene.classList.add('hidden');
                 restaurantScene.classList.remove('hidden');
             }
@@ -498,15 +531,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     const total = window.currentOrder.ingredients.length;
     
                     if (collectedCount === total-1) {
-                        console.log("FINAL CATCH:", ing.emoji);
                         showKooMessage(randomLine(finalCatchLines));  // last one hype
                     }
                     else if (collectedCount > total * 0.6) {
-                        console.log("ALMOST DONE ITEM:", it.emoji);
                         showKooMessage(randomLine(almostDoneLines)); // 60%+
                     }
                     else {
-                        console.log("POSITIVE GENERAL ITEM:", it.emoji);
                         showKooMessage(randomLine(goodCatchLines));  // general positive
                     }
     
@@ -690,23 +720,18 @@ document.addEventListener('DOMContentLoaded', () => {
     function randomLine(arr) { return arr[Math.floor(Math.random()*arr.length)]; }
 
     // FADES IN & OUT — OPTIONAL CUSTOMIZABLE
-    function showBubble(type, message) {
-        const bubble = type === "good" ? document.getElementById("taeBubble") 
-                                       : document.getElementById("kooBubble");
-    
-        bubble.querySelector("p").innerText = message;
+    function showBubble(bubble, msg) {
+        bubble.querySelector("p").innerText = msg;
         bubble.classList.add("show");
     
-        setTimeout(()=> bubble.classList.remove("show"), 1800);
+        setTimeout(() => bubble.classList.remove("show"), 1500);
     }
-
+    
     function showKooMessage(msg){ 
-        console.log("BUBBLE: GOOD →", msg);
-        showBubble(document.getElementById("kooBubble"), msg); 
+        showBubble(document.getElementById("kooCookingBubble"), msg); 
     }
     function showTaeMessage(msg, vibrate=false){ 
-        console.log("BUBBLE: BAD →", msg);
-        showBubble(document.getElementById("taeBubble"), msg, vibrate); 
+        showBubble(document.getElementById("taeCookingBubble"), msg, vibrate); 
     }
 
 
