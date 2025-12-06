@@ -129,13 +129,27 @@
             <div><strong>Ingredients:</strong> <span id="neededIngredients"></span></div>
             <div><strong>Collected:</strong> <span id="collectedIngredients"></span></div>
         </div>
-    
+        
+        <div id="bubbleLayer">
+            <div class="chat-bubble left" id="taeBubble"><p></p></div>
+            <div class="chat-bubble right" id="kooBubble"><p></p></div>
+        </div>
+
+        
         <div id="gameCanvasContainer" class="canvas-holder">
             <div class="canvas-background"></div>
             <canvas id="gameCanvas"></canvas>
         </div>
     
         <button id="cancelDuringGameBtn" class="btn red small">Cancel</button>
+
+        <div id="ingredientCollectedPopup" class="hidden popup">
+            <div class="popup-content">
+                <h2>🎉 All ingredients collected!</h2>
+                <button id="ingCompleteOk">OK</button>
+            </div>
+        </div>
+
     </div>
 </div>
   

@@ -524,14 +524,19 @@ body {
 }
 
 .ingredient-display img {
-    width: 2rem; /* match emoji size */
-    height: 2rem;
-    object-fit: contain;
-    border-radius: 5px; /* optional for nicer look */
+    width: 2.5rem;
+    height: 2.5rem;
 }
 
+
 .ingredient-emoji {
-    font-size: 2rem;
+    display: inline-block;    /* block-level inline so can set width/height */
+    width: 2.5rem;            /* same for all */
+    height: 2.5rem;
+    line-height: 2.5rem;      /* vertically center emoji in span */
+    font-size: 2.5rem;
+    vertical-align: middle;   /* aligns images and text centrally */
+    object-fit: contain;      /* ensures images fit box */
 }
 
 #ingredientInstructions {
@@ -570,17 +575,22 @@ body {
     font-weight: 700;
 }
 
-#ingredientList img {
-    width: 2rem;
-    height: 2rem;
-    object-fit: contain;
-    margin-right: 5px;
+/* Make emoji text match image size */
+#neededIngredients img,
+#collectedIngredients img {
+    width: 2.5rem;
+    height: 2.5rem;
 }
 
-#neededIngredients, #collectedIngredients {
-    font-size: 1.5rem;
-    display: flex;
-    gap: 5px;
+#neededIngredients span,
+#collectedIngredients span {
+    display: inline-block;      /* treat emoji like images */
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    font-size: 2.5rem !important;
+    line-height: 2.5rem;        /* match the height */
+    text-align: center;
+    vertical-align: middle;     /* align with images properly */
 }
 
 .canvas-holder {
@@ -592,6 +602,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: flex-end;
+    z-index: 1;
 }
 
 .canvas-background {
@@ -627,6 +638,74 @@ body {
 #gameReadyUI button {
     position: relative;
     z-index: 15;
+}
+
+#ingredientCollectedPopup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.85);
+    padding: 25px 35px;
+    border-radius: 12px;
+    color: white;
+    text-align: center;
+    font-size: 1.3rem;
+    z-index: 999999; /* the important part */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border: 2px solid #66ffcc;
+}
+
+#ingredientCollectedPopup.hidden {
+    display: none;
+}
+
+#ingredientCollectedPopup button {
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+#bubbleLayer {
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:9999; /* 🔥 Higher than canvas & ingredients */
+}
+
+.chat-bubble {
+    display:none;
+    position:absolute;
+    max-width:300px;
+    padding:10px 15px;
+    font-size:1.1rem;
+    border-radius:18px;
+    opacity:0;
+    transition:opacity .3s ease;
+}
+
+/* Tae bubble (left) */
+#taeBubble {
+    left:10%;
+    top:20%;
+    background:#024b2f;
+    color:#9effcf;
+    z-index:99999;
+}
+
+/* Koo bubble (right) */
+#kooBubble {
+    right:10%;
+    top:20%;
+    background:#620092;
+    color:#eacfff;
+    z-index:99999;
 }
 
 /* ------------------ Tablet ------------------ */
@@ -707,8 +786,8 @@ body {
     }
 
     .chat-bubble {
-        max-width: 160px;
-        font-size: 0.9rem;
+        max-width: 300px;
+        font-size: 1.5rem;
         padding: 8px 12px;
     }
 
@@ -724,7 +803,7 @@ body {
 
     .instruction-panel {
         width: 95%;
-        font-size: 1.1rem;
+        font-size: 1.5rem;
         padding: 10px 15px;
     }
 
@@ -734,49 +813,63 @@ body {
     }
 
     #startRideBtn, #headToKitchenBtn, #startCookingBtn, 
-    #showFullInstructionsBtn, #startCollectIngredientsBtn, #ancelIngredientBtn, #cancelDuringGameBtn, #ingCompleteOk {
-        font-size: 1rem;
+    #showFullInstructionsBtn, #startCollectIngredientsBtn, #cancelIngredientBtn, #cancelDuringGameBtn, #ingCompleteOk {
+        font-size: 1.2rem;
+    }
+
+    #ingredientTopBlock {
+        gap: 4px;
     }
   
     .dish-title {
-        font-size: 22px;
+        font-size: 2.5rem;
     }
 
     #ingredientLabel {
-        font-size: 14px;
+        font-size: 2rem;
     }
 
     .ingredient-display img {
-        width: 1.8rem;
-        height: 1.8rem;
+        width: 2.5rem;
+        height: 2.5rem;
     }
 
     .ingredient-emoji {
-        font-size: 1.8rem;
+        font-size: 2.5rem;
+    }
+
+    #gameReadyUI {
+        gap: 4px;
     }
 
     #ingredientInstructions h2 {
-        font-size: 16px;
+        font-size: 2rem;
     }
 
     #ingredientInstructions li {
-        font-size: 14px;
+        font-size: 1.5rem;
     }
 
-    #neededIngredients, #collectedIngredients {
-        font-size: 1rem;
-        gap: 6px;
+    #neededIngredients img,
+    #collectedIngredients img {
+        width: 2.5rem;
+        height: 2.5rem;
     }
 
     .collection-section {
         flex-direction: row;
-        font-size: 1rem;
+        font-size: 1.7rem;
         padding: 0 15px;
     }
 
     .canvas-holder { 
         width: 90%; 
-        height: 700px !important; 
+        height: 900px !important; 
+    }
+
+    #ingredientCollectedPopup {
+        padding: 20px 25px;
+        font-size: 1.1rem;
     }
 }
 
@@ -902,49 +995,61 @@ body {
 
     #startRideBtn, #headToKitchenBtn, #startCookingBtn, 
     #showFullInstructionsBtn, #startCollectIngredientsBtn, #cancelIngredientBtn, #cancelDuringGameBtn, #ingCompleteOk {
-        font-size: 0.6rem;
+        font-size: 0.6rem !important;
     }
   
-    .dish-title {
-        font-size: 18px;
-    }
+    .dish-title { font-size: 1.2rem; }
+    #ingredientLabel { font-size: 0.9rem; }
 
-    #ingredientLabel {
-        font-size: 12px;
-    }
-
-    .ingredient-display img {
-        width: 1.5rem;
-        height: 1.5rem;
+    /* Images slightly bigger than emojis */
+    .ingredient-display img,
+    #neededIngredients img,
+    #collectedIngredients img {
+        width: 1.2rem !important;
+        height: 1.2rem !important;
+        object-fit: contain;
     }
 
     .ingredient-emoji {
-        font-size: 1.5rem;
+        font-size: 1rem !important;   /* slightly smaller than images */
+        display: inline-block;   /* ensures vertical-align works */
+        vertical-align: middle;  /* aligns with image middle */
+        line-height: 1 !important;          /* prevents extra spacing */
+        transform: translateY(0.1em); /* nudge down to align visually */
     }
 
-    #ingredientInstructions h2 {
-        font-size: 14px;
+    #neededIngredients span,
+    #collectedIngredients span {
+        font-size: 1rem !important;   /* slightly smaller than images */
+        display: inline-block;   /* ensures vertical-align works */
+        vertical-align: middle;  /* aligns with image middle */
+        line-height: 2.5 !important;          /* prevents extra spacing */
+        transform: translateY(0.1em); /* nudge down to align visually */
     }
 
-    #ingredientInstructions li {
-        font-size: 10px;
-    }
+    /* Instructions */
+    #ingredientInstructions h2 { font-size: 1rem; }
+    #ingredientInstructions li { font-size: 0.8rem; }
 
-    #neededIngredients, #collectedIngredients {
-        font-size: 0.8rem;
-        gap: 12px;
-    }
-
+    /* Collection section layout */
     .collection-section {
-        flex-direction: row;
-        font-size: 0.8rem;
-        gap: 12px;
-        padding: 0 10px;
+        flex-direction: column;
+        gap: 6px;
+        font-size: 0.6rem;
+        padding: 0 8px;
     }
 
+    /* Game canvas */
     .canvas-holder { 
         width: 95%; 
-        height: 500px !important; 
+        height: 350px !important; 
+    }
+
+    /* Popup */
+    #ingredientCollectedPopup {
+        padding: 15px 20px;
+        font-size: 0.6rem;       /* mobile-friendly small text */
+        text-align: center;
     }
 
 }
