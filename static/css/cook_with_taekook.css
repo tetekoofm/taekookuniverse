@@ -892,29 +892,51 @@ body {
         font-size: 1.1rem;
     }
 
+    #cookingBubbleLayer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        pointer-events: none;
+        z-index: 9999;
+    }
+    
+    /* shared bubble style */
     .cooking-bubble {
+        position: absolute;   /* crucial */
         max-width: 45%;
         padding: 10px 14px;
         font-size: 0.9rem;
+        border-radius: 18px;
+        font-family: 'Orbitron', sans-serif;
+        color: white;
+        box-shadow: 0 0 12px rgba(0,0,0,0.6);
+        opacity: 0;
+        transform: translateY(-25px) scale(0.9);
+        transition: opacity .35s ease, transform .35s ease;
     }
-
-    /* LEFT = Tae (green palette) */
+    
+    /* LEFT = Tae */
     #taeCookingBubble {
-        background: linear-gradient(145deg, #024b2f, #2a9f5d) !important;
-        border: 2px solid #8affc1 !important;
-        align-self: flex-start;
-        left: 12%;          /* was 2% — moves bubble toward center */
-        top: 12%;
+        background: linear-gradient(145deg, #024b2f, #2a9f5d);
+        border: 2px solid #8affc1;
+        left: 5%;  /* distance from left edge */
+        top: 8%;
     }
-
-    /* RIGHT = Koo (purple palette) */
+    
+    /* RIGHT = Koo */
     #kooCookingBubble {
-        background: linear-gradient(145deg, #620092, #7c2dc1) !important;
-        border: 2px solid #d6b6f3 !important;
-        align-self: flex-start;
-        right: 15%;         /* was 2% — moves bubble toward center */
-        top: 12%;
+        background: linear-gradient(145deg, #620092, #7c2dc1);
+        border: 2px solid #d6b6f3;
+        right: 15%; /* distance from right edge */
+        top: 8%;
     }
+    
+    /* show state */
+    .cooking-bubble.show {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }    
 
 }
 
@@ -1098,9 +1120,9 @@ body {
     }
 
     .cooking-bubble {
-        max-width: 55%;
+        max-width: 30%;
         padding: 8px 12px;
-        font-size: 0.8rem;
+        font-size: 0.6rem;
     }
 
     /* Optional: adjust bubble layer spacing */
@@ -1109,4 +1131,14 @@ body {
         padding: 0 3%;
     }
 
+    #taeCookingBubble {
+        top: 15%;
+    }
+    
+    /* RIGHT = Koo */
+    #kooCookingBubble {
+        top: 15%;
+    }
+    
+    
 }
