@@ -61,7 +61,7 @@
 <!-- Kitchen Scene -->
 <div id="kitchenScene" class="scene hidden">
     <!-- Background -->
-    <div class="kitchen-bg" style="background-image: url('{{ url_for('static', filename='images/games/cookwithtaekook/taekook_cooking.png') }}');"></div>
+    <div class="kitchen-bg" style="background-image: url('{{ url_for('static', filename='images/games/cookwithtaekook/taekook_kitchen.png') }}');"></div>
     <!-- Top Instruction Panel -->
     <div class="instruction-panel">
         <p id="instructionText">Follow Tae & Koo's instructions to learn how the game works!</p>
@@ -153,7 +153,27 @@
     </div>
 </div>
   
- 
+<!-- ================== COOKING SCENE ================== -->
+<div id="cookingScene" class="hidden cooking-scene">
+
+    <h2 id="cookDishTitle" class="cook-title"></h2>
+    <p id="cookInstructions" class="cook-instructions"></p>
+
+    <!-- Ingredients to drag -->
+    <div id="cookingIngredients" class="cook-ingredient-list"></div>
+
+    <!-- Cooking area -->
+    <div id="cookingArea">
+        <div id="cookingPot" class="cooking-pot" ondragover="event.preventDefault()" ondrop="dropIngredient(event)">
+            <div id="ingredientSlot"></div>
+        </div>
+    </div>
+
+    <button id="cookBtn" class="cook-finalize">Finish Cooking 🍽️</button>
+
+</div>
+
+
 <script src="{{ url_for('static', filename='js/cook_with_taekook.js') }}"></script>
 </body>
 </html>

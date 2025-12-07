@@ -30,6 +30,14 @@
             <a href="{{ url_for('guess_song_emoji') }}" class="play-btn">Play Now</a>
         </div>
 
+
+        <div class="game-card">
+            <img src="{{ url_for('static', filename='images/games/guess_song_lyrics.png') }}" alt="Guess the Song by Lyrics">
+            <h2>Guess the Song by Lyrics</h2>
+            <p>Read the lyrics, recall the melody and guess the song!</p>
+            <button class="play-btn" disabled>Coming Soon</button>
+        </div>
+        
         <div class="game-card">
             <img src="{{ url_for('static', filename='images/games/guess_song_scrambled.png') }}" alt="Guess the Scrambled Song">
             <h2>Guess the Scrambled Song</h2>
@@ -38,14 +46,7 @@
         </div>
 
         <div class="game-card">
-            <img src="{{ url_for('static', filename='images/games/guess_song_lyrics.png') }}" alt="Guess the Song by Lyrics">
-            <h2>Guess the Song by Lyrics</h2>
-            <p>Read the lyrics, recall the melody and guess the song!</p>
-            <button class="play-btn" disabled>Coming Soon</button>
-        </div>
-
-        <div class="game-card">
-            <img src="{{ url_for('static', filename='images/games/guess_song_randomwords.png') }}" alt="Guess the Song by Random Words">
+            <img src="{{ url_for('static', filename='images/games/guess_song_random.png') }}" alt="Guess the Song by Random Words">
             <h2>Guess the Song by Random Words</h2>
             <p>Piece the puzzle together from scattered words!</p>
             <button class="play-btn" disabled>Coming Soon</button>

@@ -82,12 +82,12 @@ document.addEventListener('DOMContentLoaded', () => {
     /* -------------------------------------------
        INITIAL VISIBILITY
     -------------------------------------------*/
-    landingScene.classList.remove('hidden');
+    landingScene.classList.add('hidden');
     rideScene.classList.add('hidden');
     restaurantScene.classList.add('hidden');
-    kitchenScene.classList.add('hidden');
+    kitchenScene.classList.remove('hidden');
     ingredientScene.classList.add('hidden');
-
+    cookingScene.classList.add('hidden');
     /* -------------------------------------------
        STARS IN SKY
     -------------------------------------------*/
@@ -403,7 +403,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const btn = document.getElementById("ingCompleteOk");
         btn.onclick = () => {
             popup.classList.add("hidden");
-            stopAndReturnToKitchen(); // optional: go back to kitchen
+            ingredientScene.classList.add("hidden");
+            startCookingScene(window.currentOrder);
         };
     }
     // ===========================
@@ -696,7 +697,6 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
     
-
     function stopAndReturnToKitchen() {
         ingredientScene.classList.add("hidden");
         kitchenScene.classList.remove("hidden");
@@ -726,7 +726,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
         setTimeout(() => bubble.classList.remove("show"), 1500);
     }
-    
+
     function showKooMessage(msg){ 
         showBubble(document.getElementById("kooCookingBubble"), msg); 
     }
@@ -734,5 +734,72 @@ document.addEventListener('DOMContentLoaded', () => {
         showBubble(document.getElementById("taeCookingBubble"), msg, vibrate); 
     }
 
+
+    // -----------------------
+    // COOKING SCENE
+    // -----------------------
+    function startCookingScene(recipe){
+        if(!recipe){ console.warn("No recipe found"); return; }
+    
+        let scene = document.getElementById("cookingScene");
+        let title = document.getElementById("cookDishTitle");
+        let instructions = document.getElementById("cookInstructions");
+        let ingredientList = document.getElementById("cookingIngredients");
+        let ingredientSlot = document.getElementById("ingredientSlot");
+    
+        scene.classList.remove("hidden");
+    
+        title.textContent = recipe.name;
+        instructions.textContent = recipe.instructions;
+    
+        // Background (appliance image OR default fallback)
+        let bg = recipe.appliance?.image ?? "taekook_cooking.png";
+        scene.style.backgroundImage = `url("/static/images/games/cookwithtaekook/${bg}")`;
+    
+        ingredientList.innerHTML = "";
+        ingredientSlot.innerHTML = "";
+    
+        window.currentRecipe = recipe;
+        window.added = [];
+    
+        // Create ingredient icons
+        recipe.ingredients.forEach((ing,i)=>{
+            let img = document.createElement("img");
+            img.src = `/static/images/games/cookwithtaekook/${ing.image}`;
+            img.alt = ing.name;
+            img.draggable = true;
+            img.dataset.ing = i;
+    
+            img.addEventListener("dragstart",(e)=>{
+                e.dataTransfer.setData("text/plain",ing.name);
+            });
+    
+            ingredientList.appendChild(img);
+        });
+    
+        document.getElementById("cookBtn").onclick = finishCooking;
+    }
+    
+    function dropIngredient(e){
+        let name = e.dataTransfer.getData("text/plain");
+        if(!window.currentRecipe) return;
+    
+        if(!window.added.includes(name)){
+            window.added.push(name);
+    
+            let img = currentRecipe.ingredients.find(i=>i.name==name).image;
+            let newItem = document.createElement("img");
+            newItem.src=`/static/images/games/cookwithtaekook/${img}`;
+            document.getElementById("ingredientSlot").appendChild(newItem);
+        }
+    }
+    
+    function finishCooking(){
+        if(window.added.length < currentRecipe.ingredients.length){
+            alert("Missing ingredients!");
+            return;
+        }
+        alert(`🎉 ${currentRecipe.name} is ready!`);
+    }
 
 });

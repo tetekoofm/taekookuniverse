@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Santa's Delivery Dash</title>
+<link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/x-icon">
+
 <style>
   body {
     margin: 0;
@@ -15,6 +17,7 @@
   #gameArea, #scoreBoard, #timer, #stopBtn {
     display: none;
   }
+  #gameArea { max-width: 1200px !important; height: 80vh !important; }
 
   /* Center container */
   #instructions {
@@ -250,7 +253,7 @@
   #scoreBoard { font-size: 20px; }
   #timer { font-size: 16px; }
   #stopBtn { font-size: 12px; padding: 8px 14px; }
-  #gameArea { max-width: 95%; height: 80vh; border-width: 1px; margin: 10px auto; }
+  #gameArea { max-width: 95%; height: 70vh; border-width: 1px; margin: 10px auto; }
   #score-popup .popup-content { padding: 15px; max-width: 300px; max-height: 70vh; overflow-y: auto; }
   #score-popup input { font-size: 0.8rem; padding: 8px 10px; }
   #score-popup button { font-size: 0.8rem; padding: 6px 14px; }

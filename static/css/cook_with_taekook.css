@@ -710,7 +710,7 @@ body {
     background: linear-gradient(145deg, #620092, #7c2dc1) !important;
     border: 2px solid #d6b6f3 !important;
     align-self: flex-start;
-    right: 8%;         /* was 2% — moves bubble toward center */
+    right: 15% !important;         /* was 2% — moves bubble toward center */
     top: 12%;
 }
 
@@ -726,6 +726,80 @@ body {
 /* extra fun */
 .cooking-bubble.vibrate {
     animation: vibrate 0.28s ease-in-out;
+}
+
+/*----------- Cooking Scene -------------*/
+
+#cookingScene{
+    width:100%;
+    height:100vh;
+    background-size:cover;
+    background-position:center;
+    padding:20px;
+    color:white;
+}
+
+.cook-title{
+    text-align:center;
+    font-size:2rem;
+    margin-bottom:10px;
+}
+
+.cook-instructions{
+    text-align:center;
+    font-size:1.2rem;
+    opacity:.9;
+    margin-bottom:20px;
+}
+
+/* Ingredient list display */
+.cook-ingredient-list{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-bottom:25px;
+}
+
+.cook-ingredient-list img{
+    width:70px;
+    height:70px;
+    border-radius:10px;
+    cursor:grab;
+}
+
+/* Pot drop zone */
+#cookingArea{
+    display:flex;
+    justify-content:center;
+    margin-top:10px;
+}
+
+.cooking-pot{
+    width:240px;
+    height:240px;
+    background:rgba(0,0,0,0.4);
+    border-radius:50%;
+    border:3px solid white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+}
+
+#ingredientSlot img{
+    width:55px;
+    margin:3px;
+}
+
+.cook-finalize{
+    display:block;
+    margin:30px auto 0;
+    background:#35ff70;
+    padding:10px 25px;
+    font-size:1.2rem;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
 }
 
 /* ------------------ Tablet ------------------ */
