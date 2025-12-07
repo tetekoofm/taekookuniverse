@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
     landingScene.classList.remove('hidden');
     rideScene.classList.add('hidden');
     restaurantScene.classList.add('hidden');
-    kitchenScene.classList.add('hidden');
+    kitchenScene.classList.appendChild('hidden');
     ingredientScene.classList.add('hidden');
     cookingScene.classList.add('hidden');
     /* -------------------------------------------
