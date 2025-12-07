@@ -676,10 +676,6 @@ body {
     width: 100%;
     pointer-events: none;
     z-index: 9999;
-    display: flex;
-    justify-content: space-around;
-    padding: 0 5%;
-    gap: 15vw;
 }
 
 /* shared bubble style */
@@ -694,28 +690,24 @@ body {
     transform: translateY(-25px) scale(0.9);
     opacity: 0;
     transition: opacity .35s ease, transform .35s ease;
+    position: absolute; /* ensure absolute positioning */
 }
 
-/* LEFT = Tae (green palette) */
+/* LEFT = Tae */
 #taeCookingBubble {
-    background: linear-gradient(145deg, #024b2f, #2a9f5d) !important;
-    border: 2px solid #8affc1 !important;
-    align-self: flex-start;
-    left: 8%;          /* was 2% — moves bubble toward center */
+    background: linear-gradient(145deg, #024b2f, #2a9f5d);
+    border: 2px solid #8affc1;
+    left: 5%;
     top: 12%;
 }
 
-/* RIGHT = Koo (purple palette) */
+/* RIGHT = Koo */
 #kooCookingBubble {
-    background: linear-gradient(145deg, #620092, #7c2dc1) !important;
-    border: 2px solid #d6b6f3 !important;
-    align-self: flex-start;
-    right: 15% !important;         /* was 2% — moves bubble toward center */
+    background: linear-gradient(145deg, #620092, #7c2dc1);
+    border: 2px solid #d6b6f3;
+    right: 5%;
     top: 12%;
 }
-
-.cooking-bubble.left  { margin-right: auto; }
-.cooking-bubble.right { margin-left: auto; }
 
 /* visible state */
 .cooking-bubble.show {
@@ -727,6 +719,18 @@ body {
 .cooking-bubble.vibrate {
     animation: vibrate 0.28s ease-in-out;
 }
+
+/* Responsive adjustments */
+/* @media (max-width: 1024px) {
+    #taeCookingBubble { left: 3%; max-width: 40%; }
+    #kooCookingBubble { right: 3%; max-width: 40%; }
+}
+
+@media (max-width: 768px) {
+    #taeCookingBubble { left: 2%; max-width: 45%; font-size: 0.9rem; }
+    #kooCookingBubble { right: 2%; max-width: 45%; font-size: 0.9rem; }
+} */
+
 
 /*----------- Cooking Scene -------------*/
 

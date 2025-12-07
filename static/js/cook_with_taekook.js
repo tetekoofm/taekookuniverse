@@ -54,7 +54,15 @@ document.addEventListener('DOMContentLoaded', () => {
         "😵 Aish!! Why is it always me?",
         "🥲 I swear that obstacle moved.",
         "😤 Yah, I'm trying okay??",
-        "🤕 My pride is bruised more than the obstacle."
+        "🤕 My pride is bruised more than the obstacle.",
+        "🥺 I did NOT deserve that… universe why??",
+        "😤 How dare that obstacle touch ME?? Rude.",
+        "😢 I’m a delicate flower — why do they attack??",
+        "🥲 Tete tried his best… world said ‘no’.",
+        "😵 I'm filing an emotional damage report.",
+        "🤕 I think the obstacle bruised my soul.",
+        "😭 This is personal now… I’m seeking revenge.",
+        "😤 Next time it won’t survive. Mark my words."
     ];
 
     // 🟢 When Tete catches ingredients fine (Koo voice — praising)
@@ -82,10 +90,10 @@ document.addEventListener('DOMContentLoaded', () => {
     /* -------------------------------------------
        INITIAL VISIBILITY
     -------------------------------------------*/
-    landingScene.classList.add('hidden');
+    landingScene.classList.remove('hidden');
     rideScene.classList.add('hidden');
     restaurantScene.classList.add('hidden');
-    kitchenScene.classList.remove('hidden');
+    kitchenScene.classList.add('hidden');
     ingredientScene.classList.add('hidden');
     cookingScene.classList.add('hidden');
     /* -------------------------------------------
