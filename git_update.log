@@ -1105,3 +1105,43 @@ Products updated from Excel!
 Fan Letters updated from Excel!
 🔁 Running git_update.sh at Fri Jan 16 08:52:38 CST 2026
 🌐 Current ngrok URL: https://022b3c6b4b9e.ngrok-free.app
+✅ Update complete at Fri Jan 16 08:52:46 CST 2026
+▶️ Running create_table.py
+Loaded Spotify creds: {'SPOTIFY_CLIENT_ID': 'c30f2b0a378d47dea592ba6ee5dcd6ca', 'SPOTIFY_CLIENT_SECRET': 'd857a06c3f514b20a9e9c229e6b2b78d', 'SPOTIFY_REDIRECT_URI': 'http://localhost:8888/callback', 'SPOTIFY_SCOPE': 'ugc-image-upload streaming user-read-playback-state user-modify-playback-state user-read-currently-playing user-read-private'}
+Tables dropped successfully in taekook.db!
+Tables created successfully in taekook.db!
+▶️ Running insert_data.py
+Loaded Spotify creds: {'SPOTIFY_CLIENT_ID': 'c30f2b0a378d47dea592ba6ee5dcd6ca', 'SPOTIFY_CLIENT_SECRET': 'd857a06c3f514b20a9e9c229e6b2b78d', 'SPOTIFY_REDIRECT_URI': 'http://localhost:8888/callback', 'SPOTIFY_SCOPE': 'ugc-image-upload streaming user-read-playback-state user-modify-playback-state user-read-currently-playing user-read-private'}
+TKURadio table updated from Excel!
+Background Music updated from Excel!
+Upcoming Events updated from Excel!
+Highlights Events updated from Excel!
+Recap videos updated from Excel!
+Memories updated from Excel!
+InTheNews updated from Excel!
+Discography updated from Excel!
+Music Videos updated from Excel!
+Vote data updated from Excel!
+Radio stations data updated from Excel!
+Traceback (most recent call last):
+  File "/Users/haripriyakrishnan/Downloads/Python/taekookuniverse/insert_data.py", line 531, in <module>
+    insert_data_from_excel()
+  File "/Users/haripriyakrishnan/Downloads/Python/taekookuniverse/insert_data.py", line 258, in insert_data_from_excel
+    spotify_df = pd.read_excel(excel_file, sheet_name="spotifystats", dtype={'image': str})
+  File "/opt/anaconda3/lib/python3.9/site-packages/pandas/util/_decorators.py", line 211, in wrapper
+    return func(*args, **kwargs)
+  File "/opt/anaconda3/lib/python3.9/site-packages/pandas/util/_decorators.py", line 331, in wrapper
+    return func(*args, **kwargs)
+  File "/opt/anaconda3/lib/python3.9/site-packages/pandas/io/excel/_base.py", line 482, in read_excel
+    io = ExcelFile(io, storage_options=storage_options, engine=engine)
+  File "/opt/anaconda3/lib/python3.9/site-packages/pandas/io/excel/_base.py", line 1652, in __init__
+    ext = inspect_excel_format(
+  File "/opt/anaconda3/lib/python3.9/site-packages/pandas/io/excel/_base.py", line 1543, in inspect_excel_format
+    with zipfile.ZipFile(stream) as zf:
+  File "/opt/anaconda3/lib/python3.9/zipfile.py", line 1257, in __init__
+    self._RealGetContents()
+  File "/opt/anaconda3/lib/python3.9/zipfile.py", line 1324, in _RealGetContents
+    raise BadZipFile("File is not a zip file")
+zipfile.BadZipFile: File is not a zip file
+🔁 Running git_update.sh at Fri Jan 16 16:55:45 CST 2026
+🌐 Current ngrok URL: https://022b3c6b4b9e.ngrok-free.app
