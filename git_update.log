@@ -1205,3 +1205,42 @@ Products updated from Excel!
 Fan Letters updated from Excel!
 🔁 Running git_update.sh at Sat Jan 17 08:54:11 CST 2026
 🌐 Current ngrok URL: https://022b3c6b4b9e.ngrok-free.app
+✅ Update complete at Sat Jan 17 08:54:19 CST 2026
+▶️ Running create_table.py
+Loaded Spotify creds: {'SPOTIFY_CLIENT_ID': 'c30f2b0a378d47dea592ba6ee5dcd6ca', 'SPOTIFY_CLIENT_SECRET': 'd857a06c3f514b20a9e9c229e6b2b78d', 'SPOTIFY_REDIRECT_URI': 'http://localhost:8888/callback', 'SPOTIFY_SCOPE': 'ugc-image-upload streaming user-read-playback-state user-modify-playback-state user-read-currently-playing user-read-private'}
+Tables dropped successfully in taekook.db!
+Tables created successfully in taekook.db!
+▶️ Running insert_data.py
+Loaded Spotify creds: {'SPOTIFY_CLIENT_ID': 'c30f2b0a378d47dea592ba6ee5dcd6ca', 'SPOTIFY_CLIENT_SECRET': 'd857a06c3f514b20a9e9c229e6b2b78d', 'SPOTIFY_REDIRECT_URI': 'http://localhost:8888/callback', 'SPOTIFY_SCOPE': 'ugc-image-upload streaming user-read-playback-state user-modify-playback-state user-read-currently-playing user-read-private'}
+Traceback (most recent call last):
+  File "/Users/haripriyakrishnan/Downloads/Python/taekookuniverse/insert_data.py", line 531, in <module>
+    insert_data_from_excel()
+  File "/Users/haripriyakrishnan/Downloads/Python/taekookuniverse/insert_data.py", line 11, in insert_data_from_excel
+    radio_df = pd.read_excel(excel_file, sheet_name="TKURadio")  # Sheet with radio data
+  File "/opt/anaconda3/lib/python3.9/site-packages/pandas/util/_decorators.py", line 211, in wrapper
+    return func(*args, **kwargs)
+  File "/opt/anaconda3/lib/python3.9/site-packages/pandas/util/_decorators.py", line 331, in wrapper
+    return func(*args, **kwargs)
+  File "/opt/anaconda3/lib/python3.9/site-packages/pandas/io/excel/_base.py", line 482, in read_excel
+    io = ExcelFile(io, storage_options=storage_options, engine=engine)
+  File "/opt/anaconda3/lib/python3.9/site-packages/pandas/io/excel/_base.py", line 1695, in __init__
+    self._reader = self._engines[engine](self._io, storage_options=storage_options)
+  File "/opt/anaconda3/lib/python3.9/site-packages/pandas/io/excel/_openpyxl.py", line 557, in __init__
+    super().__init__(filepath_or_buffer, storage_options=storage_options)
+  File "/opt/anaconda3/lib/python3.9/site-packages/pandas/io/excel/_base.py", line 545, in __init__
+    self.book = self.load_workbook(self.handles.handle)
+  File "/opt/anaconda3/lib/python3.9/site-packages/pandas/io/excel/_openpyxl.py", line 568, in load_workbook
+    return load_workbook(
+  File "/opt/anaconda3/lib/python3.9/site-packages/openpyxl/reader/excel.py", line 315, in load_workbook
+    reader = ExcelReader(filename, read_only, keep_vba,
+  File "/opt/anaconda3/lib/python3.9/site-packages/openpyxl/reader/excel.py", line 124, in __init__
+    self.archive = _validate_archive(fn)
+  File "/opt/anaconda3/lib/python3.9/site-packages/openpyxl/reader/excel.py", line 96, in _validate_archive
+    archive = ZipFile(filename, 'r')
+  File "/opt/anaconda3/lib/python3.9/zipfile.py", line 1257, in __init__
+    self._RealGetContents()
+  File "/opt/anaconda3/lib/python3.9/zipfile.py", line 1324, in _RealGetContents
+    raise BadZipFile("File is not a zip file")
+zipfile.BadZipFile: File is not a zip file
+🔁 Running git_update.sh at Sat Jan 17 16:52:36 CST 2026
+🌐 Current ngrok URL: https://022b3c6b4b9e.ngrok-free.app
