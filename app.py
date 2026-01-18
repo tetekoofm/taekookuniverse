@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, Response, redirect, session, url_for, jsonify, current_app, send_from_directory, send_file
 import os, secrets, random, calendar, subprocess, base64, requests, json
-from models import db, TKURadio, BackgroundMusic, Upcoming, Highlights, Recap, Memory, InTheNews, Product, Discography, MusicVideo, Vote, Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Banner, Project, Event, Promotion, FanLetter
+from models import db, TKURadio, BackgroundMusic, Upcoming, Highlights, Recap, Memory, InTheNews, Discography, MusicVideo, Vote, Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Banner, Project, Event, Promotion, FanLetter
 from collections import defaultdict
 from datetime import datetime
 from flask_wtf import CSRFProtect
@@ -20,98 +20,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Initialize the SQLAlchemy with the app
 db.init_app(app)
-
-
-# ----------------- Spotify Credentials -----------------
-def get_spotify_credentials():
-    required = [
-        "SPOTIFY_CLIENT_ID",
-        "SPOTIFY_CLIENT_SECRET",
-        "SPOTIFY_SCOPE"
-    ]
-    if all(os.getenv(var) for var in required):
-        creds = {var: os.getenv(var) for var in required}
-        # Redirect URI is dynamic based on environment
-        if os.environ.get("FLASK_ENV") == "development":
-            creds["SPOTIFY_REDIRECT_URI"] = "http://localhost:8888/callback"
-        else:
-            creds["SPOTIFY_REDIRECT_URI"] = os.getenv("SPOTIFY_REDIRECT_URI")
-        return creds
-    # Fallback to local taekook_spotify.json
-    try:
-        with open("taekook_spotify.json") as f:
-            creds = json.load(f)
-        if os.environ.get("FLASK_ENV") == "development":
-            creds["SPOTIFY_REDIRECT_URI"] = "http://localhost:8888/callback"
-        return creds
-    except FileNotFoundError:
-        raise RuntimeError("No Spotify credentials found. Set env vars or provide taekook_spotify.json.")
-
-spotify_creds = get_spotify_credentials()
-print("Loaded Spotify creds:", spotify_creds)
-SPOTIFY_CLIENT_ID = spotify_creds["SPOTIFY_CLIENT_ID"]
-SPOTIFY_CLIENT_SECRET = spotify_creds["SPOTIFY_CLIENT_SECRET"]
-SPOTIFY_REDIRECT_URI = spotify_creds["SPOTIFY_REDIRECT_URI"]
-SPOTIFY_SCOPE = spotify_creds["SPOTIFY_SCOPE"]
-
-def get_playlists_with_images(playlists, access_token):
-    for pl in playlists:
-        if not pl.image and access_token:
-            url = f"https://api.spotify.com/v1/playlists/{pl.spotify_playlist_id}"
-            headers = {"Authorization": f"Bearer {access_token}"}
-            response = requests.get(url, headers=headers)
-            if response.ok:
-                data = response.json()
-                if data.get("images"):
-                    pl.image = data['images'][0]['url']
-    return playlists
-
-@app.route("/login")
-def login():
-    auth_url = (
-        "https://accounts.spotify.com/authorize"
-        f"?client_id={SPOTIFY_CLIENT_ID}"
-        "&response_type=code"
-        f"&redirect_uri={SPOTIFY_REDIRECT_URI}"
-        f"&scope={SPOTIFY_SCOPE}"
-    )
-    return redirect(auth_url)
-
-@app.route("/callback")
-def callback():
-    code = request.args.get("code")
-    if not code:
-        return "No code returned from Spotify"
-
-    # Exchange code for access token
-    token_url = "https://accounts.spotify.com/api/token"
-    response = requests.post(token_url, data={
-        "grant_type": "authorization_code",
-        "code": code,
-        "redirect_uri": SPOTIFY_REDIRECT_URI,
-        "client_id": SPOTIFY_CLIENT_ID,
-        "client_secret": SPOTIFY_CLIENT_SECRET,
-    })
-    token_data = response.json()
-    access_token = token_data.get("access_token")
-    if not access_token:
-        return f"Error retrieving token: {token_data}"
-
-    session["access_token"] = access_token
-    return redirect(url_for("tkuradio"))
-
-@app.route('/tkuradio')
-def tkuradio():
-    access_token = session.get("access_token")
-    playlists = TKURadio.query.filter_by(is_active=True).all()
-    playlists = get_playlists_with_images(playlists, access_token)
-    banners = Banner.query.filter_by(subpage='12.tkuradio').all()
-    return render_template(
-        "12.tkuradio.html",
-        playlists=playlists,
-        banners=banners,
-        access_token=access_token or ""  # ensure JS sees "" if not logged in
-    )
 
 @app.before_request
 def force_https():
