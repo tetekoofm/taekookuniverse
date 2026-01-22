@@ -1612,3 +1612,31 @@ Products updated from Excel!
 Fan Letters updated from Excel!
 🔁 Running git_update.sh at Thu Jan 22 00:52:58 CST 2026
 🌐 Current ngrok URL: https://022b3c6b4b9e.ngrok-free.app
+✅ Update complete at Thu Jan 22 00:53:06 CST 2026
+▶️ Running create_table.py
+Tables dropped successfully in taekook.db!
+Tables created successfully in taekook.db!
+▶️ Running insert_data.py
+TKURadio table updated from Excel!
+Background Music updated from Excel!
+Upcoming Events updated from Excel!
+Highlights Events updated from Excel!
+Recap videos updated from Excel!
+Memories updated from Excel!
+InTheNews updated from Excel!
+Discography updated from Excel!
+Music Videos updated from Excel!
+Vote data updated from Excel!
+Radio stations data updated from Excel!
+Spotify stats data updated from Excel!
+Youtube stats data updated from Excel!
+Shazam stats data updated from Excel!
+Fanbases data updated from Excel!
+Projects data updated from Excel!
+Event updated from Excel!
+Promotion data updated from Excel!
+Banner data inserted successfully!
+Products updated from Excel!
+Fan Letters updated from Excel!
+🔁 Running git_update.sh at Thu Jan 22 08:54:35 CST 2026
+🌐 Current ngrok URL: https://022b3c6b4b9e.ngrok-free.app
