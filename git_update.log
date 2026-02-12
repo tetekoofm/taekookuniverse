@@ -3496,3 +3496,31 @@ sqlalchemy.exc.StatementError: (raised as a result of Query-invoked autoflush; c
 [parameters: [{'orig_song_name': nan, 'total_streams': '237,159', 'popular': nan, 'image': 'default_image.webp', 'artist': nan, 'song_name': 'Layover', 'date': '2026-02-12 08:45:45'}]]
 🔁 Running git_update.sh at Thu Feb 12 08:52:02 CST 2026
 🌐 Current ngrok URL: https://5f7b-75-129-234-155.ngrok-free.app
+✅ Update complete at Thu Feb 12 08:52:06 CST 2026
+▶️ Running create_table.py
+Tables dropped successfully in taekook.db!
+Tables created successfully in taekook.db!
+▶️ Running insert_data.py
+TKURadio table updated from Excel!
+Background Music updated from Excel!
+Upcoming Events updated from Excel!
+Highlights Events updated from Excel!
+Recap videos updated from Excel!
+Memories updated from Excel!
+InTheNews updated from Excel!
+Discography updated from Excel!
+Music Videos updated from Excel!
+Vote data updated from Excel!
+Radio stations data updated from Excel!
+Spotify stats data updated from Excel!
+Youtube stats data updated from Excel!
+Shazam stats data updated from Excel!
+Fanbases data updated from Excel!
+Projects data updated from Excel!
+Event updated from Excel!
+Promotion data updated from Excel!
+Banner data inserted successfully!
+Products updated from Excel!
+Fan Letters updated from Excel!
+🔁 Running git_update.sh at Thu Feb 12 16:52:02 CST 2026
+🌐 Current ngrok URL: https://5f7b-75-129-234-155.ngrok-free.app
