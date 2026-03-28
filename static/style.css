@@ -2114,19 +2114,31 @@ align-items: center;
         font-size: 0.75rem;
         margin-top: 3px;
     }
+    
+    .modal {
+        align-items: flex-start;  
+        padding-top: 40px !important;
+        padding-bottom: 20px !important;  
+        overflow-y: auto;
+    }
 
     .modal-content {
         width: 94%;
+        padding: 16px 14px; 
+        max-height: 90vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
         padding: 16px 14px;
-        border-radius: 10px;
     }
 
     #modalTitle {
         font-size: 1rem;
+        margin-top: 2px;
+        margin-bottom: 2px;
     }
 
     #modalImage {
-        width: 100%;
+        width: 90%;
         max-height: 30vh;
     }
 
@@ -2136,13 +2148,18 @@ align-items: center;
     }
 
     #modalLinks {
-        flex-direction: column;
+        display: flex;
+        flex-wrap: wrap;
         gap: 8px;
+        justify-content: center;
     }
 
     .modal-btn {
-        width: 100%;
+        display: inline-block;
+        width: auto;              /* IMPORTANT FIX */
+        padding: 6px 12px;        /* smaller */
         font-size: 0.85rem;
+        border-radius: 6px;
     }
 
     .close {
