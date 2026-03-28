@@ -537,7 +537,7 @@ opacity: 1;
 @media screen and (max-width: 768px) {
     #audioControl {
         font-size: 0.8rem;
-        top: 40px;  
+        top: 60px !important;  
         background-color: transparent; 
     }
 
@@ -1980,18 +1980,20 @@ align-items: center;
 /* HEADER: NO FLEX SPACE BETWEEN (REMOVES ALL ISSUES) */
 .modal-header {
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 40px 1fr auto;
     align-items: center;
     width: 100%;
-    margin-bottom: 12px;
+    margin-bottom: 5px;
 }
 
 /* TITLE */
 #modalTitle {
+    grid-column: 2;
     font-size: 1.35rem;
     margin: 0;
     text-align: center;
-    color: #a855f7;
+    color: #00ff9d;  /* #a855f7; */
+    margin-top: 20px;
 }
 
 /* CLOSE BUTTON — FULLY ANCHORED */
@@ -2055,6 +2057,18 @@ align-items: center;
         padding: 16px;
     }
 
+    .project-card-header {
+        padding: 8px;
+    }
+
+    .project-card-header .title {
+        font-size: 1.2rem;
+    }
+
+    .project-card-header .date {
+        font-size: 0.8rem;
+    }
+
     .modal-content {
         width: 85%;
         max-width: 700px;
@@ -2087,6 +2101,20 @@ align-items: center;
         padding: 12px;
     }
 
+    .project-card-header {
+        padding: 4px;
+    }
+
+    .project-card-header .title {
+        font-size: 1rem !important;
+        line-height: 1.2;
+    }
+
+    .project-card-header .date {
+        font-size: 0.75rem;
+        margin-top: 3px;
+    }
+
     .modal-content {
         width: 94%;
         padding: 16px 14px;
@@ -2103,7 +2131,7 @@ align-items: center;
     }
 
     #modalDescription {
-        font-size: 0.85rem;
+        font-size: 0.7rem;
         line-height: 1.45;
     }
 
