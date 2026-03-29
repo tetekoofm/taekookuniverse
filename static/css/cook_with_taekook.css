@@ -806,6 +806,48 @@ body {
     cursor:pointer;
 }
 
+#ingredientSlot {
+    min-height: 120px;
+    border: 2px dashed #aaa;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.added-ing {
+    width: 40px;
+    margin: 5px;
+}
+
+.shake {
+    animation: shake 0.4s;
+}
+
+@keyframes shake {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(3deg); }
+    50% { transform: rotate(-3deg); }
+    75% { transform: rotate(2deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.flying-ing {
+    position: fixed;
+    width: 50px;
+    pointer-events: none;
+    transition: all 0.4s ease;
+    z-index: 9999;
+}
+
+.active-cook {
+    animation: cookPulse 0.4s;
+}
+
+@keyframes cookPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+
 /* ------------------ Tablet ------------------ */
 @media (max-width: 1024px) {
     /* Landing Scene */

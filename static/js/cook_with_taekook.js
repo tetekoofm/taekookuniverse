@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
     landingScene.classList.remove('hidden');
     rideScene.classList.add('hidden');
     restaurantScene.classList.add('hidden');
-    kitchenScene.classList.appendChild('hidden');
+    kitchenScene.classList.add('hidden');
     ingredientScene.classList.add('hidden');
     cookingScene.classList.add('hidden');
     /* -------------------------------------------
@@ -378,27 +378,36 @@ document.addEventListener('DOMContentLoaded', () => {
     // Obstacles
     // ===========================
     function getRandomObstacle() {
-        if (!window.recipes) return { emoji: "💣" }; // fallback obstacle
+        if (!window.recipes) return { emoji: "💣" };
     
-        // Flatten all ingredients excluding current recipe
-        const otherIngredients = [
-            ...window.recipes.beverages,
-            ...(window.recipes.food || []),
-            ...(window.recipes.chefKooSpecial || [])
-        ].filter(r => r !== window.currentOrder); // exclude current recipe
+        const allRecipes = [
+            ...(window.recipes.beverages || []),
+            ...(window.recipes.foods || []),      // ✅ FIXED (foods not food)
+            ...(window.recipes.desserts || [])
+        ];
     
-        // Flatten their ingredients
         const pool = [];
-        otherIngredients.forEach(recipe => {
-            if (recipe.ingredients) pool.push(...recipe.ingredients);
+    
+        allRecipes.forEach(recipe => {
+            if (!recipe.ingredients) return;
+    
+            recipe.ingredients.forEach(ing => {
+                // exclude current recipe ingredients
+                const isCurrent = window.currentOrder.ingredients.some(
+                    i => i.name === ing.name
+                );
+    
+                if (!isCurrent) {
+                    pool.push(ing);
+                }
+            });
         });
     
-        if (pool.length === 0) return { emoji: "💣" }; // fallback
+        if (pool.length === 0) return { emoji: "💣" };
     
-        // pick random
         return pool[Math.floor(Math.random() * pool.length)];
     }
-        
+
     // ===========================
     // Game completed - Popup
     // ===========================
@@ -423,7 +432,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const spawnItem = () => {
         if (!window.currentOrder || !window.currentOrder.ingredients) return;
     
-        const isObstacle = Math.random() < 0.5; // 30% chance for obstacle
+        const collectedCount = window.currentOrder.ingredients.filter(i=>i.collected).length;
+        const total = window.currentOrder.ingredients.length;
+
+        // more obstacles as player progresses
+        let obstacleChance = 0.4;
+
+        if (collectedCount > total * 0.5) obstacleChance = 0.6;
+        if (collectedCount > total * 0.8) obstacleChance = 0.75;
+
+        const isObstacle = Math.random() < obstacleChance;
+
         let chosen;
     
         if (isObstacle) {
@@ -743,71 +762,196 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // -----------------------
-    // COOKING SCENE
-    // -----------------------
-    function startCookingScene(recipe){
-        if(!recipe){ console.warn("No recipe found"); return; }
-    
-        let scene = document.getElementById("cookingScene");
-        let title = document.getElementById("cookDishTitle");
-        let instructions = document.getElementById("cookInstructions");
-        let ingredientList = document.getElementById("cookingIngredients");
-        let ingredientSlot = document.getElementById("ingredientSlot");
-    
-        scene.classList.remove("hidden");
-    
-        title.textContent = recipe.name;
-        instructions.textContent = recipe.instructions;
-    
-        // Background (appliance image OR default fallback)
-        let bg = recipe.appliance?.image ?? "taekook_cooking.png";
-        scene.style.backgroundImage = `url("/static/images/games/cookwithtaekook/${bg}")`;
-    
-        ingredientList.innerHTML = "";
-        ingredientSlot.innerHTML = "";
-    
-        window.currentRecipe = recipe;
-        window.added = [];
-    
-        // Create ingredient icons
-        recipe.ingredients.forEach((ing,i)=>{
-            let img = document.createElement("img");
-            img.src = `/static/images/games/cookwithtaekook/${ing.image}`;
-            img.alt = ing.name;
-            img.draggable = true;
-            img.dataset.ing = i;
-    
-            img.addEventListener("dragstart",(e)=>{
-                e.dataTransfer.setData("text/plain",ing.name);
-            });
-    
-            ingredientList.appendChild(img);
-        });
-    
-        document.getElementById("cookBtn").onclick = finishCooking;
+// -----------------------
+// COOKING SCENE (UPGRADED)
+// -----------------------
+function startCookingScene(recipe){
+    if(!recipe){ console.warn("No recipe found"); return; }
+
+    const scene = document.getElementById("cookingScene");
+    const title = document.getElementById("cookDishTitle");
+    const instructions = document.getElementById("cookInstructions");
+    const ingredientList = document.getElementById("cookingIngredients");
+    const ingredientSlot = document.getElementById("ingredientSlot");
+    const actionBtn = document.getElementById("cookBtn");
+
+    scene.classList.remove("hidden");
+
+    title.textContent = recipe.name;
+    instructions.textContent = "Step 1: Add all ingredients";
+
+    let bg = recipe.appliance?.image ?? "taekook_cooking.png";
+    scene.style.backgroundImage = `url("/static/images/games/cookwithtaekook/${bg}")`;
+
+    ingredientList.innerHTML = "";
+    ingredientSlot.innerHTML = "";
+
+    window.currentRecipe = recipe;
+    window.added = [];
+    window.cookingStep = 0;
+
+    // Create draggable ingredients
+    recipe.ingredients.forEach((ing)=>{
+        const img = document.createElement("img");
+        img.src = `/static/images/games/cookwithtaekook/${ing.image}`;
+        img.alt = ing.name;
+        img.addEventListener("click", () => addIngredient(ing));
+
+        ingredientList.appendChild(img);
+    });
+
+    // Drop zone
+    ingredientSlot.ondragover = e => e.preventDefault();
+    ingredientSlot.ondrop = dropIngredient;
+
+    actionBtn.textContent = "Start Cooking";
+    actionBtn.onclick = nextCookingStep;
+}
+
+function addIngredient(ing){
+    if(!window.currentRecipe) return;
+
+    if(window.added.includes(ing.name)){
+        showTaeMessage("😤 Already added!", true);
+        return;
     }
-    
-    function dropIngredient(e){
-        let name = e.dataTransfer.getData("text/plain");
-        if(!window.currentRecipe) return;
-    
-        if(!window.added.includes(name)){
-            window.added.push(name);
-    
-            let img = currentRecipe.ingredients.find(i=>i.name==name).image;
-            let newItem = document.createElement("img");
-            newItem.src=`/static/images/games/cookwithtaekook/${img}`;
-            document.getElementById("ingredientSlot").appendChild(newItem);
-        }
+
+    window.added.push(ing.name);
+
+    // create floating animation image
+    const img = document.createElement("img");
+    img.src = `/static/images/games/cookwithtaekook/${ing.image}`;
+    img.classList.add("flying-ing");
+
+    document.body.appendChild(img);
+
+    // start position (ingredient panel)
+    const rect = event.target.getBoundingClientRect();
+    img.style.left = rect.left + "px";
+    img.style.top = rect.top + "px";
+
+    // target (center of screen / appliance area)
+    const targetX = window.innerWidth / 2;
+    const targetY = window.innerHeight / 2;
+
+    setTimeout(()=>{
+        img.style.transform = `translate(${targetX - rect.left}px, ${targetY - rect.top}px) scale(0.5)`;
+        img.style.opacity = "0";
+    },10);
+
+    setTimeout(()=>{
+        img.remove();
+        animateAppliance(); // 🔥 key part
+    },400);
+
+    showKooMessage("💜 Nice!");
+}
+
+function animateAppliance(){
+    const scene = document.getElementById("cookingScene");
+
+    scene.classList.add("active-cook");
+
+    setTimeout(()=>{
+        scene.classList.remove("active-cook");
+    },400);
+}
+
+// -----------------------
+// DROP INGREDIENT
+// -----------------------
+function dropIngredient(e){
+    e.preventDefault();
+
+    const name = e.dataTransfer.getData("text/plain");
+    if(!window.currentRecipe) return;
+
+    if(!window.added.includes(name)){
+        window.added.push(name);
+
+        const imgFile = currentRecipe.ingredients.find(i=>i.name==name).image;
+        const newItem = document.createElement("img");
+        newItem.src = `/static/images/games/cookwithtaekook/${imgFile}`;
+        newItem.classList.add("added-ing");
+
+        document.getElementById("ingredientSlot").appendChild(newItem);
+
+        showKooMessage("💜 Good job Hyung!");
     }
-    
-    function finishCooking(){
-        if(window.added.length < currentRecipe.ingredients.length){
-            alert("Missing ingredients!");
+}
+
+
+// -----------------------
+// STEP SYSTEM
+// -----------------------
+function nextCookingStep(){
+
+    const total = currentRecipe.ingredients.length;
+
+    // STEP 0 → Check ingredients
+    if(window.cookingStep === 0){
+        if(window.added.length < total){
+            showTaeMessage("😤 Missing ingredients!!", true);
             return;
         }
-        alert(`🎉 ${currentRecipe.name} is ready!`);
+
+        window.cookingStep = 1;
+        document.getElementById("cookInstructions").textContent = "Step 2: Mix ingredients 🥣";
+        document.getElementById("cookBtn").textContent = "Mix";
+        showKooMessage("✨ Now mix it!");
+        return;
     }
+
+    // STEP 1 → Mixing
+    if(window.cookingStep === 1){
+        window.cookingStep = 2;
+        document.getElementById("cookInstructions").textContent = "Step 3: Cook 🔥";
+        document.getElementById("cookBtn").textContent = "Cook";
+        shakeBowl();
+        showKooMessage("🔥 Looking good!");
+        return;
+    }
+
+    // STEP 2 → Cooking
+    if(window.cookingStep === 2){
+        window.cookingStep = 3;
+        document.getElementById("cookInstructions").textContent = "Step 4: Plate 🍽️";
+        document.getElementById("cookBtn").textContent = "Plate";
+        showKooMessage("💜 Almost done!");
+        return;
+    }
+
+    // STEP 3 → Finish
+    if(window.cookingStep === 3){
+        finishCooking();
+    }
+}
+
+
+// -----------------------
+// FINISH
+// -----------------------
+function finishCooking(){
+    showKooMessage("🎉 PERFECT DISH!");
+    showTaeMessage("😋 We did it!");
+
+    setTimeout(()=>{
+        alert(`🍽️ ${currentRecipe.name} is ready!`);
+        document.getElementById("cookingScene").classList.add("hidden");
+    }, 800);
+}
+
+
+// -----------------------
+// SIMPLE ANIMATION
+// -----------------------
+function shakeBowl(){
+    const slot = document.getElementById("ingredientSlot");
+    slot.classList.add("shake");
+
+    setTimeout(()=>{
+        slot.classList.remove("shake");
+    }, 500);
+}
 
 });
