@@ -14157,3 +14157,86 @@ sqlalchemy.exc.IntegrityError: (raised as a result of Query-invoked autoflush; c
 (Background on this error at: https://sqlalche.me/e/20/gkpj)
 🔁 Running git_update.sh at Sat Apr 18 08:51:59 CDT 2026
 🌐 Current ngrok URL: https://bb10-75-129-234-155.ngrok-free.app
+✅ Update complete at Sat Apr 18 08:52:04 CDT 2026
+▶️ Running create_table.py
+Tables dropped successfully in taekook.db!
+Tables created successfully in taekook.db!
+▶️ Running insert_data.py
+TKURadio table updated from Excel!
+Background Music updated from Excel!
+Upcoming Events updated from Excel!
+Highlights Events updated from Excel!
+Recap videos updated from Excel!
+Memories updated from Excel!
+InTheNews updated from Excel!
+Discography updated from Excel!
+Music Videos updated from Excel!
+Vote data updated from Excel!
+Radio stations data updated from Excel!
+Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 945, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: NOT NULL constraint failed: spotify_stats.song_name
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/haripriyakrishnan/Downloads/Python/taekookuniverse/insert_data.py", line 531, in <module>
+    insert_data_from_excel()
+  File "/Users/haripriyakrishnan/Downloads/Python/taekookuniverse/insert_data.py", line 275, in insert_data_from_excel
+    existing = SpotifyStats.query.filter_by(
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2858, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2230, in _execute_internal
+    ) = compile_state_cls.orm_pre_session_exec(
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/orm/context.py", line 577, in orm_pre_session_exec
+    session._autoflush()
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 3065, in _autoflush
+    raise e.with_traceback(sys.exc_info()[2])
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 3054, in _autoflush
+    self.flush()
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 4353, in flush
+    self._flush(objects)
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 4489, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 4449, in _flush
+    flush_context.execute()
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/orm/persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1843, in _execute_context
+    return self._exec_single_context(
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1983, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 945, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)
+(sqlite3.IntegrityError) NOT NULL constraint failed: spotify_stats.song_name
+[SQL: INSERT INTO spotify_stats (artist, image, orig_song_name, song_name, total_streams, popular, date) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('Jungkook', 'Standing_Next_to_You_The_Remixes.webp', 'Standing Next to You (Band Ver.)', nan, nan, 0, '2026-04-16 20:36:30')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+🔁 Running git_update.sh at Sat Apr 18 16:52:00 CDT 2026
+🌐 Current ngrok URL: https://bb10-75-129-234-155.ngrok-free.app
