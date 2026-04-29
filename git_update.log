@@ -16119,3 +16119,67 @@ Products updated from Excel!
 Fan Letters updated from Excel!
 🔁 Running git_update.sh at Wed Apr 29 00:52:03 CDT 2026
 🌐 Current ngrok URL: https://9fdd-75-129-234-155.ngrok-free.app
+✅ Update complete at Wed Apr 29 00:52:08 CDT 2026
+▶️ Running create_table.py
+Tables dropped successfully in taekook.db!
+Tables created successfully in taekook.db!
+▶️ Running insert_data.py
+TKURadio table updated from Excel!
+Background Music updated from Excel!
+Upcoming Events updated from Excel!
+Highlights Events updated from Excel!
+Recap videos updated from Excel!
+Memories updated from Excel!
+InTheNews updated from Excel!
+Discography updated from Excel!
+Music Videos updated from Excel!
+Vote data updated from Excel!
+Radio stations data updated from Excel!
+Spotify stats data updated from Excel!
+Youtube stats data updated from Excel!
+Shazam stats data updated from Excel!
+Fanbases data updated from Excel!
+Projects data updated from Excel!
+Event updated from Excel!
+Traceback (most recent call last):
+  File "/Users/haripriyakrishnan/Downloads/Python/taekookuniverse/insert_data.py", line 531, in <module>
+    insert_data_from_excel()
+  File "/Users/haripriyakrishnan/Downloads/Python/taekookuniverse/insert_data.py", line 452, in insert_data_from_excel
+    promotion_df = pd.read_excel(excel_file, sheet_name="Promotion")
+  File "/opt/anaconda3/lib/python3.9/site-packages/pandas/util/_decorators.py", line 211, in wrapper
+    return func(*args, **kwargs)
+  File "/opt/anaconda3/lib/python3.9/site-packages/pandas/util/_decorators.py", line 331, in wrapper
+    return func(*args, **kwargs)
+  File "/opt/anaconda3/lib/python3.9/site-packages/pandas/io/excel/_base.py", line 482, in read_excel
+    io = ExcelFile(io, storage_options=storage_options, engine=engine)
+  File "/opt/anaconda3/lib/python3.9/site-packages/pandas/io/excel/_base.py", line 1695, in __init__
+    self._reader = self._engines[engine](self._io, storage_options=storage_options)
+  File "/opt/anaconda3/lib/python3.9/site-packages/pandas/io/excel/_openpyxl.py", line 557, in __init__
+    super().__init__(filepath_or_buffer, storage_options=storage_options)
+  File "/opt/anaconda3/lib/python3.9/site-packages/pandas/io/excel/_base.py", line 545, in __init__
+    self.book = self.load_workbook(self.handles.handle)
+  File "/opt/anaconda3/lib/python3.9/site-packages/pandas/io/excel/_openpyxl.py", line 568, in load_workbook
+    return load_workbook(
+  File "/opt/anaconda3/lib/python3.9/site-packages/openpyxl/reader/excel.py", line 317, in load_workbook
+    reader.read()
+  File "/opt/anaconda3/lib/python3.9/site-packages/openpyxl/reader/excel.py", line 282, in read
+    self.read_worksheets()
+  File "/opt/anaconda3/lib/python3.9/site-packages/openpyxl/reader/excel.py", line 219, in read_worksheets
+    ws = ReadOnlyWorksheet(self.wb, sheet.name, rel.target, self.shared_strings)
+  File "/opt/anaconda3/lib/python3.9/site-packages/openpyxl/worksheet/_read_only.py", line 41, in __init__
+    self._get_size()
+  File "/opt/anaconda3/lib/python3.9/site-packages/openpyxl/worksheet/_read_only.py", line 47, in _get_size
+    dimensions = parser.parse_dimensions()
+  File "/opt/anaconda3/lib/python3.9/site-packages/openpyxl/worksheet/_reader.py", line 166, in parse_dimensions
+    for _event, element in it:
+  File "/opt/anaconda3/lib/python3.9/xml/etree/ElementTree.py", line 1256, in iterator
+    data = source.read(16 * 1024)
+  File "/opt/anaconda3/lib/python3.9/zipfile.py", line 922, in read
+    data = self._read1(n)
+  File "/opt/anaconda3/lib/python3.9/zipfile.py", line 990, in _read1
+    data += self._read2(n - len(data))
+  File "/opt/anaconda3/lib/python3.9/zipfile.py", line 1025, in _read2
+    raise EOFError
+EOFError
+🔁 Running git_update.sh at Wed Apr 29 08:52:11 CDT 2026
+🌐 Current ngrok URL: https://9fdd-75-129-234-155.ngrok-free.app
