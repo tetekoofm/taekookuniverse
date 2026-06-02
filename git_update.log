@@ -24002,3 +24002,97 @@ sqlalchemy.exc.StatementError: (raised as a result of Query-invoked autoflush; c
 [parameters: [{'song_name': 'Winter Bear', 'shazam_count': '333,368', 'date': '2026-06-01 08:47:02', 'popular': nan, 'image': 'default_image.webp', 'artist': nan, 'orig_song_name': nan}]]
 🔁 Running git_update.sh at Tue Jun  2 00:52:01 CDT 2026
 🌐 Current ngrok URL: https://0312-71-86-53-122.ngrok-free.app
+✅ Update complete at Tue Jun  2 00:52:05 CDT 2026
+▶️ Running create_table.py
+Tables dropped successfully in taekook.db!
+Tables created successfully in taekook.db!
+▶️ Running insert_data.py
+TKURadio table updated from Excel!
+Background Music updated from Excel!
+Upcoming Events updated from Excel!
+Highlights Events updated from Excel!
+Recap videos updated from Excel!
+Memories updated from Excel!
+InTheNews updated from Excel!
+Discography updated from Excel!
+Music Videos updated from Excel!
+Vote data updated from Excel!
+Radio stations data updated from Excel!
+Spotify stats data updated from Excel!
+Youtube stats data updated from Excel!
+Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1812, in _execute_context
+    context = constructor(
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 1485, in _init_compiled
+    l_param: List[Any] = [
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 1487, in <listcomp>
+    flattened_processors[key](compiled_params[key])
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/sql/sqltypes.py", line 2055, in process
+    value = _strict_as_bool(value)
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/sql/sqltypes.py", line 2027, in _strict_as_bool
+    raise TypeError("Not a boolean value: %r" % (value,))
+TypeError: Not a boolean value: nan
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/haripriyakrishnan/Downloads/Python/taekookuniverse/insert_data.py", line 531, in <module>
+    insert_data_from_excel()
+  File "/Users/haripriyakrishnan/Downloads/Python/taekookuniverse/insert_data.py", line 355, in insert_data_from_excel
+    existing = ShazamStats.query.filter_by(
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2858, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2230, in _execute_internal
+    ) = compile_state_cls.orm_pre_session_exec(
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/orm/context.py", line 577, in orm_pre_session_exec
+    session._autoflush()
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 3065, in _autoflush
+    raise e.with_traceback(sys.exc_info()[2])
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 3054, in _autoflush
+    self.flush()
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 4353, in flush
+    self._flush(objects)
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 4489, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 4449, in _flush
+    flush_context.execute()
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/orm/persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1818, in _execute_context
+    self._handle_dbapi_exception(
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1812, in _execute_context
+    context = constructor(
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 1485, in _init_compiled
+    l_param: List[Any] = [
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 1487, in <listcomp>
+    flattened_processors[key](compiled_params[key])
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/sql/sqltypes.py", line 2055, in process
+    value = _strict_as_bool(value)
+  File "/opt/anaconda3/lib/python3.9/site-packages/sqlalchemy/sql/sqltypes.py", line 2027, in _strict_as_bool
+    raise TypeError("Not a boolean value: %r" % (value,))
+sqlalchemy.exc.StatementError: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)
+(builtins.TypeError) Not a boolean value: nan
+[SQL: INSERT INTO shazam_stats (artist, image, orig_song_name, song_name, shazam_count, popular, date) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: [{'orig_song_name': nan, 'date': '2026-06-02 08:47:22', 'artist': nan, 'song_name': 'Winter Bear', 'shazam_count': '333,458', 'popular': nan, 'image': 'default_image.webp'}]]
+🔁 Running git_update.sh at Tue Jun  2 08:52:02 CDT 2026
+🌐 Current ngrok URL: https://0312-71-86-53-122.ngrok-free.app
