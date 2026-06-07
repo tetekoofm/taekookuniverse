@@ -1225,14 +1225,12 @@ opacity: 1;
     width: 260px;
     max-height: calc(100vh - 120px);
     overflow-y: auto;
-    
+    display: none;
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
-    
     padding: 12px;
     z-index: 10;
 }
@@ -1241,10 +1239,9 @@ opacity: 1;
     pointer-events: auto;
   }
   
-  canvas {
-    pointer-events: auto;
-  }
-  
+canvas {
+pointer-events: auto;
+}
 
 #leftEventsPanel { left: 20px; }
 #rightEventsPanel { right: 20px; }
@@ -1254,7 +1251,6 @@ opacity: 1;
     align-items: center;
     gap: 10px;
     margin-bottom: 8px;
-    white-space: nowrap;
 }
 
 .date-box{
@@ -1273,11 +1269,23 @@ opacity: 1;
 }
 
 .event-title{
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     font-size: 14px;
     color: #fff;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+    word-break: break-word;
+    flex: 1;
+    min-width: 0;
+}
+
+.event-thumb {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 1px solid rgba(255,255,255,0.2);
 }
 
 /* --- Event Modal --- */
@@ -1292,13 +1300,10 @@ opacity: 1;
     padding: 24px;
     border-radius: 16px;
     color: #fff;
-    /* ✨ glass effect */
     background: rgba(20, 20, 30, 0.75);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    /* ✨ border glow */
     border: 1px solid rgba(155, 93, 229, 0.4);
-    /* ✨ depth */
     box-shadow:
       0 10px 40px rgba(0, 0, 0, 0.6),
       0 0 20px rgba(155, 93, 229, 0.25);
@@ -1310,6 +1315,14 @@ opacity: 1;
     font-size: 22px;
     margin-bottom: 10px;
     color: #a855f7;
+  }
+
+  .memory-image{
+    width:100%;
+    max-height:300px;
+    object-fit: contain;
+    border-radius:12px;
+    margin-bottom:15px;
   }
   
   #eventModal p {
@@ -1379,9 +1392,10 @@ opacity: 1;
 
   @media (max-width: 768px) {
 
-    #leftEventsPanel, #rightEventsPanel {
-      width: 180px;
-      top: 70px;
+    #leftEventsPanel,
+    #rightEventsPanel {
+        width: min(85vw, 300px);
+        top: 70px;
     }
     
     .event-row {
@@ -1411,7 +1425,15 @@ opacity: 1;
     #eventModal h2 {
       font-size: 16px;
     }
-  
+    
+    .memory-image{
+        width:100%;
+        max-height:40vh;
+        object-fit:contain;
+        border-radius:12px;
+        margin-bottom:15px;
+    }
+
     #eventModal p {
       font-size: 12px;
     }

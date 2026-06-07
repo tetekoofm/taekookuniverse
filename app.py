@@ -168,24 +168,31 @@ def memories_data():
 @app.route('/memories_galaxy')
 def memories_galaxy():
     memories_data = Memory.query.all()
+
     music = BackgroundMusic.query.filter_by(page_name='memories').first()
     song_file = music.file_name if music else "default.mp3"
     song_name = music.song_name if music else "Default Song"
+
     events = []
     for memory in memories_data:
         year, month, day = map(int, memory.date.split('-'))
-        month_name = memory.date.split('-')[1]
+
         events.append({
             "year": year,
-            "month": month_name,
+            "month": memory.date.split('-')[1],
             "title": memory.title,
+            "image": memory.image,
             "description": memory.description,
             "artist": memory.artist,
-            "date": memory.date
+            "date": memory.date,
         })
 
-    return render_template('03.memories.html', events=events, song_file=song_file, song_name=song_name)
-
+    return render_template(
+        '03.memories.html',
+        events=events,
+        song_file=song_file,
+        song_name=song_name
+    )
 @app.route('/get-event-details/<int:event_id>', methods=['GET'])
 def get_event_details(event_id):
     event = Memory.query.get(event_id)

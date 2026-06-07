@@ -210,15 +210,16 @@ canvas.addEventListener('click',(e)=>{
 
     /* year click */
     if(Math.hypot(dx,dy) < 35){
+
       selectedGalaxy = selectedGalaxy===g ? null : g;
-      leftPanel.style.display = selectedGalaxy ? "block" : "none";
+
+      leftPanel.style.display = "none";
       leftPanel.innerHTML = "";
 
-      return;
-    }
+      rightPanel.style.display = "none";
+      rightPanel.innerHTML = "";
 
-    if (selectedGalaxy && leftPanel.style.display === "block") {
-      leftPanel.style.display = "none";
+      return;
     }
 
     /* month click */
@@ -247,6 +248,11 @@ function showEvents(events,month,year){
     div.innerHTML = `
       <div class="event-row">
         <div class="date-box">${new Date(ev.date).getDate()}</div>
+        <img
+          src="/static/images/memories/${ev.image || 'placeholder.jpg'}"
+          class="event-thumb"
+          alt="${ev.title}"
+        >
         <div class="event-title">${ev.title}</div>
       </div>
     `;
@@ -257,18 +263,31 @@ function showEvents(events,month,year){
 
 /* ---------------- MODAL ---------------- */
 function showModal(ev){
-  eventModal.innerHTML = `
-    <div class="modal-content">
-      <h2>${ev.title}</h2>
-      <p>${ev.description}</p>
 
-      <button class="close-btn" id="closeModal">Close</button>
-    </div>
+let imageHtml = "";
+
+if (ev.image) {
+  imageHtml = `
+    <img
+      src="/static/images/memories/${ev.image}"
+      alt="${ev.title}"
+      class="memory-image"
+    >
   `;
+}
 
-  eventModal.style.display = "block";
+eventModal.innerHTML = `
+  <div class="modal-content">
+    ${imageHtml}
+    <h2>${ev.title}</h2>
+    <p>${ev.description}</p>
 
-  document.getElementById("closeModal").onclick = closeModal;
+    <button class="close-btn" id="closeModal">Close</button>
+  </div>
+`;
+eventModal.style.display = "block";
+
+document.getElementById("closeModal").onclick = closeModal;
 }
 
 function closeModal(){

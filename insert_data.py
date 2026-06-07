@@ -127,20 +127,28 @@ def insert_data_from_excel():
         memory_df['date'] = pd.to_datetime(memory_df['date'], errors='coerce')
         memory_df = memory_df.dropna(subset=['date'])
         memory_df['date'] = memory_df['date'].dt.strftime('%Y-%m-%d')
+
+        if 'image' not in memory_df.columns:
+            memory_df['image'] = None
+
         for _, row in memory_df.iterrows():
             existing = Memory.query.filter_by(
-                date=row['date'], 
-                artist=row['artist'], 
+                date=row['date'],
+                artist=row['artist'],
                 title=row['title']
             ).first()
+
             if not existing:
                 memory = Memory(
                     date=row['date'],
                     artist=row['artist'],
                     title=row['title'],
-                    description=row['description']
+                    description=row['description'],
+                    image=row['image'] if pd.notna(row['image']) else None
                 )
+
                 db.session.add(memory)
+
         db.session.commit()
         print("Memories updated from Excel!")
 
