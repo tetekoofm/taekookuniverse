@@ -40,7 +40,10 @@ const isMobile = () => window.innerWidth < 768;
 
 const ORBIT_BASE = () => isMobile() ? 90 : 180;
 const ORBIT_STEP = () => isMobile() ? 35 : 60;
-const YEAR_FONT = () => isMobile() ? 22 : Math.min(50, canvas.width * 0.04);
+const YEAR_FONT = () => {
+  if (isMobile()) return 18;        // smaller mobile label
+  return Math.min(34, canvas.width * 0.03);  // reduced desktop size
+};
 const MONTH_FONT = () => isMobile() ? 11 : 16;
 
 /* ---------------- DATA ---------------- */
@@ -61,14 +64,35 @@ events.forEach(ev=>{
 
 /* ---------------- GALAXIES ---------------- */
 const galaxies = [];
-const margin = 150;
+const margin = window.innerWidth < 768 ? 80 : 150;
+
+const placed = [];
+
+function getMinDist() {
+  if (window.innerWidth < 768) return 120;  // mobile tighter but safe
+  if (window.innerWidth < 1200) return 170;
+  return 200;
+}
+
+function isTooClose(x, y) {
+  const minDist = getMinDist();
+  return placed.some(p => Math.hypot(p.x - x, p.y - y) < minDist);
+}
 
 Object.keys(yearData).sort().forEach(year=>{
-  const x = margin + Math.random()*(canvas.width - margin*2);
-  const y = margin + Math.random()*(canvas.height - margin*2);
+  let x, y;
+  let tries = 0;
+
+  do {
+    x = margin + Math.random() * (canvas.width - margin * 2);
+    y = margin + Math.random() * (canvas.height - margin * 2);
+    tries++;
+  } while (isTooClose(x, y) && tries < 50);
+
+  placed.push({ x, y });
 
   const monthEvents = yearData[year].months;
-  const numEvents = Object.values(monthEvents).reduce((a,b)=>a+b.length,0);
+  const numEvents = Object.values(monthEvents).reduce((a, b) => a + b.length, 0);
 
   const stars = [];
   const arms = 3;
@@ -87,10 +111,10 @@ Object.keys(yearData).sort().forEach(year=>{
     year,
     x,
     y,
-    stars,
-    arms,
-    rotation: Math.random()*Math.PI*2,
-    monthEvents
+    monthEvents,
+    stars: [],
+    arms: 3,
+    rotation: Math.random() * Math.PI * 2
   });
 });
 
@@ -156,10 +180,11 @@ function draw(){
     });
 
     /* year */
-    ctx.fillStyle = "#fff";
     ctx.textAlign = "center";
     ctx.font = `${YEAR_FONT()}px Orbitron`;
+    ctx.fillStyle = "rgba(255,255,255,0.85)";
     ctx.fillText(g.year, g.x, g.y);
+    ctx.fillStyle = "#fff";
 
     /* planets */
     if(selectedGalaxy===g){
