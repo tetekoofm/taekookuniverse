@@ -217,6 +217,10 @@ canvas.addEventListener('click',(e)=>{
       return;
     }
 
+    if (selectedGalaxy && leftPanel.style.display === "block") {
+      leftPanel.style.display = "none";
+    }
+
     /* month click */
     if(selectedGalaxy===g){
       Object.keys(g.monthEvents).forEach(m=>{

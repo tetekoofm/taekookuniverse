@@ -1219,17 +1219,32 @@ opacity: 1;
 
 /* --- Events Panels (Left & Right) --- */
 #leftEventsPanel, #rightEventsPanel {
-    position: fixed;
-    top: 100px;
-    width: 320px;
+    position: absolute;
+    left: 20px;
+    top: 80px;
+    width: 260px;
     max-height: calc(100vh - 120px);
     overflow-y: auto;
-    pointer-events: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    z-index: 1000;
+    
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    
+    padding: 12px;
+    z-index: 10;
 }
+
+#leftEventsPanel {
+    pointer-events: auto;
+  }
+  
+  canvas {
+    pointer-events: auto;
+  }
+  
 
 #leftEventsPanel { left: 20px; }
 #rightEventsPanel { right: 20px; }
