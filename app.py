@@ -124,7 +124,6 @@ def memories():
             'id': memory.id,
             'title': memory.title,
             'date': f'{year}-{month:02}-{day:02}',  
-            'image': memory.image,
             'description': memory.description,
         })
 
@@ -161,7 +160,6 @@ def memories_data():
             'title': memory.title,
             'date': f'{year}-{month:02}-{day:02}',
             'artist': memory.artist,
-            'image': memory.image,
             'description': memory.description
         })
 
@@ -182,7 +180,6 @@ def memories_galaxy():
             "month": month_name,
             "title": memory.title,
             "description": memory.description,
-            "image": memory.image,
             "artist": memory.artist,
             "date": memory.date
         })

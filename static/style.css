@@ -1206,22 +1206,22 @@ opacity: 1;
 
 /* --- Tooltip --- */
 #galaxytooltip {
-position: absolute;
-background: rgba(0, 0, 0, 0.7);
-padding: 5px 10px;
-border-radius: 5px;
-pointer-events: none;
-opacity: 0;
-transition: opacity 0.2s;
-font-size: 14px;
-z-index: 1000;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 5px 10px;
+    border-radius: 5px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    font-size: 14px;
+    z-index: 1000;
 }
 
 /* --- Events Panels (Left & Right) --- */
 #leftEventsPanel, #rightEventsPanel {
     position: fixed;
     top: 100px;
-    width: 200px;
+    width: 320px;
     max-height: calc(100vh - 120px);
     overflow-y: auto;
     pointer-events: auto;
@@ -1234,54 +1234,184 @@ z-index: 1000;
 #leftEventsPanel { left: 20px; }
 #rightEventsPanel { right: 20px; }
 
+.event-row{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    white-space: nowrap;
+}
+
+.date-box{
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: rgba(155, 93, 229, 0.25);
+    border: 1px solid rgba(155, 93, 229, 0.6);
+    color: white;
+    font-weight: 600;
+    font-size: 13px;
+    flex-shrink: 0;
+}
+
+.event-title{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+    color: #fff;
+}
+
 /* --- Event Modal --- */
 #eventModal {
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-color: white;
-background: black;
-padding: 20px;
-border-radius: 10px;
-max-width: 90vw;
-max-height: 90vh;
-overflow: auto;
-z-index: 2000;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-}
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    width: min(500px, 90vw);
+    padding: 24px;
+    border-radius: 16px;
+    color: #fff;
+    /* ✨ glass effect */
+    background: rgba(20, 20, 30, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    /* ✨ border glow */
+    border: 1px solid rgba(155, 93, 229, 0.4);
+    /* ✨ depth */
+    box-shadow:
+      0 10px 40px rgba(0, 0, 0, 0.6),
+      0 0 20px rgba(155, 93, 229, 0.25);
+    z-index: 2000;
+    font-family: Orbitron, sans-serif;
+  }
 
-/* --- Event Modal Image --- */
-#eventModal img {
-max-width: 100%;
-max-height: 300px;
-display: block;
-margin-bottom: 10px;
-border-radius: 6px;
-}
-
-/* --- Event Modal Button --- */
-#eventModal button {
-margin-top: 10px;
-padding: 5px 10px;
-font-size: 16px;
-cursor: pointer;
-}
+  #eventModal h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #a855f7;
+  }
+  
+  #eventModal p {
+    font-size: 14px;
+    color: #00ff9d;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
 
 #closeModal {
-margin-top: 10px;
-background: #9b5de5;
-color: white;
-border: none;
-padding: 10px 20px;
-border-radius: 8px;
-cursor: pointer;
-align-items: center;
+    display: block;
+    margin: 16px auto 0 auto;
+    background: rgba(155, 93, 229, 0.8);
+    font-family: Orbitron, sans-serif;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  
+#closeModal:hover {
+    background: rgba(155, 93, 229, 1);
+    transform: scale(1.05);
 }
 
+@media screen and (min-width: 769px) and (max-width: 1370px) {
+
+    /* Panels medium width */
+    #leftEventsPanel, #rightEventsPanel {
+      width: 270px;
+    }
+  
+    #leftEventsPanel { left: 15px; }
+    #rightEventsPanel { right: 15px; }
+  
+    /* Slightly compact rows */
+    .event-row {
+      gap: 9px;
+    }
+  
+    .date-box {
+      width: 32px;
+      height: 32px;
+      font-size: 13px;
+    }
+  
+    .event-title {
+      font-size: 13.5px;
+    }
+  
+    /* Modal */
+    #eventModal {
+      width: 420px;
+      padding: 20px;
+    }
+  
+    #eventModal h2 {
+      font-size: 20px;
+    }
+  
+    #eventModal p {
+      font-size: 13.5px;
+    }
+  }
+
+  @media (max-width: 768px) {
+
+    #leftEventsPanel, #rightEventsPanel {
+      width: 180px;
+      top: 70px;
+    }
+    
+    .event-row {
+        align-items: flex-start;
+    }
+
+    .event-title {
+        white-space: normal !important;
+        overflow: visible !important;
+        text-overflow: unset !important;
+        word-break: break-word;
+    }
+  
+    .date-box {
+      width: 26px;
+      height: 26px;
+      font-size: 11px;
+    }
+  
+    #eventModal {
+        width: min(92vw, 600px) !important; 
+        max-width: 600px;
+        overflow-y: auto;
+        word-wrap: break-word;
+    }
+    
+    #eventModal h2 {
+      font-size: 16px;
+    }
+  
+    #eventModal p {
+      font-size: 12px;
+    }
+  
+    #closeModal {
+      font-size: 12px;
+      padding: 8px 12px;
+    }
+  
+    #TKULogo {
+      width: 36px;
+      height: 36px;
+    }
+  }
+  
 /************************************************* IN THE NEWS ***************************************************/
 
 .spanish-blogs {

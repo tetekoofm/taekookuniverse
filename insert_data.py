@@ -138,7 +138,6 @@ def insert_data_from_excel():
                     date=row['date'],
                     artist=row['artist'],
                     title=row['title'],
-                    image=row['image'],
                     description=row['description']
                 )
                 db.session.add(memory)
