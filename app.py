@@ -181,6 +181,14 @@ def get_event_details(event_id):
     else:
         return jsonify({'error': 'Event not found'}), 404
 
+@app.route('/inthenews')
+def inthenews():
+    inthenews = InTheNews.query.order_by(InTheNews.date.desc()).all()
+    music = BackgroundMusic.query.filter_by(page_name='inthenews').first()
+    song_file = music.file_name if music else "default.mp3"
+    song_name = music.song_name if music else "Default Song"
+    return render_template("04.inthenews.html", song_file=song_file, song_name=song_name, inthenews=inthenews)
+    
 @app.route('/vibe')
 def vibe():
     song_names = [song.song_name for song in Discography.query.all() if song.song_name]

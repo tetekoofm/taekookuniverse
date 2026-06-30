@@ -22,7 +22,7 @@
 
                 <div class="highlights-body">
 
-                    <!-- MEDIA SLIDER -->
+                    <!-- MEDIA -->
                     <div class="media-container">
                         <div class="media-slider">
 
@@ -44,15 +44,12 @@
                                             {% set video_id = media.split("/shorts/")[1].split("?")[0] %}
                                         {% endif %}
 
-                                        <div class="youtube-wrapper">
-                                            <iframe
-                                                src="https://www.youtube.com/embed/{{ video_id }}"
-                                                title="{{ event.title }}"
-                                                frameborder="0"
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                allowfullscreen>
-                                            </iframe>
-                                        </div>
+                                        <iframe
+                                            class="yt-frame"
+                                            src="https://www.youtube.com/embed/{{ video_id }}?enablejsapi=1"
+                                            allow="autoplay; encrypted-media"
+                                            allowfullscreen>
+                                        </iframe>
 
                                     {# ---------------- TIKTOK ---------------- #}
                                     {% elif "tiktok.com" in media %}
@@ -80,11 +77,9 @@
                                     {# ---------------- X / TWITTER ---------------- #}
                                     {% elif "x.com" in media or "twitter.com" in media %}
 
-                                        <div class="twitter-wrapper">
-                                            <blockquote class="twitter-tweet">
-                                                <a href="{{ media }}"></a>
-                                            </blockquote>
-                                        </div>
+                                        <blockquote class="twitter-tweet">
+                                            <a href="{{ media }}"></a>
+                                        </blockquote>
 
                                     {# ---------------- MP4 ---------------- #}
                                     {% elif media.endswith('.mp4') %}
@@ -106,7 +101,6 @@
                                     {% endif %}
 
                                 </div>
-
                             {% endfor %}
 
                         </div>
@@ -129,93 +123,129 @@
             </div>
             {% endfor %}
 
-        {% else %}
-
-        <div class="stay-tuned-banner">
-            <p>Taehyung and Jungkook have returned, and the universe is shifting once more.</p>
-            <p>While the stage is being set, we’re holding space for what’s next — and it’s going to be unforgettable.💜</p>
-
-            <img src="{{ url_for('static', filename='images/stay_tuned.webp') }}"
-                 alt="Stay Tuned"
-                 class="stay-tuned-image">
-        </div>
-
         {% endif %}
-
     </div>
 </div>
 
+<!-- ================= JS ================= -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
+    let activeContainer = null;
+
+    // =====================================================
+    // 🔥 GLOBAL KILL SWITCH (CORE FIX)
+    // =====================================================
+    function killAllMedia() {
+
+        // 1. Stop all HTML5 videos
+        document.querySelectorAll("video").forEach(v => {
+            try {
+                v.pause();
+                v.currentTime = 0;
+            } catch (e) {}
+        });
+
+        // 2. Stop ALL YouTube iframes
+        document.querySelectorAll("iframe").forEach(frame => {
+            if (frame.src.includes("youtube.com")) {
+                try {
+                    frame.contentWindow?.postMessage(
+                        JSON.stringify({
+                            event: "command",
+                            func: "pauseVideo",
+                            args: []
+                        }),
+                        "*"
+                    );
+                } catch (e) {}
+            }
+        });
+
+        // 3. Reset Instagram embeds
+        document.querySelectorAll(".instagram-wrapper").forEach(el => {
+            const url = el.dataset.src;
+            if (url) {
+                el.innerHTML = `
+                    <blockquote class="instagram-media"
+                        data-instgrm-permalink="${url}"
+                        data-instgrm-version="14">
+                    </blockquote>
+                `;
+            }
+        });
+
+        if (window.instgrm) {
+            setTimeout(() => window.instgrm.Embeds.process(), 300);
+        }
+    }
+
+    // =====================================================
+    // 🎞 SLIDER LOGIC
+    // =====================================================
     document.querySelectorAll('.media-container').forEach(container => {
 
         const slides = container.querySelectorAll('.media-slide');
         const prevBtn = container.querySelector('.prev');
         const nextBtn = container.querySelector('.next');
 
-        let currentIndex = 0;
+        let index = 0;
 
-        function stopAllMedia() {
+        function showSlide(i) {
 
-            // stop HTML5 video
-            container.querySelectorAll("video").forEach(v => {
-                v.pause();
-                v.currentTime = 0;
+            killAllMedia();            // 🔥 ALWAYS STOP EVERYTHING FIRST
+            activeContainer = container;
+
+            slides.forEach((s, idx) => {
+                s.style.display = (idx === i) ? "flex" : "none";
             });
-
-            // reset YouTube + X iframes
-            container.querySelectorAll("iframe").forEach(frame => {
-                frame.src = frame.src;
-            });
-
-            // destroy Instagram embeds (IMPORTANT FIX)
-            container.querySelectorAll(".instagram-wrapper").forEach(el => {
-                el.innerHTML = el.dataset.src
-                    ? `<blockquote class="instagram-media"
-                        data-instgrm-permalink="${el.dataset.src}"
-                        data-instgrm-version="14"></blockquote>`
-                    : el.innerHTML;
-            });
-
-            if (window.instgrm) {
-                setTimeout(() => window.instgrm.Embeds.process(), 300);
-            }
         }
 
-        function showSlide(index) {
-
-            stopAllMedia();
-
-            slides.forEach((slide, i) => {
-                slide.style.display = (i === index) ? "flex" : "none";
-            });
-
-            if (slides.length <= 1) {
-                if (prevBtn) prevBtn.style.display = "none";
-                if (nextBtn) nextBtn.style.display = "none";
-            } else {
-                if (prevBtn) prevBtn.style.display = "block";
-                if (nextBtn) nextBtn.style.display = "block";
-            }
-        }
-
-        showSlide(currentIndex);
+        showSlide(index);
 
         if (prevBtn) {
             prevBtn.addEventListener("click", () => {
-                currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-                showSlide(currentIndex);
+                index = (index - 1 + slides.length) % slides.length;
+                showSlide(index);
             });
         }
 
         if (nextBtn) {
             nextBtn.addEventListener("click", () => {
-                currentIndex = (currentIndex + 1) % slides.length;
-                showSlide(currentIndex);
+                index = (index + 1) % slides.length;
+                showSlide(index);
             });
         }
 
+    });
+
+    // =====================================================
+    // 🧠 GLOBAL USER INTERACTION SAFETY
+    // =====================================================
+    document.addEventListener("click", function (e) {
+
+        const container = e.target.closest(".media-container");
+
+        if (!container) {
+            killAllMedia();
+            activeContainer = null;
+            return;
+        }
+
+        if (activeContainer && activeContainer !== container) {
+            killAllMedia();
+        }
+
+        activeContainer = container;
+    });
+
+    // =====================================================
+    // 📱 MOBILE SAFETY (VERY IMPORTANT FIX)
+    // =====================================================
+    document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+            killAllMedia();
+        }
     });
 
 });

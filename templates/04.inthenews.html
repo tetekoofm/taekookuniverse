@@ -1,0 +1,60 @@
+{% extends "00.base.html" %}
+{% block title %}In The News{% endblock %}
+{% block content %}
+
+<div class="main-content">
+    <h1 class="heading">In The News</h1>
+    <p class="caption">Stay up to date with Tae and Koo!</p>
+
+    <div class="inthenews-cards">
+
+        {% for news in inthenews %}
+        <div class="inthenews-card">
+
+            <!-- HEADER -->
+            <div class="card-header">
+                <h2 class="title">{{ news.title }}</h2>
+                <p class="date">
+                    {{ news.date.strftime('%B %d, %Y') if news.date.__class__.__name__ == 'date' else news.date }}
+                </p>
+            </div>
+
+            <!-- BODY -->
+            <div class="card-body">
+
+                {% if "instagram.com" in news.image %}
+
+                    <!-- INSTAGRAM EMBED (FIX) -->
+                    <div class="instagram-wrapper">
+                        <blockquote class="instagram-media"
+                            data-instgrm-permalink="{{ news.image }}"
+                            data-instgrm-version="14">
+                        </blockquote>
+                    </div>
+
+                {% else %}
+
+                    <!-- fallback if non-instagram ever used -->
+                    <img src="{{ news.image }}" alt="{{ news.title }}">
+
+                {% endif %}
+
+                <!-- DESCRIPTION -->
+                <!-- <p class="description">
+                    {{ news.description.replace('\n', '<br>') | safe }}
+                </p> -->
+
+                {% if news.link %}
+                <a class="read-more" href="{{ news.link }}" target="_blank">
+                    Read more
+                </a>
+                {% endif %}
+
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+{% endblock %}
