@@ -881,6 +881,7 @@ opacity: 1;
     justify-content: center;
     align-items: center;
     overflow: visible;
+    pointer-events: auto;
 }
 
 .instagram-wrapper .instagram-media {
