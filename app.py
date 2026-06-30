@@ -109,9 +109,6 @@ def recap():
 
 @app.route('/memories')
 def memories():
-    # video_dir = os.path.join(app.static_folder, 'videos')
-    # video_files = os.listdir(video_dir)
-
     memories_data = Memory.query.all()
     music = BackgroundMusic.query.filter_by(page_name='memories').first()
     song_file = music.file_name if music else "default.mp3"
@@ -141,29 +138,7 @@ def memories():
 
     formatted_years = {year: str(year)[-2:] for year in timeline_data.keys()}
 
-    # return render_template('03.memories.html', video_files=video_files,
-    #                        timeline_data=timeline_data, 
-    #                        calendar=calendar, 
-    #                        formatted_years=formatted_years)
-
     return render_template('03.memories_soon.html', song_file=song_file, song_name=song_name)
-
-@app.route('/memories_data')
-def memories_data():
-    memories_data = Memory.query.all()
-    timeline_data = defaultdict(lambda: defaultdict(list))
-
-    for memory in memories_data:
-        year, month, day = map(int, memory.date.split('-'))
-        timeline_data[year][month].append({
-            'id': memory.id,
-            'title': memory.title,
-            'date': f'{year}-{month:02}-{day:02}',
-            'artist': memory.artist,
-            'description': memory.description
-        })
-
-    return jsonify(timeline_data)
 
 @app.route('/memories_galaxy')
 def memories_galaxy():
@@ -205,14 +180,6 @@ def get_event_details(event_id):
         })
     else:
         return jsonify({'error': 'Event not found'}), 404
-
-@app.route('/inthenews')
-def inthenews():
-    inthenews = InTheNews.query.order_by(InTheNews.date.desc()).all()
-    music = BackgroundMusic.query.filter_by(page_name='inthenews').first()
-    song_file = music.file_name if music else "default.mp3"
-    song_name = music.song_name if music else "Default Song"
-    return render_template("04.inthenews.html", song_file=song_file, song_name=song_name, inthenews=inthenews)
 
 @app.route('/vibe')
 def vibe():
@@ -261,18 +228,6 @@ def streaming():
     banners = Banner.query.filter_by(subpage='07.03.streaming').all()
     return render_template('07.03.streaming.html', trending_tracks=trending_tracks, banners=banners)
 
-@app.route('/spotifystats')
-def spotifystats():
-    stats = SpotifyStats.query.all()
-    date_as_of = stats[0].date if stats else None
-    return render_template('spotifystats.html', stats=stats, date_as_of=date_as_of)
-
-@app.route('/youtubestats')
-def youtubestats():
-    stats = YoutubeStats.query.all()
-    date_as_of = stats[0].date if stats else None
-    return render_template('youtubestats.html', stats=stats, date_as_of=date_as_of)
-
 @app.route('/buying')
 def buying():
     banners = Banner.query.filter_by(subpage='07.04.buying').all()
@@ -284,7 +239,6 @@ def voting():
     vote_apps = Vote.query.all()  # Fetch all voting apps
     return render_template('07.05.voting.html', banners=banners, vote_apps=vote_apps)
 
-
 @app.route('/radio')
 def radio():
     radio_stations = Radio.query.all() 
@@ -293,17 +247,8 @@ def radio():
 
 @app.route('/shazam')
 def shazam():
-    shazam_stats = ShazamStats.query.all()
-    popular_tracks = ShazamStats.query.filter_by(popular=True).all()  # Only popular tracks
-    date_as_of = shazam_stats[0].date if shazam_stats else None
     banners = Banner.query.filter_by(subpage='07.07.shazam').all()
-    return render_template('07.07.shazam.html', shazam_stats=shazam_stats, popular_tracks=popular_tracks, date_as_of=date_as_of, banners=banners)
-
-@app.route('/shazamstats')
-def shazamstats():
-    stats = ShazamStats.query.all()
-    date_as_of = stats[0].date if stats else None
-    return render_template('shazamstats.html', stats=stats, date_as_of=date_as_of)
+    return render_template('07.07.shazam.html', banners=banners)
 
 @app.route('/brandreputation')
 def brandreputation():

@@ -8,94 +8,173 @@
 
     <div class="highlights-container">
         {% if highlights %}
+
             {% for event in highlights %}
             <div class="highlights-card">
+                
                 <div class="highlights-header">
                     <h2 class="highlights-title">{{ event.title }}</h2>
-                    <p class="highlights-date">{{ event.date.strftime('%B %d, %Y') }}</p>
+                    <p class="highlights-date">
+                        {{ event.date.strftime('%B %d, %Y') }}
+                    </p>
                 </div>
 
                 <div class="highlights-body">
+
                     <!-- Media Slider -->
                     <div class="media-container">
                         <div class="media-slider">
+
                             {% set media_files = event.image.split(',') %}
+
                             {% for media in media_files %}
-                            {% set media = media.strip() %}
-                            <div class="media-slide{% if loop.first %} active{% endif %}">
-                                {% if media.endswith('.mp4') %}
-                                <video class="media-video" controls controlsList="nodownload" playsinline webkit-playsinline>
-                                    <source src="{{ url_for('static', filename='images/highlights/' ~ event.folder ~ '/' ~ media) }}" type="video/mp4">
-                                    Your browser does not support the video tag.
-                                </video>
-                                {% else %}
-                                <img src="{{ url_for('static', filename='images/highlights/' ~ event.folder ~ '/' ~ media) }}"  
-                                     alt="{{ event.title }}">
-                                {% endif %}
-                            </div>
+                                {% set media = media.strip() %}
+
+                                <div class="media-slide">
+
+                                    {# ---------------- YOUTUBE ---------------- #}
+                                    {% if "youtube.com" in media or "youtu.be" in media %}
+
+                                        {% if "watch?v=" in media %}
+                                            {% set video_id = media.split("watch?v=")[1].split("&")[0] %}
+                                        {% elif "youtu.be/" in media %}
+                                            {% set video_id = media.split("youtu.be/")[1].split("?")[0] %}
+                                        {% elif "/shorts/" in media %}
+                                            {% set video_id = media.split("/shorts/")[1].split("?")[0] %}
+                                        {% endif %}
+
+                                        <div class="youtube-wrapper">
+                                            <iframe
+                                                src="https://www.youtube.com/embed/{{ video_id }}"
+                                                title="{{ event.title }}"
+                                                frameborder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowfullscreen>
+                                            </iframe>
+                                        </div>
+
+                                        {% elif "tiktok.com" in media %}
+
+                                        {% set parts = media.split("/video/") %}
+                                    
+                                        {% if parts|length > 1 %}
+                                            {% set video_id = parts[1].split("?")[0] %}
+                                            {% set username = media.split("tiktok.com/@")[1].split("/")[0] %}
+                                    
+                                            <blockquote class="tiktok-embed"
+                                                cite="https://www.tiktok.com/@{{ username }}/video/{{ video_id }}">
+                                            </blockquote>
+                                        {% endif %}
+
+                                        {% elif "instagram.com" in media %}
+                                        <div class="instagram-wrapper">
+                                            <blockquote class="instagram-media"
+                                                data-instgrm-permalink="{{ media }}"
+                                                data-instgrm-version="14">
+                                            </blockquote>
+                                        </div>
+                                        {% elif "x.com" in media or "twitter.com" in media %}
+                                        <div class="twitter-wrapper">
+                                            <blockquote class="twitter-tweet">
+                                                <a href="{{ media }}"></a>
+                                            </blockquote>
+                                        </div>
+                                        {% elif media.endswith('.mp4') %}
+
+                                            <video class="media-video"
+                                                controls
+                                                controlsList="nodownload"
+                                                playsinline>
+                                                <source src="{{ url_for('static', filename='images/highlights/' ~ event.folder ~ '/' ~ media) }}"
+                                                        type="video/mp4">
+                                            </video>
+
+                                        {% else %}
+
+                                            <img src="{{ url_for('static', filename='images/highlights/' ~ event.folder ~ '/' ~ media) }}"
+                                                alt="{{ event.title }}">
+
+                                        {% endif %}
+
+                                </div>
                             {% endfor %}
+
                         </div>
+
                         {% if media_files|length > 1 %}
                         <button class="prev">&#10094;</button>
                         <button class="next">&#10095;</button>
                         {% endif %}
                     </div>
 
+                    <!-- Description -->
                     <div class="highlights-content">
                         <p class="highlights-description">
                             {{ event.description.replace('\n', '<br>') | safe }}
                         </p>
                     </div>
+
                 </div>
             </div>
             {% endfor %}
+
         {% else %}
+
         <div class="stay-tuned-banner">
             <p>Taehyung and Jungkook have returned, and the universe is shifting once more.</p>
             <p>While the stage is being set, we’re holding space for what’s next — and it’s going to be unforgettable.💜</p>
-            <img src="{{ url_for('static', filename='images/stay_tuned.webp') }}" 
-                 alt="Stay Tuned" class="stay-tuned-image">
-        </div>
-        {% endif %}
 
+            <img src="{{ url_for('static', filename='images/stay_tuned.webp') }}"
+                 alt="Stay Tuned"
+                 class="stay-tuned-image">
+        </div>
+
+        {% endif %}
     </div>
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        document.querySelectorAll('.media-container').forEach(container => {
-            const slides = container.querySelectorAll('.media-slide');
-            const prevBtn = container.querySelector('.prev');
-            const nextBtn = container.querySelector('.next');
-            let currentIndex = 0;
-    
-            function showSlide(index) {
-                slides.forEach((slide, i) => {
-                    slide.style.display = (i === index) ? "block" : "none";
-                });
-                // Hide buttons if only one slide
-                if(slides.length <= 1) {
-                    if(prevBtn) prevBtn.style.display = "none";
-                    if(nextBtn) nextBtn.style.display = "none";
-                } else {
-                    if(prevBtn) prevBtn.style.display = "block";
-                    if(nextBtn) nextBtn.style.display = "block";
-                }
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('.media-container').forEach(container => {
+
+        const slides = container.querySelectorAll('.media-slide');
+        const prevBtn = container.querySelector('.prev');
+        const nextBtn = container.querySelector('.next');
+
+        let currentIndex = 0;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.style.display = (i === index) ? "flex" : "none";
+            });
+
+            if (slides.length <= 1) {
+                if (prevBtn) prevBtn.style.display = "none";
+                if (nextBtn) nextBtn.style.display = "none";
+            } else {
+                if (prevBtn) prevBtn.style.display = "block";
+                if (nextBtn) nextBtn.style.display = "block";
             }
-    
-            showSlide(currentIndex);
-    
-            if(prevBtn) prevBtn.addEventListener("click", () => {
+        }
+
+        showSlide(currentIndex);
+
+        if (prevBtn) {
+            prevBtn.addEventListener("click", () => {
                 currentIndex = (currentIndex - 1 + slides.length) % slides.length;
                 showSlide(currentIndex);
             });
-    
-            if(nextBtn) nextBtn.addEventListener("click", () => {
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener("click", () => {
                 currentIndex = (currentIndex + 1) % slides.length;
                 showSlide(currentIndex);
             });
-        });
+        }
+
     });
+});
 </script>
-        
+
 {% endblock %}

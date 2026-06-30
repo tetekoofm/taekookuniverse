@@ -112,30 +112,6 @@
         </ul>        
         <p>If you are stuck at some point or need help, please reach out to <a href="https://x.com/TaeKook_USA">TK USA</a>. We are glad to help!</p>
     </div>
-
-    <div class="section">
-        <h3>Popular Tracks on Shazam</h3>
-        <p>Check out the tracks by Taehyung and Jung Kook that are currently trending on Shazam!</p>
-        <section class="tracks-container">
-            {% for track in popular_tracks %}
-            <div class="track-card">
-                {% if track.image %}
-                <img src="{{ url_for('static', filename='images/songs/' ~ track.image) }}" alt="{{ track.orig_song_name }}" class="track-image">
-                {% endif %}
-                <h3>{{ track.orig_song_name }}</h3>
-                <p><strong>Artist:</strong> {{ track.artist }}</p>
-                <p><strong>Shazam Count:</strong> {{ track.shazam_count }}</p>
-            </div>
-            {% endfor %}
-        </section>
-    </div>
-
-    <!-- Shazam Stats Link -->
-    <div class="section">
-        <!-- <h3>Current Shazam Stats</h3> -->
-        <p>To get the detailed Shazam statistics of every song of Taehyung and Jung Kook, refer to the <a href="{{ url_for('shazamstats') }}">Shazam Stats Page</a>.</p>
-    </div>
-
 </div>
 
 <!-- Button to trigger sticky note slide-in -->
