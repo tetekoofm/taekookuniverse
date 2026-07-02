@@ -21,6 +21,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Initialize the SQLAlchemy with the app
 db.init_app(app)
 
+
 @app.before_request
 def force_https():
     if not current_app.debug and not request.is_secure:
@@ -38,6 +39,35 @@ def robots():
 @app.route('/sitemap.xml')
 def sitemap():
     return send_file(os.path.join(app.root_path, 'static', 'sitemap.xml'), mimetype='application/xml')
+
+## HELPER ###########################################################################################################################
+from urllib.parse import urlparse, parse_qs
+
+def extract_youtube_id(url):
+    if not url:
+        return None
+
+    if "youtu.be" in url:
+        return url.split("/")[-1].split("?")[0]
+
+    if "youtube.com" in url:
+        # handle watch?v=
+        if "v=" in url:
+            return url.split("v=")[1].split("&")[0]
+
+        # handle embed/videoseries/shorts
+        if "/embed/" in url:
+            return url.split("/embed/")[1].split("?")[0]
+        if "/shorts/" in url:
+            return url.split("/shorts/")[1].split("?")[0]
+
+        # fallback safe parsing
+        query = parse_qs(urlparse(url).query)
+        return query.get("v", [None])[0]
+
+    return None
+
+## HELPER ###########################################################################################################################
 
 @app.route('/home_soon')
 def home_soon():
@@ -188,19 +218,27 @@ def inthenews():
     song_file = music.file_name if music else "default.mp3"
     song_name = music.song_name if music else "Default Song"
     return render_template("04.inthenews.html", song_file=song_file, song_name=song_name, inthenews=inthenews)
-    
+
 @app.route('/vibe')
 def vibe():
     song_names = [song.song_name for song in Discography.query.all() if song.song_name]
     taehyung_videos = db.session.query(MusicVideo).filter(MusicVideo.artist == 'Taehyung').all()
     jungkook_videos = db.session.query(MusicVideo).filter(MusicVideo.artist == 'Jungkook').all()
+
+    for v in taehyung_videos:
+        v.youtube_id = extract_youtube_id(v.youtube_url)
+
+    for v in jungkook_videos:
+        v.youtube_id = extract_youtube_id(v.youtube_url)
+
     random.shuffle(taehyung_videos)
     random.shuffle(jungkook_videos)
+
     music = BackgroundMusic.query.filter_by(page_name='vibe').first()
     song_file = music.file_name if music else "default.mp3"
     song_name = music.song_name if music else "Default Song"
     return render_template("05.vibe.html", song_names=song_names, song_file=song_file, song_name=song_name, taehyung_videos=taehyung_videos, jungkook_videos=jungkook_videos)
-    
+
 @app.route('/projects')
 def projects():
     projects = Project.query.all()  
@@ -389,7 +427,7 @@ def get_leaderboard(game_name):
     data = load_leaderboard()
     return jsonify(data.get(game_name, []))
 
-## GAMES ##########################################################################################################
+## GAMES ############################################################################################################################
 
 @app.after_request
 def add_headers(response):

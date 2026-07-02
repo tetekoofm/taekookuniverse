@@ -49,10 +49,16 @@
             <div class="video-frame orbit-frame" id="taehyung-videos">
                 {% for video in taehyung_videos %}
                     <div class="video-item">
-                        <iframe width="450" height="250" 
-                        src="https://www.youtube.com/embed/{{ video.youtube_url.split('v=')[1].split('&')[0] if 'v=' in video.youtube_url else video.youtube_url.split('youtu.be/')[1] }}?rel=0&autohide=1&showinfo=0&modestbranding=1" 
-                        frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen loading="lazy"></iframe>
+            
+                        {% if video.youtube_id %}
+                        <iframe width="450" height="250"
+                            src="https://www.youtube.com/embed/{{ video.youtube_id }}?rel=0&modestbranding=1"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen loading="lazy">
+                        </iframe>
+                        {% endif %}
+            
                         <p>{{ video.video_name }}</p>
                     </div>
                 {% endfor %}
@@ -71,10 +77,16 @@
             <div class="video-frame orbit-frame" id="jungkook-videos">
                 {% for video in jungkook_videos %}
                     <div class="video-item">
-                        <iframe width="450" height="250" 
-                        src="https://www.youtube.com/embed/{{ video.youtube_url.split('v=')[1].split('&')[0] if 'v=' in video.youtube_url else video.youtube_url.split('youtu.be/')[1] }}?rel=0&autohide=1&showinfo=0&modestbranding=1" 
-                        frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen loading="lazy"></iframe>
+            
+                        {% if video.youtube_id %}
+                        <iframe width="450" height="250"
+                            src="https://www.youtube.com/embed/{{ video.youtube_id }}?rel=0&modestbranding=1"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen loading="lazy">
+                        </iframe>
+                        {% endif %}
+            
                         <p>{{ video.video_name }}</p>
                     </div>
                 {% endfor %}

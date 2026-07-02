@@ -18,21 +18,84 @@
                     <!-- Media Slider -->
                     <div class="media-container">
                         <div class="media-slider">
+
                             {% set media_files = event.image.split(',') %}
+                        
                             {% for media in media_files %}
-                            {% set media = media.strip() %}
-                            <div class="media-slide{% if loop.first %} active{% endif %}">
-                                {% if media.endswith('.mp4') %}
-                                <video class="media-video" controls controlsList="nodownload" playsinline webkit-playsinline>
-                                    <source src="{{ url_for('static', filename='images/upcoming/' ~ event.folder ~ '/' ~ media) }}" type="video/mp4">
-                                    Your browser does not support the video tag.
-                                </video>
-                                {% else %}
-                                <img src="{{ url_for('static', filename='images/upcoming/' ~ event.folder ~ '/' ~ media) }}"  
-                                     alt="{{ event.title }}">
-                                {% endif %}
-                            </div>
+                                {% set media = media.strip() %}
+                        
+                                <div class="media-slide">
+                        
+                                    {# ---------------- YOUTUBE ---------------- #}
+                                    {% if "youtube.com" in media or "youtu.be" in media %}
+                        
+                                        {% if "watch?v=" in media %}
+                                            {% set video_id = media.split("watch?v=")[1].split("&")[0] %}
+                                        {% elif "youtu.be/" in media %}
+                                            {% set video_id = media.split("youtu.be/")[1].split("?")[0] %}
+                                        {% elif "/shorts/" in media %}
+                                            {% set video_id = media.split("/shorts/")[1].split("?")[0] %}
+                                        {% endif %}
+                        
+                                        <iframe
+                                            src="https://www.youtube.com/embed/{{ video_id }}?enablejsapi=1"
+                                            allow="autoplay; encrypted-media"
+                                            allowfullscreen>
+                                        </iframe>
+                        
+                                    {# ---------------- TIKTOK ---------------- #}
+                                    {% elif "tiktok.com" in media %}
+                        
+                                        {% set parts = media.split("/video/") %}
+                                        {% if parts|length > 1 %}
+                                            {% set video_id = parts[1].split("?")[0] %}
+                                            {% set username = media.split("tiktok.com/@")[1].split("/")[0] %}
+                        
+                                            <blockquote class="tiktok-embed"
+                                                cite="https://www.tiktok.com/@{{ username }}/video/{{ video_id }}">
+                                            </blockquote>
+                                        {% endif %}
+                        
+                                    {# ---------------- INSTAGRAM ---------------- #}
+                                    {% elif "instagram.com" in media %}
+                        
+                                        <div class="instagram-wrapper" data-src="{{ media }}">
+                                            <blockquote class="instagram-media"
+                                                data-instgrm-permalink="{{ media }}"
+                                                data-instgrm-version="14">
+                                            </blockquote>
+                                        </div>
+                        
+                                    {# ---------------- X / TWITTER ---------------- #}
+                                    {% elif "x.com" in media or "twitter.com" in media %}
+                        
+                                        <blockquote class="twitter-tweet">
+                                            <a href="{{ media }}"></a>
+                                        </blockquote>
+                        
+                                    {# ---------------- LOCAL MP4 ---------------- #}
+                                    {% elif media.endswith('.mp4') %}
+                        
+                                        <video class="media-video"
+                                            controls
+                                            controlsList="nodownload"
+                                            playsinline>
+                                            <source src="{{ url_for('static', filename='images/upcoming/' ~ event.folder ~ '/' ~ media) }}"
+                                                    type="video/mp4">
+                                        </video>
+                        
+                                    {# ---------------- IMAGE ---------------- #}
+                                    {% else %}
+                        
+                                        <img src="{{ url_for('static', filename='images/upcoming/' ~ event.folder ~ '/' ~ media) }}"
+                                            alt="{{ event.title }}">
+                        
+                                    {% endif %}
+                        
+                                </div>
+                        
                             {% endfor %}
+                        
                         </div>
                         {% if media_files|length > 1 %}
                         <button class="prev">&#10094;</button>
@@ -50,7 +113,7 @@
             {% endfor %}
         {% else %}
         <div class="stay-tuned-banner">
-            <p>Taehyung and Jungkook are currently serving in the military and will return in June 2025.</p>
+            <p>BTS is on their Arirang World Tour this year and Taehyung and Jungkook are busy working hard for it.</p>
             <p>We can't wait to see what’s next for them! Check back later for updates. 💜</p>
             <img src="{{ url_for('static', filename='images/stay_tuned.webp') }}" alt="Stay Tuned" class="stay-tuned-image">
         </div>        
@@ -59,39 +122,125 @@
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
+    
+        let activeContainer = null;
+    
+        // =====================================================
+        // 🔥 GLOBAL KILL SWITCH (CORE FIX)
+        // =====================================================
+        function killAllMedia() {
+    
+            // 1. Stop all HTML5 videos
+            document.querySelectorAll("video").forEach(v => {
+                try {
+                    v.pause();
+                    v.currentTime = 0;
+                } catch (e) {}
+            });
+    
+            // 2. Stop ALL YouTube iframes
+            document.querySelectorAll("iframe").forEach(frame => {
+                if (frame.src.includes("youtube.com")) {
+                    try {
+                        frame.contentWindow?.postMessage(
+                            JSON.stringify({
+                                event: "command",
+                                func: "pauseVideo",
+                                args: []
+                            }),
+                            "*"
+                        );
+                    } catch (e) {}
+                }
+            });
+    
+            // 3. Reset Instagram embeds
+            document.querySelectorAll(".instagram-wrapper").forEach(el => {
+                const url = el.dataset.src;
+                if (url) {
+                    el.innerHTML = `
+                        <blockquote class="instagram-media"
+                            data-instgrm-permalink="${url}"
+                            data-instgrm-version="14">
+                        </blockquote>
+                    `;
+                }
+            });
+    
+            if (window.instgrm) {
+                setTimeout(() => window.instgrm.Embeds.process(), 300);
+            }
+        }
+    
+        // =====================================================
+        // 🎞 SLIDER LOGIC
+        // =====================================================
         document.querySelectorAll('.media-container').forEach(container => {
+    
             const slides = container.querySelectorAll('.media-slide');
             const prevBtn = container.querySelector('.prev');
             const nextBtn = container.querySelector('.next');
-            let currentIndex = 0;
     
-            function showSlide(index) {
-                slides.forEach((slide, i) => {
-                    slide.style.display = (i === index) ? "block" : "none";
+            let index = 0;
+    
+            function showSlide(i) {
+    
+                killAllMedia();            // 🔥 ALWAYS STOP EVERYTHING FIRST
+                activeContainer = container;
+    
+                slides.forEach((s, idx) => {
+                    s.style.display = (idx === i) ? "flex" : "none";
                 });
-                // Hide buttons if only one slide
-                if(slides.length <= 1) {
-                    if(prevBtn) prevBtn.style.display = "none";
-                    if(nextBtn) nextBtn.style.display = "none";
-                } else {
-                    if(prevBtn) prevBtn.style.display = "block";
-                    if(nextBtn) nextBtn.style.display = "block";
-                }
             }
     
-            showSlide(currentIndex);
+            showSlide(index);
     
-            if(prevBtn) prevBtn.addEventListener("click", () => {
-                currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-                showSlide(currentIndex);
-            });
+            if (prevBtn) {
+                prevBtn.addEventListener("click", () => {
+                    index = (index - 1 + slides.length) % slides.length;
+                    showSlide(index);
+                });
+            }
     
-            if(nextBtn) nextBtn.addEventListener("click", () => {
-                currentIndex = (currentIndex + 1) % slides.length;
-                showSlide(currentIndex);
-            });
+            if (nextBtn) {
+                nextBtn.addEventListener("click", () => {
+                    index = (index + 1) % slides.length;
+                    showSlide(index);
+                });
+            }
+    
         });
+    
+        // =====================================================
+        // 🧠 GLOBAL USER INTERACTION SAFETY
+        // =====================================================
+        document.addEventListener("click", function (e) {
+    
+            const container = e.target.closest(".media-container");
+    
+            if (!container) {
+                killAllMedia();
+                activeContainer = null;
+                return;
+            }
+    
+            if (activeContainer && activeContainer !== container) {
+                killAllMedia();
+            }
+    
+            activeContainer = container;
+        });
+    
+        // =====================================================
+        // 📱 MOBILE SAFETY (VERY IMPORTANT FIX)
+        // =====================================================
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+                killAllMedia();
+            }
+        });
+    
     });
 </script>
 
