@@ -795,8 +795,11 @@ function startCookingScene(recipe){
         const img = document.createElement("img");
         img.src = `/static/images/games/cookwithtaekook/${ing.image}`;
         img.alt = ing.name;
-        img.addEventListener("click", () => addIngredient(ing));
-
+        // img.addEventListener("click", (e) => addIngredient(ing, e));
+        img.draggable = true;
+        img.addEventListener("dragstart", (e) => {
+            e.dataTransfer.setData("text/plain", ing.name);
+        });
         ingredientList.appendChild(img);
     });
 
@@ -808,7 +811,9 @@ function startCookingScene(recipe){
     actionBtn.onclick = nextCookingStep;
 }
 
-function addIngredient(ing){
+function addIngredient(ing, e){
+    if(!e || !e.target) return;
+    const rect = e.target.getBoundingClientRect();
     if(!window.currentRecipe) return;
 
     if(window.added.includes(ing.name)){
@@ -826,7 +831,7 @@ function addIngredient(ing){
     document.body.appendChild(img);
 
     // start position (ingredient panel)
-    const rect = event.target.getBoundingClientRect();
+    // const rect = event.target.getBoundingClientRect();
     img.style.left = rect.left + "px";
     img.style.top = rect.top + "px";
 
@@ -869,7 +874,8 @@ function dropIngredient(e){
     if(!window.added.includes(name)){
         window.added.push(name);
 
-        const imgFile = currentRecipe.ingredients.find(i=>i.name==name).image;
+        const imgFile = window.currentRecipe.ingredients.find(i=>i.name==name).image;
+
         const newItem = document.createElement("img");
         newItem.src = `/static/images/games/cookwithtaekook/${imgFile}`;
         newItem.classList.add("added-ing");
@@ -880,13 +886,17 @@ function dropIngredient(e){
     }
 }
 
-
 // -----------------------
 // STEP SYSTEM
 // -----------------------
+
+if(!window.currentRecipe) return;
+if(!window.cookingStep) window.cookingStep = 0;
+if(!window.added) window.added = [];
+
 function nextCookingStep(){
 
-    const total = currentRecipe.ingredients.length;
+    const total = window.currentRecipe?.ingredients?.length || 0;
 
     // STEP 0 → Check ingredients
     if(window.cookingStep === 0){
@@ -936,9 +946,11 @@ function finishCooking(){
     showTaeMessage("😋 We did it!");
 
     setTimeout(()=>{
-        alert(`🍽️ ${currentRecipe.name} is ready!`);
+        alert(`🍽️ ${window.currentRecipe?.name || "Dish"} is ready!`);
         document.getElementById("cookingScene").classList.add("hidden");
     }, 800);
+
+    if(!window.currentRecipe) return;
 }
 
 

@@ -213,7 +213,7 @@ body {
 }
 
 /* Optional animated neon stars in background */
-.restaurant-bg {
+/* .restaurant-bg {
     position: absolute;
     inset: 0;
     background: radial-gradient(circle at 10% 20%, rgba(128, 0, 255, 0.3) 2px, transparent 2px),
@@ -223,17 +223,17 @@ body {
     background-size: cover;
     z-index: 1;
     animation: twinkle 4s infinite alternate;
-}
+} */
 
 /* Content in front of background */
-.restaurant-content {
+/* .restaurant-content {
     position: relative;
     z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 600px; /* prevents container from scaling text with image */
-}
+    max-width: 600px;
+} */
 
 .taekook-welcome {
     width: 50vw;    /* 50% of viewport width */
@@ -361,6 +361,11 @@ body {
     display: none; /* hide by default */
 }
 
+.chat-bubble p {
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
 /* Tae (left) bubble */
 .chat-bubble.left {
     background: linear-gradient(145deg, #024b2f, #2a9f5d);
@@ -427,7 +432,7 @@ body {
     display: block;
     margin: 20px auto 0; 
     position: relative;
-    z-index: 100;
+    z-index: 50;
 }
 
 #startRideBtn:hover, #headToKitchenBtn:hover, #startCookingBtn:hover, #showFullInstructionsBtn:hover, 
@@ -498,8 +503,12 @@ body {
 #ingredientScene {
     text-align: center;
     padding: 20px;
-    color: #8affc1; /* light green */
+    color: #8affc1;
     font-family: 'Orbitron', sans-serif;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
 }
 
 .dish-title {
@@ -620,6 +629,7 @@ body {
     height: 700px;   /* fixed desktop height */
     margin: 15px auto;
     position: relative;
+    overflow: hidden;
 }
 
 #gameCanvas {
@@ -651,7 +661,7 @@ body {
     color: white;
     text-align: center;
     font-size: 1.1rem;
-    z-index: 999999; /* the important part */
+    z-index: 1000; 
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -676,6 +686,7 @@ body {
     width: 100%;
     pointer-events: none;
     z-index: 9999;
+    overflow: hidden;
 }
 
 /* shared bubble style */
@@ -1058,6 +1069,10 @@ body {
         transform: translateY(0) scale(1);
     }    
 
+    #cookingIngredients img {
+        user-select: none;
+    }
+
 }
 
 /* ------------------ Mobile ------------------ */
@@ -1183,6 +1198,8 @@ body {
     #startRideBtn, #headToKitchenBtn, #startCookingBtn, 
     #showFullInstructionsBtn, #startCollectIngredientsBtn, #cancelIngredientBtn, #cancelDuringGameBtn, #ingCompleteOk {
         font-size: 0.6rem !important;
+        max-width: 90%;
+        white-space: nowrap;
     }
   
     .dish-title { font-size: 1.2rem; }
@@ -1235,7 +1252,7 @@ body {
     /* Popup */
     #ingredientCollectedPopup {
         padding: 15px 20px;
-        font-size: 0.6rem;       /* mobile-friendly small text */
+        font-size: 0.6rem; 
         text-align: center;
     }
 
@@ -1259,6 +1276,5 @@ body {
     #kooCookingBubble {
         top: 15%;
     }
-    
     
 }
