@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Brand Ambassadorship</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="main-content">
+
+    <!-- HEADER -->
+    <h1 class="heading">Brand Ambassadorship</h1>
+
+    <p class="caption">
+        The World’s Most Coveted Ambassadors!
+    </p>
+
+
+    <!-- =========================
+         TAEHYUNG SECTION
+    ========================== -->
+
+    <section class="brand-section">
+
+        <div class="brand-section-header tae-header">
+            <h2>Kim Taehyung</h2>
+            <p>The Face of Timeless Luxury</p>
+        </div>
+
+        <div class="grid">
+            {% for b in brands %}
+            {% if b.artist == "Taehyung" %}
+            <div class="card"
+                 onclick="openModal({{ loop.index0 }})">
+
+                {% set img = b.media.split(',')[0].strip() if b.media else None %}
+
+                <img src="{{ img if img else '/static/placeholder.jpg' }}"
+                     loading="lazy">
+
+                <div class="info">
+                    <h3>{{ b.brand_name }}</h3>
+                    <div class="tags">
+                        {% if b.year %}
+                            {{ b.year }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- =========================
+         JUNG KOOK SECTION
+    ========================== -->
+
+    <section class="brand-section">
+        <div class="brand-section-header koo-header">
+            <h2>Jeon Jung Kook</h2>
+            <p>The Global Icon Redefining Modern Style</p>
+        </div>
+
+        <div class="grid">
+            {% for b in brands %}
+            {% if b.artist == "Jungkook" %}
+            <div class="card"
+                 onclick="openModal({{ loop.index0 }})">
+
+                {% set img = b.media.split(',')[0].strip() if b.media else None %}
+                <img src="{{ img if img else '/static/placeholder.jpg' }}"
+                     loading="lazy">
+
+                <div class="info">
+                    <h3>{{ b.brand_name }}</h3>
+                    <div class="tags">
+                        {% if b.year %}
+                            {{ b.year }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- =========================
+         MODAL
+    ========================== -->
+
+    <div class="modal" id="modal">
+
+        <div class="modal-content">
+
+
+            <div class="close" onclick="closeModal()">✕</div>
+
+
+            <div class="modal-header">
+
+                <img id="modalImg">
+
+            </div>
+
+
+            <div class="modal-body">
+
+                <h2 id="modalTitle"></h2>
+
+                <p id="modalDesc"></p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+
+/* =========================
+   MODAL DATA
+========================= */
+
+
+const data = [
+
+{% for b in brands %}
+
+{
+    title: "{{ b.brand_name }}",
+    artist: "{{ b.artist }}",
+    desc: `{{ b.description or "" }}`,
+    media: "{{ b.media or "" }}"
+},
+
+{% endfor %}
+
+];
+
+
+
+function openModal(i) {
+
+
+    const item = data[i];
+
+
+    document.getElementById("modal").style.display = "flex";
+
+
+    document.getElementById("modalTitle").innerText =
+        item.title;
+
+
+    document.getElementById("modalDesc").innerText =
+        item.desc;
+
+
+
+    const firstMedia =
+        item.media.split(",")[0]?.trim();
+
+
+
+    document.getElementById("modalImg").src =
+        firstMedia || "/static/placeholder.jpg";
+
+}
+
+
+
+function closeModal() {
+
+    document.getElementById("modal").style.display = "none";
+
+}
+
+
+
+</script>
+
+
+</body>
+</html>

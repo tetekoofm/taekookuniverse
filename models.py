@@ -136,46 +136,7 @@ class Radio(db.Model):
 
     def __repr__(self):
         return f'<Radio {self.station_name}>'
-   
-class SpotifyStats(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    artist = db.Column(db.String(100), nullable=False)  # Added artist column
-    image = db.Column(db.String(255), nullable=False)
-    orig_song_name = db.Column(db.String(255), nullable=False)
-    song_name = db.Column(db.String(255), nullable=False)
-    total_streams = db.Column(db.Integer, nullable=False)
-    popular = db.Column(db.Boolean, default=False)
-    date = db.Column(db.String(10), nullable=False)
-    
-    def __repr__(self):
-        return f'<ShazamStats {self.song_name} by {self.artist}>'
-    
-class YoutubeStats(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    artist = db.Column(db.String(100), nullable=False)  # Added artist column
-    image = db.Column(db.String(255), nullable=False)
-    orig_song_name = db.Column(db.String(255), nullable=False)
-    song_name = db.Column(db.String(255), nullable=False)
-    view_count = db.Column(db.Integer, nullable=False)
-    popular = db.Column(db.Boolean, default=False)
-    date = db.Column(db.String(10), nullable=False)
-    
-    def __repr__(self):
-        return f'<ShazamStats {self.song_name} by {self.artist}>'
-    
-class ShazamStats(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    artist = db.Column(db.String(100), nullable=False)
-    image = db.Column(db.String(255), nullable=False)
-    orig_song_name = db.Column(db.String(255), nullable=False)
-    song_name = db.Column(db.String(255), nullable=False)
-    shazam_count = db.Column(db.Integer, nullable=False)
-    popular = db.Column(db.Boolean, default=False)
-    date = db.Column(db.String(10), nullable=False)
-    
-    def __repr__(self):
-        return f'<ShazamStats {self.song_name} by {self.artist}>'
-    
+      
 class Fanbase(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     logo = db.Column(db.String(255), nullable=True)
@@ -234,7 +195,17 @@ class Promotion(db.Model):
 
     def __repr__(self):
         return f'<Event {self.campaign_title}>'
-    
+
+class BrandAmbassador(db.Model):
+    __tablename__ = "brand_ambassador"
+    id = db.Column(db.Integer, primary_key=True) 
+    artist = db.Column(db.String(100), nullable=False)
+    brand_name = db.Column(db.String(100), nullable=False)
+    folder = db.Column(db.String(100), nullable=True)
+    media = db.Column(db.String(500), nullable=True)
+    description = db.Column(db.Text, nullable=True)
+    year = db.Column(db.Integer, nullable=True)
+
 class Banner(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     subpage = db.Column(db.String(50), nullable=False)
@@ -244,27 +215,7 @@ class Banner(db.Model):
 
     def __repr__(self):
         return f'<Banner {self.title}>'
-    
-class Product(db.Model):
-    __tablename__ = 'product'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    price = db.Column(db.Float, nullable=False)
-    image = db.Column(db.String(200), nullable=False)
-
-    def __repr__(self):
-        return f'<Product {self.name}>'
-    
-class Order(db.Model):
-    __tablename__ = 'order'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(100), nullable=False)
-    address = db.Column(db.String(255), nullable=False)
-    total_price = db.Column(db.Float, nullable=False)
-    payment_status = db.Column(db.String(50), nullable=False, default='Created')
-    created_at = db.Column(db.DateTime, server_default=db.func.now())
-
+       
 class FanLetter(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     fanname = db.Column(db.String(255), nullable=True)  # Optional if image is provided

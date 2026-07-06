@@ -1,5 +1,5 @@
 import pandas as pd
-from models import db, TKURadio, BackgroundMusic, Upcoming, Highlights, Recap, Memory, InTheNews, Product, Discography, MusicVideo, Vote, Radio, Fanbase, SpotifyStats, YoutubeStats, ShazamStats, Banner, Project, Event, Promotion, FanLetter
+from models import db, TKURadio, BackgroundMusic, Upcoming, Highlights, Recap, Memory, InTheNews, Discography, MusicVideo, Vote, Radio, Fanbase, Project, Event, Promotion, BrandAmbassador, Banner, FanLetter
 from app import app
 from datetime import datetime, time
 
@@ -355,7 +355,39 @@ def insert_data_from_excel():
 
         db.session.commit()
         print("Promotion data updated from Excel!")
-            
+
+
+        brand_df = pd.read_excel(excel_file, sheet_name="BrandAmbassador")
+
+        for _, row in brand_df.iterrows():
+            existing = BrandAmbassador.query.filter_by(
+                brand_name=row['brand_name'],
+                artist=row['artist'],
+                year=row.get('year')
+            ).first()
+
+            if not existing:
+                media_value = row.get('media', None)
+
+                if pd.isna(media_value):
+                    media_value = None
+                else:
+                    media_value = str(media_value).strip()
+
+                brand = BrandAmbassador(
+                    artist=row['artist'],
+                    brand_name=row['brand_name'],
+                    folder=row.get('folder') if not pd.isna(row.get('folder')) else None,
+                    media=media_value,
+                    description=row.get('description') if not pd.isna(row.get('description')) else None,
+                    year=int(row['year']) if not pd.isna(row['year']) else None
+                )
+
+                db.session.add(brand)
+
+        db.session.commit()
+        print("Brand Ambassador data updated from Excel!")
+
         # Clean Data - Fill NaNs with None
         banner_df = pd.read_excel(excel_file, sheet_name="Banner")
         banner_df = banner_df.where(pd.notna(banner_df), None) 

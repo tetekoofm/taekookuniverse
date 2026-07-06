@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, Response, redirect, session, url_for, jsonify, current_app, send_from_directory, send_file
 import os, secrets, random, calendar, subprocess, base64, requests, json
-from models import db, TKURadio, BackgroundMusic, Upcoming, Highlights, Recap, Memory, InTheNews, Discography, MusicVideo, Vote, Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Banner, Project, Event, Promotion, FanLetter
+from models import db, TKURadio, BackgroundMusic, Upcoming, Highlights, Recap, Memory, InTheNews, Discography, MusicVideo, Vote, Radio, Fanbase, Project, Event, Promotion, BrandAmbassador, Banner, FanLetter
 from collections import defaultdict
 from datetime import datetime
 from flask_wtf import CSRFProtect
@@ -323,6 +323,11 @@ def reporting():
     banners = Banner.query.filter_by(subpage='07.11.reporting').all()
     return render_template('07.11.reporting.html', banners=banners)
 
+@app.route('/brandambassador')
+def brandambassador():
+    brands = BrandAmbassador.query.all()
+    return render_template('08.brand-ambassadorship.html', brands=brands)
+    
 @app.route('/fanletters')
 def fan_letters_page():
     page = request.args.get('page', 1, type=int)
