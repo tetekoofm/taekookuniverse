@@ -8,9 +8,7 @@
 </head>
 
 <body>
-
 <div class="main-content">
-
     <!-- HEADER -->
     <h1 class="heading">Brand Ambassadorship</h1>
 
@@ -18,36 +16,68 @@
         The World’s Most Coveted Ambassadors!
     </p>
 
+    <div class="filters">
+        <button class="filter-btn active"
+                onclick="filterBrands('all', event)">
+            All
+        </button>
+    
+        <button class="filter-btn"
+                onclick="filterBrands('Taehyung', event)">
+            🔴 Taehyung
+        </button>
+    
+        <button class="filter-btn"
+                onclick="filterBrands('Jungkook', event)">
+            🟡 Jung Kook
+        </button>
+    </div>
 
     <!-- =========================
          TAEHYUNG SECTION
     ========================== -->
 
-    <section class="brand-section">
+    <section class="brand-section tae-section">
 
         <div class="brand-section-header tae-header">
-            <h2>Kim Taehyung</h2>
+            <h2>Kim Taehyung (V)</h2>
             <p>The Face of Timeless Luxury</p>
         </div>
 
         <div class="grid">
             {% for b in brands %}
             {% if b.artist == "Taehyung" %}
-            <div class="card"
+            <div class="card tae-card"
                  onclick="openModal({{ loop.index0 }})">
 
-                {% set img = b.media.split(',')[0].strip() if b.media else None %}
+                 {% if b.image %}
+                 <img src="{{ url_for('static',
+                     filename='images/brandambassador/' ~ b.image) }}"
+                      alt="{{ b.brand_name }}"
+                      loading="lazy">
+                 {% else %}
+                 <img src="{{ url_for('static',
+                     filename='images/placeholder.jpg') }}"
+                      alt="{{ b.brand_name }}"
+                      loading="lazy">
+                 {% endif %}
 
-                <img src="{{ img if img else '/static/placeholder.jpg' }}"
-                     loading="lazy">
-
-                <div class="info">
+                 <div class="info tae-info">
                     <h3>{{ b.brand_name }}</h3>
                     <div class="tags">
                         {% if b.year %}
                             {{ b.year }}
                         {% endif %}
                     </div>
+                
+                    {% if b.link %}
+                    <a class="brand-link"
+                       href="{{ b.link }}"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Visit →
+                    </a>
+                    {% endif %}
                 </div>
             </div>
             {% endif %}
@@ -59,138 +89,88 @@
          JUNG KOOK SECTION
     ========================== -->
 
-    <section class="brand-section">
+    <section class="brand-section koo-section">
         <div class="brand-section-header koo-header">
-            <h2>Jeon Jung Kook</h2>
+            <h2>Jung Kook (JK)</h2>
             <p>The Global Icon Redefining Modern Style</p>
         </div>
 
         <div class="grid">
             {% for b in brands %}
             {% if b.artist == "Jungkook" %}
-            <div class="card"
+            <div class="card koo-card"
                  onclick="openModal({{ loop.index0 }})">
 
-                {% set img = b.media.split(',')[0].strip() if b.media else None %}
-                <img src="{{ img if img else '/static/placeholder.jpg' }}"
-                     loading="lazy">
+                 {% if b.image %}
+                 <img src="{{ url_for('static',
+                     filename='images/brandambassador/' ~ b.image) }}"
+                      alt="{{ b.brand_name }}"
+                      loading="lazy">
+                 {% else %}
+                 <img src="{{ url_for('static',
+                     filename='images/placeholder.jpg') }}"
+                      alt="{{ b.brand_name }}"
+                      loading="lazy">
+                 {% endif %}
 
-                <div class="info">
+                 <div class="info koo-info">
                     <h3>{{ b.brand_name }}</h3>
                     <div class="tags">
                         {% if b.year %}
                             {{ b.year }}
                         {% endif %}
                     </div>
+                
+                    {% if b.link %}
+                    <a class="brand-link"
+                       href="{{ b.link }}"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Visit →
+                    </a>
+                    {% endif %}
                 </div>
             </div>
             {% endif %}
             {% endfor %}
         </div>
     </section>
-
-    <!-- =========================
-         MODAL
-    ========================== -->
-
-    <div class="modal" id="modal">
-
-        <div class="modal-content">
-
-
-            <div class="close" onclick="closeModal()">✕</div>
-
-
-            <div class="modal-header">
-
-                <img id="modalImg">
-
-            </div>
-
-
-            <div class="modal-body">
-
-                <h2 id="modalTitle"></h2>
-
-                <p id="modalDesc"></p>
-
-            </div>
-
-
-        </div>
-
-    </div>
-
-
 </div>
 
-
-
 <script>
-
 
 /* =========================
    MODAL DATA
 ========================= */
 
+function filterBrands(type, event) {
+const buttons = document.querySelectorAll(".filter-btn");
+buttons.forEach(btn =>
+    btn.classList.remove("active")
+);
 
-const data = [
+event.target.classList.add("active");
+const taeSection = document.querySelector(".tae-section");
 
-{% for b in brands %}
+const kooSection = document.querySelector(".koo-section");
 
-{
-    title: "{{ b.brand_name }}",
-    artist: "{{ b.artist }}",
-    desc: `{{ b.description or "" }}`,
-    media: "{{ b.media or "" }}"
-},
-
-{% endfor %}
-
-];
-
-
-
-function openModal(i) {
-
-
-    const item = data[i];
-
-
-    document.getElementById("modal").style.display = "flex";
-
-
-    document.getElementById("modalTitle").innerText =
-        item.title;
-
-
-    document.getElementById("modalDesc").innerText =
-        item.desc;
-
-
-
-    const firstMedia =
-        item.media.split(",")[0]?.trim();
-
-
-
-    document.getElementById("modalImg").src =
-        firstMedia || "/static/placeholder.jpg";
-
+if (type === "all") {
+    taeSection.style.display = "block";
+    kooSection.style.display = "block";
 }
 
-
-
-function closeModal() {
-
-    document.getElementById("modal").style.display = "none";
-
+else if (type === "Taehyung") {
+    taeSection.style.display = "block";
+    kooSection.style.display = "none";
 }
 
-
+else if (type === "Jungkook") {
+    taeSection.style.display = "none";
+    kooSection.style.display = "block";
+}
+}
 
 </script>
-
 
 </body>
 </html>

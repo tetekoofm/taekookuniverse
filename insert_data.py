@@ -367,19 +367,35 @@ def insert_data_from_excel():
             ).first()
 
             if not existing:
-                media_value = row.get('media', None)
 
-                if pd.isna(media_value):
-                    media_value = None
+                image_value = row.get('image', None)
+                folder_value = row.get('folder', None)
+                link_value = row.get('link', None)
+
+                # Clean image
+                if pd.isna(image_value):
+                    image_value = None
                 else:
-                    media_value = str(media_value).strip()
+                    image_value = str(image_value).strip()
+
+                # Clean folder
+                if pd.isna(folder_value):
+                    folder_value = None
+                else:
+                    folder_value = str(folder_value).strip()
+
+                # Clean link
+                if pd.isna(link_value):
+                    link_value = None
+                else:
+                    link_value = str(link_value).strip()
 
                 brand = BrandAmbassador(
                     artist=row['artist'],
                     brand_name=row['brand_name'],
-                    folder=row.get('folder') if not pd.isna(row.get('folder')) else None,
-                    media=media_value,
-                    description=row.get('description') if not pd.isna(row.get('description')) else None,
+                    folder=folder_value,
+                    image=image_value,
+                    link=link_value,
                     year=int(row['year']) if not pd.isna(row['year']) else None
                 )
 

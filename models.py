@@ -202,8 +202,8 @@ class BrandAmbassador(db.Model):
     artist = db.Column(db.String(100), nullable=False)
     brand_name = db.Column(db.String(100), nullable=False)
     folder = db.Column(db.String(100), nullable=True)
-    media = db.Column(db.String(500), nullable=True)
-    description = db.Column(db.Text, nullable=True)
+    image = db.Column(db.String(500), nullable=True)
+    link = db.Column(db.String(500), nullable=True)
     year = db.Column(db.Integer, nullable=True)
 
 class Banner(db.Model):
