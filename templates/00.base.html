@@ -120,4 +120,30 @@
     });
     
 </script>
+
+<script>
+    function filterItems(type, event){
+        document.querySelectorAll(".filter-btn")
+        .forEach(btn=>{
+            btn.classList.remove("active");
+        });
+        event.target.classList.add("active");
+        document.querySelectorAll("[data-artist]")
+        .forEach(item=>{
+            const artist = item.dataset.artist;
+            if(
+                type === "all" ||
+                artist === type ||
+                (artist === "TaeKook" && 
+                (type === "Taehyung" || type === "Jungkook"))
+            ){
+                item.style.display = "";
+            }
+            else{
+                item.style.display = "none";
+            }
+        });
+    }    
+</script>
+
 </html>

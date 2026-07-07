@@ -1,4 +1,5 @@
 {% extends "00.base.html" %}
+{% from "00.filters.html" import category_filters %}
 {% block title %}Upcoming Projects{% endblock %}
 {% block content %}
 <div class="main-content">
@@ -8,29 +9,13 @@
     <p class="caption">
         The World’s Most Coveted Ambassadors!
     </p>
-
-    <div class="filters">
-        <button class="filter-btn all-btn active"
-                onclick="filterBrands('all', event)">
-            All
-        </button>
-    
-        <button class="filter-btn tae-btn"
-                onclick="filterBrands('Taehyung', event)">
-            🔴 Taehyung
-        </button>
-    
-        <button class="filter-btn koo-btn"
-                onclick="filterBrands('Jungkook', event)">
-            🟡 Jung Kook
-        </button>
-    </div>
+    {{ category_filters() }}
 
     <!-- =========================
          TAEHYUNG SECTION
     ========================== -->
 
-    <section class="brand-section tae-section">
+    <section class="brand-section tae-section" data-artist="Taehyung">
 
         <div class="brand-section-header tae-header">
             <h2>Kim Taehyung (V)</h2>
@@ -82,7 +67,7 @@
          JUNG KOOK SECTION
     ========================== -->
 
-    <section class="brand-section koo-section">
+    <section class="brand-section koo-section" data-artist="Jungkook">
         <div class="brand-section-header koo-header">
             <h2>Jung Kook (JK)</h2>
             <p>The Global Icon Redefining Modern Style</p>
@@ -129,40 +114,5 @@
         </div>
     </section>
 </div>
-
-<script>
-
-/* =========================
-   MODAL DATA
-========================= */
-
-function filterBrands(type, event) {
-const buttons = document.querySelectorAll(".filter-btn");
-buttons.forEach(btn =>
-    btn.classList.remove("active")
-);
-
-event.target.classList.add("active");
-const taeSection = document.querySelector(".tae-section");
-
-const kooSection = document.querySelector(".koo-section");
-
-if (type === "all") {
-    taeSection.style.display = "block";
-    kooSection.style.display = "block";
-}
-
-else if (type === "Taehyung") {
-    taeSection.style.display = "block";
-    kooSection.style.display = "none";
-}
-
-else if (type === "Jungkook") {
-    taeSection.style.display = "none";
-    kooSection.style.display = "block";
-}
-}
-
-</script>
 
 {% endblock %}

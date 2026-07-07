@@ -104,7 +104,7 @@ Object.keys(yearData).sort().forEach(year=>{
   for(let i=0;i<30+numEvents*3;i++){
     stars.push({
       arm: Math.floor(Math.random()*arms),
-      radius: 20 + Math.random()*40,
+      radius: 15 + Math.random()*90,
       t: Math.random()*Math.PI*2,
       size: Math.random()*1.5+0.5,
       color:`hsla(${Math.random()*360},80%,60%,0.6)`
@@ -116,9 +116,11 @@ Object.keys(yearData).sort().forEach(year=>{
     x,
     y,
     monthEvents,
-    stars: [],
+    stars: stars,
     arms: 3,
-    rotation: Math.random() * Math.PI * 2
+    rotation: Math.random() * Math.PI * 2,
+    opacity: 1,
+    selected:false
   });
 });
 
@@ -151,16 +153,64 @@ function drawBackground(){
   });
 }
 
+function drawConstellations(){
+
+galaxies.forEach((g,i)=>{
+
+  if(!galaxies[i+1]) return;
+
+  const next = galaxies[i+1];
+
+  ctx.beginPath();
+  ctx.moveTo(g.x,g.y);
+  ctx.lineTo(next.x,next.y);
+
+  if(selectedGalaxy === g || selectedGalaxy === next){
+    ctx.strokeStyle = `rgba(15,255,80,${0.3 + Math.sin(constellationPulse)*0.15})`;
+    ctx.lineWidth = 2;
+  }
+  else{
+    ctx.strokeStyle = "rgba(168,85,247,0.18)";
+    ctx.lineWidth = 1;
+  }
+
+  ctx.setLineDash([6,12]);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+});
+
+}
+
 /* ---------------- STATE ---------------- */
 let selectedGalaxy = null;
 let planetCache = {};
+let constellationPulse = 0;
+let currentMemoryList = [];
+let currentMemoryIndex = 0;
+let selectedYearEvents = [];
+/* ---------------- Animate Galaxy ---------------- */
+function animateGalaxySelection(target){
+  galaxies.forEach(g=>{
+      if(target === g){
+          g.opacity = 1;
+          g.selected = true;
+      }
+      else{
+          g.opacity = 0.12;
+          g.selected = false;
+      }
+  });
+}
 
 /* ---------------- DRAW LOOP ---------------- */
 function draw(){
   drawBackground();
+  constellationPulse += 0.03;
+  drawConstellations();
 
   galaxies.forEach(g=>{
-
+    ctx.globalAlpha = g.opacity || 1;
     if(!selectedGalaxy || selectedGalaxy===g){
       g.rotation += 0.00003;
     }
@@ -183,21 +233,48 @@ function draw(){
       ctx.stroke();
     });
 
-    const glow = ctx.createRadialGradient(g.x,g.y,10,g.x,g.y,90);
-    glow.addColorStop(0,"rgba(168,85,247,.45)");
-    glow.addColorStop(.5,"rgba(15,255,80,.18)");
+    const glowSize = selectedGalaxy === g ? 130 : 90;
+
+    const glow = ctx.createRadialGradient(
+        g.x,
+        g.y,
+        10,
+        g.x,
+        g.y,
+        glowSize
+    );
+
+    glow.addColorStop(0,"rgba(168,85,247,.65)");
+    glow.addColorStop(.4,"rgba(15,255,80,.25)");
     glow.addColorStop(1,"rgba(0,0,0,0)");
 
     ctx.beginPath();
     ctx.fillStyle = glow;
-    ctx.arc(g.x,g.y,90,0,Math.PI*2);
+    ctx.arc(g.x,g.y,glowSize,0,Math.PI*2);
     ctx.fill();
+    
+    if(selectedGalaxy === g){
+      ctx.beginPath();
+      ctx.arc(
+          g.x,
+          g.y,
+          110,
+          0,
+          Math.PI * 2
+      );
+
+      ctx.strokeStyle = "rgba(15,255,80,0.5)";
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([8,8]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      }
 
     /* year */
     ctx.textAlign = "center";
     ctx.font = `${YEAR_FONT()}px Orbitron`;
-    ctx.shadowBlur = 20;
-    ctx.shadowColor = "#a855f7";
+    ctx.shadowBlur = selectedGalaxy === g ? 35 : 20;
+    ctx.shadowColor = selectedGalaxy === g ? "#10ff50" : "#a855f7";
     ctx.fillStyle = "#fff";
     ctx.fillText(g.year,g.x,g.y);
     ctx.shadowBlur = 0;
@@ -231,6 +308,7 @@ function draw(){
         ctx.fillText(m, px, py - (r + 8));
       });
     }
+    ctx.globalAlpha = 1;
   });
 
   requestAnimationFrame(draw);
@@ -250,9 +328,19 @@ canvas.addEventListener('click',(e)=>{
     const dy = y - g.y;
 
     /* year click */
-    if(Math.hypot(dx,dy) < 35){
+    if(Math.hypot(dx,dy) < 50){
 
-      selectedGalaxy = selectedGalaxy===g ? null : g;
+      if(selectedGalaxy === g){
+        selectedGalaxy = null;
+        galaxies.forEach(g=>{
+            g.scale = 1;
+            g.opacity = 1;
+        });
+        }
+        else{
+        selectedGalaxy = g;
+        animateGalaxySelection(g);
+      }
 
       leftPanel.style.display = "none";
       leftPanel.innerHTML = "";
@@ -279,27 +367,41 @@ canvas.addEventListener('click',(e)=>{
 
 /* ---------------- PANEL ---------------- */
 function showEvents(events,month,year){
-  leftPanel.innerHTML = `<h3>${month} ${year}</h3>`;
-  leftPanel.style.display = "block";
 
-  events.sort((a,b)=>new Date(a.date)-new Date(b.date));
+currentMemoryList = events;
 
-  events.forEach(ev=>{
-    const div = document.createElement("div");
-    div.innerHTML = `
-      <div class="event-row">
-        <div class="date-box">${new Date(ev.date).getDate()}</div>
-        <img
-          src="/static/images/memories/${ev.image || 'placeholder.jpg'}"
-          class="event-thumb"
-          alt="${ev.title}"
-        >
-        <div class="event-title">${ev.title}</div>
-      </div>
-    `;
-    div.onclick = ()=>showModal(ev);
-    leftPanel.appendChild(div);
-  });
+leftPanel.innerHTML = `<h3>${month} ${year}</h3>`;
+leftPanel.style.display = "block";
+
+events.sort((a,b)=>new Date(a.date)-new Date(b.date));
+
+events.forEach((ev,index)=>{
+
+  const div = document.createElement("div");
+
+  div.innerHTML = `
+    <div class="event-row">
+      <div class="date-box">${new Date(ev.date).getDate()}</div>
+
+      <img
+        src="/static/images/memories/${ev.image || 'placeholder.jpg'}"
+        class="event-thumb"
+        alt="${ev.title}"
+      >
+
+      <div class="event-title">${ev.title}</div>
+    </div>
+  `;
+
+  div.onclick = ()=>{
+    selectedYearEvents = events;
+    currentMemoryIndex = events.indexOf(ev);
+    showModal(ev);
+  };
+
+  leftPanel.appendChild(div);
+
+});
 }
 
 /* ---------------- MODAL ---------------- */
@@ -317,18 +419,53 @@ if (ev.image) {
   `;
 }
 
+const isFirst = currentMemoryIndex === 0;
+const isLast = currentMemoryIndex === selectedYearEvents.length - 1;
+
 eventModal.innerHTML = `
   <div class="modal-content">
     ${imageHtml}
+
     <h2>${ev.title}</h2>
     <p>${ev.description}</p>
+
+    <div class="memory-navigation">
+      <button 
+        id="prevMemory"
+        ${isFirst ? "disabled" : ""}
+      >
+        ← Previous
+      </button>
+
+      <button 
+        id="nextMemory"
+        ${isLast ? "disabled" : ""}
+      >
+        Next →
+      </button>
+    </div>
 
     <button class="close-btn" id="closeModal">Close</button>
   </div>
 `;
+
 eventModal.style.display = "block";
 
 document.getElementById("closeModal").onclick = closeModal;
+
+document.getElementById("prevMemory").onclick = ()=>{
+  if(currentMemoryIndex > 0){
+    currentMemoryIndex--;
+    showModal(selectedYearEvents[currentMemoryIndex]);
+  }
+};
+
+document.getElementById("nextMemory").onclick = ()=>{
+  if(currentMemoryIndex < selectedYearEvents.length - 1){
+    currentMemoryIndex++;
+    showModal(selectedYearEvents[currentMemoryIndex]);
+  }
+};
 }
 
 function closeModal(){

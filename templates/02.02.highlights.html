@@ -1,17 +1,24 @@
 {% extends "00.base.html" %}
+{% from "00.filters.html" import category_filters %}
 {% block title %}Highlights{% endblock %}
 
 {% block content %}
 <div class="main-content">
     <h1 class="heading">Highlights</h1>
     <p class="caption">Highlights of Taehyung and Jung Kook!</p>
+   
+    {{ category_filters() }}
 
     <div class="highlights-container">
-
         {% if highlights %}
-
             {% for event in highlights %}
-            <div class="highlights-card">
+            <div class="highlights-card"
+                data-artist="{{ event.artist }}"
+                data-search="{{ (
+                    event.title ~ ' ' ~
+                    event.description ~ ' ' ~
+                    event.date.strftime('%B %d %Y')
+                )|lower }}">
 
                 <div class="highlights-header">
                     <h2 class="highlights-title">{{ event.title }}</h2>

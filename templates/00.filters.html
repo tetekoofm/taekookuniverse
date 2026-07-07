@@ -1,0 +1,22 @@
+{% macro category_filters() %}
+
+<div class="filters">
+
+    <button class="filter-btn all-btn active"
+            onclick="filterItems('all', event)">
+        All
+    </button>
+
+    <button class="filter-btn tae-btn"
+            onclick="filterItems('Taehyung', event)">
+        🔴 Taehyung
+    </button>
+
+    <button class="filter-btn koo-btn"
+            onclick="filterItems('Jungkook', event)">
+        🟡 Jung Kook
+    </button>
+
+</div>
+
+{% endmacro %}
