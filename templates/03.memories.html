@@ -10,15 +10,19 @@
 </head>
 
 <body>
-<canvas id="galaxyCanvas"></canvas>
+  <!-- <div class="main-content">
+    <h1 class="heading">✨ Memories ✨</h1>
+    <p class="caption">Click a galaxy to begin exploring.</p>
+  </div> -->
+  <a href="{{ url_for('home') }}">
+    <img src="{{ url_for('static', filename='images/fanbases/tku.webp') }}" id="TKULogo">
+  </a>
 
-<a href="{{ url_for('home') }}">
-  <img src="{{ url_for('static', filename='images/fanbases/tku.webp') }}" id="TKULogo">
-</a>
+  <canvas id="galaxyCanvas"></canvas>
 
-<div id="leftEventsPanel"></div>
-<div id="rightEventsPanel"></div>
-<div id="eventModal"></div>
+  <div id="leftEventsPanel"></div>
+  <div id="rightEventsPanel"></div>
+  <div id="eventModal"></div>
 
 <script>
 const canvas = document.getElementById('galaxyCanvas');
@@ -179,12 +183,24 @@ function draw(){
       ctx.stroke();
     });
 
+    const glow = ctx.createRadialGradient(g.x,g.y,10,g.x,g.y,90);
+    glow.addColorStop(0,"rgba(168,85,247,.45)");
+    glow.addColorStop(.5,"rgba(15,255,80,.18)");
+    glow.addColorStop(1,"rgba(0,0,0,0)");
+
+    ctx.beginPath();
+    ctx.fillStyle = glow;
+    ctx.arc(g.x,g.y,90,0,Math.PI*2);
+    ctx.fill();
+
     /* year */
     ctx.textAlign = "center";
     ctx.font = `${YEAR_FONT()}px Orbitron`;
-    ctx.fillStyle = "rgba(255,255,255,0.85)";
-    ctx.fillText(g.year, g.x, g.y);
+    ctx.shadowBlur = 20;
+    ctx.shadowColor = "#a855f7";
     ctx.fillStyle = "#fff";
+    ctx.fillText(g.year,g.x,g.y);
+    ctx.shadowBlur = 0;
 
     /* planets */
     if(selectedGalaxy===g){
