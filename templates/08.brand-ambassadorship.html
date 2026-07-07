@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Brand Ambassadorship</title>
-
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-
-<body>
+{% extends "00.base.html" %}
+{% block title %}Upcoming Projects{% endblock %}
+{% block content %}
 <div class="main-content">
     <!-- HEADER -->
     <h1 class="heading">Brand Ambassadorship</h1>
@@ -172,5 +165,4 @@ else if (type === "Jungkook") {
 
 </script>
 
-</body>
-</html>
+{% endblock %}
