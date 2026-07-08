@@ -568,8 +568,8 @@ max-height: 40vh;
     }
 
     .main-content .caption {
-        font-size: 1.6rem; 
-        margin: 0.5rem 0; 
+        font-size: 1.4rem; 
+        margin: 1rem 0; 
         line-height: 1.2; 
     }
 
@@ -1807,21 +1807,32 @@ pointer-events: auto;
     margin: 15px 0;
     background: radial-gradient(circle at 30% 30%, rgba(147, 84, 206, 0.15), rgba(0, 0, 0, 0.85));
     box-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
-    animation: pulseBorder 4s infinite ease-in-out;
     backdrop-filter: blur(4px);
 }
-@keyframes pulseBorder {
-    0%, 100% { box-shadow: 0 0 15px rgba(168, 85, 247, 0.5); }
-    50% { box-shadow: 0 0 35px rgba(168, 85, 247, 0.8); }
+
+@keyframes pulseBorderK {
+    0%, 100% { box-shadow: 0 0 15px #FFD700; }
+    50% { box-shadow: 0 0 35px #FFD700; }
+}
+@keyframes pulseBorderT {
+    0%, 100% { box-shadow: 0 0 15px #d62828; }
+    50% { box-shadow: 0 0 35px #d62828; }
 }
 
-.vibe-section h2 {
+.tae-section {
+    animation: pulseBorderT 4s infinite ease-in-out;
+}
+
+.koo-section {
+    animation: pulseBorderK 4s infinite ease-in-out;
+}
+
+.vibe-section h2,
+.music-videos-container .vibe-section h2 {
     font-family: 'Tangerine', serif;
     font-size: 4rem;
-    color: #a855f7;
     text-align: center;
     margin-bottom: 20px;
-    text-shadow: 0 0 15px #a855f7;
 }
 
 .vibe-section p {
@@ -1856,7 +1867,7 @@ pointer-events: auto;
     40% {
       opacity: 1;
       transform: translateY(-10px) scale(1.1);
-      text-shadow: 0 0 10px #9b59b6, 0 0 25px #00ff80;
+      text-shadow: 0 0 10px #d62828, 0 0 25px #FFD700;
     }
     100% {
       opacity: 0;
@@ -1865,11 +1876,11 @@ pointer-events: auto;
   }
 
 .song-name:nth-child(odd) {
-    color: #a855f7; /* Purple */
+    color: #FFD700; /* Purple */
 }
 
 .song-name:nth-child(even) {
-    color: #008000; /* Green */
+    color: #d62828; /* Green */
 }
 
 .platform-buttons {
@@ -1919,21 +1930,12 @@ pointer-events: auto;
     margin-top: 2px;
 }
 
-.music-videos-container .vibe-section{
-    width:46%;
-    padding:25px;
-    border-radius:15px;
-    background:radial-gradient(circle at 30% 30%,rgba(147,84,206,.15),rgba(0,0,0,.85));
-    box-shadow:0 0 30px rgba(168,85,247,.3);
-    z-index:2;
+.tae-section h2 {
+    color:#d62828;
 }
 
-.music-videos-container .vibe-section h2{
-    font-family:'Tangerine',serif;
-    font-size:3.5rem;
-    color:#a855f7;
-    text-align:center;
-    margin-bottom:20px;
+.koo-section h2 {
+    color:#FFD700;
 }
 
 .music-videos-container .vibe-player iframe{
@@ -1943,8 +1945,6 @@ pointer-events: auto;
     border-radius:12px;
 }
 
-/* Playlist */
-
 .video-playlist{
     margin-top:18px;
     height:250px;
@@ -1953,24 +1953,34 @@ pointer-events: auto;
     background:#111;
     border:1px solid rgba(255,255,255,.08);
 }
-
+  
 .video-playlist::-webkit-scrollbar{
-    width:8px;
+    width:15px;
 }
 
 .video-playlist::-webkit-scrollbar-thumb{
-    background:#a855f7;
+    background:#3b9e3b;
     border-radius:20px;
+}
+
+.mv-icon-tae {
+    color: #d62828;
+}
+
+.mv-icon-koo {
+    color: #FFD700;
 }
 
 .playlist-item{
     display:flex;
     align-items:center;
-    gap:12px;
-    padding:14px 18px;
-    color:#fff;
+    gap:8px;
+    padding:6px 12px;
+    color:#3b9e3b;
     cursor:pointer;
     font-family:'Fira Sans Condensed',sans-serif;
+    font-size:20px;
+    line-height:1.1;
     border-bottom:1px solid rgba(255,255,255,.08);
     transition:.25s;
 }
@@ -1990,221 +2000,178 @@ pointer-events: auto;
     font-weight:600;
 }
 
-/* Mobile */
-
-@media(max-width:768px){
-
-.music-videos-container .vibe-container{
-    flex-direction:column;
-    gap:20px;
-}
-
-.music-videos-container .vibe-section{
-    width:100%;
-    padding:18px;
-}
-
-.music-videos-container iframe{
-    height:220px;
-}
-
-.video-playlist{
-    height:220px;
-}
-
-.music-videos-container h2{
-    font-size:2.8rem;
-}
-
-.music-videos-container .vibe-section h2{
-    font-size:2.5rem;
-}
-
-}
-
-@media(max-width:768px){
-
-.music-videos-container .vibe-container{
-    flex-direction:column;
-    gap:20px;
-}
-
-.music-videos-container .vibe-section{
-    width:100%;
-}
-
-.music-videos-container .vibe-section iframe{
-    height:220px;
-}
-
-.music-videos-container .vibe-section h2{
-    font-size:2.3rem;
-}
-
-.video-playlist{
-    max-height:250px;
-}
-
-}
-
-@media screen and (min-width: 769px) and (max-width: 1370px) {
-    .vibe-container {
-        flex-direction: column;
-        align-items: center;
-        padding: 5px 0;
-        margin-top: 10px;
-    }
-
-    .vibe-section {
-        width: 80%;
-        padding: 10px 15px;
-        margin: 10px 0;
-        border-radius: 10px;
-    }
-
-    .vibe-section h2 {
-        font-size: 2rem;
-        margin-bottom: 10px;
-    }
-
-    .vibe-section p {
-        font-size: 1rem;
-        line-height: 1.4;
-    }
-
-    .music-videos-container {
-        padding: 10px 5px;
-    }
-
-    .music-videos-container h2 {
-        font-size: 2.5rem;
-        margin: 5px 0;
-    }
-
-    .music-videos-container p {
-        font-size: 1rem;
-        margin-bottom: 10px;
-    }
-
-    .video-section h3 {
-        font-size: 1.2rem;
-        margin-top: 20px;
-        margin-bottom: 10px;
-    }
-
-    .video-frame {
-        gap: 8px;
-        padding: 5px 0;
-    }
-
-    .video-item iframe {
-        width: 260px;
-        height: 145px;
-    }
-
-    .video-item p {
-        font-size: 0.9rem;
-        margin-top: 6px;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .vibe-container {
-        flex-direction: column;
-        align-items: center;
-        padding: 10px;
-    }
-
-    .vibe-section {
-        width: 90%;
-        margin: 10px 0;
-    }
-
-    .vibe-section h2 {
-        font-size: 2.5rem;
-    }
-
-    .vibe-section p {
-        font-size: 1rem;
-    }
-
-    .vibe-section iframe {
-        width: 100%;
-        height: 300px;
-    }
-
-    .vibe-section iframe + iframe {
-        margin-top: 10px;
-    }
-
-    .music-videos-container {
-        padding: 10px;
-    }
-
-    .music-videos-container h2 {
-        font-size: 2.5rem;
-        text-align: center;
-    }
-
-    .music-videos-container p {
-        font-size: 1rem;
-        margin-bottom: 10px;
-        text-align: center;
-    }
-
-    .video-section h3 {
-        font-size: 1.2rem !important;
-        margin-bottom: 10px;
-    }
-
-    .video-frame {
-        display: flex;
-        overflow-x: auto;
-        gap: 15px;
-        margin-top: 5px;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .video-item {
-        flex-shrink: 0;
-        width: 90%; /* Make sure it's not overflowing */
-    }
-
-    .video-item iframe {
-        width: 98%;
-        height: 180px;
-    }
-
-    .video-item p {
-        font-size: 0.8rem !important;
-        margin-top: 10px;
-    }
-
-    .arrow-left, .arrow-right {
-        display: none; /* Hide arrows on mobile */
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .vibe-section h2 {
-        font-size: 2rem;
-    }
-
-    .vibe-section p {
-        font-size: 0.9rem;
-    }
-
-    .music-videos-container h2 {
-        font-size: 2rem;
-    }
-
-    .video-item iframe {
-        border-radius: 5px;
-    }
-
-    .video-item p {
+/* =========================
+   Tablet
+========================= */
+@media (min-width:769px) and (max-width:1370px){
+    .song-name {
         font-size: 10px;
+    }
+
+    .vibe-container{
+        width:100%;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        gap:20px;
+        padding:10px 0;
+        box-sizing:border-box;
+    }
+    
+    .vibe-section{
+        width:80%;
+        max-width:900px;
+        margin:0 auto;
+        box-sizing:border-box;
+    }
+    
+    .vibe-section h2{
+        font-size:2.8rem;
+    }
+    
+    .vibe-section p{
+        font-size:1rem;
+        line-height:1.5;
+    }
+    
+    .vibe-player iframe{
+        height:320px;
+    }
+    
+    .platform-buttons{
+        gap:6px;
+    }
+    
+    .platform-btn{
+        padding:7px 14px;
+        font-size:.9rem;
+    }
+    
+    .music-videos-container{
+        padding:10px 0;
+    }
+    
+    .music-videos-container h2{
+        font-size:3rem;
+    }
+    
+    .music-videos-container p{
+        font-size:1rem;
+    }
+    
+    .video-playlist{
+        max-height:220px;
+    }    
+
+    .playlist-item{
+        font-size: 16px;
+    }
+
+}
+    
+/* =========================
+    Mobile
+========================= */
+@media (max-width:768px){
+    .song-name {
+        font-size: 8px;
+    }
+
+    .vibe-container{
+        flex-direction:column;
+        align-items:center;
+        gap:20px;
+        padding:10px;
+    }
+    
+    .vibe-section{
+        width:95%;
+        padding:18px;
+    }
+    
+    .vibe-section h2{
+        font-size:2.5rem !important;
+    }
+    
+    .vibe-section p{
+        font-size:.95rem;
+        line-height:1.5;
+    }
+    
+    .platform-buttons{
+        gap:6px;
+    }
+    
+    .platform-btn{
+        padding:6px 12px;
+        font-size:.85rem;
+    }
+    
+    .vibe-player iframe{
+        height:240px;
+    }
+    
+    .music-videos-container{
+        padding:10px;
+    }
+    
+    .music-videos-container h2{
+        font-size:3rem !important;
+    }
+    
+    .music-videos-container p{
+        font-size:1rem;
+    }
+    
+    .music-videos-container .vibe-section h2{
+        font-size:2.5rem !important;
+    }
+
+    .video-playlist{
+        max-height:180px;
+    }
+    
+    .playlist-item{
+        font-size:10px !important;
+    }    
+}
+    
+/* =========================
+    Small Phones
+========================= */
+@media (max-width:480px){
+    .song-name {
+        font-size: 10px;
+    }
+
+    .vibe-section h2{
+        font-size:2rem;
+    }
+    
+    .vibe-section p{
+        font-size:.9rem;
+    }
+    
+    .platform-btn{
+        padding:5px 10px;
+        font-size:.8rem;
+    }
+    
+    .vibe-player iframe{
+        height:210px;
+    }
+    
+    .music-videos-container h2{
+        font-size:2rem;
+    }
+    
+    .video-playlist{
+        max-height:160px;
+    }
+    
+    .playlist-item{
+        font-size:.8rem;
     }
 }
 

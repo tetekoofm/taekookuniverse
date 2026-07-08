@@ -90,7 +90,8 @@
                 <div class="video-playlist">
                     {% for video in taehyung_videos %}
                     <div class="playlist-item {% if loop.first %}active{% endif %}" onclick="changeVideo('taePlayer','{{ video.youtube_id }}',this)">
-                        <span>▶</span><span>{{ video.video_name }}</span>
+                        <span class="mv-icon-tae {{ video.artist|lower }}">✦</span>
+                        <span>{{ video.video_name }}</span>
                     </div>
                     {% endfor %}
                 </div>
@@ -109,7 +110,8 @@
                 <div class="video-playlist">
                     {% for video in jungkook_videos %}
                     <div class="playlist-item {% if loop.first %}active{% endif %}" onclick="changeVideo('jkPlayer','{{ video.youtube_id }}',this)">
-                        <span>▶</span><span>{{ video.video_name }}</span>
+                        <span class="mv-icon-koo {{ video.artist|lower }}">✦</span>
+                        <span>{{ video.video_name }}</span>
                     </div>
                     {% endfor %}
                 </div>
