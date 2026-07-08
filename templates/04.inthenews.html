@@ -1,15 +1,16 @@
 {% extends "00.base.html" %}
+{% from "00.filters.html" import category_filters %}
 {% block title %}In The News{% endblock %}
 {% block content %}
 
 <div class="main-content">
     <h1 class="heading">In The News</h1>
     <p class="caption">Stay up to date with Tae and Koo!</p>
+    {{ category_filters() }}
 
     <div class="inthenews-cards">
-
         {% for news in inthenews %}
-        <div class="inthenews-card">
+        <div class="inthenews-card" data-artist="{{ news.artist }}">
 
             <!-- HEADER -->
             <div class="card-header">
@@ -33,10 +34,8 @@
                     </div>
 
                 {% else %}
-
                     <!-- fallback if non-instagram ever used -->
                     <img src="{{ news.image }}" alt="{{ news.title }}">
-
                 {% endif %}
 
                 <!-- DESCRIPTION -->
@@ -45,16 +44,34 @@
                 </p> -->
 
                 {% if news.link %}
-                <a class="read-more" href="{{ news.link }}" target="_blank">
-                    Read more
-                </a>
+                <a class="read-more" href="{{ news.link }}" target="_blank">Read more</a>
                 {% endif %}
-
             </div>
         </div>
         {% endfor %}
-
     </div>
-</div>
 
+    {% if pagination.pages > 1 %}
+    <div class="pagination">
+        {% if pagination.has_prev %}
+            <a href="{{ url_for('inthenews', page=pagination.prev_num) }}">&laquo;</a>
+        {% endif %}
+
+        {% for page_num in pagination.iter_pages() %}
+            {% if page_num %}
+                {% if page_num == pagination.page %}
+                    <span class="active-page">{{ page_num }}</span>
+                {% else %}
+                    <a href="{{ url_for('inthenews', page=page_num) }}">{{ page_num }}</a>
+                {% endif %}
+            {% else %}
+                <span>...</span>
+            {% endif %}
+        {% endfor %}
+        {% if pagination.has_next %}
+            <a href="{{ url_for('inthenews', page=pagination.next_num) }}">&raquo;</a>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
 {% endblock %}

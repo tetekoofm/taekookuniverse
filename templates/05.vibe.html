@@ -2,102 +2,123 @@
 {% block title %}Rhythm of Taekook{% endblock %}
 {% block content %}
 
-<div class="song-names"></div>
-
 <!-- Heading and Intro Section -->
 <div class="main-content">
+    <div class="song-names"></div>
     <h1 class="heading">Rhythm of Taekook</h1>
     <p class="caption">Both artists have distinct musical tastes and styles, offering a blend of soul, energy, and emotion in their playlists.</p>
     <p class="caption">Explore their unique vibes and discover new music along the way!</p>
     
     <div class="vibe-container">
-        <div class="vibe-section">
+
+        <!-- =========================
+             TAEHYUNG VIBES
+        ========================== -->
+        <div class="vibe-section tae-section">
             <h2>Taehyung's Vibes</h2>
             <p>Taehyung enjoys a unique blend of genres, ranging from soulful ballads to experimental sounds. His music is full of emotion, with an emphasis on rich, atmospheric textures.</p>
-            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX5Ku5zxR5pFB?utm_source=generator&theme=0" width="100%" height="352" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>
-            <!-- <iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="450" style="width:100%;max-width:660px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/artist/v/1191852113"></iframe> -->
-            <iframe id='AmazonMusicEmbedB000QJWGKC' src='https://music.amazon.com/embed/B000QJWGKC/?id=6FNSyUlYLo&marketplaceId=ATVPDKIKX0DER&musicTerritory=US' width='100%' height='352px' frameBorder='0' style='border-radius:20px;max-width:'></iframe>
-            <iframe src="https://embed.tidal.com/playlists/530caaaf-5ddc-40e1-ac57-70fe37adab72" width=100% height="352" allow="encrypted-media" sandbox="allow-same-origin allow-scripts allow-forms allow-popups" title="TIDAL Embed Player"></iframe>
-            <iframe title="deezer-widget" src="https://widget.deezer.com/widget/dark/artist/134200/top_tracks" width="100%" height="252" frameborder="0" allowtransparency="true" allow="encrypted-media; clipboard-write"></iframe>
-            <iframe width=100% height="352" src="https://www.youtube.com/embed/videoseries?si=1qABxTX56syb_PSH&amp;list=PLCuwaSdxr-NiM2MEwHRK7mdjBdZTnz3x2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        
+            <div class="platform-buttons">
+                <button class="platform-btn active" onclick="loadVibePlayer('tae-player','spotify')">Spotify</button>
+                <button class="platform-btn" onclick="loadVibePlayer('tae-player','amazon')">Amazon</button>
+                <button class="platform-btn" onclick="loadVibePlayer('tae-player','tidal')">Tidal</button>
+                <button class="platform-btn" onclick="loadVibePlayer('tae-player','deezer')">Deezer</button>
+                <button class="platform-btn" onclick="loadVibePlayer('tae-player','youtube')">YouTube</button>
+            </div>
+        
+            <div id="tae-player" class="vibe-player">
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX5Ku5zxR5pFB?utm_source=generator&theme=0" width="100%" height="352" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>
+            </div>
+        
+            <div class="vibe-sources" style="display:none">
+                <iframe id="tae-spotify" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX5Ku5zxR5pFB?utm_source=generator&theme=0"></iframe>
+                <iframe id="tae-amazon" src="https://music.amazon.com/embed/B000QJWGKC/?id=6FNSyUlYLo&marketplaceId=ATVPDKIKX0DER&musicTerritory=US"></iframe>
+                <iframe id="tae-tidal" src="https://embed.tidal.com/playlists/530caaaf-5ddc-40e1-ac57-70fe37adab72"></iframe>
+                <iframe id="tae-deezer" src="https://widget.deezer.com/widget/dark/artist/134200/top_tracks"></iframe>
+                <iframe id="tae-youtube" src="https://www.youtube.com/embed/videoseries?list=PLCuwaSdxr-NiM2MEwHRK7mdjBdZTnz3x2" frameborder="0" allowfullscreen></iframe>
+            </div>
         </div>
-        <div class="vibe-section">
+
+        <!-- =========================
+             JUNG KOOK VIBES
+        ========================== -->
+        <div class="vibe-section koo-section">
             <h2>Jung Kook's Vibes</h2>
             <p>Jung Kook has a dynamic taste in music, with influences spanning from K-pop, pop, to rock. His versatile voice fits perfectly with various genres, and his playlists are full of energy and emotion.</p>
-            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXdVUsw2RlcPf?utm_source=generator&theme=0" width="100%" height="352" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>
-            <!-- <iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="450" style="width:100%;max-width:660px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/artist/jung-kook/785052275"></iframe> -->
-            <iframe id='AmazonMusicEmbedB01CKABLEQ' src='https://music.amazon.com/embed/B01CKABLEQ/?id=cNSGIzWrQo&marketplaceId=ATVPDKIKX0DER&musicTerritory=US' width='100%' height='352px' frameBorder='0' style='border-radius:20px;max-width:'></iframe>
-            <iframe src="https://embed.tidal.com/playlists/4980dbdf-9dd6-4a0a-84c6-a36f44cbb6c5" width=100% height="352" allow="encrypted-media" sandbox="allow-same-origin allow-scripts allow-forms allow-popups" title="TIDAL Embed Player"></iframe>
-            <iframe title="deezer-widget" src="https://widget.deezer.com/widget/dark/artist/9172904/top_tracks" width="100%" height="252" frameborder="0" allowtransparency="true" allow="encrypted-media; clipboard-write"></iframe>
-            <iframe width=100% height="352" src="https://www.youtube.com/embed/videoseries?si=yDoVkn7DLSNYqTNv&amp;list=PLCuwaSdxr-Nj62w206FDUoYus81iMAQKE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </div>        
+        
+            <div class="platform-buttons">
+                <button class="platform-btn active" onclick="loadVibePlayer('koo-player','spotify')">Spotify</button>
+                <button class="platform-btn" onclick="loadVibePlayer('koo-player','amazon')">Amazon</button>
+                <button class="platform-btn" onclick="loadVibePlayer('koo-player','tidal')">Tidal</button>
+                <button class="platform-btn" onclick="loadVibePlayer('koo-player','deezer')">Deezer</button>
+                <button class="platform-btn" onclick="loadVibePlayer('koo-player','youtube')">YouTube</button>
+            </div>
+        
+            <div id="koo-player" class="vibe-player">
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXdVUsw2RlcPf?utm_source=generator&theme=0" width="100%" height="352" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>
+            </div>
+        
+            <div class="vibe-sources" style="display:none">
+                <iframe id="koo-spotify" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXdVUsw2RlcPf?utm_source=generator&theme=0"></iframe>
+                <iframe id="koo-amazon" src="https://music.amazon.com/embed/B01CKABLEQ/?id=cNSGIzWrQo&marketplaceId=ATVPDKIKX0DER&musicTerritory=US"></iframe>
+                <iframe id="koo-tidal" src="https://embed.tidal.com/playlists/4980dbdf-9dd6-4a0a-84c6-a36f44cbb6c5"></iframe>
+                <iframe id="koo-deezer" src="https://widget.deezer.com/widget/dark/artist/9172904/top_tracks"></iframe>
+                <iframe id="koo-youtube" src="https://www.youtube.com/embed/videoseries?list=PLCuwaSdxr-Nj62w206FDUoYus81iMAQKE" frameborder="0" allowfullscreen></iframe>            
+            </div>
+        </div>
+
     </div>
-</div>
 
-<div class="universe-link"></div>
+    <div class="universe-link"></div>
 
-<div class="music-videos-container">
-    <h2>Music Videos</h2>
-    <p>Enjoy some of Taehyung's and Jung Kook's best music videos!</p>
+    <div class="music-videos-container">
+        <h2>Music Videos</h2>
+        <p>Enjoy some of Taehyung's and Jung Kook's best music videos!</p>
 
-    <!-- Taehyung's Videos -->
-    <div class="video-section">
-        <h3>Taehyung's Music Videos</h3>
-        <div class="video-scroll-container">
-            <button class="arrow-left" onclick="scrollVideos('taehyung', -1)">←</button>
+        <div class="vibe-container">
+            <div class="vibe-section tae-section">
+                <h2>Taehyung's MVs</h2>
+                <p>Taehyung’s music videos combine breathtaking visuals, artistic storytelling, and heartfelt emotion. Alongside his striking screen presence, they reflect his unique creative vision, distinctive aesthetic, and remarkable artistry.</p>
 
-            <div class="video-frame orbit-frame" id="taehyung-videos">
-                {% for video in taehyung_videos %}
-                    <div class="video-item">
-            
-                        {% if video.youtube_id %}
-                        <iframe width="450" height="250"
-                            src="https://www.youtube.com/embed/{{ video.youtube_id }}?rel=0&modestbranding=1"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen loading="lazy">
-                        </iframe>
-                        {% endif %}
-            
-                        <p>{{ video.video_name }}</p>
+                <div id="tae-player" class="vibe-player">
+                    <iframe id="taePlayerFrame"
+                        src="https://www.youtube.com/embed/{{ taehyung_videos[0].youtube_id }}?rel=0&modestbranding=1"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+
+                <div class="video-playlist">
+                    {% for video in taehyung_videos %}
+                    <div class="playlist-item {% if loop.first %}active{% endif %}" onclick="changeVideo('taePlayer','{{ video.youtube_id }}',this)">
+                        <span>▶</span><span>{{ video.video_name }}</span>
                     </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
 
-            <button class="arrow-right" onclick="scrollVideos('taehyung', 1)">→</button>
+            <div class="vibe-section koo-section">
+                <h2>Jung Kook's MVs</h2>
+                <p>From electrifying performances and dynamic choreography to moments of deep vulnerability, Jung Kook’s music videos always showcase the heart and soul behind his artistry. Each one highlights his remarkable emotional range, versatility, and captivating charisma.</p>
+
+                <div id="koo-player" class="vibe-player">
+                    <iframe id="jkPlayerFrame"
+                        src="https://www.youtube.com/embed/{{ jungkook_videos[0].youtube_id }}?rel=0&modestbranding=1"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="video-playlist">
+                    {% for video in jungkook_videos %}
+                    <div class="playlist-item {% if loop.first %}active{% endif %}" onclick="changeVideo('jkPlayer','{{ video.youtube_id }}',this)">
+                        <span>▶</span><span>{{ video.video_name }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Jung Kook's Videos -->
-    <div class="video-section">
-        <h3>Jung Kook's Music Videos</h3>
-        <div class="video-scroll-container">
-            <button class="arrow-left" onclick="scrollVideos('jungkook', -1)">←</button>
-
-            <div class="video-frame orbit-frame" id="jungkook-videos">
-                {% for video in jungkook_videos %}
-                    <div class="video-item">
-            
-                        {% if video.youtube_id %}
-                        <iframe width="450" height="250"
-                            src="https://www.youtube.com/embed/{{ video.youtube_id }}?rel=0&modestbranding=1"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen loading="lazy">
-                        </iframe>
-                        {% endif %}
-            
-                        <p>{{ video.video_name }}</p>
-                    </div>
-                {% endfor %}
-            </div>
-
-            <button class="arrow-right" onclick="scrollVideos('jungkook', 1)">→</button>
-        </div>
-    </div>
 </div>
 
-<!-- JavaScript to handle song name popups -->
 <script>
     const songs = {{ song_names | tojson }};
     const emojis = ['🎶', '🎵'];
@@ -168,5 +189,31 @@
         updateOrbitScroll(frame.id); // initialize
     });
 
+    function loadVibePlayer(playerId, platform){
+        const player=document.getElementById(playerId);
+        const artist=playerId==="tae-player"?"tae":"koo";
+        const source=document.getElementById(`${artist}-${platform}`);
+
+        player.innerHTML="";
+        const iframe=document.createElement("iframe");
+        iframe.src=source.src;
+        iframe.width="100%";
+        iframe.height="352";
+        iframe.frameBorder="0";
+        iframe.allow="encrypted-media";
+        iframe.allowFullscreen=true;
+        iframe.style.borderRadius="12px";
+        player.appendChild(iframe);
+    }
+
+    function changeVideo(playerId, videoId, item){
+        document.getElementById(playerId+"Frame").src =
+            "https://www.youtube.com/embed/"+videoId+"?rel=0&modestbranding=1";
+
+        item.parentElement.querySelectorAll(".playlist-item")
+            .forEach(i=>i.classList.remove("active"));
+
+        item.classList.add("active");
+    }
 </script>
 {% endblock %}

@@ -1629,6 +1629,30 @@ pointer-events: auto;
     opacity: 0.8;
 }
 
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 30px 0;
+    font-family: 'Fira Sans Condensed', sans-serif;
+}
+
+.pagination a,
+.pagination span {
+    padding: 8px 12px;
+    border-radius: 6px;
+    background: #222;
+    color: white;
+    text-decoration: none;
+    border: 1px solid #8A00C4;
+}
+
+.pagination .active-page {
+    background: #8A00C4;
+    color: white;
+    font-weight: bold;
+}
+
 @media screen and (max-width: 768px) {
     .spanish-blogs {
         font-size: 0.8rem;
@@ -1764,15 +1788,15 @@ pointer-events: auto;
 
 /****************************************************** VIBE *****************************************************/
 
-/* Vibe Page Layout */
 .vibe-container {
     display: flex;
     justify-content: space-between;
     padding: 20px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     margin-top: 40px;
     position: relative;
     z-index: 2;
+    gap: 50px;
 }
 
 .vibe-section {
@@ -1790,7 +1814,6 @@ pointer-events: auto;
     0%, 100% { box-shadow: 0 0 15px rgba(168, 85, 247, 0.5); }
     50% { box-shadow: 0 0 35px rgba(168, 85, 247, 0.8); }
 }
-
 
 .vibe-section h2 {
     font-family: 'Tangerine', serif;
@@ -1813,7 +1836,6 @@ pointer-events: auto;
     margin-top: 15px; 
 }
 
-/* Styling for the song name popups */
 .song-name {
     position: absolute;
     font-family: 'Comic Sans MS', cursive, sans-serif;
@@ -1823,7 +1845,7 @@ pointer-events: auto;
     opacity: 0.6;
     pointer-events: none;
     animation: pop-up-glow 5s ease-out forwards;
-    z-index: 0; /* Behind the main content */
+    z-index: 0;
 }
 
 @keyframes pop-up-glow {
@@ -1842,7 +1864,6 @@ pointer-events: auto;
     }
   }
 
-/* Colors for the song names */
 .song-name:nth-child(odd) {
     color: #a855f7; /* Purple */
 }
@@ -1851,129 +1872,179 @@ pointer-events: auto;
     color: #008000; /* Green */
 }
 
-/* Music Video styles */
-.music-videos-container {
-    padding: 20px;
-    flex-wrap: wrap;
-    position: relative;
-    z-index: 2;
+.platform-buttons {
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    flex-wrap:wrap;
+    margin:20px 0;
 }
 
-.music-videos-container h2 {
-    font-family: 'Tangerine', serif;
-    font-size: 5rem;
-    color: #a855f7;
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 8px; 
+.platform-btn {
+    background:#111;
+    color:white;
+    border:1px solid #a855f7;
+    padding:8px 15px;
+    border-radius:20px;
+    cursor:pointer;
+    font-family:'Fira Sans Condensed',sans-serif;
 }
 
-.music-videos-container p {
-    font-family: 'Fira Sans Condensed', serif;
-    font-size: 1.5rem;
-    color: #3b9e3b;
-    margin-top: 0; 
-    margin-bottom: 30px;
-    text-align: center;
+.platform-btn:hover,.platform-btn.active {
+    background:#a855f7;
 }
 
-.video-section h3 {
-    font-family: 'Fira Sans Condensed', serif;
-    font-size: 1.8rem;
-    color: #a855f7;
-    margin-top: 60px;
-    margin-bottom: 30px;
+.vibe-player iframe {
+    margin-top:10px;
 }
 
-.arrow-left, 
-.arrow-right {
-    margin-top: 0; 
+/* ===========================
+   MUSIC VIDEOS
+=========================== */
+
+.music-videos-container h2{
+    font-family:'Tangerine',serif;
+    font-size:5rem;
+    color:#a855f7;
+    text-align:center;
+    margin-bottom: 2px;
 }
 
-/* Custom scrollbar style */
-.video-frame {
-    overflow-x: auto;
-    display: flex;
-    gap: 20px;
-    scrollbar-width: thin;
-    scrollbar-color: #a855f7 #111;
-    margin-top: 10px; 
+.music-videos-container>p{
+    font-family:'Fira Sans Condensed',sans-serif;
+    font-size:1.5rem;
+    color:#3b9e3b;
+    text-align:center;
+    margin-bottom:35px;
+    margin-top: 2px;
 }
 
-.video-frame::-webkit-scrollbar {
-    height: 8px;
+.music-videos-container .vibe-section{
+    width:46%;
+    padding:25px;
+    border-radius:15px;
+    background:radial-gradient(circle at 30% 30%,rgba(147,84,206,.15),rgba(0,0,0,.85));
+    box-shadow:0 0 30px rgba(168,85,247,.3);
+    z-index:2;
 }
 
-.video-frame::-webkit-scrollbar-thumb {
-    background-color: #a855f7; 
+.music-videos-container .vibe-section h2{
+    font-family:'Tangerine',serif;
+    font-size:3.5rem;
+    color:#a855f7;
+    text-align:center;
+    margin-bottom:20px;
 }
 
-.video-frame::-webkit-scrollbar-track {
-    background-color: #a855f7;
-}
-
-/* Adjusting video container for better spacing */
-.video-item {
-    font-family: 'Tangerine', serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.video-item iframe {
-    margin-top: 10px;
-    border-radius: 10px;
-    border: 3px solid #a855f7; 
-    /* box-shadow: 0px 0px 15px #0FFF50;  */
-}
-
-/* Basic styling for video name text */
-.video-item p {
-    text-align: center;
-    color: #3b9e3b;
-    font-size: 14px; 
-    font-weight: bold;
-    margin-top: 20px;
-}
-
-.universe-link {
+.music-videos-container .vibe-player iframe{
     width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, #a855f7, #00ff9d, #a855f7);
-    animation: shimmer 5s linear infinite;
-    margin: 50px 0;
-  }
-  @keyframes shimmer {
-    0% { background-position: 0% 0; }
-    100% { background-position: 200% 0; }
-  }
-
-  .orbit-frame {
-    display: flex;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    gap: 30px;
-    perspective: 1000px; /* gives 3D orbit feeling */
-    position: relative;
+    height:352px;
+    border:none;
+    border-radius:12px;
 }
 
-.orbit-frame .video-item {
-    flex: 0 0 auto;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    transform-origin: center bottom; /* rotate around bottom center */
+/* Playlist */
+
+.video-playlist{
+    margin-top:18px;
+    height:250px;
+    overflow-y:auto;
+    border-radius:12px;
+    background:#111;
+    border:1px solid rgba(255,255,255,.08);
 }
 
-/* Glow trail effect on scroll */
-.orbit-frame::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none;
-    background: linear-gradient(to right, rgba(255,255,255,0.05), transparent 50%, rgba(255,255,255,0.05));
-    mix-blend-mode: screen;
-    opacity: 0.6;
-    transition: opacity 0.3s ease;
+.video-playlist::-webkit-scrollbar{
+    width:8px;
+}
+
+.video-playlist::-webkit-scrollbar-thumb{
+    background:#a855f7;
+    border-radius:20px;
+}
+
+.playlist-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 18px;
+    color:#fff;
+    cursor:pointer;
+    font-family:'Fira Sans Condensed',sans-serif;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    transition:.25s;
+}
+
+.playlist-item:last-child{
+    border-bottom:none;
+}
+
+.playlist-item:hover{
+    background:#242424;
+    color:#0FFF50;
+}
+
+.playlist-item.active{
+    background:#a855f7;
+    color:#fff;
+    font-weight:600;
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+.music-videos-container .vibe-container{
+    flex-direction:column;
+    gap:20px;
+}
+
+.music-videos-container .vibe-section{
+    width:100%;
+    padding:18px;
+}
+
+.music-videos-container iframe{
+    height:220px;
+}
+
+.video-playlist{
+    height:220px;
+}
+
+.music-videos-container h2{
+    font-size:2.8rem;
+}
+
+.music-videos-container .vibe-section h2{
+    font-size:2.5rem;
+}
+
+}
+
+@media(max-width:768px){
+
+.music-videos-container .vibe-container{
+    flex-direction:column;
+    gap:20px;
+}
+
+.music-videos-container .vibe-section{
+    width:100%;
+}
+
+.music-videos-container .vibe-section iframe{
+    height:220px;
+}
+
+.music-videos-container .vibe-section h2{
+    font-size:2.3rem;
+}
+
+.video-playlist{
+    max-height:250px;
+}
+
 }
 
 @media screen and (min-width: 769px) and (max-width: 1370px) {
@@ -3939,7 +4010,6 @@ input, select, textarea {
     border-top: 1px solid rgba(255,255,255,0.08);
     padding-top: 40px;
 }
-
 
 .tae-header h2 {
     color: #d62828;

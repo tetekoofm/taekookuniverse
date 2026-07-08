@@ -213,11 +213,13 @@ def get_event_details(event_id):
 
 @app.route('/inthenews')
 def inthenews():
-    inthenews = InTheNews.query.order_by(InTheNews.date.desc()).all()
+    page = request.args.get('page', 1, type=int)
+    per_page = 12
+    pagination = InTheNews.query.order_by(InTheNews.date.desc()).paginate(page=page, per_page=per_page, error_out=False)
     music = BackgroundMusic.query.filter_by(page_name='inthenews').first()
     song_file = music.file_name if music else "default.mp3"
     song_name = music.song_name if music else "Default Song"
-    return render_template("04.inthenews.html", song_file=song_file, song_name=song_name, inthenews=inthenews)
+    return render_template("04.inthenews.html", song_file=song_file, song_name=song_name, inthenews=pagination.items, pagination=pagination)
 
 @app.route('/vibe')
 def vibe():
