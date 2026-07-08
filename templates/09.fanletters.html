@@ -15,7 +15,7 @@
     </p>
     
     <div class="letter-wall">
-        {% for letter in fan_letters.items %}
+        {% for letter in fan_letters %}
             <div class="letter-card" 
             onclick="openModal('{{ url_for('static', filename='images/letters/' + (letter.image if letter.image else 'default.webp')) }}', `{{ letter.fanname if letter.fanname else 'Anonymous' }}`, `{{ letter.description.replace('\n', '<br>') if letter.description else '' }}`)">
                 {% if letter.image %}
@@ -30,17 +30,8 @@
 </div>
 
 <!-- Pagination Controls -->
-<div class="pagination">
-    {% if fan_letters.has_prev %}
-        <a href="{{ url_for('fan_letters_page', page=fan_letters.prev_num) }}" class="prev">« Prev</a>
-    {% endif %}
-    
-    <span class="page-number">Page {{ fan_letters.page }} of {{ fan_letters.pages }}</span>
 
-    {% if fan_letters.has_next %}
-        <a href="{{ url_for('fan_letters_page', page=fan_letters.next_num) }}" class="next">Next »</a>
-    {% endif %}
-</div>
+{% include "components/pagination.html" with context %}
 
 <div id="letterModal" class="modal">
     <span class="close" onclick="closeModal()">&times;</span>

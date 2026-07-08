@@ -1,0 +1,38 @@
+from flask import Blueprint, render_template, request
+from models import Project, BrandAmbassador, FanLetter, Event, Banner, BackgroundMusic
+from helpers import get_page_music, get_banners
+
+
+projects_bp = Blueprint("projects", __name__)
+
+
+@projects_bp.route('/projects')
+def projects():
+    projects = Project.query.all()
+    song_file, song_name = get_page_music("projects")
+    return render_template("06.projects.html", projects=projects, song_file=song_file, song_name=song_name)
+
+
+@projects_bp.route('/brandambassador')
+def brandambassador():
+    artist = request.args.get('artist')
+    query = BrandAmbassador.query
+    if artist:
+        query = query.filter(
+            BrandAmbassador.artist == artist)
+    brands = query.all()
+    return render_template("08.brand-ambassadorship.html", endpoint="projects.brandambassador", brands=brands)
+
+
+@projects_bp.route('/fanletters')
+def fan_letters_page():
+    page = request.args.get('page', 1, type=int)
+    pagination = FanLetter.query.paginate(page=page, per_page=8, error_out=False)
+    song_file, song_name = get_page_music("fan letters")
+    return render_template("09.fanletters.html", fan_letters=pagination.items, pagination=pagination, endpoint="projects.fan_letters_page", song_file=song_file, song_name=song_name)
+
+@projects_bp.route('/events')
+def events():
+    events = Event.query.all()
+    banners = get_banners('07.10.events')
+    return render_template("07.10.events.html", events=events, banners=banners)

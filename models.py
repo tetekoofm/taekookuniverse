@@ -1,12 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-
-# Initialize the SQLAlchemy object
-db = SQLAlchemy()
-
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
+from extensions import db
 
 class TKURadio(db.Model):
     __tablename__ = 'tkuradio'

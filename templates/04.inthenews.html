@@ -6,7 +6,7 @@
 <div class="main-content">
     <h1 class="heading">In The News</h1>
     <p class="caption">Stay up to date with Tae and Koo!</p>
-    {{ category_filters('inthenews') }}
+    {{ category_filters(endpoint) }}
 
     <div class="inthenews-cards">
         {% for news in inthenews %}
