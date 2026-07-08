@@ -3908,6 +3908,7 @@ input, select, textarea {
 }
 
 .filter-btn {
+    text-decoration:none;
     padding: 8px 16px;
     border-radius: 25px;
     font-family: 'Fira Sans Condensed', serif;
@@ -3952,7 +3953,9 @@ input, select, textarea {
 ========================= */
 
 .brand-section {
-    margin: 60px 0;
+    margin: 20px 0;
+    overflow:hidden;
+    width: 90%;
 }
 
 .brand-section-header {
@@ -4017,11 +4020,14 @@ input, select, textarea {
 ========================= */
 
 .grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:80px;
+    padding:20px;
+    width:100%;
+    max-width:100%;
+    box-sizing:border-box;
 }
 
 .card {
@@ -4033,7 +4039,11 @@ input, select, textarea {
     position: relative;
     display: flex;
     flex-direction: column;
+    flex:0 1 520px;
     height: auto;
+    width:520px;
+    max-width:100%;
+    box-sizing:border-box;
 }
 
 .card img {
@@ -4105,25 +4115,90 @@ input, select, textarea {
 }
 
 /* =========================
-   RESPONSIVE
+   MOBILE BRAND PAGE
 ========================= */
 
-@media (max-width: 768px) {
+@media (max-width:768px){
 
-    .heading {
-        font-size: 30px;
+    .filters{
+        gap:8px;
+        margin-top:15px;
+        margin-bottom:20px;
+        padding:0 10px;
     }
 
-    .grid {
-        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-        gap: 14px;
+    .filter-btn{
+        padding:3px 6px;
+        font-size:12px;
     }
 
-    .card img {
-        height: 150px;
+    .brand-section{
+        margin:35px 0;
+        width:90%;
+        overflow:hidden;
     }
 
+    .brand-section-header{
+        margin-bottom:20px;
+        padding:0 10px;
+    }
+
+    .brand-section-header h2{
+        font-size:28px;
+        letter-spacing:2px;
+    }
+
+    .brand-section-header p{
+        font-size:14px;
+    }
+
+    .tae-header::after,
+    .koo-header::after{
+        width:150px;
+    }
+
+    .grid{
+        display:grid;
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+        gap:8px;
+        padding:10px;
+        width:100%;
+        box-sizing:border-box;
+    }
+
+    .card{
+        width:100%;
+        min-width:0;
+        overflow:hidden;
+        box-sizing:border-box;
+    }
+
+    .card img{
+        width:100%;
+        height:80px;
+        object-fit:contain;
+    }
+
+    .info{
+        padding:8px;
+    }
+
+    .info h3{
+        font-size:13px;
+        line-height:1.2;
+    }
+
+    .tags{
+        font-size:10px;
+    }
+
+    .brand-link{
+        margin-top:8px;
+        padding:4px 10px;
+        font-size:10px;
+    }
 }
+
 /***************************************************** BANNER *****************************************************/
 
 .banner-carousel {

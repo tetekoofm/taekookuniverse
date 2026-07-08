@@ -1,12 +1,12 @@
 {% extends "00.base.html" %}
-{% from "00.filters.html" import category_filters %}
+{% from "components/filters.html" import category_filters %}
 {% block title %}In The News{% endblock %}
 {% block content %}
 
 <div class="main-content">
     <h1 class="heading">In The News</h1>
     <p class="caption">Stay up to date with Tae and Koo!</p>
-    {{ category_filters() }}
+    {{ category_filters('inthenews') }}
 
     <div class="inthenews-cards">
         {% for news in inthenews %}
@@ -51,27 +51,7 @@
         {% endfor %}
     </div>
 
-    {% if pagination.pages > 1 %}
-    <div class="pagination">
-        {% if pagination.has_prev %}
-            <a href="{{ url_for('inthenews', page=pagination.prev_num) }}">&laquo;</a>
-        {% endif %}
-
-        {% for page_num in pagination.iter_pages() %}
-            {% if page_num %}
-                {% if page_num == pagination.page %}
-                    <span class="active-page">{{ page_num }}</span>
-                {% else %}
-                    <a href="{{ url_for('inthenews', page=page_num) }}">{{ page_num }}</a>
-                {% endif %}
-            {% else %}
-                <span>...</span>
-            {% endif %}
-        {% endfor %}
-        {% if pagination.has_next %}
-            <a href="{{ url_for('inthenews', page=pagination.next_num) }}">&raquo;</a>
-        {% endif %}
-    </div>
-    {% endif %}
+    {% include "components/pagination.html" with context %}
+    
 </div>
 {% endblock %}

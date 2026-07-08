@@ -120,23 +120,34 @@ def upcoming():
 
 @app.route('/highlights')
 def highlights():
-    highlights_events = Highlights.query.all()
+    page = request.args.get('page', 1, type=int)
+    artist = request.args.get('artist')
+    per_page = 8
+    query = Highlights.query
+    if artist: 
+        query = query.filter((Highlights.artist == artist) | (Highlights.artist == "TaeKook"))
+    
+    pagination = query.order_by(Highlights.date.desc()).paginate(page=page, per_page=per_page, error_out=False)
+    highlights_events = pagination.items
     music = BackgroundMusic.query.filter_by(page_name='highlights').first()
     song_file = music.file_name if music else "default.mp3"
     song_name = music.song_name if music else "Default Song"
     for event in highlights_events:
-        if isinstance(event.date, str): 
-            event.date = datetime.strptime(event.date, '%Y-%m-%d') 
-    return render_template("02.02.highlights.html", highlights=highlights_events, song_file=song_file, song_name=song_name)
+        if isinstance(event.date, str):
+            event.date = datetime.strptime(event.date, '%Y-%m-%d')
+    return render_template("02.02.highlights.html", highlights=highlights_events, song_file=song_file, song_name=song_name, pagination=pagination, endpoint="highlights")
 
 @app.route('/recap')
 def recap():
-    recaps = Recap.query.order_by(Recap.date.desc()).all()
-    music = BackgroundMusic.query.filter_by(page_name='highlights').first()
+    page = request.args.get('page', 1, type=int)
+    per_page = 8
+    pagination = Recap.query.order_by(Recap.date.desc()).paginate(page=page, per_page=per_page, error_out=False)
+    recaps = pagination.items
+    music = BackgroundMusic.query.filter_by(page_name='recap').first()
     song_file = music.file_name if music else "default.mp3"
     song_name = music.song_name if music else "Default Song"
-    return render_template("02.03.recap.html", recaps=recaps, song_file=song_file, song_name=song_name)
-
+    return render_template("02.03.recap.html", recaps=recaps, song_file=song_file, song_name=song_name, pagination=pagination, endpoint="recap")
+    
 @app.route('/memories')
 def memories():
     memories_data = Memory.query.all()
@@ -214,12 +225,21 @@ def get_event_details(event_id):
 @app.route('/inthenews')
 def inthenews():
     page = request.args.get('page', 1, type=int)
-    per_page = 12
-    pagination = InTheNews.query.order_by(InTheNews.date.desc()).paginate(page=page, per_page=per_page, error_out=False)
+    artist = request.args.get('artist')
+    per_page = 8
+    query = InTheNews.query
+    if artist:
+        query = query.filter((InTheNews.artist == artist) | (InTheNews.artist == "TaeKook"))
+    pagination = query.order_by(
+        InTheNews.date.desc()
+    ).paginate(page=page, per_page=per_page, error_out=False)
+
     music = BackgroundMusic.query.filter_by(page_name='inthenews').first()
+
     song_file = music.file_name if music else "default.mp3"
     song_name = music.song_name if music else "Default Song"
-    return render_template("04.inthenews.html", song_file=song_file, song_name=song_name, inthenews=pagination.items, pagination=pagination)
+
+    return render_template("04.inthenews.html", song_file=song_file, song_name=song_name, inthenews=pagination.items, pagination=pagination, endpoint="inthenews")
 
 @app.route('/vibe')
 def vibe():
@@ -327,8 +347,12 @@ def reporting():
 
 @app.route('/brandambassador')
 def brandambassador():
-    brands = BrandAmbassador.query.all()
-    return render_template('08.brand-ambassadorship.html', brands=brands)
+    artist = request.args.get('artist')
+    query = BrandAmbassador.query
+    if artist:
+        query = query.filter(BrandAmbassador.artist == artist)
+    brands = query.all()
+    return render_template("08.brand-ambassadorship.html", brands=brands)
     
 @app.route('/fanletters')
 def fan_letters_page():

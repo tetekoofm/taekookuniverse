@@ -1,5 +1,5 @@
 {% extends "00.base.html" %}
-{% from "00.filters.html" import category_filters %}
+{% from "components/filters.html" import category_filters %}
 {% block title %}Highlights{% endblock %}
 
 {% block content %}
@@ -7,7 +7,7 @@
     <h1 class="heading">Highlights</h1>
     <p class="caption">Highlights of Taehyung and Jung Kook!</p>
    
-    {{ category_filters() }}
+    {{ category_filters('highlights') }}
 
     <div class="highlights-container">
         {% if highlights %}
@@ -129,9 +129,11 @@
                 </div>
             </div>
             {% endfor %}
-
         {% endif %}
     </div>
+
+    {% include "components/pagination.html" with context %}
+
 </div>
 
 <!-- ================= JS ================= -->
@@ -200,7 +202,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         function showSlide(i) {
 
-            killAllMedia();            // 🔥 ALWAYS STOP EVERYTHING FIRST
+            killAllMedia();
             activeContainer = container;
 
             slides.forEach((s, idx) => {

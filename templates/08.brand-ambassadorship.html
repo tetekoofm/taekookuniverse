@@ -1,5 +1,5 @@
 {% extends "00.base.html" %}
-{% from "00.filters.html" import category_filters %}
+{% from "components/filters.html" import category_filters %}
 {% block title %}Upcoming Projects{% endblock %}
 {% block content %}
 <div class="main-content">
@@ -9,12 +9,12 @@
     <p class="caption">
         The World’s Most Coveted Ambassadors!
     </p>
-    {{ category_filters() }}
+    {{ category_filters('brandambassador') }}
 
-    <!-- =========================
-         TAEHYUNG SECTION
-    ========================== -->
-
+<!-- =========================
+        TAEHYUNG SECTION
+========================== -->
+{% if not request.args.get('artist') or request.args.get('artist') == 'Taehyung' %}
     <section class="brand-section tae-section" data-artist="Taehyung">
 
         <div class="brand-section-header tae-header">
@@ -62,10 +62,12 @@
             {% endfor %}
         </div>
     </section>
+{% endif %}
 
-    <!-- =========================
-         JUNG KOOK SECTION
-    ========================== -->
+<!-- =========================
+        JUNG KOOK SECTION
+========================== -->
+{% if not request.args.get('artist') or request.args.get('artist') == 'Jungkook' %}
 
     <section class="brand-section koo-section" data-artist="Jungkook">
         <div class="brand-section-header koo-header">
@@ -113,6 +115,8 @@
             {% endfor %}
         </div>
     </section>
+{% endif %}
+
 </div>
 
 {% endblock %}
