@@ -1,0 +1,187 @@
+{% extends "00.base_subnav.html" %}
+{% block title %}Events{% endblock %}
+{% block content %}
+<div class="page events-page">
+    <h1 class="heading">Events</h1>
+    <p class="caption">Explore all the amazing events organized by our fanbase!</p>
+    
+    {% if banners %}
+    <section class="banner-carousel">
+        <div class="banner-track">
+            {% for banner in banners %}
+            <div class="banner-slide">
+                <h2>{{ banner.title }}</h2>
+                {% if banner.link %}
+                <a href="{{ banner.link }}" target="_blank" class="banner-btn">Learn More</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    {% for event in events %}
+    <div class="event-card">
+        <div class="event-header">
+            <h3 class="event-name">{{ event.title }}</h3>
+            <span class="event-date">{{ event.date }}</span>
+        </div>
+
+        <div class="media-container">
+            <div class="media-slider">
+                {% set media_files = event.image.split(',') %}
+                {% for media in media_files %}
+                {% set file = media.strip() %}
+        
+                <div class="media-slide">
+                    {% if "x.com" in file or "twitter.com" in file %}
+                    <div class="social-frame x-frame">
+                        <blockquote class="twitter-tweet">
+                            <a href="{{ file }}"></a>
+                        </blockquote>
+                    </div>
+        
+                    {% elif "instagram.com" in file %}
+                    <div class="social-frame ig-frame">
+                        <blockquote class="instagram-media"
+                                    data-instgrm-permalink="{{ file }}"
+                                    data-instgrm-version="14">
+                        </blockquote>
+                    </div>
+        
+                    {% elif file.endswith(".mp4") %}
+                    <video class="media-video"
+                           controls
+                           controlsList="nodownload"
+                           playsinline>
+                        <source src="{{ url_for('static', filename='images/events/' ~ file) }}"
+                                type="video/mp4">
+                    </video>
+                    {% else %}
+                    <img src="{{ url_for('static', filename='images/events/' ~ file) }}"
+                         alt="{{ event.title }}">
+                    {% endif %}
+                </div>
+                {% endfor %}        
+            </div>
+        
+            <button class="prev">&#10094;</button>
+            <button class="next">&#10095;</button>
+        </div>
+
+        <div class="event-description">
+            <p>{{ event.description | safe }}</p>
+            {% if event.trending_position %}
+            <div class="trending-section">
+                <p class="trending-title">
+                    🔥 Trending on X!
+                </p>
+                <img class="trending-image"
+                src="{{ url_for('static', filename='images/events/' + event.title|replace(' ', '_') + '_Trending.webp') }}">
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+
+    {% include "components/pagination.html" with context %}
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+
+    document.querySelectorAll(".media-container").forEach(container=>{
+
+        const slider=container.querySelector(".media-slider");
+        const slides=container.querySelectorAll(".media-slide");
+        const prev=container.querySelector(".prev");
+        const next=container.querySelector(".next");
+
+        let currentIndex=0;
+
+
+        function updateSlider(){
+
+            slider.style.transform=
+            `translateX(-${currentIndex * 100}%)`;
+
+
+            prev.style.display=
+            currentIndex===0 ? "none":"block";
+
+
+            next.style.display=
+            currentIndex===slides.length-1 ? "none":"block";
+
+
+            renderSocialEmbeds();
+
+        }
+
+
+        next.addEventListener("click",function(){
+
+            if(currentIndex < slides.length-1){
+
+                currentIndex++;
+
+                updateSlider();
+
+            }
+
+        });
+
+
+        prev.addEventListener("click",function(){
+
+            if(currentIndex > 0){
+
+                currentIndex--;
+
+                updateSlider();
+
+            }
+
+        });
+
+
+        updateSlider();
+
+    });
+
+
+    renderSocialEmbeds();
+
+});
+
+
+function renderSocialEmbeds(){
+
+    if(window.twttr && window.twttr.widgets){
+
+        window.twttr.widgets.load();
+
+    }
+
+
+    if(window.instgrm && window.instgrm.Embeds){
+
+        window.instgrm.Embeds.process();
+
+    }
+
+}
+
+
+function openFullScreen(img){
+
+    const newWindow=window.open("");
+
+    newWindow.document.write(
+        `<img src="${img.src}" style="width:100%;height:auto;">`
+    );
+
+}
+</script>
+
+{% endblock %}

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taekook Memory Flip</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #fceaff;
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+    }
+
+    h1 {
+        color: #b30086;
+        margin-bottom: 10px;
+    }
+
+    #level-text {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    /* Game grid */
+    #game-board {
+        display: grid;
+        gap: 12px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .card {
+        width: 90px;
+        height: 90px;
+        background: #fff;
+        border-radius: 10px;
+        cursor: pointer;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform .45s;
+    }
+
+    .card.flip {
+        transform: rotateY(180deg);
+    }
+
+    .front, .back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border-radius: 10px;
+    }
+
+    .front {
+        background: #b30086;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        color: white;
+    }
+
+    .back img {
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+    }
+
+    .back {
+        transform: rotateY(180deg);
+    }
+
+    /* Level-up message */
+    #message {
+        margin-top: 20px;
+        font-size: 22px;
+        color: #b30086;
+        font-weight: bold;
+        display: none;
+    }
+
+    @media (max-width: 600px) {
+        .card {
+            width: 70px;
+            height: 70px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<h1>🐰 Taekook Memory Flip</h1>
+<div id="level-text">Level: 1</div>
+
+<div id="game-board"></div>
+<div id="message"></div>
+
+<script>
+    /* ---------------------------------------------
+       THEMES (replace these images with yours)
+    --------------------------------------------- */
+    const tkImages = [
+        "https://via.placeholder.com/150/ff66cc?text=V+Outfit",
+        "https://via.placeholder.com/150/6699ff?text=JK+Outfit",
+        "https://via.placeholder.com/150/ffcc00?text=Chibi+V",
+        "https://via.placeholder.com/150/00cc99?text=Chibi+JK",
+        "https://via.placeholder.com/150/cc33ff?text=Emoji+1",
+        "https://via.placeholder.com/150/00b3b3?text=Emoji+2"
+    ];
+
+    let level = 1;
+    const board = document.getElementById("game-board");
+    const msg = document.getElementById("message");
+
+    let lock = false;
+    let flippedCard = null;
+    let matchedPairs = 0;
+
+    function startLevel() {
+        msg.style.display = "none";
+        document.getElementById("level-text").textContent = "Level: " + level;
+
+        const pairs = level + 2; // Level 1 = 3 pairs, Level 2 = 4 pairs, etc.
+        const neededImages = tkImages.slice(0, pairs);
+
+        let cards = [];
+
+        neededImages.forEach(img => {
+            cards.push(createCard(img));
+            cards.push(createCard(img));
+        });
+
+        shuffle(cards);
+
+        board.innerHTML = "";
+        board.style.gridTemplateColumns = `repeat(${Math.ceil(Math.sqrt(pairs * 2))}, 1fr)`;
+
+        cards.forEach(card => board.appendChild(card));
+
+        matchedPairs = 0;
+    }
+
+    function createCard(image) {
+        const card = document.createElement("div");
+        card.classList.add("card");
+
+        card.innerHTML = `
+            <div class="front">💜</div>
+            <div class="back"><img src="${image}"></div>
+        `;
+
+        card.addEventListener("click", () => flip(card));
+        return card;
+    }
+
+    function flip(card) {
+        if (lock || card.classList.contains("flip")) return;
+
+        card.classList.add("flip");
+
+        if (!flippedCard) {
+            flippedCard = card;
+        } else {
+            checkMatch(card);
+        }
+    }
+
+    function checkMatch(card2) {
+        lock = true;
+
+        const img1 = flippedCard.querySelector("img").src;
+        const img2 = card2.querySelector("img").src;
+
+        if (img1 === img2) {
+            matchedPairs++;
+            lock = false;
+            flippedCard = null;
+
+            if (matchedPairs === level + 2) {
+                levelUp();
+            }
+        } else {
+            setTimeout(() => {
+                flippedCard.classList.remove("flip");
+                card2.classList.remove("flip");
+                flippedCard = null;
+                lock = false;
+            }, 800);
+        }
+    }
+
+    function levelUp() {
+        msg.textContent = "Level Complete! 💜";
+        msg.style.display = "block";
+
+        setTimeout(() => {
+            level++;
+            startLevel();
+        }, 1200);
+    }
+
+    function shuffle(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+    }
+
+    startLevel();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+from flask import Blueprint, render_template, request, jsonify
+import os
+import json
+from models import db
+from extensions import csrf
+
+games_bp = Blueprint("games", __name__)
+
+LEADERBOARD_FILE = "leaderboard.json"
+
+
+@games_bp.route('/games')
+def games():
+    return render_template('13.games.html')
+
+
+@games_bp.route('/santas_delivery_dash')
+def santas_delivery_dash():
+    return render_template('13.01.santas_delivery_dash.html')
+
+
+@games_bp.route('/halloween-hunt')
+def halloween_hunt():
+    return render_template('13.01.halloween_hunt.html')
+
+
+@games_bp.route('/halloween-special')
+def halloween_special():
+    return render_template('13.01.halloween_special.html')
+
+
+@games_bp.route('/guesswithemoji')
+def guess_song_emoji():
+    return render_template('13.02.guess_song_emoji.html')
+
+
+@games_bp.route('/guesswithlyrics')
+def guess_song_lyrics():
+    return render_template('13.03.guess_song_lyrics.html')
+
+
+@games_bp.route('/guesswithscrambled')
+def guess_song_scrambled():
+    return render_template('13.04.guess_song_scrambled.html')
+
+
+@games_bp.route('/cookwithtaekook')
+def cook_with_taekook():
+    return render_template('13.07.cook_with_taekook.html')
+
+
+@games_bp.route('/memorygame')
+def memory_game():
+    return render_template('13.08.memory_game.html')
+
+
+def load_leaderboard():
+    if not os.path.exists(LEADERBOARD_FILE):
+        return {}
+
+    with open(LEADERBOARD_FILE, 'r') as f:
+        return json.load(f)
+
+
+def save_leaderboard(data):
+    with open(LEADERBOARD_FILE, 'w') as f:
+        json.dump(data, f, indent=2)
+
+
+@games_bp.route('/submit_score', methods=['POST'])
+@csrf.exempt
+def submit_score():
+    payload = request.get_json()
+    if not payload:
+        return jsonify({"error": "No JSON received"}), 400
+    game = payload.get('game')
+    username = payload.get('username', 'Anonymous')
+    score = payload.get('score', 0)
+
+    if not game:
+        return jsonify({"error": "Game name required"}), 400
+
+    data = load_leaderboard()
+
+    if game not in data:
+        data[game] = []
+
+    data[game].append({
+        "username": username,
+        "score": score
+    })
+
+    data[game] = sorted(
+        data[game],
+        key=lambda x: x['score'],
+        reverse=True
+    )[:10]
+
+    save_leaderboard(data)
+
+    return jsonify({
+        "success": True,
+        "leaderboard": data[game]
+    })
+
+
+@games_bp.route('/leaderboard/<game_name>')
+def get_leaderboard(game_name):
+    data = load_leaderboard()
+    return jsonify(data.get(game_name, []))

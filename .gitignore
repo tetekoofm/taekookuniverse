@@ -1,0 +1,8 @@
+.env
+cert.key
+taekook.json
+taekook_spotify.json
+__pycache__/
+*.pyc
+*.pyo
+*.pyd

@@ -1,0 +1,133 @@
+{% extends "00.base.html" %}
+{% block title %}Fan Projects{% endblock %}
+{% block content %}
+<div class="main-content">
+    <h1 class="heading">Fan Initiatives</h1>
+    <p class="caption">
+        Celebrating the impact of our community through donations, campaigns, and acts of kindness inspired by Taekook.
+    </p>
+
+    <div class="project-cards">
+        {% for project in projects %}
+        <div class="project-card"
+             data-title="{{ project.title | escape }}"
+             data-image="{{ project.image | escape }}"
+             data-description="{{ project.description | escape }}"
+             data-link="{{ project.link | escape }}">
+
+            <div class="project-image-container">
+                <img src="{{ url_for('static', filename='images/projects/' + project.image) }}"
+                     alt="{{ project.title }}">
+            </div>
+
+            <div class="project-info">
+                <h2 class="project-title">{{ project.title }}</h2>
+
+                <p class="project-date">
+                    📅 {{ project.date }}
+                    {% if project.location %}
+                    • 🌎 {{ project.location }}
+                    {% endif %}
+                </p>
+
+                <p class="project-description">
+                    {{ project.description }}
+                </p>
+
+                <span class="view-project">
+                    View Details →
+                </span>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div id="projectModal" class="modal">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h2 id="modalTitle"></h2>
+            <span class="close">&times;</span>
+        </div>
+
+        <img id="modalImage">
+
+        <div class="modal-section">
+            <h3>Project Story</h3>
+            <p id="modalDescription"></p>
+        </div>
+
+        <div id="modalLinks"></div>
+
+    </div>
+</div>
+
+<script>
+document.querySelectorAll(".project-card").forEach(card => {
+    card.addEventListener("click", function(){
+
+        const title = this.dataset.title || "";
+        const image = this.dataset.image || "";
+        const description = this.dataset.description || "";
+        const link = this.dataset.link || "";
+
+        document.body.style.overflow = "hidden";
+
+        document.getElementById("modalTitle").innerText = title;
+
+        document.getElementById("modalImage").src =
+            "/static/images/projects/" + image;
+
+        document.getElementById("modalDescription").innerText = description;
+
+        const linkContainer = document.getElementById("modalLinks");
+        linkContainer.innerHTML = "";
+
+        if(link && link.trim() !== "" && link !== "None"){
+
+            link.split(",").forEach(l => {
+
+                const a = document.createElement("a");
+
+                a.href = l.trim();
+                a.target = "_blank";
+                a.innerText = "Visit Link";
+                a.className = "modal-btn";
+
+                linkContainer.appendChild(a);
+
+            });
+
+        }
+
+        document.getElementById("projectModal").classList.add("show");
+
+    });
+});
+
+
+document.querySelector(".close").onclick = function(){
+
+    document.getElementById("projectModal").classList.remove("show");
+    document.body.style.overflow = "auto";
+
+};
+
+
+window.onclick = function(event){
+
+    const modal = document.getElementById("projectModal");
+
+    if(event.target === modal){
+
+        modal.classList.remove("show");
+        document.body.style.overflow = "auto";
+
+    }
+
+};
+</script>
+
+{% endblock %}

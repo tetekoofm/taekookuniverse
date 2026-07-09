@@ -1,0 +1,98 @@
+{% extends "00.base_subnav.html" %}
+{% block title %}Radio{% endblock %}
+{% block content %}
+
+<!-- Main Content -->
+<div class="page guide-page">
+    <h1>TaeKook On Air</h1>
+    <p class="caption">Radio plays are crucial for expanding Taehyung and Jung Kook's reach to casual listeners.</p>
+    <p class="caption">Help promote their music on air globally!</p>
+
+    <!-- 🔹 Auto-Scrolling Banner Section -->
+    {% if banners %}
+    <section class="banner-carousel">
+        <div class="banner-track">
+            {% for banner in banners %}
+            <div class="banner-slide">
+                <h2>{{ banner.title }}</h2>
+                {% if banner.link %}
+                <a href="{{ banner.link }}" class="banner-btn">Learn More</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <div class="section">
+        <h3>Importance of Radio Play</h3>
+        <p>Radio airplay not only introduces Taehyung and Jung Kook's music to a wider audience but also boosts their exposure on charts like Billboard Hot 100. Radio Stations often prioritize heavily requested songs, helping fans support their favorite artists by playing their music. And, many casual listeners discover new music through radio, making it a vital platform.</p>
+    </div>
+
+    <div class="section">
+        <h3>Requesting Songs on Radio Stations</h3>
+        <p>Requesting their songs is simpler than you think! Here’s how you can do it:</p>
+        <ul>
+            <li><strong style="color: #3dcf64;">Form Requests:</strong> Most stations accept song requests through forms. Visit their website, navigate to the "Song Request" section, and fill out the form with the artist's name and the song title (e.g., "Slow Dancing by V" or "Seven by Jung Kook").</li>
+            <li><strong style="color: #3dcf64;">Social Media Requests:</strong> Many stations are active on platforms like <strong>X</strong>, Instagram, Facebook, and Bluesky. Use hashtags and comment on their posts to request Taehyung and Jungkook’s songs.</li>
+            <li><strong style="color: #3dcf64;">App Requests:</strong> Stations with apps like iHeartRadio, TuneIn, or GetMeRadio.com often have "Song Request" features. Install the app, search for the station, and submit your request.</li>
+            <li><strong style="color: #3dcf64;">Live Show Requests:</strong> DJs love interacting with listeners during live shows. Call in and politely request your favorite song. Keep an eye on their announcements for when this is avilable.</li>
+            <li><strong style="color: #3dcf64;">Fanbase-Driven Requests:</strong> Our dedicated fanbase <a href="https://x.com/TaeKook_Radio">TK Radio</a> regularly organizes request campaigns. Join them!</li>
+            <li><strong style="color: #3dcf64;">Local Stations:</strong> Explore your local radio stations. Visit their websites or social media pages to find out how to request songs.</li>
+        </ul>
+    </div>
+    <div class="section">
+        <h3>Effective Song Requesting Tips</h3>
+        <ul>
+            <li>Be polite and professional in your requests.</li>
+            <li>Be clear with your requests. Specify the exact song name...</li>
+            <li>Avoid spamming with multiple requests in a short time.</li>
+            <li>Certain stations have limitations to ensure fairness...</li>
+            <li>Engage with the station’s content by liking, sharing, or commenting...</li>
+            <li>Encourage others to join you. The more requests a song gets...</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h3>Prominent Radio Stations</h3>
+        <p>Some of our go-to stations that play Taehyung and Jung Kook!</p>
+        <section class="radio-vote-container">
+            {% for station in radio_stations %}
+            <div class="radio-vote-card">
+                {% if station.station_logo %}
+                <img src="{{ url_for('static', filename='images/radio/' + station.station_logo) }}" alt="{{ station.station_name }}" class="radio-vote-logo">
+                {% endif %}
+                <h3>{{ station.station_name }}</h3>
+                <p><strong>Location:</strong> {{ station.location }}</p>
+                <div class="button-container">
+                    <a href="{{ station.station_link }}" target="_blank" class="button-link">Tune In</a>
+                    {% if station.request_link %}
+                    <a href="{{ station.request_link }}" target="_blank" class="button-link">Request</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </section>
+    </div>
+</div>
+
+<!-- Button to trigger sticky note slide-in -->
+<button id="toggle-sticky-note" class="sticky-note-btn">Quick Tips</button>
+
+<div class="sticky-notes">
+    <!-- <h4><span class="pin-icon">📌</span>Pro Tips</h4> -->
+    <ul>
+        <li>Follow station-specific guidelines for song requests.</li>
+        <li>Share proof of your requests on social media to inspire others to participate.</li>
+        <li>Contact our FB <strong><a href="https://x.com/TaeKook_Radio">TK Radio</a></strong> to know when specific songs are being pushed for airplay.</li>
+    </ul>
+</div>
+<script>
+    const stickyNote = document.querySelector('.sticky-notes');
+    const toggleButton = document.querySelector('#toggle-sticky-note');
+
+    toggleButton.addEventListener('click', function () {
+        stickyNote.classList.toggle('open');
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promotions - Taekook Universe</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Taehyung & Jungkook: Ad Promotions</h1>
+        <p>Explore all their advertisements, and campaigns.</p>
+    </header>
+
+    <section class="promotions-container">
+        {% for ad in ads %}
+        <div class="promo-card">
+            <h2>{{ ad.brand_name }}</h2>
+            {% if ad.campaign_title %}
+            <h3>{{ ad.campaign_title }}</h3>
+            {% endif %}
+            <img src="{{ ad.image_url }}" alt="{{ ad.brand_name }} Ad">
+            {% if ad.video_url %}
+            <iframe width="100%" height="300" src="{{ ad.video_url }}" frameborder="0" allowfullscreen></iframe>
+            {% endif %}
+            <p>{{ ad.description }}</p>
+            <span class="year">{{ ad.year }}</span>
+        </div>
+        {% endfor %}
+    </section>
+</body>
+</html>
