@@ -278,9 +278,10 @@ def insert_data_from_excel():
                     description=row['description'],
                     x=row['x'],  
                     instagram=row['instagram'],
+                    tiktok=row['tiktok'],
                     facebook=row['facebook'],
                     bluesky=row['bluesky'],
-                    tiktok=row['tiktok'],
+                    threads=row['threads'],
                     spotify=row['spotify'],
                     applemusic=row['applemusic']
                 )

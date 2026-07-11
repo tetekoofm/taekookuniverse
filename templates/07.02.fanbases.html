@@ -167,7 +167,11 @@
                             <img src="{{ url_for('static', filename='images/icons/instagram.webp') }}">
                         </a>
                         {% endif %}
-
+                        {% if fanbase.tiktok %}
+                        <a href="{{ fanbase.tiktok }}" target="_blank">
+                            <img src="{{ url_for('static', filename='images/icons/tiktok.webp') }}">
+                        </a>
+                        {% endif %}
                         {% if fanbase.facebook %}
                         <a href="{{ fanbase.facebook }}" target="_blank">
                             <img src="{{ url_for('static', filename='images/icons/facebook.webp') }}">
@@ -180,9 +184,9 @@
                         </a>
                         {% endif %}
 
-                        {% if fanbase.tiktok %}
-                        <a href="{{ fanbase.tiktok }}" target="_blank">
-                            <img src="{{ url_for('static', filename='images/icons/tiktok.webp') }}">
+                        {% if fanbase.threads %}
+                        <a href="{{ fanbase.threads }}" target="_blank">
+                            <img src="{{ url_for('static', filename='images/icons/threads.webp') }}">
                         </a>
                         {% endif %}
 

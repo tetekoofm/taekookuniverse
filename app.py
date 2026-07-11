@@ -2,7 +2,6 @@ from flask import Flask
 from extensions import db, csrf
 import os
 
-
 def create_app():
     app = Flask(__name__)
     app.secret_key = os.environ.get(
@@ -46,7 +45,6 @@ def create_app():
     return app
 
 app = create_app()
-
 
 if __name__ == "__main__":
     app.run(

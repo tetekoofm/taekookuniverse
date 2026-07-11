@@ -138,11 +138,12 @@ class Fanbase(db.Model):
     location = db.Column(db.String(255), nullable=True)
     focus = db.Column(db.String(255), nullable=True)
     description = db.Column(db.Text, nullable=True)
-    x = db.Column(db.String(255), nullable=True)  # Social media links
+    x = db.Column(db.String(255), nullable=True)
     instagram = db.Column(db.String(255), nullable=True)
+    tiktok = db.Column(db.String(255), nullable=True)
     facebook = db.Column(db.String(255), nullable=True)
     bluesky = db.Column(db.String(255), nullable=True)
-    tiktok = db.Column(db.String(255), nullable=True)
+    threads = db.Column(db.String(255), nullable=True)
     spotify = db.Column(db.String(255), nullable=True)
     applemusic = db.Column(db.String(255), nullable=True)
 

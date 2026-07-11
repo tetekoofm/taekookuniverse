@@ -2,17 +2,61 @@
 {% block title %}Wall of Love{% endblock %}
 {% block content %}
 
-<div class="main-content">
+<div class="fan-letter-page">
+<section class="postbox-scene" id="postboxScene">
+    <div id="envelopeContainer"></div>
+    <div class="postbox-container">
+        <div class="postbox" id="postbox">📮</div>
+        <div id="postTitle">
+            <h1 class="heading">TaeKook Postbox</h1>
+            <p class="caption">Letters of love from fans around the world</p>
+        </div>
+    </div>
+</section>
+
+<section class="featured-love hidden" id="featuredContent">
+    <h1 class="heading">Today's Letters of Love</h1>
+    <p class="caption">Let's cherish the letter from...</p>
+    <div class="love-banner">
+        <span>💚</span>
+        <span>💜</span>
+        <span>💚</span>
+        <span>💜</span>
+        <span>💚</span>
+        <span>💜</span>
+        <span>💚</span>
+        <span>💜</span>
+        <span>💚</span>
+    </div>
+
+    <div class="featured-container">
+        {% for letter in featured_letters %}
+        <div class="featured-envelope"
+            onclick="openModal(
+            '{{ url_for('static', filename='images/letters/' + (letter.image if letter.image else 'default.webp')) }}',
+            '{{ letter.fanname if letter.fanname else 'Anonymous' }}',
+            `{{ letter.description.replace('\n','<br>') if letter.description else '' }}`
+            )">💌
+            <span>{{ letter.fanname if letter.fanname else "Anonymous" }}</span>
+        </div>
+        {% endfor %}
+    </div>
+
+    <button class="show-all-btn" onclick="showAllLetters()">✨ Open the Wall of Love</button>
+    
+</section>
+
+<div class="main-content love-wall" id="loveWall" style="display:none;">
     <h1 class="heading">💜 Wall of Love 💚</h1>
     <p class="caption">Heartfelt messages from Taekook fans around the world!</p>
+
     <div class="letter-intro">
+        <div class="hero-badge">💌 Want your message featured?</div>
         <p class="fl-template">
-            💌 Want your message featured?
-            <br>
             Use one of our templates, create your own, or simply send us a message on
             <a href="https://x.com/theTKuniverse">TK Universe</a>
         </p>
-    
+
         <div class="letter-templates">
             <a href="{{ url_for('static', filename='images/letters/template1.webp') }}" target="_blank">Template 1</a>
             <a href="{{ url_for('static', filename='images/letters/template2.webp') }}" target="_blank">Template 2</a>
@@ -20,7 +64,7 @@
             <a href="{{ url_for('static', filename='images/letters/template4.webp') }}" target="_blank">Template 4</a>
         </div>
     </div>
-    
+
     <div class="love-banner">
         <span>💚</span>
         <span>💜</span>
@@ -35,22 +79,31 @@
 
     <div class="letter-wall">
         {% for letter in fan_letters %}
-            <div class="letter-card" 
-            onclick="openModal('{{ url_for('static', filename='images/letters/' + (letter.image if letter.image else 'default.webp')) }}', `{{ letter.fanname if letter.fanname else 'Anonymous' }}`, `{{ letter.description.replace('\n', '<br>') if letter.description else '' }}`)">
-                {% if letter.image %}
-                    <img src="{{ url_for('static', filename='images/letters/' + letter.image) }}" alt="Fan Letter">
-                {% else %}
-                <p class="description">{{ letter.description.replace('\n', '<br>')|safe if letter.description else 'No Description' }}</p>
-                {% endif %}
-                <p class="fan-name"> 💌 {{ letter.fanname if letter.fanname else 'Anonymous' }}</p>
-            </div>
+        <div class="letter-card"
+        onclick="openModal(
+        '{{ url_for('static', filename='images/letters/' + (letter.image if letter.image else 'default.webp')) }}',
+        '{{ letter.fanname if letter.fanname else 'Anonymous' }}',
+        `{{ letter.description.replace('\n','<br>') if letter.description else '' }}`
+        )">
+            {% if letter.image %}
+            <img src="{{ url_for('static', filename='images/letters/' + letter.image) }}"
+            alt="Fan Letter">
+            {% else %}
+            <p class="description">
+                {{ letter.description.replace('\n','<br>')|safe if letter.description else 'No Description' }}
+            </p>
+            {% endif %}
+
+            <p class="fan-name">
+                💌 {{ letter.fanname if letter.fanname else "Anonymous" }}
+            </p>
+        </div>
         {% endfor %}
     </div>
+    {% include "components/pagination.html" with context %}
 </div>
 
-<!-- Pagination Controls -->
-
-{% include "components/pagination.html" with context %}
+</div>
 
 <div id="letterModal" class="modal">
     <span class="close" onclick="closeModal()">&times;</span>
@@ -59,37 +112,150 @@
     <div id="modalMessage" class="fan-message"></div>
 </div>
 
-<!-- JavaScript -->
 <script>
-    function openModal(imageSrc, fanname, message) {
-        let modal = document.getElementById("letterModal");
-        let modalImg = document.getElementById("modalImage");
-        let modalFanname = document.getElementById("modalFanname");
-        let modalMessage = document.getElementById("modalMessage");
 
-        modal.style.display = "flex";  
-        if (imageSrc.includes('default.webp')) {
-            modalImg.style.display = "none"; 
-        } else {
-            modalImg.style.display = "block";
-            modalImg.src = imageSrc;
-        }
-
-        modalFanname.innerHTML = fanname || "Anonymous";
-        modalMessage.innerHTML = message ? message.replace(/\n/g, "<br>") : "";
+    if(new URLSearchParams(window.location.search).has("page")){
+        document.documentElement.classList.add("skip-fan-animation");
     }
 
+    window.addEventListener("load",()=>{
+        const params = new URLSearchParams(window.location.search);
+        const showAnimation = !params.has("page");
+        const scene=document.getElementById("postboxScene");
+        const featured=document.getElementById("featuredContent");
+        const wall=document.getElementById("loveWall");
 
-    function closeModal() {
-        document.getElementById("letterModal").style.display = "none";
+        if(!showAnimation){
+            scene.style.display="none";
+            featured.style.display="none";
+            wall.style.display="block";
+            return;
+        }
+
+        scene.style.display="flex";
+        featured.style.display="none";
+        wall.style.display="none";
+
+        startPostboxAnimation();
+
+    });
+
+
+    function startPostboxAnimation(){
+
+        createEnvelopes();
+        const scene=document.getElementById("postboxScene");
+        const postbox=document.getElementById("postbox");
+        const envelopes=document.querySelectorAll(".arrival-envelope");
+        const featured=document.getElementById("featuredContent");
+
+        setTimeout(()=>{
+            const box=postbox.getBoundingClientRect();
+            envelopes.forEach((env,index)=>{
+
+                const start=env.getBoundingClientRect();
+                const x = box.left+(box.width/2)-(start.left+(start.width/2));
+                const y = box.top+(box.height/2)-(start.top+(start.height/2));
+                env.style.opacity="1";
+                setTimeout(()=>{
+                    env.style.transform= `translate(${x}px,${y}px) scale(.35)`;
+                },index*100);
+            });
+        },500);
+
+        setTimeout(()=>{
+            postbox.classList.add("burst");
+            envelopes.forEach((env)=>{
+                const x = (Math.random()*1200)-600;
+                const y= (Math.random()*900)-450;
+                env.style.transform= `translate(${x}px,${y}px) rotate(${Math.random()*720}deg) scale(1.5)`;
+                env.style.opacity="0";
+            });
+        },4000);
+
+        setTimeout(()=>{
+            scene.style.display="none";
+            featured.style.display="block";
+        },5000);
     }
 
-    window.onclick = function(event) {
-        let modal = document.getElementById("letterModal");
-        if (event.target === modal) {
-            modal.style.display = "none";
+    function createEnvelopes(){
+        const container=document.getElementById("envelopeContainer");
+        container.innerHTML="";
+        const count=30; // envelope count
+
+        for(let i=0;i<count;i++){
+            const envelope=document.createElement("div");
+            envelope.className="arrival-envelope";
+            envelope.innerHTML="💌";
+            const side=Math.floor(Math.random()*4);
+
+            if(side===0){
+                envelope.style.left="-10vw";
+                envelope.style.top=Math.random()*100+"vh";
+            }
+
+            if(side===1){
+                envelope.style.left="110vw";
+                envelope.style.top=Math.random()*100+"vh";
+            }
+
+            if(side===2){
+                envelope.style.left=Math.random()*100+"vw";
+                envelope.style.top="-10vh";
+            }
+
+            if(side===3){
+                envelope.style.left=Math.random()*100+"vw";
+                envelope.style.top="110vh";
+            }
+
+            envelope.style.fontSize=(30+Math.random()*30)+"px";
+            container.appendChild(envelope);
         }
-    };
+    }
+
+    function showAllLetters(){
+        const featured=document.getElementById("featuredContent");
+        const wall=document.getElementById("loveWall");
+        featured.style.display="none";
+        wall.style.display="block";
+        wall.scrollIntoView({
+            behavior:"smooth"
+        });
+    }
+    
+    function openModal(imageSrc,fanname,message){
+        let modal=document.getElementById("letterModal");
+        let img=document.getElementById("modalImage");
+        modal.style.display="flex";
+        if(imageSrc.includes("default.webp")){
+            img.style.display="none";
+        }
+        else{
+            img.style.display="block";
+            img.src=imageSrc;
+        }
+
+        document.getElementById("modalFanname").innerHTML=
+        fanname || "Anonymous";
+        document.getElementById("modalMessage").innerHTML=
+        message || "";
+    }
+    
+    function closeModal(){
+        document
+        .getElementById("letterModal")
+        .style.display="none";
+    }
+    
+    window.onclick=function(event){
+        const modal=document.getElementById("letterModal");
+        if(event.target===modal){
+            modal.style.display="none";
+        }
+    }
+    
 </script>
 
 {% endblock %}

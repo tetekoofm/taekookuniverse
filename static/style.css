@@ -4110,13 +4110,19 @@ pointer-events: auto;
 }
 
 .fb-social-icons{
-    gap:18px;
-    margin-top:18px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    margin-top:12px;
 }
 
 .fb-social-icons a{
-    width:50px;
-    height:50px;
+    width:auto;
+    height:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
 .fb-social-icons img{
@@ -6956,3 +6962,309 @@ img.zoomable {
       }
   }
   /****************************************************************************************************************************************/
+/***********************************************************
+        TAEKOOK LOVE POST BOX - LANDING ANIMATION
+***********************************************************/
+.skip-fan-animation .postbox-scene{
+    display:none !important;
+}
+
+.skip-fan-animation #featuredContent{
+    display:none !important;
+}
+
+.skip-fan-animation #loveWall{
+    display:block !important;
+}
+
+.fan-letter-page{
+    background:
+    radial-gradient(
+        circle at center,
+        rgba(106,13,173,.35),
+        transparent 45%
+    ),
+    linear-gradient(
+        180deg,
+        #05000a,
+        #000
+    );
+
+    min-height:100vh;
+    overflow:hidden;
+}
+
+/***********************************************************
+                    POSTBOX SCENE
+***********************************************************/
+
+.postbox-scene{
+    height:100vh;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+.postbox-container{
+    position:relative;
+    z-index:5;
+    text-align:center;
+}
+
+.postbox{
+    font-size:140px;
+    filter:drop-shadow(0 0 25px #FFD700);
+    transition:1s;
+}
+
+.postbox.burst{
+    animation:postboxBurst 1s forwards;
+}
+
+@keyframes postboxBurst{
+    0%{transform:scale(1);}
+    40%{transform:scale(1.5);
+        filter:drop-shadow(0 0 80px #FFD700);}
+    100%{transform:scale(0);
+         opacity:0;}
+}
+
+.postbox-container h1{
+    font-family:'Tangerine';
+    font-size:100px;
+    color:#FFD700;
+    text-shadow:
+    0 0 20px #6A0DAD,
+    0 0 40px #0FFF50;
+    margin:0 0 5px;
+}
+
+.postbox-container .caption{
+    font-size:25px;
+    color:#ddd;
+    margin:0;
+}
+
+/***********************************************************
+        ARRIVING ENVELOPES
+***********************************************************/
+
+#envelopeContainer{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+}
+
+.arrival-envelope{
+    position:absolute;
+    font-size:65px;
+    z-index:3;
+    opacity:0;
+    filter:drop-shadow(0 0 12px #FFD700);
+    transition:
+    transform 3s cubic-bezier(.22,.61,.36,1),
+    opacity 1s;
+}
+
+/***********************************************************
+        CONFETTI BURST
+***********************************************************/
+
+.arrival-envelope.confetti{
+    animation:envelopeBurst 3s ease-out forwards;
+}
+
+@keyframes envelopeBurst{
+
+    0%{
+        opacity:1;
+        transform:
+        translate(0,0)
+        rotate(0deg)
+        scale(.4);
+    }
+
+    30%{
+        opacity:1;
+    }
+
+    100%{
+        opacity:0;
+        transform:
+        translate(var(--x),var(--y))
+        rotate(720deg)
+        scale(1.8);
+    }
+}
+
+/***********************************************************
+        HIDDEN STATE
+***********************************************************/
+
+.hidden{
+    display:none;
+}
+
+/***********************************************************
+                FEATURED LETTERS
+***********************************************************/
+
+.featured-love{
+    text-align:center;
+    padding:50px 20px;
+    animation:letterReveal 1.5s ease forwards;
+}
+
+.featured-love .heading{
+    font-family:'Tangerine';
+    font-size:90px;
+    /* color: #d62828;
+    text-shadow:2px 2px 2px #FFD700; */
+    color: #FFD700;
+    text-shadow:4px 4px 4px #d62828;
+    margin-bottom:10px;
+}
+
+.featured-love .caption{
+    font-size:26px;
+    color:#ddd;
+    margin-bottom:40px;
+}
+
+@keyframes letterReveal{
+    from{
+        opacity:0;
+        transform:translateY(40px) scale(.95);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+.featured-container{
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    flex-wrap:wrap;
+    margin-top:50px;
+}
+
+.featured-envelope{
+    font-size:65px;
+    cursor:pointer;
+    position:relative;
+    transition:.4s;
+}
+
+.featured-envelope span{
+    display:block;
+    font-size:18px;
+    color:#a855f7;
+    margin-top:-10px;
+    font-family:'Fira Sans Condensed';
+}
+
+.featured-envelope:hover{
+    transform:
+    translateY(-15px)
+    rotate(-8deg)
+    scale(1.2);
+}
+
+.show-all-btn{
+    margin-top:50px;
+    padding:14px 35px;
+    border-radius:30px;
+    border:1px solid #FFD700;
+    background:rgba(255,215,0,.08);
+    color:#FFD700;
+    font-size:20px;
+    font-family:'Fira Sans Condensed';
+    cursor:pointer;
+    transition:.3s;
+    box-shadow:0 0 15px rgba(255,215,0,.2);
+}
+
+.show-all-btn:hover{
+    background:#FFD700;
+    color:#000;
+    box-shadow:0 0 25px #FFD700;
+    transform:translateY(-3px);
+}
+
+/***********************************************************
+                    EXISTING WALL
+***********************************************************/
+
+.love-wall{
+    display:none;
+    grid-template-columns:
+    repeat(4,1fr);
+    gap:30px;
+    padding:50px;
+}
+
+.letter-card{
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    cursor:pointer;
+    position:relative;
+}
+
+.letter-card img{
+    width:100%;
+    display:block;
+}
+
+.text-letter{
+    padding:30px;
+    color:black;
+    min-height:250px;
+}
+
+.fan-name{
+    background:rgba(0,0,0,.7);
+    color:#FFD700;
+    padding:10px;
+    text-align:center;
+}
+
+/***********************************************************
+                    MOBILE
+***********************************************************/
+
+@media(max-width:768px){
+    .postbox{
+        font-size:90px;
+    }
+
+    .postbox-container h1{
+        font-size:60px;
+    }
+
+    .arrival-envelope{
+        font-size:35px;
+    }
+
+    .featured-love{
+        padding:30px 15px;
+    }
+
+    .featured-love .heading{
+        font-size:60px;
+    }
+
+    .featured-love .caption{
+        font-size:20px;
+    }
+
+    .love-wall{
+        grid-template-columns:
+        repeat(2,1fr);
+        padding:20px;
+    }
+}
