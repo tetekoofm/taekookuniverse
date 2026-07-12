@@ -1,6 +1,6 @@
 {% extends "00.base.html" %}
 {% from "components/filters.html" import category_filters %}
-{% block title %}Upcoming Projects{% endblock %}
+{% block title %}Brand Ambassadorship{% endblock %}
 {% block content %}
 <div class="main-content">
     <!-- HEADER -->
@@ -22,32 +22,31 @@
             <p>The Face of Timeless Luxury</p>
         </div>
 
-        <div class="grid">
+        <div class="brand-grid">
             {% for b in brands %}
             {% if b.artist == "Taehyung" %}
-            <div class="card tae-card"
+            <div class="brand-card tae-card"
                  onclick="openModal({{ loop.index0 }})">
-
-                 {% if b.image %}
-                 <img src="{{ url_for('static',
-                     filename='images/brandambassador/' ~ b.image) }}"
-                      alt="{{ b.brand_name }}"
-                      loading="lazy">
-                 {% else %}
-                 <img src="{{ url_for('static',
-                     filename='images/placeholder.jpg') }}"
-                      alt="{{ b.brand_name }}"
-                      loading="lazy">
-                 {% endif %}
-
-                 <div class="info tae-info">
+                <div class = "brand-image">
+                    {% if b.image %}
+                    <img src="{{ url_for('static',
+                        filename='images/brandambassador/' ~ b.image) }}"
+                        alt="{{ b.brand_name }}"
+                        loading="lazy">
+                    {% else %}
+                    <img src="{{ url_for('static',
+                        filename='images/placeholder.jpg') }}"
+                        alt="{{ b.brand_name }}"
+                        loading="lazy">
+                    {% endif %}
+                </div>
+                 <div class="brand-info tae-info">
                     <h3>{{ b.brand_name }}</h3>
-                    <div class="tags">
+                    <div class="brand-tags">
                         {% if b.year %}
-                            {{ b.year }}
+                            Since {{ b.year }}
                         {% endif %}
                     </div>
-                
                     {% if b.link %}
                     <a class="brand-link"
                        href="{{ b.link }}"
@@ -75,29 +74,30 @@
             <p>The Global Icon Redefining Modern Style</p>
         </div>
 
-        <div class="grid">
+        <div class="brand-grid">
             {% for b in brands %}
             {% if b.artist == "Jungkook" %}
-            <div class="card koo-card"
+            <div class="brand-card koo-card"
                  onclick="openModal({{ loop.index0 }})">
+                <div class = "brand-image">
+                    {% if b.image %}
+                    <img src="{{ url_for('static',
+                        filename='images/brandambassador/' ~ b.image) }}"
+                        alt="{{ b.brand_name }}"
+                        loading="lazy">
+                    {% else %}
+                    <img src="{{ url_for('static',
+                        filename='images/placeholder.jpg') }}"
+                        alt="{{ b.brand_name }}"
+                        loading="lazy">
+                    {% endif %}
+                </div>
 
-                 {% if b.image %}
-                 <img src="{{ url_for('static',
-                     filename='images/brandambassador/' ~ b.image) }}"
-                      alt="{{ b.brand_name }}"
-                      loading="lazy">
-                 {% else %}
-                 <img src="{{ url_for('static',
-                     filename='images/placeholder.jpg') }}"
-                      alt="{{ b.brand_name }}"
-                      loading="lazy">
-                 {% endif %}
-
-                 <div class="info koo-info">
+                 <div class="brand-info koo-info">
                     <h3>{{ b.brand_name }}</h3>
-                    <div class="tags">
+                    <div class="brand-tags">
                         {% if b.year %}
-                            {{ b.year }}
+                            Since {{ b.year }}
                         {% endif %}
                     </div>
                 
