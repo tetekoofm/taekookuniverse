@@ -60,3 +60,7 @@ def termsandconditions():
 @main_bp.route('/pride')
 def pride():
     return render_template("11.pride.html")
+
+@main_bp.route('/demo')
+def demo():
+    return render_template("DemoTest.html")
