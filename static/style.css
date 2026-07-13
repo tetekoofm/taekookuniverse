@@ -6922,6 +6922,24 @@ img.zoomable {
         0 0 30px rgba(15,255,80,0.25);
 }
 
+
+.story-media .pride-video{
+    display:block;
+    width:100%;
+    max-height:600px;
+    object-fit:contain;
+    border-radius:25px;
+    border:2px solid rgba(255,255,255,.15);
+    background:#000;
+    transition:.4s ease;
+    box-shadow:0 0 25px rgba(106,13,173,.2);
+}
+
+.story-media .pride-video:hover{
+    transform:scale(1.02);
+    box-shadow:0 0 35px rgba(15,255,80,.25);
+}
+
 /* ============================================================
    CONTENT AREA
 ============================================================= */
@@ -7137,6 +7155,11 @@ img.zoomable {
         max-height:500px;
     }
     
+    .story-media .pride-video{
+        max-height:500px;
+        border-radius:22px;
+    }
+
     .story-header h2{
         font-size:1.8rem;
     }
@@ -7301,6 +7324,12 @@ img.zoomable {
     }
     
     .story-media img{
+        width:100%;
+        max-height:none;
+        border-radius:18px;
+    }
+    
+    .story-media .pride-video{
         width:100%;
         max-height:none;
         border-radius:18px;
