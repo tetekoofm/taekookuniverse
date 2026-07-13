@@ -63,4 +63,4 @@ def pride():
 
 @main_bp.route('/demo')
 def demo():
-    return render_template("DemoTest.html")
+    return render_template("Demo.html")

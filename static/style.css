@@ -2841,89 +2841,6 @@ pointer-events: auto;
     }
 }
 
-/* Mobile style for very small screens */
-@media (max-width: 480px) {
-    .grid-container {
-        grid-template-columns: 1fr;
-        gap: 40px;
-        padding: 10px;
-    }
-
-    .card {
-        width: 90%;
-        align-items: center;
-        padding: 15px;
-    }
-
-    .card h3 {
-        font-size: 2rem;
-    }
-
-    .card .emoji {
-        font-size: 2rem;
-    }
-
-    .card p {
-        font-size: 0.9rem;
-    }
-
-    .page {
-        padding: 15px;
-    }
-
-    .page h1, .page h2 {
-        font-size: 2rem; 
-    }
-
-    .page .caption {
-        font-size: 0.9rem !important; 
-    }
-
-    .page .section {
-        padding: 10px; 
-    }
-
-    .page .section h3 {
-        font-size: 1rem; 
-    }
-
-    .page p, .page ul {
-        font-size: 0.85rem; 
-    }
-
-    .ways-to-help h2 {
-        font-size: 2rem;
-    }
-
-    .ways-to-help {
-        padding: 15px; 
-    }
-
-    .sticky-note-btn {
-        width: 100px; 
-        height: 35px; 
-        right: -40px; 
-        font-size: 14px; 
-        top: 300px; 
-        transform: rotate(90deg); 
-        z-index: 99999;
-    }
-
-    .sticky-notes {
-        width: 220px; 
-        right: -300px; 
-        top: 400px; 
-    }
-
-    .sticky-notes.open {
-        right: 10px; 
-    }
-
-    .sticky-notes ul li {
-        font-size: 12px; 
-    }
-}
-
 /**************************************************** STREAMING ***************************************************/
 
 .tracks-container {
@@ -7334,7 +7251,7 @@ img.zoomable {
         max-height:none;
         border-radius:18px;
     }
-    
+
     .story-content{
         gap:18px;
     }
@@ -8359,3 +8276,336 @@ img.zoomable {
     }
 }
 
+
+/*************************************
+            GUIDE
+*************************************/
+
+.guide-page{
+    width:100%;
+    margin:0;
+}
+
+.guide-library{
+    position:relative;
+    min-height:100vh;
+    overflow:hidden;
+    background:
+    linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.85)),
+    url('/static/images/guide/library-room.webp');
+    background-size:cover;
+    background-position:center;
+}
+
+.library-overlay{
+    position:absolute;
+    inset:0;
+    background:
+    radial-gradient(circle at center,rgba(168,85,247,.18),transparent 45%),
+    radial-gradient(circle at top,rgba(212,175,55,.15),transparent 35%);
+    pointer-events:none;
+}
+
+.library-content{
+    position:relative;
+    z-index:2;
+    max-width:1200px;
+    margin:auto;
+    padding:50px 20px;
+}
+
+/*********************** HERO ***********************/
+
+.library-hero{
+    text-align:center;
+    margin-bottom:60px;
+}
+
+.library-hero .caption{
+    max-width:850px;
+    margin:10px auto;
+}
+
+/*********************** FLOATING MAGIC ***********************/
+
+.library-magic{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:1;
+}
+
+.library-magic span{
+    position:absolute;
+    opacity:.25;
+    font-size:45px;
+    filter:drop-shadow(0 0 10px rgba(168,85,247,.8));
+}
+
+
+.library-magic span:nth-child(1){
+    top:20%;
+    left:-10%;
+    animation:leftFloat 18s linear infinite;
+}
+
+.library-magic span:nth-child(2){
+    top:65%;
+    left:-15%;
+    animation:leftFloat 22s linear infinite;
+    animation-delay:5s;
+}
+
+.library-magic span:nth-child(3){
+    top:30%;
+    right:-10%;
+    animation:rightFloat 20s linear infinite;
+}
+
+.library-magic span:nth-child(4){
+    top:75%;
+    right:-15%;
+    animation:rightFloat 24s linear infinite;
+    animation-delay:7s;
+}
+
+.library-magic span:nth-child(5){
+    top:10%;
+    left:45%;
+    animation:randomFloat 20s ease-in-out infinite;
+}
+
+.library-magic span:nth-child(6){
+    top:55%;
+    left:70%;
+    animation:randomFloat 25s ease-in-out infinite;
+}
+
+.library-magic span:nth-child(7){
+    top:35%;
+    left:35%;
+    animation:randomFloat 18s ease-in-out infinite;
+}
+
+.library-magic span:nth-child(8){
+    top:45%;
+    left:55%;
+    animation:glowFloat 6s ease-in-out infinite;
+}
+
+.library-magic span:nth-child(9){
+    top:15%;
+    right:25%;
+    animation:randomFloat 22s ease-in-out infinite;
+}
+
+@keyframes leftFloat{
+    0%{
+        transform:translateX(-20vw) translateY(0) rotate(0deg);
+    }
+    50%{
+        transform:translateX(45vw) translateY(-40px) rotate(180deg);
+    }
+    100%{
+        transform:translateX(120vw) translateY(20px) rotate(360deg);
+    }
+}
+
+@keyframes rightFloat{
+    0%{
+        transform:translateX(20vw) translateY(0) rotate(0deg);
+    }
+    50%{
+        transform:translateX(-45vw) translateY(50px) rotate(-180deg);
+    }
+    100%{
+        transform:translateX(-120vw) translateY(-20px) rotate(-360deg);
+    }
+}
+
+@keyframes randomFloat{
+    0%,100%{
+        transform:translate(0,0) rotate(0deg);
+    }
+
+    25%{
+        transform:translate(60px,-40px) rotate(90deg);
+    }
+
+    50%{
+        transform:translate(-50px,30px) rotate(180deg);
+    }
+
+    75%{
+        transform:translate(40px,-60px) rotate(270deg);
+    }
+}
+
+@keyframes glowFloat{
+    0%,100%{
+        opacity:.15;
+        transform:translateY(0);
+    }
+    50%{
+        opacity:.5;
+        transform:translateY(-30px);
+    }
+}
+
+/*********************** BOOKS ***********************/
+
+.book-container{
+    position:relative;
+    z-index:2;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:35px;
+}
+
+.guide-book{
+    position:relative;
+    width:230px;
+    min-height:340px;
+    padding:25px 18px;
+    display:flex;
+    flex-direction:column;
+    text-align:center;
+    text-decoration:none;
+    color:white;
+    background:
+    linear-gradient(145deg,
+    rgba(106,13,173,.75),
+    rgba(0,0,0,.85));
+    border-radius:8px 14px 14px 8px;
+    border-left:12px solid #d62828;
+    box-shadow:
+    12px 15px 30px rgba(0,0,0,.8),
+    inset 0 0 25px rgba(168,85,247,.25);
+    transition:.4s ease;
+}
+
+.guide-book:nth-child(even){
+    transform:translateY(25px);
+    border-left-color:#FFD700;
+}
+
+.guide-book:hover{
+    transform:
+    translateY(-20px)
+    scale(1.04);
+
+    box-shadow:
+    0 0 40px rgba(168,85,247,.55),
+    12px 20px 35px rgba(0,0,0,.8);
+}
+
+.guide-icon{
+    font-size:3rem;
+    margin:20px 0 5px;
+}
+
+.guide-book h3{
+    font-family:'Tangerine',serif;
+    font-size:3.3rem;
+    color:#fff;
+    margin:0 0 10px;
+}
+
+.guide-book p{
+    font-family:'Fira Sans Condensed';
+    font-size:1rem;
+    line-height:1.5;
+    color:#ddd;
+    margin:auto 0 20px;
+}
+
+.open-guide{
+    color:#0FFF50;
+    font-family:'Fira Sans Condensed';
+}
+
+
+/*********************** DESK ***********************/
+
+.library-desk{
+    position:relative;
+    z-index:2;
+    max-width:700px;
+    margin:60px auto 20px;
+    padding:25px;
+    text-align:center;
+
+    background:rgba(0,0,0,.55);
+    border:1px solid rgba(212,175,55,.35);
+    border-radius:20px;
+}
+
+.library-desk h2{
+    font-family:'Tangerine';
+    font-size:3.2rem;
+    color:#d4af37;
+}
+
+.library-desk p{
+    color:#ccc;
+    font-family:'Fira Sans Condensed';
+}
+
+/*********************** TABLET ***********************/
+
+@media(max-width:1024px){
+    .library-content{
+        padding:40px 20px;
+    }
+
+    .guide-book{
+        width:210px;
+    }
+}
+
+/*********************** MOBILE ***********************/
+
+@media(max-width:768px){
+    .library-content{
+        padding:30px 10px;
+    }
+
+    .book-container{
+        display:grid;
+        grid-template-columns:repeat(2,1fr);
+        gap:15px;
+    }
+
+    .guide-book,
+    .guide-book:nth-child(even){
+        width:auto;
+        min-height:210px;
+        padding:15px 8px;
+        transform:none;
+    }
+
+    .guide-icon{
+        font-size:1.5rem;
+        margin:2px 0;
+    }
+
+    .guide-book h3{
+        font-size:2.1rem;
+        margin:2px 0;
+    }
+
+    .guide-book p{
+        font-size:.75rem;
+        line-height:1.35;
+    }
+
+    .open-guide{
+        font-size:.8rem;
+        margin-top:auto;
+    }
+
+
+}
