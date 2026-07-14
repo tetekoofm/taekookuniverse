@@ -176,6 +176,7 @@
                                   duration:2,
                                   onComplete:()=>{
                                       overlay.style.display="none";
+                                      mainContent.classList.remove("hidden");
                                       gsap.fromTo(
                                           mainContent,
                                           {opacity:0,scale:.85},
