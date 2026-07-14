@@ -2,36 +2,18 @@
 {% block title %}Streaming{% endblock %}
 {% block content %}
 
-<div class="page streaming-page">
-
-    <div class="streaming-header">
-        <span>📖 GUIDE 01</span>
+<div class="guide-page">
+    <div class="guide-header">
+        <span>📖 GUIDE 03</span>
         <h1>The Streaming Handbook</h1>
         <p class="caption">Learn how to stream effectively and support Taehyung & Jung Kook's music.</p>
     </div>
 
-
-    {% if banners %}
-    <section class="stream-banner">
-        <div class="banner-track">
-            {% for banner in banners %}
-            <div class="banner-slide">
-                <h2>{{ banner.title }}</h2>
-                {% if banner.link %}
-                <a href="{{ banner.link }}" class="banner-btn">Learn More</a>
-                {% endif %}
-            </div>
-            {% endfor %}
-        </div>
-    </section>
-    {% endif %}
-
-
+    {% include "components/banner.html" %}
+    
     <section class="guide-chapter">
-
         <span class="chapter-number">CHAPTER 01</span>
         <h2>Why Streaming Matters?</h2>
-
         <p>
             Streaming Taehyung and Jung Kook's music on major platforms helps boost their chart rankings, 
             increases visibility, and supports their music careers. Every stream counts, especially during 
@@ -44,11 +26,9 @@
     </section>
 
     <section class="guide-chapter">
-
         <span class="chapter-number">CHAPTER 02</span>
         <h2>The Streamer's Handbook</h2>
-
-        <div class="stream-rules">
+        <div class="guide-rules">
             <div>
                 <span>🎧</span>
                 <h3>Create an Account</h3>
@@ -93,14 +73,11 @@
         </div>
     </section>
 
-
     <section class="guide-chapter">
-
         <span class="chapter-number">CHAPTER 03</span>
         <h2>Join Streaming Teams</h2>
         <p>Get involved with fanbases that organize streaming parties. Connect with like-minded fans through group chats (GC) to stay updated and to participate on streaming events and challenges!</p>
-
-        <div class="stream-teams">
+        <div class="guide-teams">
             <p>🎧 Join our <a href="https://x.com/tetekoofm">Spotify</a> streaming team.</p>
             <p>🎧 Join our <a href="https://x.com/uktaekook">Apple Music</a> streaming team.</p>
             <p>🎧 Join our <a href="https://x.com/TaeKook_USA">Shazam</a> team.</p>
@@ -125,7 +102,7 @@
                 {% endif %}
 
                 <h3>{{ track.song_name }}</h3>
-                <div class="streaming-links">
+                <div class="track-links">
                     {% if track.spotify_url %}
                     <a href="{{ track.spotify_url }}">
                         <img src="{{ url_for('static', filename='images/icons/spotify.webp') }}">
@@ -156,7 +133,7 @@
     </section>
 
     <button id="toggle-sticky-note" class="sticky-note-btn">
-        📌 Streamer's Notes
+        📌 Quick Tips
     </button>
 
     <div class="sticky-notes">

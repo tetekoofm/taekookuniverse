@@ -1,18 +1,18 @@
 {% extends "00.base_subnav.html" %}
-{% block title %}Streaming{% endblock %}
+{% block title %}Radio{% endblock %}
 {% block content %}
 
-<div class="page streaming-page">
+<div class="guide-page">
 
-    <div class="streaming-header">
-        <span>📖 GUIDE 01</span>
-        <h1>The Streaming Handbook</h1>
-        <p class="caption">Learn how to stream effectively and support Taehyung & Jung Kook's music.</p>
+    <div class="guide-header">
+        <span>📖 GUIDE 05</span>
+        <h1>The Radio Handbook</h1>
+        <p class="caption">Learn how radio support helps Taehyung & Jung Kook reach more listeners around the world.</p>
     </div>
 
 
     {% if banners %}
-    <section class="stream-banner">
+    <section class="guide-banner">
         <div class="banner-track">
             {% for banner in banners %}
             <div class="banner-slide">
@@ -28,159 +28,191 @@
 
 
     <section class="guide-chapter">
-
         <span class="chapter-number">CHAPTER 01</span>
-        <h2>Why Streaming Matters?</h2>
-
+        <h2>Why Radio Matters?</h2>
         <p>
-            Streaming Taehyung and Jung Kook's music on major platforms helps boost their chart rankings, 
-            increases visibility, and supports their music careers. Every stream counts, especially during 
-            new releases, a major comeback and important milestones.
+            Radio airplay introduces Taehyung and Jung Kook's music to casual listeners
+            who may discover their songs for the first time. It also increases visibility,
+            supports chart performance, and expands their global reach.
         </p>
 
-        <a href="{{ url_for('static', filename='images/guide/why_stream.webp') }}" class="lightbox">
-            <img src="{{ url_for('static', filename='images/guide/why_stream.webp') }}" alt="Why Streaming Matters">
-        </a>
-    </section>
-
-    <section class="guide-chapter">
-
-        <span class="chapter-number">CHAPTER 02</span>
-        <h2>The Streamer's Handbook</h2>
-
-        <div class="stream-rules">
+        <div class="guide-rules">
             <div>
-                <span>🎧</span>
-                <h3>Create an Account</h3>
-                <p>Ensure you have a valid account on the platforms. If possible, use paid subscriptions for better impact.</p>
+                <span>🌎</span>
+                <h3>Reach New Listeners</h3>
+                <p>Radio introduces their music beyond existing fandom spaces and reaches casual audiences.</p>
+            </div>
+
+            <div>
+                <span>📻</span>
+                <h3>Chart Impact</h3>
+                <p>Radio exposure contributes to important music chart achievements.</p>
             </div>
 
             <div>
                 <span>🎵</span>
-                <h3>Stream Their Music</h3>
-                <p>Search for their official profiles (V / Jung Kook) and start from there.</p>
+                <h3>Music Discovery</h3>
+                <p>Many listeners discover new artists and songs through radio.</p>
             </div>
 
             <div>
-                <span>📂</span>
-                <h3>Create Playlists</h3>
-                <p>Build personalized playlists with their songs and other artists to avoid repetitive patterns or use of playlists created by fanbases</p>
+                <span>💜</span>
+                <h3>Fan Support</h3>
+                <p>Every request shows stations that fans want to hear their music.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="guide-chapter">
+        <span class="chapter-number">CHAPTER 02</span>
+        <h2>How to Request Songs</h2>
+        <p>Requesting their songs is simple. Follow station guidelines and make your requests count.</p>
+
+        <div class="guide-rules">
+            <div>
+                <span>📝</span>
+                <h3>Request Forms</h3>
+                <p>Visit station websites, find the song request section, and submit the artist and song title.</p>
             </div>
 
             <div>
-                <span>🌱</span>
-                <h3>Stream Naturally</h3>
-                <p>Keep volume audible, interact normally, and stream like a human listener.</p>
+                <span>📱</span>
+                <h3>Social Media Requests</h3>
+                <p>Request songs through station posts on X, Instagram, Facebook, and other platforms.</p>
             </div>
 
             <div>
-                <span>🔄</span>
-                <h3>Avoid Looping</h3>
-                <p>Create diverse playlists instead of repeating one song continuously.</p>
+                <span>🎧</span>
+                <h3>Radio Apps</h3>
+                <p>Apps like iHeartRadio, TuneIn, and other platforms may offer request features.</p>
+            </div>
+
+            <div>
+                <span>☎️</span>
+                <h3>Live Requests</h3>
+                <p>Some DJs accept listener requests during live shows. Always be polite and respectful.</p>
+            </div>
+
+            <div>
+                <span>💜</span>
+                <h3>Fanbase Campaigns</h3>
+                <p>
+                    Our <a href="https://x.com/TaeKook_Radio">TK Radio</a>
+                    fanbase organizes radio request campaigns. Join their projects!
+                </p>
+            </div>
+
+            <div>
+                <span>📍</span>
+                <h3>Local Stations</h3>
+                <p>Explore local radio stations and check their websites or social media for request options.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="guide-chapter">
+        <span class="chapter-number">CHAPTER 03</span>
+        <h2>Effective Requesting Tips</h2>
+        <p>Follow these practices to support radio play effectively.</p>
+
+        <div class="guide-rules">
+            <div>
+                <span>✨</span>
+                <h3>Be Polite</h3>
+                <p>Always communicate professionally with radio stations and DJs.</p>
+            </div>
+
+            <div>
+                <span>🎵</span>
+                <h3>Be Specific</h3>
+                <p>Mention the exact song title and artist name in every request.</p>
+            </div>
+
+            <div>
+                <span>🚫</span>
+                <h3>Avoid Spam</h3>
+                <p>Do not send repeated requests within a short period.</p>
+            </div>
+
+            <div>
+                <span>❤️</span>
+                <h3>Engage Naturally</h3>
+                <p>Like, share, and interact with station content.</p>
             </div>
 
             <div>
                 <span>🌎</span>
-                <h3>Use Multiple Platforms</h3>
-                <p>Support across different music platforms to maximize the impact.</p>
+                <h3>Spread Awareness</h3>
+                <p>Encourage other fans worldwide to participate.</p>
             </div>
 
             <div>
                 <span>📢</span>
-                <h3>Share The Music</h3>
-                <p>Encourage others to stream by sharing yours/Fanbases' playlists on social platforms.</p>
+                <h3>Join Projects</h3>
+                <p>Participate in fanbase-led radio campaigns and challenges.</p>
             </div>
         </div>
     </section>
 
-
-    <section class="guide-chapter">
-
-        <span class="chapter-number">CHAPTER 03</span>
-        <h2>Join Streaming Teams</h2>
-        <p>Get involved with fanbases that organize streaming parties. Connect with like-minded fans through group chats (GC) to stay updated and to participate on streaming events and challenges!</p>
-
-        <div class="stream-teams">
-            <p>🎧 Join our <a href="https://x.com/tetekoofm">Spotify</a> streaming team.</p>
-            <p>🎧 Join our <a href="https://x.com/uktaekook">Apple Music</a> streaming team.</p>
-            <p>🎧 Join our <a href="https://x.com/TaeKook_USA">Shazam</a> team.</p>
-            <p>🎧 Join our <a href="https://x.com/taekook_YouTube">YouTube</a> streaming team.</p>
-            <p>🎧 Join our <a href="https://x.com/TaeKook_Radio">Radio</a> team.</p>
-            <p>🎧 Join our <a href="https://stationhead.com/tetekoofm">TeteKooFM Stationhead</a> Listening Party</p>
-            <p>🎧 Join our <a href="http://listening-party.weverse.io/bts/wlp/4-195767441">TeteKooFM Weverse</a> Listening Party</p>
-        </div>
-    </section>
 
     <section class="guide-chapter">
         <span class="chapter-number">CHAPTER 04</span>
-        <h2>Trending Tracks</h2>
-        <p>These songs are gaining traction. Keep streaming to push them higher!</p>
-        <div class="tracks-container">
-            {% for track in trending_tracks %}
-            <div class="track-card">
-                {% if track.image %}
-                <img src="{{ url_for('static', filename='images/songs/' ~ track.image) }}" 
-                     alt="{{ track.song_name }}" 
-                     class="track-image">
+        <h2>Prominent Radio Stations</h2>
+        <p>Some of the stations where fans can request and support Taehyung and Jung Kook's music.</p>
+
+        <section class="radio-vote-container">
+            {% for station in radio_stations %}
+            <div class="radio-vote-card">
+
+                {% if station.station_logo %}
+                <img src="{{ url_for('static', filename='images/radio/' + station.station_logo) }}"
+                     alt="{{ station.station_name }}"
+                     class="radio-vote-logo">
                 {% endif %}
 
-                <h3>{{ track.song_name }}</h3>
-                <div class="streaming-links">
-                    {% if track.spotify_url %}
-                    <a href="{{ track.spotify_url }}">
-                        <img src="{{ url_for('static', filename='images/icons/spotify.webp') }}">
-                    </a>
-                    {% endif %}
+                <h3>{{ station.station_name }}</h3>
 
-                    {% if track.apple_music_url %}
-                    <a href="{{ track.apple_music_url }}">
-                        <img src="{{ url_for('static', filename='images/icons/applemusic.webp') }}">
-                    </a>
-                    {% endif %}
+                <p><strong>Location:</strong> {{ station.location }}</p>
 
-                    {% if track.youtube_url %}
-                    <a href="{{ track.youtube_url }}">
-                        <img src="{{ url_for('static', filename='images/icons/youtube.webp') }}">
-                    </a>
-                    {% endif %}
+                <div class="button-container">
+                    <a href="{{ station.station_link }}" target="_blank" class="button-link">Tune In</a>
 
-                    {% if track.shazam_url %}
-                    <a href="{{ track.shazam_url }}">
-                        <img src="{{ url_for('static', filename='images/icons/shazam.webp') }}">
-                    </a>
+                    {% if station.request_link %}
+                    <a href="{{ station.request_link }}" target="_blank" class="button-link">Request</a>
                     {% endif %}
                 </div>
+
             </div>
             {% endfor %}
-        </div>
+        </section>
     </section>
 
+
     <button id="toggle-sticky-note" class="sticky-note-btn">
-        📌 Streamer's Notes
+        📌 Quick Tips
     </button>
 
     <div class="sticky-notes">
         <ul>
-            <li>Use multiple platforms</li>
-            <li>Do not loop one song</li>
-            <li>Keep volume audible</li>
-            <li>Stream naturally</li>
-            <li>Avoid VPN usage</li>
-            <li>Join streaming events</li>
+            <li>Follow station-specific request guidelines.</li>
+            <li>Share request activities to encourage others.</li>
+            <li>Join <a href="https://x.com/TaeKook_Radio">TK Radio</a> campaigns.</li>
+            <li>Support stations respectfully and consistently.</li>
         </ul>
     </div>
+
 </div>
 
-<script>
 
+<script>
 const stickyNote=document.querySelector('.sticky-notes');
 const toggleButton=document.querySelector('#toggle-sticky-note');
 
 toggleButton.onclick=function(){
     stickyNote.classList.toggle('open');
 }
-
 </script>
-
 
 {% endblock %}

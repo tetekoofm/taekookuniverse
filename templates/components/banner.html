@@ -1,0 +1,14 @@
+{% if banners %}
+<section class="guide-banner">
+    <div class="banner-track">
+        {% for banner in banners %}
+        <div class="banner-slide">
+            <h2>{{ banner.title }}</h2>
+            {% if banner.link %}
+            <a href="{{ banner.link }}" class="banner-btn">Learn More</a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}

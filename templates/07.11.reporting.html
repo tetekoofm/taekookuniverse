@@ -6,20 +6,7 @@
     <h1>Reporting</h1>
     <p class="caption">Learn how to report malicious or inappropriate content that disparges Taehyung and Jung Kook's names and work.</p>
 
-    {% if banners %}
-    <section class="banner-carousel">
-        <div class="banner-track">
-            {% for banner in banners %}
-            <div class="banner-slide">
-                <h2>{{ banner.title }}</h2>
-                {% if banner.link %}
-                <a href="{{ banner.link }}" class="banner-btn">Learn More</a>
-                {% endif %}
-            </div>
-            {% endfor %}
-        </div>
-    </section>
-    {% endif %}
+    {% include "components/banner.html" %}
     
     <div class="section">
         <h3>Why Reporting Matters</h3>

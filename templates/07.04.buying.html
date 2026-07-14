@@ -1,66 +1,98 @@
-{% extends "00.base.html" %}
+{% extends "00.base_subnav.html" %}
 {% block title %}Buying Guide{% endblock %}
 {% block content %}
-<!-- 
-<div class="page guide-page">
-    <h1>Power of Purchase</h1>
-    <p class="caption">Buying music the right way ensures your purchase counts towards charts and supports the artists effectively.</p>
 
-    {% if banners %}
-    <section class="banner-carousel">
-        <div class="banner-track">
-            {% for banner in banners %}
-            <div class="banner-slide">
-                <h2>{{ banner.title }}</h2>
-                {% if banner.link %}
-                <a href="{{ banner.link }}" class="banner-btn">Learn More</a>
-                {% endif %}
-            </div>
-            {% endfor %}
-        </div>
-    </section>
-    {% endif %}
+<div class="guide-page">
+    <div class="guide-header">
+        <span>📖 GUIDE 01</span>
+        <h1>Power of Purchase</h1>
+        <p class="caption">Buying music the right way ensures every purchase contributes 
+            to charts and supports Taehyung & Jung Kook.
+        </p>
+    </div>
+   
+    {% include "components/banner.html" %}
     
-    <div class="section">
-        <h3>What Does Buying Music Mean?</h3>
-        <p>Buying music refers to legally purchasing physical/digital copies of an album or single from authorized platforms or stores respectively. This increases the sales, thus helps with the artist's chart rankings.</p>
+    <div class="guide-chapter">
+        <span class="chapter-number">CHAPTER 01</span>
+        <h2>What Does Buying Music Mean?</h2>
+        <p>Buying music refers to legally purchasing physical/digital copies of a single or an album from official platforms. 
+            These purchases contribute to sales charts, strengthen release performance, and help achieve important milestones.
+        </p>
+     </a>
     </div>
 
-    <div class="section">
-        <h3>How to Buy Music?</h3>
+    <div class="guide-chapter">
+        <span class="chapter-number">CHAPTER 02</span>
+        <h2>The Buyer's Checklist</h2>
         <p>Follow these steps to ensure your purchase is counted:</p>
-        <ul>
-            <li><strong style="color: #3dcf64;">Choose the Right Platform:</strong> Purchase from official platforms like Weverse Shop, BTS Store, iTunes, Qobuz, Amazon, and Ktown4u.</li>
-            <li><strong style="color: #3dcf64;">Buy Individual Tracks & Albums:</strong> On digital platforms, buy individual songs first to maximize impact and then proceed to buy the album.</li>
-            <li><strong style="color: #3dcf64;">Avoid Bulk Purchases in One Go:</strong> Spread out your purchases using different accounts and payment methods instead of bulk-buying at once.</li>
-            <li><strong style="color: #3dcf64;">Use Different Platforms:</strong> Purchase from multiple platforms instead of focusing on just one.</li>
-            <li><strong style="color: #3dcf64;">Ensure Proper Payment:</strong> Use legitimate payment methods to avoid refunds or cancellations that could affect charting.</li>
-            <li><strong style="color: #3dcf64;">Download Immediately:</strong> After digital purchases, download the songs/albums immediately, to ensure the sale is counted. Also, delete them from your Library so your streams are counted.</li>
-            <li><strong style="color: #3dcf64;">Share & Recommend:</strong> Share the official buying links with friends and family to encourage them to purchase.</li>
-            <li><strong style="color: #3dcf64;">Join Buying Parties:</strong> If you are unsure, join the Buying Parties organized by our fanbases during the new release.</li>
-        </ul>
-        <p>We have listed down the Physical and Digital platforms from where we can buy their music. Please use them:</p>
-        <div class="image-container">
-            <a href="https://vtaehyungshop.carrd.co/" target="_blank">
-                <img src="{{ url_for('static', filename='images/guide/buying_tae.webp') }}" alt="Buying Tae">
-            </a>
-            <a href="https://jungkookshop.carrd.co/" target="_blank">
-                <img src="{{ url_for('static', filename='images/guide/buying_koo.webp') }}" alt="Buying Koo">
-            </a>
-        </div>        
+
+        <div class="guide-rules">
+            <div>
+                <h3>Choose the Right Platform</h3>
+                <p>Purchase from official platforms like Weverse Shop, BTS Store, iTunes, Qobuz, Amazon, and Ktown4u.</p>
+            </div>
+            <div>
+                <h3>Buy Individual Tracks & Albums</h3>
+                <p>On digital platforms, buy individual songs first to maximize impact and then proceed to buy the album.</p>
+            </div>
+            <div>
+                <h3>Avoid Bulk Purchases in One Go</h3>
+                <p>Spread out your purchases using different accounts and payment methods instead of bulk-buying at once.</p>
+            </div>
+            <div>
+                <h3>Use Different Platforms</h3>
+                <p>Purchase from multiple platforms instead of focusing on just one.</p>
+            </div>
+            <div>
+                <h3>Ensure Proper Payment</h3>
+                <p>Use legitimate payment methods to avoid refunds or cancellations that could affect charting.</p>
+            </div>
+            <div>
+                <h3>Download Immediately</h3>
+                <p>After digital purchases, download the songs/albums immediately, to ensure the sale is counted. Also, delete them from your Library so your streams are counted.</p>
+            </div>
+            <div>
+                <h3>Share & Recommend</h3>
+                <p>Share the official buying links with friends and family to encourage them to purchase.</p>
+            </div>
+            <div>
+                <h3>Join Buying Parties</h3>
+                <p>If you are unsure, join the Buying Parties organized by our fanbases during the new release.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="guide-chapter">
+        <span class="chapter-number">CHAPTER 03</span>
+        <h2>Buying Guides</h2>
+        <p>Follow these Physical and Digital platforms to buy their music.</p>
+        <div class="guide-grid">
+            <div class="guide-item">
+                <a href="https://vtaehyungshop.carrd.co/" target="_blank">
+                    <img src="{{ url_for('static', filename='images/guide/buying_tae.webp') }}" alt="Taehyung Buying Guide">
+                </a>
+            </div>
+
+            <div class="guide-item">
+                <a href="https://jungkookshop.carrd.co/" target="_blank">
+                    <img src="{{ url_for('static', filename='images/guide/buying_koo.webp') }}" alt="Jung Kook Buying Guide">
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 
 <button id="toggle-sticky-note" class="sticky-note-btn">Quick Tips</button>
-
 <div class="sticky-notes">
     <ul>
-        <li>Use Official platforms</li>
+        <li>Buy from official stores</li>
         <li>Physical & Digital - both matters!</li>
+        <li>Download digital purchases</li>
         <li>Avoid Bulk Orders</li>
-        <li>Interact with songs (like, comment, share)</li>
         <li>Never buy from illegal resource</li>
         <li>Join Buying Parties hosted by FBs</li>
+        <li>Share official links</li>
     </ul>
 </div>
 
@@ -71,12 +103,7 @@
     toggleButton.addEventListener('click', function () {
         stickyNote.classList.toggle('open');
     });
-</script> -->
-
-<div class="stay-tuned-banner">
-    <p>Sit Revamp in Progress</p>
-    <img src="{{ url_for('static', filename='images/stay_tuned.webp') }}" alt="Stay Tuned" class="stay-tuned-image">
-</div> 
+</script>
 
 {% endblock %}
 

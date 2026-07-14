@@ -1,77 +1,144 @@
-{% extends "00.base.html" %}
+{% extends "00.base_subnav.html" %}
 {% block title %}Voting Guide{% endblock %}
 {% block content %}
 
-<!-- <div class="page guide-page">
-    <h1>Your Voice, Their Future!</h1>
-    <p class="caption">Every vote is a tribute to their artistry, ensuring their talent gets the recognition it deserves.</p>
+<div class="guide-page">
+    <div class="guide-header">
+        <span>📖 GUIDE 02</span>
+        <h1>Your Voice Matters</h1>
+        <p class="caption">Every vote is a tribute to their artistry, ensuring their talent gets the recognition it deserves.</p>
+    </div>
 
-    {% if banners %}
-    <section class="banner-carousel">
-        <div class="banner-track">
-            {% for banner in banners %}
-            <div class="banner-slide">
-                <h2>{{ banner.title }}</h2>
-                {% if banner.link %}
-                <a href="{{ banner.link }}" class="banner-btn">Learn More</a>
-                {% endif %}
-            </div>
-            {% endfor %}
-        </div>
+    {% include "components/banner.html" %}
+    
+    <section class="guide-chapter">
+        <span class="chapter-number">CHAPTER 01</span>
+        <h2>What is Voting?</h2>
+        <p>Voting is one of the many ways for fans to show how much Taehyung and Jung Kook's music are loved and supported. 
+            Every vote contribute towards awards, recognition, and demonstrates the strength of our fandom around the world.    
+        </p>
     </section>
-    {% endif %}
 
-    <div class="section">
-        <h3>What is Voting?</h3>
-        <p>Voting is one of the many ways for fans to show how much Taehyung and Jung Kook's music are loved and supported. They help them gain their well-deserved recognition.</p>
+    <section class="guide-chapter">
+        <span class="chapter-number">CHAPTER 02</span>
+        <h2>Why is Voting Important?</h2>
+        <p>Voting is one of the many ways for fans to show how much Taehyung and Jung Kook's music are loved and supported. 
+            Every vote contribute towards awards, recognition, and demonstrates the strength of our fandom around the world.    
+        </p>
+    </section>
+
+    <div class="guide-chapter">
+        <span class="chapter-number">CHAPTER 03</span>
+        <h2>Why Your Vote Matters?</h2>
+        <div class="guide-rules">
+            <div>
+                <h3>Recognition</h3>
+                <p>Votes help artists to win awards, showcasing their talent and hard work to the world.</p>
+            </div>
+
+            <div>
+                <h3>Global Impact</h3>
+                <p>Strong voting results increase worldwide visibility and influence.</p>
+            </div>
+
+            <div>
+                <h3>Future Opportunities</h3>
+                <p>Winning fan-voted awards makes them eligible for future nominations and opportunities.</p>
+            </div>
+
+            <div>
+                <h3>Fandom Unity</h3>
+                <p>Voting shows the strength and unity of the fandom, proving that we are here to support them.</p>
+            </div>
+        </div>
     </div>
 
-    <div class="section">
-        <h3>Why is Voting Important?</h3>
-        <ul>
-            <li><strong style="color: #3dcf64;">Recognition:</strong> Votes help artists to win awards, showcasing their talent and hard work to the world.</li>
-            <li><strong style="color: #3dcf64;">Global Impact:</strong> Higher vote counts amplifies their presence globally.</li>
-            <li><strong style="color: #3dcf64;">Ensuring Future Nominations:</strong> Winning fan-voted awards makes them eligible for future nominations and bigger achievements.</li>
-            <li><strong style="color: #3dcf64;">Fan Power:</strong> Voting shows the strength and unity of the fandom, proving that we are here to support them. Together, we can help Tae and Koo achieve even greater heights!</li>
-        </ul>
+    <div class="guide-chapter">
+        <span class="chapter-number">CHAPTER 04</span>
+        <h2>Types of Voting</h2>
+        <p>Voting can be done either through an app or website poll. There are also different kinds of votings</p>
+        <div class="guide-rules">
+            <div>
+                <h3>Pre-Voting</h3>
+                <p>Conducted before an award show with a list of nominations from which top ranks are chosen for Live voting.</p>
+            </div>
+
+            <div>
+                <h3>Live Voting</h3>
+                <p>Real-time voting during broadcasts where every second counts.</p>
+            </div>
+
+            <div>
+                <h3>Timed Voting</h3>
+                <p>Some platforms allow voting within a timeframe, as in, once per day per account or once per hour etc.,</p>
+            </div>
+
+            <div>
+                <h3>Unlimited Voting</h3>
+                <p>Certain platforms allow continuous voting without daily limits.</p>
+            </div>
+        </div>
     </div>
 
-    <div class="section">
-        <h3>Types of Voting</h3>
-        <p>Voting can be done either through an app or website poll. There are also different kinds of votings as follows:</p>
-        <ul>
-            <li><strong style="color: #3dcf64;">Pre-Voting:</strong> Conducted before an award show with a list of nominations from which top ranks are chosen for Live voting.</li>
-            <li><strong style="color: #3dcf64;">Live Voting:</strong> Takes place during the award show in real-time and the winner is awarded.</li>
-            <li><strong style="color: #3dcf64;">Timed Voting:</strong> Some platforms allow voting within a timeframe, as in, once per day per account or once per hour etc.,</li>
-            <li><strong style="color: #3dcf64;">Unlimited Voting:</strong> Certain platforms allows to vote as many times as possible.</li>
-        </ul>
-    </div>
+<div class="guide-chapter">
+    <span class="chapter-number">CHAPTER 05</span>
+    <h2>The Voting Checklist</h2>
+    <p>Follow the correct steps for doing it the right way</p>
+    <div class="guide-rules">
+        <div>
+            <h3>Find the Platform</h3>
+            <p>Find the voting platform where Tae or Koo is nominated. Make sure they are an official platform.</p>
+        </div>
 
-    <div class="section">
-        <h3>How to Vote?</h3>
-        <p>Follow these steps for doing it the right way:</p>
-        <ul>
-            <li><strong style="color: #3dcf64;">Step 1:</strong> Find the voting platform where Tae or Koo is nominated. Make sure they are an official platform.</li>
-            <li><strong style="color: #3dcf64;">Step 2:</strong> Create an account with the app or website using a valid email. Some platforms require email verification, so always make sure to create with a valid email address.</li>
-            <li><strong style="color: #3dcf64;">Step 3:</strong> Go through the platform specific guidelines and follow them to the T.</li>
-            <li><strong style="color: #3dcf64;">Step 4:</strong> Find the appropriate category where they are nominated and cast your vote.</li>
-            <li><strong style="color: #3dcf64;">Step 5:</strong> Spread the word, use hashtags and share them on social media to encourage others to participate.</li>
-            <li><strong style="color: #3dcf64;">Step 6:</strong> Our beloved fanbase, <a href="https://x.com/TKvotingteam">TK VT</a> has prepared a <a href="https://tkvotingteam.carrd.co/">TK Voting Guide</a>, a detailed step-by-step voting instructions for every platform. Please utilize it!</li>
-            <li><strong style="color: #3dcf64;">Step 7:</strong> Join our hardworking Voting Team who works day and night to help Tae and Koo secure a win. Reach out to <a href="https://x.com/theTKuniverse">Taekook Universe</a> to join the voting group on X.</li>
-            <li><strong style="color: #3dcf64;">Step 8:</strong> DO NOT use VPN or use macros for voting. Some platforms disqualify votes if they detect bot-like behavior. SO, always do it the right way!</li>
-        </ul>
+        <div>
+            <h3>Create an Account</h3>
+            <p>Some platforms require an account to be able to vote. So, register using a valid email and complete verification.</p>
+        </div>
+
+        <div>
+            <h3>Read the Rules</h3>
+            <p>Go through the platform specific guidelines and follow them to the T.</p>
+        </div>
+
+        <div>
+            <h3>Vote Carefully</h3>
+            <p>Find the appropriate category where they are nominated and cast your vote.
+            </p>
+        </div>
+
+        <div>
+            <h3>Share the Campaign</h3>
+            <p>Spread the word, use hashtags and share them on social media to encourage others to participate.</p>
+        </div>
+
+        <div>
+            <h3>Use TK Voting Guide</h3>
+            <p>Our <a href="https://x.com/TKvotingteam">TK VT</a> fanbase has prepared a <a href="https://tkvotingteam.carrd.co/">TK Voting Guide</a> for few platforms. Please utilize it!</p>
+        </div>
+
+        <div>
+            <h3>Join the Team</h3>
+            <p>Work together with organized fanbases to maximize every voting event. Reach out to <a href="https://x.com/theTKuniverse">Taekook Universe</a> to join the voting group on X.</p>
+        </div>
+
+        <div>
+            <h3>Vote Fairly</h3>
+            <p>Avoid VPNs, bots, or macros that may invalidate votes. Always do it the right way!</p>
+        </div>
+
     </div>
-</div>
+</div>   
 
 <button id="toggle-sticky-note" class="sticky-note-btn">Quick Tips</button>
-
 <div class="sticky-notes">
     <ul>
-        <li>Follow the guidelines from our fanbase.</li>
-        <li>Reach out to <a href="https://x.com/theTKuniverse">Taekook Universe</a> for any questions.</li>
-        <li>Avoid suspicious activities that might get your votes disqualified.</li>
-        <li>Use multiple accounts responsibly. Do not spam!</li>
-        <li>Engage in team voting projects.</li>
+        <li>Vote only through official platforms.</li>
+        <li>Read each platform's rules carefully.</li>
+        <li>Avoid VPNs and automated voting tools.</li>
+        <li>Complete email verification when required.</li>
+        <li>Join organized voting teams for reminders.</li>
+        <li>Use TK Voting Guide for detailed tutorials.</li>
+        <li>Every vote counts—don't miss daily resets.</li>
     </ul>
 </div>
 
@@ -82,11 +149,6 @@
     toggleButton.addEventListener('click', function () {
         stickyNote.classList.toggle('open');
     });
-</script> -->
-
-<div class="stay-tuned-banner">
-    <p>Sit Revamp in Progress</p>
-    <img src="{{ url_for('static', filename='images/stay_tuned.webp') }}" alt="Stay Tuned" class="stay-tuned-image">
-</div> 
+</script>
 
 {% endblock %}
