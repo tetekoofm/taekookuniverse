@@ -1,13 +1,11 @@
-{% extends "00.base_subnav.html" %}
+{% extends "00.base.html" %}
 {% block title %}Donations{% endblock %}
 {% block content %}
 
-<!-- Main Content -->
-<div class="page donations-page">
+<!-- <div class="page donations-page">
     <h1>Token of Love</h1>
     <p class="caption">Even a small pebble creates big ripples - your generous support does makes a difference!</p>
 
-    <!-- 🔹 Auto-Scrolling Banner Section -->
     {% if banners %}
     <section class="banner-carousel">
         <div class="banner-track">
@@ -66,7 +64,6 @@
         </div>
     </div>
 
-<!-- Quick Bites Sticky Note -->
 <button id="toggle-sticky-note" class="sticky-note-btn">Quick Tips</button>
 
 <div class="sticky-notes">
@@ -86,6 +83,12 @@
     toggleButton.addEventListener('click', function () {
         stickyNote.classList.toggle('open');
     });
-</script>
+</script> -->
+
+<div class="stay-tuned-banner">
+    <p>Sit Revamp in Progress</p>
+    <img src="{{ url_for('static', filename='images/stay_tuned.webp') }}" alt="Stay Tuned" class="stay-tuned-image">
+</div> 
+
 
 {% endblock %}

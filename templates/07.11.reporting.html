@@ -2,12 +2,10 @@
 {% block title %}Reporting{% endblock %}
 {% block content %}
 
-<!-- Main Content -->
-<div class="page guide-page">
+<!-- <div class="page guide-page">
     <h1>Reporting</h1>
     <p class="caption">Learn how to report malicious or inappropriate content that disparges Taehyung and Jung Kook's names and work.</p>
 
-    <!-- 🔹 Auto-Scrolling Banner Section -->
     {% if banners %}
     <section class="banner-carousel">
         <div class="banner-track">
@@ -70,10 +68,15 @@
     </div>
 
     <div class="section">
-        <!-- <h3>Current Shazam Stats</h3> -->
         <p>If you find anything inappropriate or need help, please reach out to us at <a href="https://x.com/TaekookReport">Report for JK and Tae</a>.</p>
     </div>
 
-</div>
+</div> -->
+
+<div class="stay-tuned-banner">
+    <p>Sit Revamp in Progress</p>
+    <img src="{{ url_for('static', filename='images/stay_tuned.webp') }}" alt="Stay Tuned" class="stay-tuned-image">
+</div> 
+
 
 {% endblock %}

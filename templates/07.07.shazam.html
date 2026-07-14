@@ -1,14 +1,12 @@
-{% extends "00.base_subnav.html" %}
+{% extends "00.base.html" %}
 {% block title %}Shazam{% endblock %}
 {% block content %}
 
-<!-- Main Content -->
-<div class="page guide-page">
+<!-- <div class="page guide-page">
     <h1>TaeKook On Shazam</h1>
     <p class="caption">Shazam plays a crucial role in tracking music popularity.</p>
     <p class="caption">Help increase their recognition and make Taehyung and Jung Kook the top artists on Shazam!</p>
 
-    <!-- 🔹 Auto-Scrolling Banner Section -->
     {% if banners %}
     <section class="banner-carousel">
         <div class="banner-track">
@@ -114,11 +112,9 @@
     </div>
 </div>
 
-<!-- Button to trigger sticky note slide-in -->
 <button id="toggle-sticky-note" class="sticky-note-btn">Quick Tips</button>
 
 <div class="sticky-notes">
-    <!-- <h4><span class="pin-icon">📌</span>Pro Tips</h4> -->
     <ul>
         <li>Shazam multiple tracks</li>
         <li>Auto-Shazam</li>
@@ -164,5 +160,11 @@
             });
         });
     });
-</script>
+</script> -->
+
+<div class="stay-tuned-banner">
+    <p>Sit Revamp in Progress</p>
+    <img src="{{ url_for('static', filename='images/stay_tuned.webp') }}" alt="Stay Tuned" class="stay-tuned-image">
+</div> 
+
 {% endblock %}

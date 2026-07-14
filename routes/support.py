@@ -114,3 +114,15 @@ def events():
 def reporting():
     banners = get_banners('07.11.reporting')
     return render_template("07.11.reporting.html", banners=banners)
+
+
+@support_bp.route('/demo')
+def demo():
+    trending_tracks = Discography.query.filter_by(popular=1).all()
+    banners = get_banners('07.03.streaming')
+
+    return render_template(
+        "Demo.html",
+        trending_tracks=trending_tracks,
+        banners=banners
+    )

@@ -1,89 +1,186 @@
-{% extends "00.base.html" %}
-{% block title %}Guide Library{% endblock %}
+{% extends "00.base_subnav.html" %}
+{% block title %}Streaming{% endblock %}
 {% block content %}
 
-<div class="main-content guide-page">
+<div class="page streaming-page">
 
-<section class="guide-library">
-    <div class="library-magic">
-        <span>📖</span>
-        <span>📜</span>
-        <span>✒️</span>
-        <span>🪶</span>
-        <span>✏️</span>
-        <span>📖</span>
-        <span>📜</span>
-        <span>✨</span>
-        <span>📚</span>
+    <div class="streaming-header">
+        <span>📖 GUIDE 01</span>
+        <h1>The Streaming Handbook</h1>
+        <p class="caption">Learn how to stream effectively and support Taehyung & Jung Kook's music.</p>
     </div>
 
-    <div class="library-overlay"></div>
-    <div class="library-content">
-        <div class="library-hero">
-            <h1 class="heading">Library</h1>
-            <p class="caption">A collection of guides created to help fans support Taehyung and Jung Kook.</p>
-            <p class="caption">Choose a guide, learn at your own pace, and contribute in the ways that feel right for you. 💜</p>
+
+    {% if banners %}
+    <section class="stream-banner">
+        <div class="banner-track">
+            {% for banner in banners %}
+            <div class="banner-slide">
+                <h2>{{ banner.title }}</h2>
+                {% if banner.link %}
+                <a href="{{ banner.link }}" class="banner-btn">Learn More</a>
+                {% endif %}
+            </div>
+            {% endfor %}
         </div>
-
-        <div class="book-container">
-            <a href="/streaming" class="guide-book">
-                <div class="guide-icon">🎵</div>
-                <h3>Streaming</h3>
-                <p>Learn the correct way to stream their music, create effective playlists, and support chart performance.</p>
-                <span class="open-guide">Open Guide →</span>
-            </a>
+    </section>
+    {% endif %}
 
 
-            <a href="/buying" class="guide-book">
-                <div class="guide-icon">💿</div>
-                <h3>Buying</h3>
-                <p>Learn where and how to purchase music through official platforms and understand chart contributions.</p>
-                <span class="open-guide">Open Guide →</span>
-            </a>
+    <section class="guide-chapter">
 
+        <span class="chapter-number">CHAPTER 01</span>
+        <h2>Why Streaming Matters?</h2>
 
-            <a href="/radio" class="guide-book">
-                <div class="guide-icon">🎙️</div>
-                <h3>Radio</h3>
-                <p>Increase radio visibility through requests, station information, templates, and best practices.</p>
-                <span class="open-guide">Open Guide →</span>
-            </a>
+        <p>
+            Streaming Taehyung and Jung Kook's music on major platforms helps boost their chart rankings, 
+            increases visibility, and supports their music careers. Every stream counts, especially during 
+            new releases, a major comeback and important milestones.
+        </p>
 
+        <a href="{{ url_for('static', filename='images/guide/why_stream.webp') }}" class="lightbox">
+            <img src="{{ url_for('static', filename='images/guide/why_stream.webp') }}" alt="Why Streaming Matters">
+        </a>
+    </section>
 
-            <a href="/shazam" class="guide-book">
-                <div class="guide-icon">🎧</div>
-                <h3>Shazam</h3>
-                <p>Learn how Shazam works and how to maximize song detections.</p>
-                <span class="open-guide">Open Guide →</span>
-            </a>
+    <section class="guide-chapter">
 
+        <span class="chapter-number">CHAPTER 02</span>
+        <h2>The Streamer's Handbook</h2>
 
-            <a href="/voting" class="guide-book">
-                <div class="guide-icon">🗳️</div>
-                <h3>Voting</h3>
-                <p>Discover voting platforms, schedules, registration steps, and strategies to help them achieve milestones.</p>
-                <span class="open-guide">Open Guide →</span>
-            </a>
+        <div class="stream-rules">
+            <div>
+                <span>🎧</span>
+                <h3>Create an Account</h3>
+                <p>Ensure you have a valid account on the platforms. If possible, use paid subscriptions for better impact.</p>
+            </div>
 
+            <div>
+                <span>🎵</span>
+                <h3>Stream Their Music</h3>
+                <p>Search for their official profiles (V / Jung Kook) and start from there.</p>
+            </div>
 
-            <a href="/donating" class="guide-book">
-                <div class="guide-icon">❤️</div>
-                <h3>Donations</h3>
-                <p>Support fan projects, streaming goals, advertisements, and charity initiatives.</p>
-                <span class="open-guide">Open Guide →</span>
-            </a>
+            <div>
+                <span>📂</span>
+                <h3>Create Playlists</h3>
+                <p>Build personalized playlists with their songs and other artists to avoid repetitive patterns or use of playlists created by fanbases</p>
+            </div>
 
+            <div>
+                <span>🌱</span>
+                <h3>Stream Naturally</h3>
+                <p>Keep volume audible, interact normally, and stream like a human listener.</p>
+            </div>
 
-            <a href="/reporting" class="guide-book">
-                <div class="guide-icon">🚨</div>
-                <h3>Reporting</h3>
-                <p>Learn how to report harmful content and help protect their online presence.</p>
-                <span class="open-guide">Open Guide →</span>
-            </a>
+            <div>
+                <span>🔄</span>
+                <h3>Avoid Looping</h3>
+                <p>Create diverse playlists instead of repeating one song continuously.</p>
+            </div>
+
+            <div>
+                <span>🌎</span>
+                <h3>Use Multiple Platforms</h3>
+                <p>Support across different music platforms to maximize the impact.</p>
+            </div>
+
+            <div>
+                <span>📢</span>
+                <h3>Share The Music</h3>
+                <p>Encourage others to stream by sharing yours/Fanbases' playlists on social platforms.</p>
+            </div>
         </div>
+    </section>
+
+
+    <section class="guide-chapter">
+
+        <span class="chapter-number">CHAPTER 03</span>
+        <h2>Join Streaming Teams</h2>
+        <p>Get involved with fanbases that organize streaming parties. Connect with like-minded fans through group chats (GC) to stay updated and to participate on streaming events and challenges!</p>
+
+        <div class="stream-teams">
+            <p>🎧 Join our <a href="https://x.com/tetekoofm">Spotify</a> streaming team.</p>
+            <p>🎧 Join our <a href="https://x.com/uktaekook">Apple Music</a> streaming team.</p>
+            <p>🎧 Join our <a href="https://x.com/TaeKook_USA">Shazam</a> team.</p>
+            <p>🎧 Join our <a href="https://x.com/taekook_YouTube">YouTube</a> streaming team.</p>
+            <p>🎧 Join our <a href="https://x.com/TaeKook_Radio">Radio</a> team.</p>
+            <p>🎧 Join our <a href="https://stationhead.com/tetekoofm">TeteKooFM Stationhead</a> Listening Party</p>
+            <p>🎧 Join our <a href="http://listening-party.weverse.io/bts/wlp/4-195767441">TeteKooFM Weverse</a> Listening Party</p>
+        </div>
+    </section>
+
+    <section class="guide-chapter">
+        <span class="chapter-number">CHAPTER 04</span>
+        <h2>Trending Tracks</h2>
+        <p>These songs are gaining traction. Keep streaming to push them higher!</p>
+        <div class="tracks-container">
+            {% for track in trending_tracks %}
+            <div class="track-card">
+                {% if track.image %}
+                <img src="{{ url_for('static', filename='images/songs/' ~ track.image) }}" 
+                     alt="{{ track.song_name }}" 
+                     class="track-image">
+                {% endif %}
+
+                <h3>{{ track.song_name }}</h3>
+                <div class="streaming-links">
+                    {% if track.spotify_url %}
+                    <a href="{{ track.spotify_url }}">
+                        <img src="{{ url_for('static', filename='images/icons/spotify.webp') }}">
+                    </a>
+                    {% endif %}
+
+                    {% if track.apple_music_url %}
+                    <a href="{{ track.apple_music_url }}">
+                        <img src="{{ url_for('static', filename='images/icons/applemusic.webp') }}">
+                    </a>
+                    {% endif %}
+
+                    {% if track.youtube_url %}
+                    <a href="{{ track.youtube_url }}">
+                        <img src="{{ url_for('static', filename='images/icons/youtube.webp') }}">
+                    </a>
+                    {% endif %}
+
+                    {% if track.shazam_url %}
+                    <a href="{{ track.shazam_url }}">
+                        <img src="{{ url_for('static', filename='images/icons/shazam.webp') }}">
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <button id="toggle-sticky-note" class="sticky-note-btn">
+        📌 Streamer's Notes
+    </button>
+
+    <div class="sticky-notes">
+        <ul>
+            <li>Use multiple platforms</li>
+            <li>Do not loop one song</li>
+            <li>Keep volume audible</li>
+            <li>Stream naturally</li>
+            <li>Avoid VPN usage</li>
+            <li>Join streaming events</li>
+        </ul>
     </div>
-</section>
-
 </div>
+
+<script>
+
+const stickyNote=document.querySelector('.sticky-notes');
+const toggleButton=document.querySelector('#toggle-sticky-note');
+
+toggleButton.onclick=function(){
+    stickyNote.classList.toggle('open');
+}
+
+</script>
+
 
 {% endblock %}

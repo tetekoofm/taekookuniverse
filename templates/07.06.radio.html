@@ -1,14 +1,12 @@
-{% extends "00.base_subnav.html" %}
+{% extends "00.base.html" %}
 {% block title %}Radio{% endblock %}
 {% block content %}
 
-<!-- Main Content -->
-<div class="page guide-page">
+<!-- <div class="page guide-page">
     <h1>TaeKook On Air</h1>
     <p class="caption">Radio plays are crucial for expanding Taehyung and Jung Kook's reach to casual listeners.</p>
     <p class="caption">Help promote their music on air globally!</p>
 
-    <!-- 🔹 Auto-Scrolling Banner Section -->
     {% if banners %}
     <section class="banner-carousel">
         <div class="banner-track">
@@ -76,11 +74,9 @@
     </div>
 </div>
 
-<!-- Button to trigger sticky note slide-in -->
 <button id="toggle-sticky-note" class="sticky-note-btn">Quick Tips</button>
 
 <div class="sticky-notes">
-    <!-- <h4><span class="pin-icon">📌</span>Pro Tips</h4> -->
     <ul>
         <li>Follow station-specific guidelines for song requests.</li>
         <li>Share proof of your requests on social media to inspire others to participate.</li>
@@ -94,5 +90,11 @@
     toggleButton.addEventListener('click', function () {
         stickyNote.classList.toggle('open');
     });
-</script>
+</script> -->
+
+<div class="stay-tuned-banner">
+    <p>Sit Revamp in Progress</p>
+    <img src="{{ url_for('static', filename='images/stay_tuned.webp') }}" alt="Stay Tuned" class="stay-tuned-image">
+</div> 
+
 {% endblock %}
