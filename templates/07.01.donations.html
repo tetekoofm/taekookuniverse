@@ -1,0 +1,127 @@
+{% extends "00.base_subnav.html" %}
+{% block title %}Donations{% endblock %}
+{% block content %}
+
+<div class="guide-page">
+    <div class="guide-header">
+        <span>📖 GUIDE 07</span>
+        <h1>Token of Love</h1>
+        <p class="caption">Even a small pebble creates big ripples - your generous support does make a difference!</p>
+    </div>
+
+    {% include "components/banner.html" %}
+
+    <section class="guide-chapter">
+        <span class="chapter-number">CHAPTER 01</span>
+        <h2>Why Donate?</h2>
+        <p>
+            As fans, there are many ways we can support Taehyung and Jung Kook, and one of the easiest is through donations.
+            These donations are used solely for fan-led initiatives. Every contribution goes directly toward supporting fan-led projects. 
+            We maintain transparency by keeping records and receipts for transactions, which are available upon request.
+        </p>
+
+        <div class="guide-rules">
+            <div>
+                <h3>Giveaways</h3>
+                <p>We organize events and giveaways for fans to celebrate new releases and important milestones.</p>
+            </div>
+
+            <div>
+                <h3>Streaming Parties</h3>
+                <p>Funds are used to sponsor premium accounts on streaming platforms, which, in turn, help boost the streams.</p>
+            </div>
+
+            <div>
+                <h3>Album Purchases</h3>
+                <p>Donations are used to buy their singles or albums on platforms like iTunes, Amazon Music, Qobuz, and others to increase chart positions.</p>
+            </div>
+
+            <div>
+                <h3>Voting Campaigns</h3>
+                <p>We organize drives to sponsor memberships on voting apps, helping the artist and their songs reach #1 on various platforms.</p>
+            </div>
+
+            <div>
+                <h3>Charity Projects</h3>
+                <p>Occasionally, donations are collected for charity projects benefiting communities, all in the name of Taehyung and Jungkook.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="guide-chapter">
+        <span class="chapter-number">CHAPTER 02</span>
+        <h2>Donation Methods</h2>
+        <p>We offer two convenient ways for fans to contribute. Whether you prefer making a one-time donation or 
+            supporting long-term efforts, your contribution will help us make a big impact!</p>
+        <br>
+        <p>Note: Please choose <strong>Friends & Family</strong> while making donations.</p>
+
+        <div class="donation-methods">
+            <div class="donation-card">
+                <h3>PayPal</h3>
+                <p>Direct and secure donations through PayPal.</p>
+                <a href="https://www.paypal.com/paypalme/tkfm9795" target="_blank" class="button-link">
+                    Donate
+                </a>
+            </div>
+
+            <div class="donation-card">
+                <h3>Ko-Fi</h3>
+                <p>Support through one-time or recurring monthly donations.</p>
+                <a href="http://ko-fi.com/tetekoofm" target="_blank" class="button-link">
+                    Donate
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="guide-chapter">
+        <span class="chapter-number">CHAPTER 03</span>
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq">
+            <h4>How will I know my donation is being used appropriately?</h4>
+            <p>
+                Transparency is key, so we provide detailed records of all funds raised, along with receipts 
+                for purchases and campaigns. Every contribution under our control is carefully directed toward projects 
+                that support both artists, with no favoritism.
+            </p>
+        </div>
+
+        <div class="faq">
+            <h4>Can I donate for a specific project?</h4>
+            <p>Yes. When a specific project is being funded, we provide a clear donation goal and your contribution will go toward that initiative.</p>
+        </div>
+
+        <div class="faq">
+            <h4>Is there a minimum donation amount?</h4>
+            <p>No. Any amount is greatly appreciated. Every bit counts, and small donations add up to make a big difference!</p>
+        </div>
+        <div class="faq">
+            <h4>Will my donation be tax-deductible?</h4>
+            <p>As this is a fan-led initiative, donations are not tax-deductible. However, we maintain transparency and provide records for all contributions.</p>
+        </div>
+    </section>
+
+    <button id="toggle-sticky-note" class="sticky-note-btn">📌 Quick Tips</button>
+    <div class="sticky-notes">
+        <ul>
+            <li>Check official fanbase donation announcements.</li>
+            <li>Save donation receipts for transparency.</li>
+            <li>Support projects that match your interests.</li>
+            <li>Share donation campaigns with other fans.</li>
+            <li>Donate only through verified links.</li>
+        </ul>
+    </div>
+</div>
+
+
+<script>
+const stickyNote=document.querySelector('.sticky-notes');
+const toggleButton=document.querySelector('#toggle-sticky-note');
+
+toggleButton.onclick=function(){
+    stickyNote.classList.toggle('open');
+}
+</script>
+
+{% endblock %}

@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "/meet-koo", "/termsandconditions", "/streaming", "/buying",
     "/voting", "/radio", "/shazam", "/shazamstats", "/spotifystats",
     "/youtubestats", "/brandreputation", "/events", "/reporting",
-    "/donating", "/fanbases", "/games"
+    "/donations", "/fanbases", "/games"
   ];
 
   const currentPath = window.location.pathname;

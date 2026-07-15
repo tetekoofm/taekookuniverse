@@ -277,10 +277,10 @@ def pride():
 def guide():
     return render_template("07.guide.html")
 
-@app.route('/donating')
-def donating():
-    banners = Banner.query.filter_by(subpage='07.01.donating').all()
-    return render_template('07.01.donating.html', banners=banners)
+@app.route('/donations')
+def donations():
+    banners = Banner.query.filter_by(subpage='07.01.donations').all()
+    return render_template('07.01.donations.html', banners=banners)
 
 @app.route('/fanbases')
 def fanbases():

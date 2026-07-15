@@ -1,218 +1,63 @@
 {% extends "00.base_subnav.html" %}
-{% block title %}Radio{% endblock %}
+{% block title %}Reporting{% endblock %}
 {% block content %}
 
-<div class="guide-page">
+<div class="page guide-page">
+    <h1>Reporting</h1>
+    <p class="caption">Learn how to report malicious or inappropriate content that disparges Taehyung and Jung Kook's names and work.</p>
 
-    <div class="guide-header">
-        <span>📖 GUIDE 05</span>
-        <h1>The Radio Handbook</h1>
-        <p class="caption">Learn how radio support helps Taehyung & Jung Kook reach more listeners around the world.</p>
+    {% include "components/banner.html" %}
+    
+    <div class="section">
+        <h3>Why Reporting Matters</h3>
+        <p>Inappropriate and unethical use of Taehyung and Jung Kook’s identity can harm their reputation. Reporting such activities helps protect them, ensuring they are safe and free from misuse.</p>
     </div>
 
-
-    {% if banners %}
-    <section class="guide-banner">
-        <div class="banner-track">
-            {% for banner in banners %}
-            <div class="banner-slide">
-                <h2>{{ banner.title }}</h2>
-                {% if banner.link %}
-                <a href="{{ banner.link }}" class="banner-btn">Learn More</a>
-                {% endif %}
-            </div>
-            {% endfor %}
-        </div>
-    </section>
-    {% endif %}
-
-
-    <section class="guide-chapter">
-        <span class="chapter-number">CHAPTER 01</span>
-        <h2>Why Radio Matters?</h2>
-        <p>
-            Radio airplay introduces Taehyung and Jung Kook's music to casual listeners
-            who may discover their songs for the first time. It also increases visibility,
-            supports chart performance, and expands their global reach.
-        </p>
-
-        <div class="guide-rules">
-            <div>
-                <span>🌎</span>
-                <h3>Reach New Listeners</h3>
-                <p>Radio introduces their music beyond existing fandom spaces and reaches casual audiences.</p>
-            </div>
-
-            <div>
-                <span>📻</span>
-                <h3>Chart Impact</h3>
-                <p>Radio exposure contributes to important music chart achievements.</p>
-            </div>
-
-            <div>
-                <span>🎵</span>
-                <h3>Music Discovery</h3>
-                <p>Many listeners discover new artists and songs through radio.</p>
-            </div>
-
-            <div>
-                <span>💜</span>
-                <h3>Fan Support</h3>
-                <p>Every request shows stations that fans want to hear their music.</p>
-            </div>
-        </div>
-    </section>
-
-
-    <section class="guide-chapter">
-        <span class="chapter-number">CHAPTER 02</span>
-        <h2>How to Request Songs</h2>
-        <p>Requesting their songs is simple. Follow station guidelines and make your requests count.</p>
-
-        <div class="guide-rules">
-            <div>
-                <span>📝</span>
-                <h3>Request Forms</h3>
-                <p>Visit station websites, find the song request section, and submit the artist and song title.</p>
-            </div>
-
-            <div>
-                <span>📱</span>
-                <h3>Social Media Requests</h3>
-                <p>Request songs through station posts on X, Instagram, Facebook, and other platforms.</p>
-            </div>
-
-            <div>
-                <span>🎧</span>
-                <h3>Radio Apps</h3>
-                <p>Apps like iHeartRadio, TuneIn, and other platforms may offer request features.</p>
-            </div>
-
-            <div>
-                <span>☎️</span>
-                <h3>Live Requests</h3>
-                <p>Some DJs accept listener requests during live shows. Always be polite and respectful.</p>
-            </div>
-
-            <div>
-                <span>💜</span>
-                <h3>Fanbase Campaigns</h3>
-                <p>
-                    Our <a href="https://x.com/TaeKook_Radio">TK Radio</a>
-                    fanbase organizes radio request campaigns. Join their projects!
-                </p>
-            </div>
-
-            <div>
-                <span>📍</span>
-                <h3>Local Stations</h3>
-                <p>Explore local radio stations and check their websites or social media for request options.</p>
-            </div>
-        </div>
-    </section>
-
-
-    <section class="guide-chapter">
-        <span class="chapter-number">CHAPTER 03</span>
-        <h2>Effective Requesting Tips</h2>
-        <p>Follow these practices to support radio play effectively.</p>
-
-        <div class="guide-rules">
-            <div>
-                <span>✨</span>
-                <h3>Be Polite</h3>
-                <p>Always communicate professionally with radio stations and DJs.</p>
-            </div>
-
-            <div>
-                <span>🎵</span>
-                <h3>Be Specific</h3>
-                <p>Mention the exact song title and artist name in every request.</p>
-            </div>
-
-            <div>
-                <span>🚫</span>
-                <h3>Avoid Spam</h3>
-                <p>Do not send repeated requests within a short period.</p>
-            </div>
-
-            <div>
-                <span>❤️</span>
-                <h3>Engage Naturally</h3>
-                <p>Like, share, and interact with station content.</p>
-            </div>
-
-            <div>
-                <span>🌎</span>
-                <h3>Spread Awareness</h3>
-                <p>Encourage other fans worldwide to participate.</p>
-            </div>
-
-            <div>
-                <span>📢</span>
-                <h3>Join Projects</h3>
-                <p>Participate in fanbase-led radio campaigns and challenges.</p>
-            </div>
-        </div>
-    </section>
-
-
-    <section class="guide-chapter">
-        <span class="chapter-number">CHAPTER 04</span>
-        <h2>Prominent Radio Stations</h2>
-        <p>Some of the stations where fans can request and support Taehyung and Jung Kook's music.</p>
-
-        <section class="radio-vote-container">
-            {% for station in radio_stations %}
-            <div class="radio-vote-card">
-
-                {% if station.station_logo %}
-                <img src="{{ url_for('static', filename='images/radio/' + station.station_logo) }}"
-                     alt="{{ station.station_name }}"
-                     class="radio-vote-logo">
-                {% endif %}
-
-                <h3>{{ station.station_name }}</h3>
-
-                <p><strong>Location:</strong> {{ station.location }}</p>
-
-                <div class="button-container">
-                    <a href="{{ station.station_link }}" target="_blank" class="button-link">Tune In</a>
-
-                    {% if station.request_link %}
-                    <a href="{{ station.request_link }}" target="_blank" class="button-link">Request</a>
-                    {% endif %}
-                </div>
-
-            </div>
-            {% endfor %}
-        </section>
-    </section>
-
-
-    <button id="toggle-sticky-note" class="sticky-note-btn">
-        📌 Quick Tips
-    </button>
-
-    <div class="sticky-notes">
+    <div class="section">
+        <h3>What Can Be Reported?</h3>
         <ul>
-            <li>Follow station-specific request guidelines.</li>
-            <li>Share request activities to encourage others.</li>
-            <li>Join <a href="https://x.com/TaeKook_Radio">TK Radio</a> campaigns.</li>
-            <li>Support stations respectfully and consistently.</li>
+            <li><strong style="color: #3dcf64;">Inappropriate Content:</strong> Videos, images, posts, or comments that degrade their dignity.</li>
+            <li><strong style="color: #3dcf64;">Fake Accounts:</strong> Profiles especially newly created, pretending to be Taehyung, Jung Kook, or their friends.</li>
+            <li><strong style="color: #3dcf64;">Unauthorized Merchandise:</strong> Items being sold illegally without their permission.</li>
+            <li><strong style="color: #3dcf64;">Defamatory Posts:</strong> False accusations, hate speech, spreading rumors, or cyberbullying.</li>
+            <li><strong style="color: #3dcf64;">Piracy:</strong> Illegal distribution of their music</li>
         </ul>
     </div>
 
+    <div class="section">
+        <h3>How to Report?</h3>
+        <ul>
+            <li><strong style="color: #3dcf64;">On Weverse:</strong> Report inappropriate posts and comments via the "Report" option.</li>
+            <li><strong style="color: #3dcf64;">BigHit Music:</strong> Email <a href="mailto:protect@bighitcorp.com">protect@bighitcorp.com</a> with evidence and details.</li>
+            <li><strong style="color: #3dcf64;">On X:</strong> Click <a href="https://help.x.com/en/forms/safety-and-sensitive-content"> Here</a> to directly report to X.</li>
+            <li><strong style="color: #3dcf64;">On Youtube:</strong> Click <a href="https://support.google.com/youtube/answer/9288567?hl=en"> Here</a> to directly report to Youtube.</li>
+            <li><strong style="color: #3dcf64;">On Other Social Media:</strong> Click the three dots on the content/profile and select "Report".</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h3>Important Tips</h3>
+        <ul>
+            <li><strong style="color: #3dcf64;">Be Responsible:</strong> Verify facts and intentions of the author of such posts before reporting. Avoid engaging with clout chasers or getting involved in fan wars. Just mute, report, and block.</li>
+            <li><strong style="color: #3dcf64;">Be Timely:</strong> Reporting early helps prevent the further spread of harmful content. Share it with our fanbase <a href="https://x.com/TaekookReport">Report for JK & Tae</a> immediately, including a screenshot or direct link to the post.</li>
+            <li><strong style="color: #3dcf64;">Provide Evidence:</strong> Always include screenshots, links, or any relevant proof when submitting reports directly.</li>
+            <li><strong style="color: #3dcf64;">Raise Awareness:</strong> Share with your fellow fans to report harmful content collectively for a stronger impact.</li>
+        </ul>
+        
+    </div>
+
+    <div class="sticky-notes">
+        <h4>Did You Know?</h4>
+        <ul>
+            <li>BigHit Music has a dedicated team for monitoring and addressing harmful activities involving BTS members.</li>
+            <li>Collective reporting by fans often leads to quicker resolutions.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <p>If you find anything inappropriate or need help, please reach out to us at <a href="https://x.com/TaekookReport">Report for JK and Tae</a>.</p>
+    </div>
+
 </div>
-
-
-<script>
-const stickyNote=document.querySelector('.sticky-notes');
-const toggleButton=document.querySelector('#toggle-sticky-note');
-
-toggleButton.onclick=function(){
-    stickyNote.classList.toggle('open');
-}
-</script>
 
 {% endblock %}

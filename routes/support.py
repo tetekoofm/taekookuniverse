@@ -11,34 +11,24 @@ def guide():
     return render_template("07.guide.html")
 
 
-@support_bp.route('/donating')
-def donating():
-    banners = get_banners('07.01.donating')
-    return render_template("07.01.donating.html", banners=banners)
+@support_bp.route('/donations')
+def donations():
+    banners = get_banners('07.01.donations')
+    return render_template("07.01.donations.html", banners=banners)
 
 
 @support_bp.route('/fanbases')
 def fanbases():
     fanbases = Fanbase.query.all()
     banners = get_banners('07.02.fanbases')
-
-    return render_template(
-        "07.02.fanbases.html",
-        fanbases=fanbases,
-        banners=banners
-    )
+    return render_template("07.02.fanbases.html", fanbases=fanbases, banners=banners)
 
 
 @support_bp.route('/streaming')
 def streaming():
     trending_tracks = Discography.query.filter_by(popular=1).all()
     banners = get_banners('07.03.streaming')
-
-    return render_template(
-        "07.03.streaming.html",
-        trending_tracks=trending_tracks,
-        banners=banners
-    )
+    return render_template("07.03.streaming.html", trending_tracks=trending_tracks,banners=banners)
 
 
 @support_bp.route('/buying')
@@ -64,12 +54,7 @@ def radio():
     radio_stations = Radio.query.all()
     banners = get_banners('07.06.radio')
 
-    return render_template(
-        "07.06.radio.html",
-        radio_stations=radio_stations,
-        banners=banners
-    )
-
+    return render_template("07.06.radio.html", radio_stations=radio_stations, banners=banners)
 
 @support_bp.route('/shazam')
 def shazam():
@@ -87,12 +72,7 @@ def brandreputation():
 def promotions():
     ads = Promotion.query.order_by(Promotion.year.desc()).all()
     banners = get_banners('07.09.promotions')
-
-    return render_template(
-        "07.09.promotions.html",
-        ads=ads,
-        banners=banners
-    )
+    return render_template("07.09.promotions.html", ads=ads, banners=banners)
 
 
 @support_bp.route('/endorsements')
@@ -120,9 +100,4 @@ def reporting():
 def demo():
     trending_tracks = Discography.query.filter_by(popular=1).all()
     banners = get_banners('07.03.streaming')
-
-    return render_template(
-        "Demo.html",
-        trending_tracks=trending_tracks,
-        banners=banners
-    )
+    return render_template("Demo.html", trending_tracks=trending_tracks, banners=banners)
