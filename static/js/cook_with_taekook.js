@@ -1,969 +1,1095 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded",()=>{
+
+    /* -------------------------------------------
+       TEST MODE
+    -------------------------------------------*/
+    const TEST_MODE=true; // change to true for direct scene testing
+    const TEST_SCENE="delivery"; // landing, ride, restaurant, kitchen, ingredient, cooking, delivery, receipt
+    const TEST_RECIPE=
+    "Coffee";
+    // "Banana Milkshake";
+    // "Uni Cream Shrimp Pasta";
 
     /* -------------------------------------------
        SCENE REFERENCES
     -------------------------------------------*/
-    const landingScene = document.getElementById('landingScene');
-    const rideScene = document.getElementById('rideScene');
-    const restaurantScene = document.getElementById('restaurantScene');
-    const kitchenScene = document.getElementById('kitchenScene');
-    const ingredientScene = document.getElementById('ingredientScene');
-
-    const startRideBtn = document.getElementById('startRideBtn');
-    const headToKitchenBtn = document.getElementById('headToKitchenBtn');
-
-    const motorbike = document.getElementById('motorbike');
-    const sky = document.getElementById('sky');
-
-    const fullPanel = document.getElementById('fullInstructionPanel');
-    const showFullBtn = document.getElementById('showFullInstructionsBtn');
-    const startCookingBtn = document.getElementById('startCookingBtn');
-
-    const taeText = document.getElementById('taeText');
-    const kooText = document.getElementById('kooText');
+    const landingScene=document.getElementById("landingScene");
+    const rideScene=document.getElementById("rideScene");
+    const sky=document.getElementById("sky");
+    const startRideBtn=document.getElementById("startRideBtn");
+    const restaurantScene=document.getElementById("restaurantScene");
+    const headToKitchenBtn=document.getElementById("headToKitchenBtn");
+    const motorbike=document.getElementById("motorbike");
+    const kitchenScene=document.getElementById("kitchenScene");
+    const ingredientScene=document.getElementById("ingredientScene");
+    const fullPanel=document.getElementById("fullInstructionPanel");
+    const showFullBtn=document.getElementById("showFullInstructionsBtn");
+    const startCookingBtn=document.getElementById("startCookingBtn");
+    const cookingScene=document.getElementById("cookingScene");
+    const deliveryScene=document.getElementById("deliveryScene");
+    const receiptScene=document.getElementById("receiptScene");
+    const eatingOverlay=document.getElementById("eatingOverlay");
+    const taeText=document.getElementById("taeText");
+    const kooText=document.getElementById("kooText");
 
     /* -------------------------------------------
        CHAT DATA
     -------------------------------------------*/
-    const chatSteps = [
-        { id: 'taeBubble', text: "Hellooooooooooo!!! <br><br> We'll show you how to play the game." },
-        { id: 'kooBubble', text: "Follow our steps and enjoy cooking with us!" },
-        { id: 'taeBubble', text: "First, a customer will arrive at your restaurant." },
-        { id: 'kooBubble', text: "They will choose a dish from the menu." },
-        { id: 'taeBubble', text: "You can check the recipe or skip directly to preparation." },
-        { id: 'kooBubble', text: "Next, collect the ingredients in our mini-game." },
-        { id: 'taeBubble', text: "After that, help cook the dish with us." },
-        { id: 'kooBubble', text: "Once done, deliver the order to the customer." },
-        { id: 'taeBubble', text: "Then, a new customer arrives or you can choose to exit." },
-        { id: 'kooBubble', text: "Ready? Let's start cooking and have fun!" },
-        { id: 'taeBubble', text: "Click on the 'Show Full Instructions' button." }
+    const chatSteps=[
+        {id:"taeBubble",text:"Hellooooooooooo!!! <br><br> Welcome, We'll show you how to play the game."},
+        {id:"kooBubble",text:"Follow our steps and enjoy cooking with us!"},
+        {id:"taeBubble",text:"First, a customer will arrive at your restaurant."},
+        {id:"kooBubble",text:"They will choose a dish from the menu."},
+        {id:"taeBubble",text:"You can check the recipe or skip directly to preparation."},
+        {id:"kooBubble",text:"Next, collect the ingredients in our mini-game."},
+        {id:"taeBubble",text:"After that, help cook the dish with us."},
+        {id:"kooBubble",text:"Once done, deliver the order to the customer."},
+        {id:"taeBubble",text:"Then, a new customer arrives or you can choose to exit."},
+        {id:"kooBubble",text:"Ready? Let's start cooking and have fun!"},
+        {id:"taeBubble",text:"Click on the 'Show Full Instructions' button."}
     ];
 
-    const restaurantChatSteps = [    
-        { id: 'taeBubble', text: "Oh! Our first customer is here!" },
-        { id: 'kooBubble', text: "Let's see what they want to order." }
+    const restaurantChatSteps=[
+        {id:"taeBubble",text:"Oh! Our first customer is here!"},
+        {id:"kooBubble",text:"Let's see what they want to order."}
     ];
 
-    const cancelReturnChat = [
-        { id: 'kooBubble', text: "😔 Aww... you don't want to try my recipe?" },
-        { id: 'taeBubble', text: "It's okay! We can cook again whenever you’re ready 💜" }
+    const cancelReturnChat=[
+        {id:"kooBubble",text:"😔 Aww... you don't want to try my recipe?"},
+        {id:"taeBubble",text:"It's okay! We can cook again whenever you’re ready 💜"}
     ];
-    
-    // 🟣 When Tete hits obstacles (Tete voice — frustrated/confused/funny)
-    const badCatchLines = [
+
+    const badCatchLines=[
         "😵 Aish!! Why is it always me?",
         "🥲 I swear that obstacle moved.",
         "😤 Yah, I'm trying okay??",
         "🤕 My pride is bruised more than the obstacle.",
-        "🥺 I did NOT deserve that… universe why??",
-        "😤 How dare that obstacle touch ME?? Rude.",
-        "😢 I’m a delicate flower — why do they attack??",
-        "🥲 Tete tried his best… world said ‘no’.",
-        "😵 I'm filing an emotional damage report.",
-        "🤕 I think the obstacle bruised my soul.",
-        "😭 This is personal now… I’m seeking revenge.",
-        "😤 Next time it won’t survive. Mark my words."
+        "🥺 I did NOT deserve that… universe why??"
     ];
 
-    // 🟢 When Tete catches ingredients fine (Koo voice — praising)
-    const goodCatchLines = [
+    const goodCatchLines=[
         "💜 Nice catch Hyung!!",
         "✨ Chef Tete supremacy!!!",
         "😎 Hyung smooth like butter",
         "👌 King Tete mode activated!"
     ];
 
-    // 🔥 Close to finishing (Koo motivating)
-    const almostDoneLines = [
+    const almostDoneLines=[
         "🔥 You're close Hyung!",
         "💫 Just a little more — fighting!!",
         "📍 You can do it Hyung!"
     ];
 
-    // 🎉 Final stretch (Koo cheerful & encouraging)
-    const finalCatchLines = [
+    const finalCatchLines=[
         "🎉 Last one Hyung!! Go go go!",
         "💜 Hyung will finish strong!",
-        "⚡ We’re almost there — don't stop!",
-        "🏁 Final ingredient — LET’S GO!"
+        "⚡ We’re almost there — don't stop!"
     ];
+
+    const customerMessages=[
+        "Wow! That was absolutely delicious! 😍",
+        "This is the best meal I've had in a long time! ✨",
+        "Chef, your cooking is amazing! Thank you! 💜",
+        "Everything was perfect. I'll definitely come back! 😊",
+        "The flavors were incredible! I loved it! 🍽️",
+        "Please tell the chef this was delicious! 💜",
+        "Please save my seat for my next visit! 😆",
+        "Bun & Bear Cafe is my new favorite place! 💚",
+        "That was worth every penny! Thank you!",
+        "This cafe is my new favorite place! 🥰",
+        "The presentation was beautiful! ✨",
+        "I am leaving with a happy heart! 💚",
+        "Wow! This was amazing! 😍",
+        "The flavor was perfect! I loved it! 🤤",
+        "Best meal I've had in a long time! ⭐",
+        "I will definitely come back again! 😊",
+        "That was absolutely wonderful! Thank you!"
+    ];
+
     /* -------------------------------------------
-       INITIAL VISIBILITY
+       INITIAL STATE
     -------------------------------------------*/
-    landingScene.classList.remove('hidden');
-    rideScene.classList.add('hidden');
-    restaurantScene.classList.add('hidden');
-    kitchenScene.classList.add('hidden');
-    ingredientScene.classList.add('hidden');
-    cookingScene.classList.add('hidden');
+    landingScene.classList.remove("hidden");
+    rideScene.classList.add("hidden");
+    restaurantScene.classList.add("hidden");
+    kitchenScene.classList.add("hidden");
+    ingredientScene.classList.add("hidden");
+    cookingScene.classList.add("hidden");
+    deliveryScene.classList.add("hidden");
+    receiptScene.classList.add("hidden");
+
+    let currentStep=0;
+    let chatTimeout;
+    let defaultRecipeImage=1;
+
     /* -------------------------------------------
-       STARS IN SKY
+       STARS
     -------------------------------------------*/
-    if (sky) {
-        for (let i = 0; i < 100; i++) {
-            const star = document.createElement('div');
-            star.classList.add('star');
-            star.style.top = Math.random() * 80 + "%";
-            star.style.left = Math.random() * 100 + "%";
-            star.style.width = (Math.random() * 2 + 1) + "px";
-            star.style.height = star.style.width;
-            star.style.background = Math.random() > 0.5 ? "#8affc1" : "#c88aff";
+    if(sky){
+        for(let i=0;i<100;i++){
+            const star=document.createElement("div");
+            star.className="star";
+            star.style.top=Math.random()*80+"%";
+            star.style.left=Math.random()*100+"%";
+            star.style.width=(Math.random()*2+1)+"px";
+            star.style.height=star.style.width;
             sky.appendChild(star);
         }
     }
 
     /* -------------------------------------------
-       RIDE SEQUENCE
+    TEST MODE LOADER
     -------------------------------------------*/
-    startRideBtn.addEventListener('click', () => {
-        landingScene.classList.add('hidden');
-        rideScene.classList.remove('hidden');
-        startRideBtn.disabled = true;
-        const bikeAudio = new Audio("/static/audio/harleydavidson.mp3");
-        bikeAudio.loop = true;         // optional — makes engine continuous
-        bikeAudio.volume = 0.8;        // adjust loudness
-        bikeAudio.play();
-
-        let pos = -300;
-
-        const interval = setInterval(() => {
-            pos += 7;
-            motorbike.style.right = pos + 'px';
-    
-            // When bike reaches end => stop audio + move scene
-            if (pos > window.innerWidth) {
-                clearInterval(interval);
-    
-                bikeAudio.pause();
-                bikeAudio.currentTime = 0; // reset for next time
-    
-                rideScene.classList.add('hidden');
-                restaurantScene.classList.remove('hidden');
-            }
-        }, 30);
-    });
-
-    /* -------------------------------------------
-       START COOKING → GO TO KITCHEN
-    -------------------------------------------*/
-    if (headToKitchenBtn) {
-        headToKitchenBtn.addEventListener('click', () => {
-            restaurantScene.classList.add('hidden');
-            kitchenScene.classList.remove('hidden');
-            startKitchenInstructions();
-        });
-    }
-
-    /* -------------------------------------------
-       SEQUENTIAL CHAT (KITCHEN)
-    -------------------------------------------*/
-    let chatTimeout;
-    let currentStep = 0;
-
-    function vibrateBubble(bubble) {
-        bubble.classList.add('vibrate');
-        setTimeout(() => bubble.classList.remove('vibrate'), 300);
-    }
-
-    function startKitchenInstructions() {
-        currentStep = 0;
-        setTimeout(showNextChat, 1000);
-    }
-
-    function showNextChat() {
-        chatSteps.forEach(step => {
-            const bubble = document.getElementById(step.id);
-            if (bubble) bubble.style.display = 'none';
-        });
-
-        if (!fullPanel.classList.contains('hidden')) return;
-
-        const currentBubble = document.getElementById(chatSteps[currentStep].id);
-        const currentText = chatSteps[currentStep].text;
-        currentBubble.querySelector('p').innerHTML = currentText;
-        currentBubble.style.display = 'block';
-        vibrateBubble(currentBubble);
-
-        currentStep++;
-        if (currentStep < chatSteps.length) {
-            chatTimeout = setTimeout(showNextChat, 2500);
+    async function startTestMode(){
+        if(!TEST_MODE) return;
+        const res=await fetch("/static/js/recipes.json");
+        const data=await res.json();
+        window.recipes=data;
+        const allRecipes=[
+            ...(data.beverages||[]),
+            ...(data.food||[]),
+            ...(data.foods||[]),
+            ...(data.desserts||[]),
+            ...(data.chefKooSpecial||[])
+        ];
+        const recipe=allRecipes.find(r=>r.name===TEST_RECIPE);
+        if(!recipe){
+            console.warn("Test recipe not found:",TEST_RECIPE);
+            return;
+        }
+        window.currentOrder=recipe;
+        window.currentRecipe=recipe;
+        landingScene.classList.add("hidden");
+        rideScene.classList.add("hidden");
+        restaurantScene.classList.add("hidden");
+        kitchenScene.classList.add("hidden");
+        ingredientScene.classList.add("hidden");
+        cookingScene.classList.add("hidden");
+        deliveryScene.classList.add("hidden");
+        eatingOverlay.classList.add("hidden");
+        receiptScene.classList.add("hidden");
+        if(TEST_SCENE==="landing"){
+            landingScene.classList.remove("hidden");
+        }
+        if(TEST_SCENE==="ride"){
+            rideScene.classList.remove("hidden");
+        }
+        if(TEST_SCENE==="restaurant"){
+            restaurantScene.classList.remove("hidden");
+        }
+        if(TEST_SCENE==="kitchen"){
+            kitchenScene.classList.remove("hidden");
+            startKitchenScene();
+        }
+        if(TEST_SCENE==="ingredient"){
+            startIngredientScene(recipe);
+        }
+        if(TEST_SCENE==="cooking"){
+            window.currentOrder=recipe;
+            window.currentRecipe=recipe;
+            window.added=[];
+            window.stepAdded=[];
+            window.cookingStep=0;
+            startCookingScene(recipe);
+            // window.cookingStep=2;
+            document.getElementById("stepIngredients").classList.remove("hidden");
+            loadStepIngredients();
+        }
+        if(TEST_SCENE==="delivery"){
+            deliveryScene.classList.remove("hidden");
+            startDeliveryScene(window.currentRecipe);
+        }
+        if(TEST_SCENE==="receipt"){
+            window.deliveryChef="koo";
+            receiptScene.classList.remove("hidden");
+            startReceiptScene();
         }
     }
-
-    showFullBtn.addEventListener('click', () => {
-        clearTimeout(chatTimeout);
-        fullPanel.classList.remove('hidden');
-        chatSteps.forEach(step => {
-            const bubble = document.getElementById(step.id);
-            if (bubble) bubble.style.display = 'none';
-        });
-        taeText.textContent = '';
-        kooText.textContent = '';
-        showFullBtn.style.display = 'none';
-    });
-
-    startCookingBtn.addEventListener('click', () => {
-        new Audio("/static/audio/bell.mp3").play();
-        fullPanel.classList.add('hidden');
-        kitchenScene.classList.remove('hidden');
-        setTimeout(() => {
-            StartRestaurantChat();
-        }, 1500);
-    });
+    startTestMode();
 
     /* -------------------------------------------
-       DYNAMIC RESTAURANT CHAT
+    CHAT HELPERS
     -------------------------------------------*/
-    function showDynamicRestaurantChat(chatArray, callback) {
-        let step = 0;
+    function randomLine(arr){
+        return arr[Math.floor(Math.random()*arr.length)];
+    }
 
-        function showNext() {
-            chatArray.forEach(stepObj => {
-                const bubble = document.getElementById(stepObj.id);
-                if (bubble) bubble.style.display = 'none';
-            });
+    function setChatMode(mode){
+        const layer=document.getElementById("chatLayer");
+        layer.className="";
+        layer.id="chatLayer";
+        layer.classList.add(mode+"-mode");
+    }
 
-            if (step >= chatArray.length) {
-                if (typeof callback === 'function') callback();
+    function showBubble(bubble,msg,duration=1000){
+        if(!bubble) return;
+        const text=bubble.querySelector("p");
+        if(!text) return;
+        text.innerHTML=msg;
+        bubble.style.display="block";
+        bubble.style.opacity="1";
+        setTimeout(()=>{
+            bubble.style.display="none";
+        },duration);
+    }
+
+    function showKooMessage(msg, duration){
+        console.log("KOO:",msg);
+        showBubble(document.getElementById("kooBubble"),msg, duration);
+    }
+    
+    function showTaeMessage(msg, duration){
+        console.log("TAE:",msg);
+        showBubble(document.getElementById("taeBubble"), msg, duration);
+    }
+
+    function showCustomerMessage(msg, duration){
+        console.log("CUSTOMER:",msg);
+        showBubble(document.getElementById("customerBubble"),msg, duration);
+    }
+
+    function showDynamicChat(chatArray,callback){
+        let step=0;
+        let currentBubble=null;
+        function showNext(){
+            if(currentBubble){
+                currentBubble.style.display="none";
+                currentBubble.style.opacity="0";
+            }
+    
+            if(step>=chatArray.length){
+                if(typeof callback==="function"){
+                    callback();
+                }
                 return;
             }
-
-            const stepObj = chatArray[step];
-            const currentBubble = document.getElementById(stepObj.id);
-            if (!currentBubble) {
+            const data=chatArray[step];
+            const bubble=document.getElementById(data.id);
+            if(bubble){
+                const text=bubble.querySelector("p");
+                showBubble(bubble, data.text, 2500);
+                currentBubble=bubble;
+                setTimeout(()=>{
+                    step++;
+                    showNext();
+                },2500);
+            }else{
                 step++;
-                setTimeout(showNext, 500);
-                return;
+                showNext();
             }
-
-            currentBubble.querySelector('p').innerHTML = stepObj.text;
-            currentBubble.style.display = 'block';
-            currentBubble.classList.add('vibrate');
-            setTimeout(() => currentBubble.classList.remove('vibrate'), 300);
-
-            step++;
-            setTimeout(showNext, 1800);
-        }
-
+        }    
         showNext();
     }
 
-    function StartRestaurantChat() {
-        fetch('/static/js/recipes.json')
-            .then(r => r.json())
-            .then(data => {
-                window.recipes = data;
-                console.log("Recipes loaded:", window.recipes);
-    
-                // Start restaurant chat
-                showDynamicRestaurantChat(restaurantChatSteps, () => {
-                    // Instead of showing Prepare button, go directly to ingredient/game scene
-                    showOrderOptions(); // pick random recipe
-                });
-            })
-            .catch(err => {
-                console.warn("Failed to load recipes.json", err);
-                window.recipes = [];
-                showDynamicRestaurantChat(restaurantChatSteps, () => {
-                    showOrderOptions(); // fallback recipe
-                });
-            });
+    /* -------------------------------------------
+       RIDE SEQUENCE
+    -------------------------------------------*/
+    if(startRideBtn){
+        startRideBtn.addEventListener("click",()=>{
+            landingScene.classList.add("hidden");
+            rideScene.classList.remove("hidden");
+            startRideBtn.disabled=true;
+            const bikeAudio=new Audio("/static/audio/harleydavidson.mp3");
+            bikeAudio.loop=true;
+            bikeAudio.volume=0.8;
+            bikeAudio.play();
+            let pos=-300;
+            const interval=setInterval(()=>{
+                pos+=7;
+                motorbike.style.right=pos+"px";
+                if(pos>window.innerWidth){
+                    clearInterval(interval);
+                    bikeAudio.pause();
+                    bikeAudio.currentTime=0;
+                    rideScene.classList.add("hidden");
+                    restaurantScene.classList.remove("hidden");
+                }
+            },30);
+        });
     }
 
     /* -------------------------------------------
-       ORDER BUTTONS
+       RESTAURANT → KITCHEN
     -------------------------------------------*/
-
-    async function showOrderOptions() {
-        console.log("showOrderOptions() called — picking recipe...");
-    
-        // pick a recipe from JSON
-        const order = window.currentOrder || await loadRandomRecipe(); 
-        window.currentOrder = order;
-    
-        // show dialogue bubbles then go directly to game
-        const orderChat = [
-            { id: 'taeBubble', text: `The customer wants to order <br><strong>${order.name}!</strong>` },
-            { id: 'kooBubble', text: "Tete, can you get the ingredients from the pantry?" },
-            { id: 'taeBubble', text: "Yes Kookie!" }
-        ];
-    
-        showDynamicRestaurantChat(orderChat, () => {
-            renderIngredientScene(order); // show ingredient scene
-            kitchenScene.classList.add('hidden'); // hide kitchen
+    if(headToKitchenBtn){
+        headToKitchenBtn.addEventListener("click",()=>{
+            restaurantScene.classList.add("hidden");
+            kitchenScene.classList.remove("hidden");
+            startKitchenScene();
         });
     }
-    
-    async function loadRandomRecipe() {
-        const res = await fetch("/static/js/recipes.json");
-        const data = await res.json();
-    
-        // Flatten all categories for now
-        const allRecipes = [
-            ...data.beverages,
-            ...(data.foods || []),
-            ...(data.desserts || [])
-        ];
-    
-        const recipe = allRecipes[Math.floor(Math.random() * allRecipes.length)];
-        window.currentRecipe = recipe; 
-        return recipe;
-    }    
 
-    /*===============================
-    CANVAS + GAME STATE
-    ===============================*/
-    const gameCanvas = document.getElementById("gameCanvas");
-    const canvasHolder = document.getElementById("gameCanvasContainer");
-    const ctx = gameCanvas.getContext("2d");
-    
-    const gameState = {
-        chef: {},
-        items: [],
-        running: false,
-        rafId: null,
-        itemSpawner: null
-    };
+    /* -------------------------------------------
+       KITCHEN SCENE
+    -------------------------------------------*/
+    function startKitchenScene(){
+        setChatMode("kitchen");
+        currentStep=0;
+        setTimeout(customerArrival,1000);
+    }
 
-    // Ingredient cooldown tracker
-    const ingredientCooldowns = {};
-    const COOLDOWN_MS = 10000; // 10 seconds
-
-    /*===============================
-    LOAD CHEF IMAGE
-    ===============================*/
-    const chefImg = new Image();
-    chefImg.src = "/static/images/games/cookwithtaekook/tae_ingredients.png";
-    chefImg.onload = () => {
-        gameState.chef.img = chefImg;
-        // draw one frame to show chef immediately
-        if (gameState.running) updateGame();
-    };
-    
-    /*===============================
-    POSITION CHEF (REQUIRED)
-    ===============================*/
-    function positionChef() {
-        const pw = canvasHolder.clientWidth;
-        const ph = canvasHolder.clientHeight;
-    
-        let chefScale;
-        let itemScale; 
-        
-        if (window.innerWidth <= 768) {       // mobile
-            chefScale = 0.18;
-            itemScale = 0.2;                  // reduce falling items
-        } else if (window.innerWidth <= 1024) { // tablet
-            chefScale = 0.15;
-            itemScale = 1.5;                  // moderate size
-        } else {                               // desktop
-            chefScale = 0.12;
-            itemScale = 1;
+    function customerArrival(){
+        chatSteps.forEach(step=>{
+            const bubble=document.getElementById(step.id);
+            if(bubble){
+                bubble.style.display="none";
+            }
+        });
+        if(!fullPanel.classList.contains("hidden")) return;
+        if(currentStep>=chatSteps.length) return;
+        const step=chatSteps[currentStep];
+        const bubble=document.getElementById(step.id);
+        if(bubble){
+            showBubble(bubble, step.text, 2500);
         }
-    
-        gameState.chef.w = Math.max(40, Math.floor(pw * chefScale));
-        gameState.chef.h = Math.max(40, Math.floor(ph * chefScale * 1.4));
-        gameState.chef.x = (pw - gameState.chef.w)/2;
-        gameState.chef.y = ph - gameState.chef.h;
-    
-        // Scale falling items
-        gameState.items.forEach(it => {
-            it.size = Math.floor(it.size * itemScale);
-            it.speed = Math.max(1, it.speed * itemScale);
+        currentStep++;
+        if(currentStep<chatSteps.length){
+            chatTimeout=setTimeout(customerArrival,2500);
+        }
+    }
+
+    if(showFullBtn){
+        showFullBtn.addEventListener("click",()=>{
+            clearTimeout(chatTimeout);
+            fullPanel.classList.remove("hidden");
+            chatSteps.forEach(step=>{
+                const bubble=document.getElementById(step.id);
+                if(bubble){
+                    bubble.style.display="none";
+                }
+            });
+            if(taeText) taeText.textContent="";
+            if(kooText) kooText.textContent="";
+            showFullBtn.style.display="none";
         });
     }
-    
-    
-    // ===========================
-    // Obstacles
-    // ===========================
-    function getRandomObstacle() {
-        if (!window.recipes) return { emoji: "💣" };
-    
-        const allRecipes = [
-            ...(window.recipes.beverages || []),
-            ...(window.recipes.foods || []),      // ✅ FIXED (foods not food)
-            ...(window.recipes.desserts || [])
+    if(startCookingBtn){
+        startCookingBtn.addEventListener("click",()=>{
+            new Audio("/static/audio/bell.mp3").play();
+            fullPanel.classList.add("hidden");
+            kitchenScene.classList.remove("hidden");
+            setTimeout(()=>{
+                startRestaurantChat();
+            },1500);
+        });
+    }
+
+    function startRestaurantChat(){
+        fetch("/static/js/recipes.json")
+        .then(r=>r.json())
+        .then(data=>{
+            window.recipes=data;
+            showDynamicChat(restaurantChatSteps,()=>{
+                showOrderOptions();
+            });
+        })
+        .catch(err=>{
+            console.warn("Recipe loading failed:",err);
+            window.recipes={};
+            showDynamicChat(restaurantChatSteps,()=>{
+                showOrderOptions();
+            });
+        });
+    }
+
+    /* -------------------------------------------
+       ORDER / RECIPE
+    -------------------------------------------*/
+    async function showOrderOptions(){
+        const order=window.currentOrder || await loadRandomRecipe();
+        window.currentOrder=order;
+        const orderChat=[
+            {id:"taeBubble",text:`The customer wants to order <strong>${order.name}!</strong>`},
+            {id:"kooBubble",text:"Tete, can you get the ingredients from the pantry?"},
+            {id:"taeBubble",text:"Yes Kookie!"}
         ];
-    
-        const pool = [];
-    
-        allRecipes.forEach(recipe => {
-            if (!recipe.ingredients) return;
-    
-            recipe.ingredients.forEach(ing => {
-                // exclude current recipe ingredients
-                const isCurrent = window.currentOrder.ingredients.some(
-                    i => i.name === ing.name
-                );
-    
-                if (!isCurrent) {
+        showDynamicChat(orderChat,()=>{
+            startIngredientScene(order);
+            kitchenScene.classList.add("hidden");
+        });
+    }
+
+    async function loadRandomRecipe(){
+        const res=await fetch("/static/js/recipes.json");
+        const data=await res.json();
+        const allRecipes=[
+            ...(data.beverages||[]),
+            ...(data.food||[]),
+            ...(data.foods||[]),
+            ...(data.desserts||[]),
+            ...(data.chefKooSpecial||[])
+        ];
+        return randomLine(allRecipes);
+    }
+
+    /* -------------------------------------------
+       CANVAS GAME STATE
+    -------------------------------------------*/
+    const gameCanvas=document.getElementById("gameCanvas");
+    const canvasHolder=document.getElementById("gameCanvasContainer");
+    const ctx=gameCanvas.getContext("2d");
+    const gameState={
+        chef:{},
+        items:[],
+        running:false,
+        rafId:null,
+        itemSpawner:null
+    };
+    const chefImg=new Image();
+    chefImg.src="/static/images/games/cookwithtaekook/tae_ingredients.png";
+    chefImg.onload=()=>{
+        gameState.chef.img=chefImg;
+        if(gameState.running){
+            updateGame();
+        }
+    };
+
+    /* -------------------------------------------
+       CHEF POSITION
+    -------------------------------------------*/
+    function positionChef(){
+        const pw=canvasHolder.clientWidth;
+        const ph=canvasHolder.clientHeight;
+        let chefScale;
+        if(window.innerWidth<=768){
+            chefScale=0.18;
+        }
+        else if(window.innerWidth<=1024){
+            chefScale=0.15;
+        }
+        else{
+            chefScale=0.12;
+        }
+        gameState.chef.w=Math.max(40,Math.floor(pw*chefScale));
+        gameState.chef.h=Math.max(40,Math.floor(ph*chefScale*1.4));
+        gameState.chef.x=(pw-gameState.chef.w)/2;
+        gameState.chef.y=ph-gameState.chef.h;
+    }
+
+    /* -------------------------------------------
+       OBSTACLES
+    -------------------------------------------*/
+    function getRandomObstacle(){
+        if(!window.recipes){
+            return {emoji:"💣"};
+        }
+        const allRecipes=[
+            ...(window.recipes.beverages||[]),
+            ...(window.recipes.food||[]),
+            ...(window.recipes.foods||[]),
+            ...(window.recipes.desserts||[])
+        ];
+        const pool=[];
+        allRecipes.forEach(recipe=>{
+            if(!recipe.ingredients) return;
+            recipe.ingredients.forEach(ing=>{
+                const current=window.currentOrder.ingredients.some(i=>i.name===ing.name);
+                if(!current){
                     pool.push(ing);
                 }
             });
         });
-    
-        if (pool.length === 0) return { emoji: "💣" };
-    
-        return pool[Math.floor(Math.random() * pool.length)];
+        if(!pool.length){
+            return {emoji:"💣"};
+        }
+        return randomLine(pool);
     }
 
-    // ===========================
-    // Game completed - Popup
-    // ===========================
-    function showCollectedPopup() {
-        const popup = document.getElementById("ingredientCollectedPopup");
-        if (!popup) return;
-        popup.classList.remove("hidden");
-    
-        // Close button
-        const btn = document.getElementById("ingCompleteOk");
-        btn.onclick = () => {
-            popup.classList.add("hidden");
-            ingredientScene.classList.add("hidden");
-            startCookingScene(window.currentOrder);
-        };
-    }
-    // ===========================
-    // SPAWN ITEMS (ingredients + obstacles)
-    // ===========================
-    let lastSpawnedIngredient = null; // track last ingredient to avoid repeats
+    /* -------------------------------------------
+       SPAWN ITEMS
+    -------------------------------------------*/
+    let lastSpawnedIngredient=null;
 
-    const spawnItem = () => {
-        if (!window.currentOrder || !window.currentOrder.ingredients) return;
-    
-        const collectedCount = window.currentOrder.ingredients.filter(i=>i.collected).length;
-        const total = window.currentOrder.ingredients.length;
-
-        // more obstacles as player progresses
-        let obstacleChance = 0.4;
-
-        if (collectedCount > total * 0.5) obstacleChance = 0.6;
-        if (collectedCount > total * 0.8) obstacleChance = 0.75;
-
-        const isObstacle = Math.random() < obstacleChance;
-
+    function spawnItem(){
+        if(!window.currentOrder?.ingredients) return;
+        const collected=window.currentOrder.ingredients.filter(i=>i.collected).length;
+        const total=window.currentOrder.ingredients.length;
+        let obstacleChance=0.4;
+        if(collected>total*0.5) obstacleChance=0.6;
+        if(collected>total*0.8) obstacleChance=0.75;
+        const obstacle=Math.random()<obstacleChance;
         let chosen;
-    
-        if (isObstacle) {
-            chosen = getRandomObstacle();
-        } else {
-            // pick a random ingredient not repeating immediately
-            const availableIngredients = window.currentOrder.ingredients.filter(
-                ing => ing !== lastSpawnedIngredient
-            );
-    
-            // randomly pick from available
-            chosen = availableIngredients.length > 0
-                ? availableIngredients[Math.floor(Math.random() * availableIngredients.length)]
-                : window.currentOrder.ingredients[Math.floor(Math.random() * window.currentOrder.ingredients.length)];
-    
-            lastSpawnedIngredient = chosen;
+        if(obstacle){
+            chosen=getRandomObstacle();
         }
-    
-        const baseSize = 30 + Math.random() * 20;
-        let itemScale;
-        if (window.innerWidth <= 768) itemScale = 0.5;
-        else if (window.innerWidth <= 1024) itemScale = 0.8;
-        else itemScale = 1;
-    
-        const item = {
-            emoji: chosen.emoji,
-            image: chosen.image || null,
-            img: null,
-            x: Math.random() * (gameCanvas.width - 40) + 20,
-            y: -40,
-            size: Math.floor(baseSize * itemScale),
-            speed: (2 + Math.random() * 2) * itemScale,
+        else{
+            let available=window.currentOrder.ingredients.filter(i=>i!==lastSpawnedIngredient);
+            chosen=available.length
+            ? randomLine(available)
+            : randomLine(window.currentOrder.ingredients);
+            lastSpawnedIngredient=chosen;
+        }
+        const scale=window.innerWidth<=768?0.5:window.innerWidth<=1024?0.8:1;
+        const item={
+            emoji:chosen.emoji,
+            image:chosen.image||null,
+            img:null,
+            x:Math.random()*(gameCanvas.width-40)+20,
+            y:-40,
+            size:(30+Math.random()*20)*scale,
+            speed:(2+Math.random()*2)*scale
         };
-    
-        if (item.image) {
-            item.img = new Image();
-            item.img.src = `/static/images/games/cookwithtaekook/${item.image}`;
+
+        if(item.image){
+            item.img=new Image();
+            item.img.src=`/static/images/games/cookwithtaekook/${item.image}`;    
+            item.img.onerror=()=>{
+                item.img=null;
+            };
         }
-    
         gameState.items.push(item);
-    };
-    
-    
-    // ===========================
-    // UPDATE GAME LOOP
-    // ===========================
-    function updateGame() {
-        if (!gameState.running) return;
-    
+    }
+
+    /* -------------------------------------------
+       GAME LOOP
+    -------------------------------------------*/
+    function updateGame(){
+        setChatMode("ingredient");
+
+        if(!gameState.running) return;
         ctx.clearRect(0,0,gameCanvas.width,gameCanvas.height);
-    
-        // Draw chef
-        if (gameState.chef.img && gameState.chef.img.complete) {
-            ctx.drawImage(gameState.chef.img, gameState.chef.x, gameState.chef.y, gameState.chef.w, gameState.chef.h);
-        } else {
-            ctx.font = `${Math.floor(gameState.chef.h*0.6)}px serif`;
-            ctx.textAlign = "center"; 
-            ctx.textBaseline = "middle";
-            ctx.fillText("👨‍🍳", gameState.chef.x + gameState.chef.w/2, gameState.chef.y + gameState.chef.h/2);
+        if(gameState.chef.img && gameState.chef.img.complete){
+            ctx.drawImage(
+                gameState.chef.img,
+                gameState.chef.x,
+                gameState.chef.y,
+                gameState.chef.w,
+                gameState.chef.h
+            );
         }
-    
-        // =============================
-        //       FALLING ITEMS
-        // =============================
-        for (let i = gameState.items.length - 1; i >= 0; i--) {
-            const it = gameState.items[i];
-            it.y += it.speed;
-    
-            // center-collision
-            const itCenterX = it.x;
-            const itCenterY = it.y + it.size/2;
-            const chefLeft   = gameState.chef.x;
-            const chefRight  = gameState.chef.x + gameState.chef.w;
-            const chefTop    = gameState.chef.y;
-            const chefBottom = gameState.chef.y + gameState.chef.h;
-    
-            const collided =
-                itCenterX >= chefLeft &&
-                itCenterX <= chefRight &&
-                itCenterY >= chefTop &&
-                itCenterY <= chefBottom;
-    
-            if (collided) {
-                gameState.items.splice(i,1); // remove visual
-    
-                // check if ingredient belongs to order
-                const neededIng = window.currentOrder.ingredients.find(obj => obj.emoji === it.emoji && !obj.collected);
-    
-                if (neededIng) {
-                    // ===== CORRECT CATCH =====
-                    neededIng.collected = true;
-    
-                    // DOM update --> collected UI
-                    const collectedElem = document.getElementById("collectedIngredients");
-                    const index = window.currentOrder.ingredients.indexOf(neededIng);
-                    const holder = collectedElem.children[index];
-                    if (holder) {
-                        if (it.img && it.img.complete && it.img.naturalWidth > 0) {
-                            const img = document.createElement("img");
-                            img.src = it.img.src;
-                            img.classList.add("ingredient-emoji");
-                            holder.replaceWith(img);
-                        } else {
-                            const span = document.createElement("span");
-                            span.textContent = it.emoji;
-                            span.classList.add("ingredient-emoji");
-                            holder.replaceWith(span);
-                        }
-                    }
-    
-                    // ==== DYNAMIC BUBBLE TALKING ====
-    
-                    const collectedCount = window.currentOrder.ingredients.filter(i=>i.collected).length;
-                    const total = window.currentOrder.ingredients.length;
-    
-                    if (collectedCount === total-1) {
-                        showKooMessage(randomLine(finalCatchLines));  // last one hype
-                    }
-                    else if (collectedCount > total * 0.6) {
-                        showKooMessage(randomLine(almostDoneLines)); // 60%+
-                    }
-                    else {
-                        showKooMessage(randomLine(goodCatchLines));  // general positive
-                    }
-    
-                    // check finish
-                    if (collectedCount === total) {
-                        gameState.running = false;
+        else{
+            ctx.font=`${gameState.chef.h*0.6}px serif`;
+            ctx.textAlign="center";
+            ctx.textBaseline="middle";
+            ctx.fillText(
+                "👨‍🍳",
+                gameState.chef.x+gameState.chef.w/2,
+                gameState.chef.y+gameState.chef.h/2
+            );
+        }
+        for(let i=gameState.items.length-1;i>=0;i--){
+            const item=gameState.items[i];
+            item.y+=item.speed;
+            const hitX=item.x>=gameState.chef.x && item.x<=gameState.chef.x+gameState.chef.w;
+            const hitY=item.y>=gameState.chef.y && item.y<=gameState.chef.y+gameState.chef.h;
+            if(hitX && hitY){
+                gameState.items.splice(i,1);
+                const ingredient=window.currentOrder.ingredients.find(
+                    obj=>obj.emoji===item.emoji && !obj.collected
+                );
+
+                if(ingredient){
+                    ingredient.collected=true;
+                    updateCollectedIngredient(ingredient,item);
+                    const count=window.currentOrder.ingredients.filter(i=>i.collected).length;
+                    const total=window.currentOrder.ingredients.length;
+                    if(count===total){
+                        gameState.running=false;
                         clearInterval(gameState.itemSpawner);
-                        showCollectedPopup(); // final popup stays
+                        showCollectedPopup();
                     }
+                    else if(count===total-1){showKooMessage(randomLine(finalCatchLines), 1000);}
+                    else if(count>total*0.6){showKooMessage(randomLine(almostDoneLines), 1000);}
+                    else{showKooMessage(randomLine(goodCatchLines), 1000);}
                 }
-                else {
-                    // ===== WRONG CATCH / OBSTACLE =====
-                    showTaeMessage(randomLine(badCatchLines), true); // vibrate annoyed
-                }
-    
+                else{showTaeMessage(randomLine(badCatchLines),1000);}
                 continue;
             }
+            if(item.img && item.img.complete && item.img.naturalWidth>0){
+                ctx.drawImage(item.img,item.x,item.y,item.size,item.size);
+            }
+            else{
+                ctx.font=`${item.size}px serif`;
+                ctx.textAlign="center";
+                ctx.textBaseline="middle";         
+                ctx.fillText(
+                    item.emoji,
+                    item.x+item.size/2,
+                    item.y+item.size/2
+                );
+            }
+        }
+        gameState.rafId=requestAnimationFrame(updateGame);
+    }
+
+    /* -------------------------------------------
+       GAME COMPLETE POPUP
+    -------------------------------------------*/
+    function showCollectedPopup(){
+        const popup=document.getElementById("ingredientCollectedPopup");
+        if(!popup) return;
+        popup.classList.remove("hidden");
+        document.getElementById("ingCompleteOk").onclick=()=>{
+            popup.classList.add("hidden");
+            showCookingChat(window.currentOrder);
+        };
+    }
+
+    function updateCollectedIngredient(ingredient,item){
+        const collected=document.getElementById("collectedIngredients");
+        const index=window.currentOrder.ingredients.indexOf(ingredient);
+        const holder=collected.children[index];
+        if(!holder) return;
+        let el;
+        if(item.image){
+            el=document.createElement("img");
+            el.src=`/static/images/games/cookwithtaekook/${item.image}`;
+            el.className="ingredient-icon";
+            el.onerror=()=>{
+                const span=document.createElement("span");
+                span.className="ingredient-icon";
+                span.textContent=item.emoji;
+                el.replaceWith(span);
+            };
+        }
+        else{
+            el=document.createElement("span");
+            el.className="ingredient-icon";
+            el.textContent=item.emoji;
+        }
+        holder.replaceWith(el);
+    }
+
+    /* -------------------------------------------
+       START GAME
+    -------------------------------------------*/
+    function startGameCanvas(){
+        const rect=canvasHolder.getBoundingClientRect();
+        window.currentOrder.ingredients.forEach(i=>i.collected=false);
+        gameCanvas.width=rect.width||800;
+        gameCanvas.height=rect.height||500;
+        positionChef();
+        gameState.items=[];
+        gameState.running=true;
+        clearInterval(gameState.itemSpawner);
+        gameState.itemSpawner=setInterval(spawnItem,700);
+        canvasHolder.addEventListener("mousemove",gameState._mouseMove=e=>{
+            const x=e.clientX-rect.left-gameState.chef.w/2;
+            gameState.chef.x=Math.max(
+                0,
+                Math.min(x,gameCanvas.width-gameState.chef.w)
+            );
+        });
+        canvasHolder.addEventListener("touchmove",gameState._touchMove=e=>{
+            if(!e.touches[0]) return;
+            const x=e.touches[0].clientX-rect.left-gameState.chef.w/2;
+            gameState.chef.x=Math.max(
+                0,
+                Math.min(x,gameCanvas.width-gameState.chef.w)
+            );
+        });
+        updateGame();
+    }
+
+    /* -------------------------------------------
+       INGREDIENT SCENE
+    -------------------------------------------*/
+    function startIngredientScene(recipe){
+        kitchenScene.classList.add("hidden");
+        ingredientScene.classList.remove("hidden");
+        document.getElementById("dishTitle").textContent=recipe.name;
+        document.getElementById("ingredientLabel").textContent="Ingredients:";
+        const ingredientList=document.getElementById("ingredientList");
+        ingredientList.innerHTML="";
+        recipe.ingredients.forEach(item=>{
+            let el;
+            if(item.image){
+                el=document.createElement("img");
+                el.src=`/static/images/games/cookwithtaekook/${item.image}`;
+                el.alt=item.name;
+                el.title=item.name;
+                el.className="ingredient-icon";
+                el.onerror=()=>{
+                    const span=document.createElement("span");
+                    span.className="ingredient-icon";
+                    span.textContent=item.emoji;
+                    el.replaceWith(span);
+                };
+            }
+            else{
+                el=document.createElement("span");
+                el.className="ingredient-icon";
+                el.textContent=item.emoji;
+            }
+            ingredientList.appendChild(el);
+        });
+        document.getElementById("startCollectIngredientsBtn").onclick=()=>{
+            setChatMode("ingredient");
+            document.getElementById("ingredientTopBlock").style.display="none";
+            document.getElementById("ingredientInstructions").style.display="none";
+            document.getElementById("gameReadyUI").classList.remove("hidden");
+            document.getElementById("dishTitle2").textContent=window.currentOrder.name;
+            const needed=document.getElementById("neededIngredients");
+            const collected=document.getElementById("collectedIngredients");
+            needed.innerHTML="";
+            collected.innerHTML="";
+            const size=window.innerWidth<=600?24:window.innerWidth<=1024?36:48;
+            window.currentOrder.ingredients.forEach(item=>{
+                let el;
+                if(item.image){
+                    el=document.createElement("img");
+                    el.src=`/static/images/games/cookwithtaekook/${item.image}`;
+                    el.className="ingredient-icon";
+                    el.onerror=()=>{
+                        const span=document.createElement("span");
+                        span.className="ingredient-icon";
+                        span.textContent=item.emoji;
+                        el.replaceWith(span);
+                    };
+                }
+                else{
+                    el=document.createElement("span");
+                    el.className="ingredient-icon";
+                    el.textContent=item.emoji;
+                }
+                needed.appendChild(el);
+                const box=document.createElement("span");
+                box.textContent="⬜";
+                box.style.fontSize=size+"px";
+                collected.appendChild(box);
+            });
+            gameCanvas.style.display="block";
+            setTimeout(startGameCanvas,50);
+        };
+    }
+
+    /* -------------------------------------------
+       RETURN TO KITCHEN
+    -------------------------------------------*/
+    function stopAndReturnToKitchen(){
+        setChatMode("kitchen");
+        ingredientScene.classList.add("hidden");
+        kitchenScene.classList.remove("hidden");
+        gameState.running=false;
+        clearInterval(gameState.itemSpawner);
+        cancelAnimationFrame(gameState.rafId);
+        gameState.items=[];
+        if(gameState._mouseMove){
+            canvasHolder.removeEventListener("mousemove",gameState._mouseMove);
+        }
+        if(gameState._touchMove){
+            canvasHolder.removeEventListener("touchmove",gameState._touchMove);
+        }
+        showDynamicChat(cancelReturnChat, ()=>{
+            window.location.href="/games";
+        }, "kitchen");
+    }
+    document.getElementById("cancelIngredientBtn").onclick=stopAndReturnToKitchen;
+    document.getElementById("cancelDuringGameBtn").onclick=stopAndReturnToKitchen;
+
+    /* -------------------------------------------
+    COOKING SCENE
+    -------------------------------------------*/
+    function startCookingScene(recipe){
+        if(!recipe)return;
+        ingredientScene.classList.add("hidden");
+        const scene=document.getElementById("cookingScene");
+        const title=document.getElementById("cookDishTitle");
+        const instructions=document.getElementById("cookInstructions");
+        const ingredientList=document.getElementById("cookingIngredients");
+        const stepList=document.getElementById("stepIngredients");
+        const btn=document.getElementById("cookBtn");
+        scene.classList.remove("hidden");
+        title.textContent=recipe.name;
+        instructions.textContent=`Step 1: Add ingredients`;
+        const bg=recipe.appliance?.image || "taekook_cooking.png";
+        scene.style.backgroundImage=`url("/static/images/games/cookwithtaekook/${bg}")`;
+        ingredientList.innerHTML="";
+        stepList.innerHTML="";
+        stepList.classList.add("hidden");
+        recipe.ingredients.forEach(ing=>{
+            const item=document.createElement("span");
+            item.className="ingredient-icon";
+            item.title=ing.name;
+            if(ing.image){
+                const img=document.createElement("img");
+                img.src=`/static/images/games/cookwithtaekook/${ing.image}`;
+                img.onerror=()=>{
+                    item.textContent=ing.emoji;
+                };
+                item.appendChild(img);
+            }
+            else{
+                item.textContent=ing.emoji;
+            }
+            ingredientList.appendChild(item);
+        });
+
+        window.currentRecipe=recipe;
+        window.added=[];
+        window.stepAdded=[];
+        window.cookingStep=0;
+        const firstStep=recipe.steps[0];
+        instructions.textContent=
+        `Step ${firstStep.step}: ${firstStep.action}`;
+        loadStepIngredients();
+        btn.textContent="Cook 🍳";
+        btn.onclick=nextCookingStep;
+    }
+
+    function showCookingChat(recipe){
+        setChatMode("cooking");
+        ingredientScene.classList.add("hidden");
+        kitchenScene.classList.add("hidden");
+        restaurantScene.classList.add("hidden");
+        startCookingScene(recipe);
+        const btn=document.getElementById("cookBtn");
+        btn.style.display="none";
+        document.getElementById("cookInstructions").textContent="";
+        document.getElementById("stepIngredients").classList.add("hidden");
     
-            // DRAW falling object
-            if (it.img && it.img.complete && it.img.naturalWidth > 0) {
-                ctx.drawImage(it.img, it.x, it.y, it.size, it.size);
-            } else {
-                ctx.font = `${it.size}px serif`;
-                ctx.textAlign = "center";
-                ctx.textBaseline = "middle";
-                ctx.fillText(it.emoji, it.x + it.size/2, it.y + it.size/2);
+        const cookingchat=[
+            {id:"taeBubble",text:`Kookie, I got all the ingredients for <strong>${recipe.name}</strong>!`},
+            {id:"kooBubble",text:"Thank you Hyung! Let's make it together 💜"},
+            {id:"taeBubble",text:"Let's cook! 👨‍🍳"}
+        ];
+
+        showDynamicChat(cookingchat,()=>{
+            document.getElementById("cookInstructions").textContent=
+            `Step ${recipe.steps[0].step}: ${recipe.steps[0].action}`;
+            document.getElementById("stepIngredients").classList.remove("hidden");
+            loadStepIngredients();
+            btn.style.display="block";
+        });
+    }
+
+    /* -------------------------------------------
+    ADD INGREDIENT
+    -------------------------------------------*/
+    function addIngredient(ing,item){
+        const recipe=window.currentRecipe;
+        const step=recipe.steps[window.cookingStep];   
+        if(!step.addIngredients.includes(ing.name)){
+            showTaeMessage("😤 Not needed yet!");
+            return;
+        }
+        if(window.stepAdded.includes(ing.name)){
+            return;
+        }
+        window.stepAdded.push(ing.name);
+        window.added.push(ing.name);
+        item.remove();
+        showKooMessage(`💜 Added ${ing.name}!`);
+        const stepComplete=step.addIngredients.every(name=>window.stepAdded.includes(name));
+        if(stepComplete){
+            document.getElementById("cookInstructions").textContent=
+            `Step ${step.step} complete! ✨ Press Cook to continue`;
+            animateCooking();
+        }
+    }
+
+    /* -------------------------------------------
+    ADD INGREDIENT
+    -------------------------------------------*/
+    function loadStepIngredients(){
+        const recipe=window.currentRecipe;
+        const step=recipe.steps[window.cookingStep];
+        const list=document.getElementById("stepIngredients");   
+        list.innerHTML="";
+        step.addIngredients.forEach(name=>{
+            const ing=recipe.ingredients.find(i=>i.name===name);
+            if(!ing)return;
+            const item=document.createElement("span");
+            item.className="ingredient-icon";
+            item.title=ing.name;
+            if(ing.image){
+                const img=document.createElement("img");
+                img.src=`/static/images/games/cookwithtaekook/${ing.image}`;
+                img.onerror=()=>{
+                    item.textContent=ing.emoji;
+                };
+                item.appendChild(img);
+            }
+            else{
+                item.textContent=ing.emoji;
+            }
+            item.onclick=()=>addIngredient(ing,item);
+            list.appendChild(item);
+        });
+    }
+
+    /* -------------------------------------------
+    COOKING STEPS
+    -------------------------------------------*/
+    function nextCookingStep(){
+        if(!window.currentRecipe){
+            return;
+        }
+        const recipe=window.currentRecipe;
+        const steps=recipe.steps;
+        if(window.cookingStep===undefined){
+            window.cookingStep=0;
+        }
+        const currentStep=steps[window.cookingStep];
+        if(currentStep.addIngredients.length){
+            const missing=currentStep.addIngredients.some(
+                name=>!window.added.includes(name)
+            );
+            if(missing){
+                showTaeMessage("😤 Add the ingredients for this step first!");
+                return;
             }
         }
     
-        gameState.rafId = requestAnimationFrame(updateGame);
-    }
+        window.cookingStep++;
+        window.stepAdded=[];
     
-
-    /*===============================
-    START GAME CANVAS
-    ===============================*/
-    function startGameCanvas() {
-        const rect = canvasHolder.getBoundingClientRect();
-        window.currentOrder.ingredients.forEach(i => i.collected = false);
-
-        // fallback to defaults if layout not ready
-        gameCanvas.width  = rect.width  || 800;
-        gameCanvas.height = rect.height || 500;
-    
-        console.log("Canvas size:", gameCanvas.width, gameCanvas.height);
-    
-        positionChef();
-        gameState.running = true;    
-    
-        // spawn items repeatedly
-        if (gameState.itemSpawner) clearInterval(gameState.itemSpawner);
-        gameState.itemSpawner = setInterval(spawnItem, 700);
-    
-        // mouse / touch to move chef
-        canvasHolder.addEventListener("mousemove", gameState._mouseMove = (e)=>{
-            const nx = e.clientX - rect.left - gameState.chef.w/2;
-            gameState.chef.x = Math.max(0, Math.min(nx, gameCanvas.width - gameState.chef.w));
-        });
-        canvasHolder.addEventListener("touchmove", gameState._touchMove = (e)=>{
-            if (!e.touches[0]) return;
-            const nx = e.touches[0].clientX - rect.left - gameState.chef.w/2;
-            gameState.chef.x = Math.max(0, Math.min(nx, gameCanvas.width - gameState.chef.w));
-        });
-    
-        updateGame();
-    }
-    
-    // -----------------------
-    // RENDER INGREDIENT SCENE
-    // -----------------------
-    function renderIngredientScene(recipe) {
-        kitchenScene.classList.add('hidden');
-        ingredientScene.classList.remove('hidden');
-    
-        const dishTitle = document.getElementById("dishTitle");
-        const ingredientLabel = document.getElementById("ingredientLabel");
-        const ingredientList = document.getElementById("ingredientList");
-    
-        dishTitle.textContent = recipe.name;
-        ingredientLabel.textContent = "Ingredients:"; 
-        ingredientList.innerHTML = "";
-    
-        // Populate ingredient images on initial scene
-        recipe.ingredients.forEach(item => {
-            const img = document.createElement("img");
-            img.src = `/static/images/games/cookwithtaekook/${item.image}`;
-            img.alt = item.name;
-            img.title = item.name;
-            img.classList.add("ingredient-img");
-            img.onerror = () => {
-                img.remove();
-                const span = document.createElement("span");
-                span.textContent = item.emoji;
-                span.classList.add("ingredient-emoji");
-                ingredientList.appendChild(span);
-            };
-            ingredientList.appendChild(img);
-        });
-    
-        document.getElementById("startCollectIngredientsBtn").onclick = () => {
-            ingredientScene.classList.remove("hidden");
-    
-            setTimeout(() => { startGameCanvas(); }, 50);
-    
-            const ingredientInstructions = document.getElementById("ingredientInstructions");
-            const ingredientTopBlock = document.getElementById("ingredientTopBlock");
-            const gameReadyUI = document.getElementById("gameReadyUI");
-            const dishTitle2 = document.getElementById("dishTitle2");
-            const neededIngredients = document.getElementById("neededIngredients");
-            const collectedIngredients = document.getElementById("collectedIngredients");
-    
-            if (ingredientTopBlock) ingredientTopBlock.style.display = "none";
-            if (ingredientInstructions) ingredientInstructions.style.display = "none";
-    
-            gameReadyUI.classList.remove("hidden");
-            dishTitle2.textContent = window.currentOrder.name;
-    
-            neededIngredients.innerHTML = "";
-            collectedIngredients.innerHTML = "";
-    
-            // Determine sizes based on device
-            let imgSize;
-            if (window.innerWidth <= 600) imgSize = 24;        // mobile
-            else if (window.innerWidth <= 1024) imgSize = 36;  // tablet
-            else imgSize = 48;                                  // desktop
-    
-            window.currentOrder.ingredients.forEach(item => {
-                // --- Needed Ingredients HUD ---
-                if (item.image) {
-                    const img = document.createElement("img");
-                    img.src = `/static/images/games/cookwithtaekook/${item.image}`;
-                    img.classList.add("ingredient-emoji"); // use the unified class
-                    img.onerror = () => { 
-                        const span = document.createElement("span");
-                        span.textContent = item.emoji;
-                        span.classList.add("ingredient-emoji");
-                        neededIngredients.appendChild(span);
-                        img.remove();
-                    };
-                    neededIngredients.appendChild(img);
-                } else {
-                    const span = document.createElement("span");
-                    span.textContent = item.emoji;
-                    span.classList.add("ingredient-emoji"); // same class
-                    neededIngredients.appendChild(span);
-                }
-    
-                // --- Collected Ingredients HUD ---
-                const placeholder = document.createElement("span");
-                placeholder.textContent = "⬜";
-                placeholder.dataset.index = item.name; // optional identifier
-                placeholder.style.fontSize = imgSize + "px";
-                collectedIngredients.appendChild(placeholder);
-            });
-    
-            gameCanvas.style.display = "block";
-        };
-    }
-    
-    function stopAndReturnToKitchen() {
-        ingredientScene.classList.add("hidden");
-        kitchenScene.classList.remove("hidden");
-    
-        gameState.running = false;
-        clearInterval(gameState.itemSpawner);
-        cancelAnimationFrame(gameState.rafId);
-        gameState.items = [];
-    
-        // remove listeners
-        if (canvasHolder && gameState._mouseMove) canvasHolder.removeEventListener("mousemove", gameState._mouseMove);
-        if (canvasHolder && gameState._touchMove) canvasHolder.removeEventListener("touchmove", gameState._touchMove);
-    
-        showDynamicRestaurantChat(cancelReturnChat);
-    }
-    
-    // Apply to both cancel buttons
-    document.getElementById("cancelDuringGameBtn").onclick = stopAndReturnToKitchen;
-    document.getElementById("cancelIngredientBtn").onclick = stopAndReturnToKitchen;
-
-    function randomLine(arr) { return arr[Math.floor(Math.random()*arr.length)]; }
-
-    // FADES IN & OUT — OPTIONAL CUSTOMIZABLE
-    function showBubble(bubble, msg) {
-        bubble.querySelector("p").innerText = msg;
-        bubble.classList.add("show");
-    
-        setTimeout(() => bubble.classList.remove("show"), 1500);
-    }
-
-    function showKooMessage(msg){ 
-        showBubble(document.getElementById("kooCookingBubble"), msg); 
-    }
-    function showTaeMessage(msg, vibrate=false){ 
-        showBubble(document.getElementById("taeCookingBubble"), msg, vibrate); 
-    }
-
-
-// -----------------------
-// COOKING SCENE (UPGRADED)
-// -----------------------
-function startCookingScene(recipe){
-    if(!recipe){ console.warn("No recipe found"); return; }
-
-    const scene = document.getElementById("cookingScene");
-    const title = document.getElementById("cookDishTitle");
-    const instructions = document.getElementById("cookInstructions");
-    const ingredientList = document.getElementById("cookingIngredients");
-    const ingredientSlot = document.getElementById("ingredientSlot");
-    const actionBtn = document.getElementById("cookBtn");
-
-    scene.classList.remove("hidden");
-
-    title.textContent = recipe.name;
-    instructions.textContent = "Step 1: Add all ingredients";
-
-    let bg = recipe.appliance?.image ?? "taekook_cooking.png";
-    scene.style.backgroundImage = `url("/static/images/games/cookwithtaekook/${bg}")`;
-
-    ingredientList.innerHTML = "";
-    ingredientSlot.innerHTML = "";
-
-    window.currentRecipe = recipe;
-    window.added = [];
-    window.cookingStep = 0;
-
-    // Create draggable ingredients
-    recipe.ingredients.forEach((ing)=>{
-        const img = document.createElement("img");
-        img.src = `/static/images/games/cookwithtaekook/${ing.image}`;
-        img.alt = ing.name;
-        // img.addEventListener("click", (e) => addIngredient(ing, e));
-        img.draggable = true;
-        img.addEventListener("dragstart", (e) => {
-            e.dataTransfer.setData("text/plain", ing.name);
-        });
-        ingredientList.appendChild(img);
-    });
-
-    // Drop zone
-    ingredientSlot.ondragover = e => e.preventDefault();
-    ingredientSlot.ondrop = dropIngredient;
-
-    actionBtn.textContent = "Start Cooking";
-    actionBtn.onclick = nextCookingStep;
-}
-
-function addIngredient(ing, e){
-    if(!e || !e.target) return;
-    const rect = e.target.getBoundingClientRect();
-    if(!window.currentRecipe) return;
-
-    if(window.added.includes(ing.name)){
-        showTaeMessage("😤 Already added!", true);
-        return;
-    }
-
-    window.added.push(ing.name);
-
-    // create floating animation image
-    const img = document.createElement("img");
-    img.src = `/static/images/games/cookwithtaekook/${ing.image}`;
-    img.classList.add("flying-ing");
-
-    document.body.appendChild(img);
-
-    // start position (ingredient panel)
-    // const rect = event.target.getBoundingClientRect();
-    img.style.left = rect.left + "px";
-    img.style.top = rect.top + "px";
-
-    // target (center of screen / appliance area)
-    const targetX = window.innerWidth / 2;
-    const targetY = window.innerHeight / 2;
-
-    setTimeout(()=>{
-        img.style.transform = `translate(${targetX - rect.left}px, ${targetY - rect.top}px) scale(0.5)`;
-        img.style.opacity = "0";
-    },10);
-
-    setTimeout(()=>{
-        img.remove();
-        animateAppliance(); // 🔥 key part
-    },400);
-
-    showKooMessage("💜 Nice!");
-}
-
-function animateAppliance(){
-    const scene = document.getElementById("cookingScene");
-
-    scene.classList.add("active-cook");
-
-    setTimeout(()=>{
-        scene.classList.remove("active-cook");
-    },400);
-}
-
-// -----------------------
-// DROP INGREDIENT
-// -----------------------
-function dropIngredient(e){
-    e.preventDefault();
-
-    const name = e.dataTransfer.getData("text/plain");
-    if(!window.currentRecipe) return;
-
-    if(!window.added.includes(name)){
-        window.added.push(name);
-
-        const imgFile = window.currentRecipe.ingredients.find(i=>i.name==name).image;
-
-        const newItem = document.createElement("img");
-        newItem.src = `/static/images/games/cookwithtaekook/${imgFile}`;
-        newItem.classList.add("added-ing");
-
-        document.getElementById("ingredientSlot").appendChild(newItem);
-
-        showKooMessage("💜 Good job Hyung!");
-    }
-}
-
-// -----------------------
-// STEP SYSTEM
-// -----------------------
-
-if(!window.currentRecipe) return;
-if(!window.cookingStep) window.cookingStep = 0;
-if(!window.added) window.added = [];
-
-function nextCookingStep(){
-
-    const total = window.currentRecipe?.ingredients?.length || 0;
-
-    // STEP 0 → Check ingredients
-    if(window.cookingStep === 0){
-        if(window.added.length < total){
-            showTaeMessage("😤 Missing ingredients!!", true);
-            return;
+        if(window.cookingStep<steps.length){
+            const nextStep=steps[window.cookingStep];
+            document.getElementById("cookInstructions").textContent=
+            `Step ${nextStep.step}: ${nextStep.action}`;
+            loadStepIngredients();
+            const btn=document.getElementById("cookBtn");
+            if(window.cookingStep===steps.length-1){
+                btn.style.display="none";
+                showTaeMessage("🎉 Kookie, look! We made it perfectly!");
+                setTimeout(()=>{
+                    showKooMessage("The customer is going to love this 💜");
+                    setTimeout(()=>{
+                        btn.textContent="Serve 🍽️";
+                        btn.onclick=finishCooking;
+                        btn.style.display="block";
+                    },1500);
+                },1000);
+            
+                btn.textContent="Serve 🍽️";
+                btn.onclick=finishCooking;
+            }
+            else{
+                showTaeMessage("✨ Keep going, Kookie!");
+            }
         }
-
-        window.cookingStep = 1;
-        document.getElementById("cookInstructions").textContent = "Step 2: Mix ingredients 🥣";
-        document.getElementById("cookBtn").textContent = "Mix";
-        showKooMessage("✨ Now mix it!");
-        return;
+        else{
+            finishCooking();
+        }
     }
 
-    // STEP 1 → Mixing
-    if(window.cookingStep === 1){
-        window.cookingStep = 2;
-        document.getElementById("cookInstructions").textContent = "Step 3: Cook 🔥";
-        document.getElementById("cookBtn").textContent = "Cook";
-        shakeBowl();
-        showKooMessage("🔥 Looking good!");
-        return;
+    /* -------------------------------------------
+    APPLIANCE ANIMATION
+    -------------------------------------------*/
+    function animateCooking(){
+        const scene=document.getElementById("cookingScene");
+        scene.classList.add("active-cook");
+        setTimeout(()=>{
+            scene.classList.remove("active-cook");
+        },800);
     }
 
-    // STEP 2 → Cooking
-    if(window.cookingStep === 2){
-        window.cookingStep = 3;
-        document.getElementById("cookInstructions").textContent = "Step 4: Plate 🍽️";
-        document.getElementById("cookBtn").textContent = "Plate";
-        showKooMessage("💜 Almost done!");
-        return;
+    /* -------------------------------------------
+    FINISH
+    -------------------------------------------*/
+    function finishCooking(){
+        startDeliveryScene();
     }
 
-    // STEP 3 → Finish
-    if(window.cookingStep === 3){
-        finishCooking();
+    /* -------------------------------------------
+    DELIVERY SCENE
+    -------------------------------------------*/
+    function startDeliveryScene(){
+        cookingScene.classList.add("hidden");
+        deliveryScene.classList.remove("hidden");
+        setChatMode("delivery");
+
+        const recipe=window.currentRecipe;
+        document.getElementById("deliveryTitle").textContent=
+        `${recipe.name} is ready!`;
+        const customer=document.getElementById("deliveryCustomer");
+        const dish=document.getElementById("deliveryDish");
+
+        // Random customer
+        const totalCustomers=5;
+        const customerNo=Math.floor(Math.random()*totalCustomers)+1;
+        window.currentCustomer=`customer${customerNo}.png`;
+        customer.src=`/static/images/games/cookwithtaekook/customers/customer${customerNo}.png`;
+        const recipeName = recipe.name;
+        const taeImage = `/static/images/games/cookwithtaekook/recipes/tae_${recipeName}.png`;
+        const kooImage = `/static/images/games/cookwithtaekook/recipes/koo_${recipeName}.png`;
+        const imgTest = new Image();
+        imgTest.onload = ()=>{
+            dish.src = taeImage;
+            dish.classList.remove("chef-tae","chef-koo");
+            dish.classList.add("chef-tae");
+            window.deliveryChef="tae";
+        };
+        imgTest.onerror = ()=>{
+            dish.src = kooImage;
+            dish.classList.remove("chef-tae","chef-koo");
+            dish.classList.add("chef-koo");
+            window.deliveryChef="koo";
+        };
+        imgTest.src = taeImage;
+        dish.onerror=()=>{
+            dish.onerror=null;
+            dish.src=
+            `/static/images/games/cookwithtaekook/recipes/Default${defaultRecipeImage}.png`;
+    
+            defaultRecipeImage=
+            defaultRecipeImage===1?2:1;
+        };
+        console.log("Recipe:", recipe.name);
+        console.log("Chef:", window.deliveryChef);
+        console.log("Image:", dish.src);
+        setTimeout(()=>{
+            const bell=new Audio("/static/audio/bell.mp3");
+            bell.play().catch(err=>console.log(err));
+        },1000);
+        setTimeout(()=>{
+            if(window.deliveryChef==="tae"){
+                showTaeMessage("Here is your order!");
+            }
+            else{
+                showKooMessage("Here is your order!");
+            }
+        },5000);
+        setTimeout(()=>{
+            showCustomerMessage("Wow! This looks delicious! 😍", 2000);
+        },6000);
+        setTimeout(()=>{
+            if(window.deliveryChef==="tae"){
+                showTaeMessage("Its our pleasure. Enjoy your meal! 💚",2000);
+            }
+            else{
+                showKooMessage("Its our pleasure. Enjoy your meal! 💜",2000);
+            }
+            setTimeout(()=>{
+                eatingOverlay.classList.remove("hidden");
+                setTimeout(()=>{
+                    eatingOverlay.classList.add("hidden");
+                    startReceiptScene();
+                },5000);
+            },3000);
+        },8000);
     }
-}
 
+    function startReceiptScene(){
+        setChatMode("receipt");    
+        deliveryScene.classList.add("hidden");
+        receiptScene.classList.remove("hidden");
+        const recipe=window.currentRecipe;
+        document.getElementById("receiptItem").textContent=recipe.name;
+        document.getElementById("receiptDishName").textContent=recipe.name;
+        document.getElementById("receiptDish").src=
+        `/static/images/games/cookwithtaekook/recipes/${window.deliveryChef}_${recipe.name}.png`;
+        setTimeout(()=>{
+            receiptScene.classList.add("hidden");
+            startPaymentScene();
+        },4000);
+    }
 
-// -----------------------
-// FINISH
-// -----------------------
-function finishCooking(){
-    showKooMessage("🎉 PERFECT DISH!");
-    showTaeMessage("😋 We did it!");
-
-    setTimeout(()=>{
-        alert(`🍽️ ${window.currentRecipe?.name || "Dish"} is ready!`);
-        document.getElementById("cookingScene").classList.add("hidden");
-    }, 800);
-
-    if(!window.currentRecipe) return;
-}
-
-
-// -----------------------
-// SIMPLE ANIMATION
-// -----------------------
-function shakeBowl(){
-    const slot = document.getElementById("ingredientSlot");
-    slot.classList.add("shake");
-
-    setTimeout(()=>{
-        slot.classList.remove("shake");
-    }, 500);
-}
-
+    function startPaymentScene(){
+        setChatMode("receipt");
+        paymentScene.classList.remove("hidden");
+        setTimeout(()=>{
+            showCustomerMessage(randomLine(customerMessages),2000);
+        },2000);
+        setTimeout(()=>{
+            if(window.deliveryChef==="tae"){showTaeMessage("Thank you! Please visit us again 💚",2000);}
+            else{showKooMessage("Thank you! Please visit us again 💜",2000);}
+        },4000);    
+        setTimeout(()=>{
+            new Audio("/static/audio/doorlock.mp3")
+            .play()
+            .catch(()=>{});
+        },7000);
+    }
 });

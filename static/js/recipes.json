@@ -1,272 +1,688 @@
 {
   "beverages": [
     {
-      "name": "Strawberry Milkshake",
-      "ingredients": [
-        {"name": "Strawberries", "emoji": "🍓", "image": "strawberries.png"},
-        {"name": "Milk", "emoji": "🥛", "image": "milk.png"},
-        {"name": "Sugar", "emoji": "🍬", "image": "sugar.png"},
-        {"name": "Ice Cream", "emoji": "🍦", "image": "icecream.png"}
+      "name":"Strawberry Milkshake",
+      "category":"beverages",
+      "ingredients":[
+        {"name":"Strawberries","emoji":"🍓","image":"strawberries.png"},
+        {"name":"Milk","emoji":"🥛","image":"milk.png"},
+        {"name":"Sugar","emoji":"🍬","image":"sugar.png"},
+        {"name":"Ice Cream","emoji":"🍦","image":"icecream.png"}
       ],
-      "instructions": "Blend strawberries with milk, sugar, and ice cream until smooth.",
-      "appliance": {"name": "Blender", "image": "blender.png"}
+      "appliance":{"name":"Blender","image":"blender.png"},
+      "steps":[
+        {
+          "step":1,
+          "addIngredients":["Strawberries","Milk","Sugar","Ice Cream"],
+          "action":"Add all ingredients into the blender."
+        },
+        {
+          "step":2,
+          "addIngredients":[],
+          "action":"Blend everything until smooth and creamy."
+        },
+        {
+          "step":3,
+          "addIngredients":[],
+          "action":"Pour into a glass and serve chilled."
+        }
+      ]
     },
     {
-      "name": "Banana Milkshake",
-      "ingredients": [
-        {"name": "Banana", "emoji": "🍌", "image": "banana.png"},
-        {"name": "Milk", "emoji": "🥛", "image": "milk.png"},
-        {"name": "Honey", "emoji": "🍯", "image": "honey.png"},
-        {"name": "Ice Cream", "emoji": "🍦", "image": "icecream.png"}
+      "name":"Banana Milkshake",
+      "category":"beverages",
+      "ingredients":[
+        {"name":"Banana","emoji":"🍌","image":"banana.png"},
+        {"name":"Milk","emoji":"🥛","image":"milk.png"},
+        {"name":"Honey","emoji":"🍯","image":"honey.png"},
+        {"name":"Ice Cream","emoji":"🍦","image":"icecream.png"}
       ],
-      "instructions": "Blend banana with milk, honey, and ice cream until smooth.",
-      "appliance": {"name": "Blender", "image": "blender.png"}
+      "appliance":{"name":"Blender","image":"blender.png"},
+      "steps":[
+        {
+          "step":1,
+          "addIngredients":["Banana","Milk","Honey","Ice Cream"],
+          "action":"Add all ingredients into the blender."
+        },
+        {
+          "step":2,
+          "addIngredients":[],
+          "action":"Blend until smooth."
+        },
+        {
+          "step":3,
+          "addIngredients":[],
+          "action":"Serve your banana milkshake."
+        }
+      ]
     },
     {
-      "name": "Hot Chocolate",
-      "ingredients": [
-        {"name": "Cocoa Powder", "emoji": "🍫", "image": "cocoa.png"},
-        {"name": "Milk", "emoji": "🥛", "image": "milk.png"},
-        {"name": "Sugar", "emoji": "🍬", "image": "sugar.png"},
-        {"name": "Whipped Cream", "emoji": "🍦", "image": "whipped_cream.png"}
+      "name":"Hot Chocolate",
+      "category":"beverages",
+      "ingredients":[
+        {"name":"Cocoa Powder","emoji":"🍫","image":"cocoa.png"},
+        {"name":"Milk","emoji":"🥛","image":"milk.png"},
+        {"name":"Sugar","emoji":"🍬","image":"sugar.png"},
+        {"name":"Whipped Cream","emoji":"🍦","image":"whipped_cream.png"}
       ],
-      "instructions": "Heat milk with cocoa powder and sugar, top with whipped cream.",
-      "appliance": {"name": "Pan_Pot", "image": "pan_pot.png"}
+      "appliance":{"name":"Pan_Pot","image":"pan_pot.png"},
+      "steps":[
+        {
+          "step":1,
+          "addIngredients":["Milk"],
+          "action":"Heat the milk in the pot."
+        },
+        {
+          "step":2,
+          "addIngredients":["Cocoa Powder","Sugar"],
+          "action":"Add cocoa powder and sugar. Stir well."
+        },
+        {
+          "step":3,
+          "addIngredients":["Whipped Cream"],
+          "action":"Top with whipped cream and serve warm."
+        }
+      ]
     },
     {
-      "name": "Chocolate Milk",
-      "ingredients": [
-        {"name": "Milk", "emoji": "🥛", "image": "milk.png"},
-        {"name": "Chocolate Syrup", "emoji": "🍫", "image": "chocolate_syrup.png"}
+      "name":"Chocolate Milk",
+      "category":"beverages",
+      "ingredients":[
+        {"name":"Milk","emoji":"🥛","image":"milk.png"},
+        {"name":"Chocolate Syrup","emoji":"🍫","image":"chocolate_syrup.png"}
       ],
-      "instructions": "Blend milk with chocolate syrup and serve chilled.",
-      "appliance": {"name": "Blender", "image": "blender.png"}
+      "appliance":{"name":"Blender","image":"blender.png"},
+      "steps":[
+        {
+          "step":1,
+          "addIngredients":["Milk","Chocolate Syrup"],
+          "action":"Add milk and chocolate syrup into the blender."
+        },
+        {
+          "step":2,
+          "addIngredients":[],
+          "action":"Blend until mixed."
+        },
+        {
+          "step":3,
+          "addIngredients":[],
+          "action":"Serve chilled."
+        }
+      ]
     },
     {
-      "name": "Milk Tea",
-      "ingredients": [
-        {"name": "Tea", "emoji": "🍵", "image": "tea.png"},
-        {"name": "Milk", "emoji": "🥛", "image": "milk.png"},
-        {"name": "Sugar", "emoji": "🍬", "image": "sugar.png"},
-        {"name": "Boba (optional)", "emoji": "🟤", "image": "boba.png"}
+      "name":"Milk Tea",
+      "category":"beverages",
+      "ingredients":[
+        {"name":"Tea","emoji":"🍵","image":"tea.png"},
+        {"name":"Milk","emoji":"🥛","image":"milk.png"},
+        {"name":"Sugar","emoji":"🍬","image":"sugar.png"},
+        {"name":"Boba (optional)","emoji":"🟤","image":"boba.png"}
       ],
-      "instructions": "Brew tea, mix with milk and sugar. Add boba if desired.",
-      "appliance": {"name": "Tea_Coffee", "image": "tea_coffee.png"}
+      "appliance":{"name":"Tea_Coffee","image":"tea_coffee.png"},
+      "steps":[
+        {
+          "step":1,
+          "addIngredients":["Tea"],
+          "action":"Brew the tea."
+        },
+        {
+          "step":2,
+          "addIngredients":["Milk","Sugar"],
+          "action":"Add milk and sugar."
+        },
+        {
+          "step":3,
+          "addIngredients":["Boba (optional)"],
+          "action":"Add boba and serve."
+        }
+      ]
     },
     {
-      "name": "Coffee",
-      "ingredients": [
-        {"name": "Coffee Powder", "emoji": "☕", "image": "coffee_powder.png"},
-        {"name": "Milk", "emoji": "🥛", "image": "milk.png"},
-        {"name": "Sugar", "emoji": "🍬", "image": "sugar.png"}
+      "name":"Coffee",
+      "category":"beverages",
+      "ingredients":[
+        {"name":"Coffee Powder","emoji":"☕","image":"coffee_powder.png"},
+        {"name":"Milk","emoji":"🥛","image":"milk.png"},
+        {"name":"Sugar","emoji":"🍬","image":"sugar.png"}
       ],
-      "instructions": "Brew coffee and mix with milk and sugar.",
-      "appliance": {"name": "Tea_Coffee", "image": "tea_coffee.png"}
+      "appliance":{"name":"Tea_Coffee","image":"tea_coffee.png"},
+      "steps":[
+        {
+          "step":1,
+          "addIngredients":["Coffee Powder"],
+          "action":"Brew the coffee."
+        },
+        {
+          "step":2,
+          "addIngredients":["Milk","Sugar"],
+          "action":"Add milk and sugar."
+        },
+        {
+          "step":3,
+          "addIngredients":[],
+          "action":"Serve hot."
+        }
+      ]
     },
     {
-      "name": "Lemonade",
-      "ingredients": [
-        {"name": "Lemon", "emoji": "🍋", "image": "lemon.png"},
-        {"name": "Water", "emoji": "💧", "image": "water.png"},
-        {"name": "Sugar", "emoji": "🍬", "image": "sugar.png"},
-        {"name": "Ice", "emoji": "🧊", "image": "ice.png"}
+      "name":"Lemonade",
+      "category":"beverages",
+      "ingredients":[
+        {"name":"Lemon","emoji":"🍋","image":"lemon.png"},
+        {"name":"Water","emoji":"💧","image":"water.png"},
+        {"name":"Sugar","emoji":"🍬","image":"sugar.png"},
+        {"name":"Ice","emoji":"🧊","image":"ice.png"}
       ],
-      "instructions": "Mix lemon juice with water, sugar, and ice cubes.",
-      "appliance": {"name": "Pitcher", "image": "pitcher.png"}
+      "appliance":{"name":"Pitcher","image":"pitcher.png"},
+      "steps":[
+        {
+          "step":1,
+          "addIngredients":["Lemon"],
+          "action":"Squeeze lemon juice into the pitcher."
+        },
+        {
+          "step":2,
+          "addIngredients":["Water","Sugar"],
+          "action":"Add water and sugar. Mix well."
+        },
+        {
+          "step":3,
+          "addIngredients":["Ice"],
+          "action":"Add ice and serve cold."
+        }
+      ]
     }
   ],
+
   "food": [
     {
-      "name": "Scrambled Eggs",
-      "ingredients": [
-        {"name": "Eggs", "emoji": "🥚", "image": "eggs.png"},
-        {"name": "Salt", "emoji": "🧂", "image": "salt.png"},
-        {"name": "Butter", "emoji": "🧈", "image": "butter.png"},
-        {"name": "Milk", "emoji": "🥛", "image": "milk.png"}
+      "name":"Scrambled Eggs",
+      "category":"food",
+      "ingredients":[
+        {"name":"Eggs","emoji":"🥚","image":"eggs.png"},
+        {"name":"Salt","emoji":"🧂","image":"salt.png"},
+        {"name":"Butter","emoji":"🧈","image":"butter.png"},
+        {"name":"Milk","emoji":"🥛","image":"milk.png"}
       ],
-      "instructions": "Beat eggs with milk and salt, cook in butter until soft.",
-      "appliance": {"name": "Pan_Pot", "image": "pan_pot.png"}
+      "appliance":{"name":"Pan_Pot","image":"pan_pot.png"},
+      "steps":[
+        {
+          "step":1,
+          "addIngredients":["Eggs"],
+          "action":"Crack eggs into a bowl."
+        },
+        {
+          "step":2,
+          "addIngredients":["Milk","Salt"],
+          "action":"Add milk and salt, then mix well."
+        },
+        {
+          "step":3,
+          "addIngredients":["Butter"],
+          "action":"Melt butter in the pan and cook eggs until soft."
+        }
+      ]
     },
     {
-      "name": "Mashed Potatoes",
-      "ingredients": [
-        {"name": "Potatoes", "emoji": "🥔", "image": "potatoes.png"},
-        {"name": "Butter", "emoji": "🧈", "image": "butter.png"},
-        {"name": "Milk", "emoji": "🥛", "image": "milk.png"},
-        {"name": "Salt", "emoji": "🧂", "image": "salt.png"},
-        {"name": "Pepper", "emoji": "🧂", "image": "pepper.png"}
+      "name":"Mashed Potatoes",
+      "category":"food",
+      "ingredients":[
+        {"name":"Potatoes","emoji":"🥔","image":"potatoes.png"},
+        {"name":"Butter","emoji":"🧈","image":"butter.png"},
+        {"name":"Milk","emoji":"🥛","image":"milk.png"},
+        {"name":"Salt","emoji":"🧂","image":"salt.png"},
+        {"name":"Pepper","emoji":"⚫","image":"pepper.png"}
       ],
-      "instructions": "Boil potatoes, mash with butter, milk, salt, and pepper.",
-      "appliance": {"name": "Pan_Pot", "image": "pan_pot.png"}
+      "appliance":{"name":"Pan_Pot","image":"pan_pot.png"},
+      "steps":[
+        {
+          "step":1,
+          "addIngredients":["Potatoes"],
+          "action":"Boil potatoes until soft."
+        },
+        {
+          "step":2,
+          "addIngredients":["Butter","Milk"],
+          "action":"Mash potatoes with butter and milk."
+        },
+        {
+          "step":3,
+          "addIngredients":["Salt","Pepper"],
+          "action":"Season with salt and pepper."
+        }
+      ]
     },
     {
-      "name": "Blueberry Pancakes",
-      "ingredients": [
-        {"name": "Flour", "emoji": "🌾", "image": "flour.png"},
-        {"name": "Eggs", "emoji": "🥚", "image": "eggs.png"},
-        {"name": "Milk", "emoji": "🥛", "image": "milk.png"},
-        {"name": "Sugar", "emoji": "🍬", "image": "sugar.png"},
-        {"name": "Baking Powder", "emoji": "🥣", "image": "baking_powder.png"},
-        {"name": "Blueberries", "emoji": "🫐", "image": "blueberries.png"}
+      "name":"Blueberry Pancakes",
+      "category":"food",
+      "ingredients":[
+        {"name":"Flour","emoji":"🌾","image":"flour.png"},
+        {"name":"Eggs","emoji":"🥚","image":"eggs.png"},
+        {"name":"Milk","emoji":"🥛","image":"milk.png"},
+        {"name":"Sugar","emoji":"🍬","image":"sugar.png"},
+        {"name":"Baking Powder","emoji":"🥣","image":"baking_powder.png"},
+        {"name":"Blueberries","emoji":"🫐","image":"blueberries.png"}
       ],
-      "instructions": "Mix ingredients, cook batter on pan, add berries as topping.",
-      "appliance": {"name": "Pan_Pot", "image": "pan_pot.png"}
+      "appliance":{"name":"Pan_Pot","image":"pan_pot.png"},
+      "steps":[
+        {
+          "step":1,
+          "addIngredients":["Flour","Eggs","Milk","Sugar","Baking Powder"],
+          "action":"Mix ingredients to prepare the batter."
+        },
+        {
+          "step":2,
+          "addIngredients":[],
+          "action":"Cook pancake batter on the pan."
+        },
+        {
+          "step":3,
+          "addIngredients":["Blueberries"],
+          "action":"Add blueberries and serve."
+        }
+      ]
     },
     {
-      "name": "Strawberry Pancakes",
-      "ingredients": [
-        {"name": "Flour", "emoji": "🌾", "image": "flour.png"},
-        {"name": "Eggs", "emoji": "🥚", "image": "eggs.png"},
-        {"name": "Milk", "emoji": "🥛", "image": "milk.png"},
-        {"name": "Sugar", "emoji": "🍬", "image": "sugar.png"},
-        {"name": "Baking Powder", "emoji": "🥣", "image": "baking_powder.png"},
-        {"name": "Strawberries", "emoji": "🍓", "image": "strawberries.png"}
+      "name":"Strawberry Pancakes",
+      "category":"food",
+      "ingredients":[
+        {"name":"Flour","emoji":"🌾","image":"flour.png"},
+        {"name":"Eggs","emoji":"🥚","image":"eggs.png"},
+        {"name":"Milk","emoji":"🥛","image":"milk.png"},
+        {"name":"Sugar","emoji":"🍬","image":"sugar.png"},
+        {"name":"Baking Powder","emoji":"🥣","image":"baking_powder.png"},
+        {"name":"Strawberries","emoji":"🍓","image":"strawberries.png"}
       ],
-      "instructions": "Mix ingredients, cook batter on pan, add berries as topping.",
-      "appliance": {"name": "Pan_Pot", "image": "pan_pot.png"}
+      "appliance":{"name":"Pan_Pot","image":"pan_pot.png"},
+      "steps":[
+        {
+          "step":1,
+          "addIngredients":["Flour","Eggs","Milk","Sugar","Baking Powder"],
+          "action":"Mix ingredients to prepare the batter."
+        },
+        {
+          "step":2,
+          "addIngredients":[],
+          "action":"Cook pancake batter on the pan."
+        },
+        {
+          "step":3,
+          "addIngredients":["Strawberries"],
+          "action":"Top with fresh strawberries."
+        }
+      ]
     },
     {
-      "name": "French Toast",
-      "ingredients": [
-        {"name": "Bread Slices", "emoji": "🍞", "image": "bread.png"},
-        {"name": "Eggs", "emoji": "🥚", "image": "eggs.png"},
-        {"name": "Milk", "emoji": "🥛", "image": "milk.png"},
-        {"name": "Sugar", "emoji": "🍬", "image": "sugar.png"},
-        {"name": "Cinnamon", "emoji": "🌿", "image": "cinnamon.png"}
+      "name":"French Toast",
+      "category":"food",
+      "ingredients":[
+        {"name":"Bread Slices","emoji":"🍞","image":"bread.png"},
+        {"name":"Eggs","emoji":"🥚","image":"eggs.png"},
+        {"name":"Milk","emoji":"🥛","image":"milk.png"},
+        {"name":"Sugar","emoji":"🍬","image":"sugar.png"},
+        {"name":"Cinnamon","emoji":"🌿","image":"cinnamon.png"}
       ],
-      "instructions": "Dip bread in egg mixture and fry until golden brown.",
-      "appliance": {"name": "Pan_Pot", "image": "pan_pot.png"}
+      "appliance":{"name":"Pan_Pot","image":"pan_pot.png"},
+      "steps":[
+        {
+          "step":1,
+          "addIngredients":["Eggs","Milk","Sugar","Cinnamon"],
+          "action":"Prepare the egg mixture."
+        },
+        {
+          "step":2,
+          "addIngredients":["Bread Slices"],
+          "action":"Dip bread into the egg mixture."
+        },
+        {
+          "step":3,
+          "addIngredients":[],
+          "action":"Cook until golden brown."
+        }
+      ]
     },
     {
-      "name": "Salad",
-      "ingredients": [
-        {"name": "Lettuce", "emoji": "🥬", "image": "lettuce.png"},
-        {"name": "Tomatoes", "emoji": "🍅", "image": "tomatoes.png"},
-        {"name": "Cucumber", "emoji": "🥒", "image": "cucumber.png"},
-        {"name": "Olive Oil", "emoji": "🫒", "image": "olive_oil.png"},
-        {"name": "Salt", "emoji": "🧂", "image": "salt.png"}
+      "name":"Salad",
+      "category":"food",
+      "ingredients":[
+        {"name":"Lettuce","emoji":"🥬","image":"lettuce.png"},
+        {"name":"Tomatoes","emoji":"🍅","image":"tomatoes.png"},
+        {"name":"Cucumber","emoji":"🥒","image":"cucumber.png"},
+        {"name":"Olive Oil","emoji":"🫒","image":"olive_oil.png"},
+        {"name":"Salt","emoji":"🧂","image":"salt.png"}
       ],
-      "instructions": "Chop vegetables, mix with olive oil and salt.",
-      "appliance": {"name": "Bowl", "image": "bowl.png"}
+      "appliance":{"name":"Bowl","image":"bowl.png"},
+      "steps":[
+        {
+          "step":1,
+          "addIngredients":["Lettuce","Tomatoes","Cucumber"],
+          "action":"Prepare the vegetables."
+        },
+        {
+          "step":2,
+          "addIngredients":[],
+          "action":"Mix vegetables in the bowl."
+        },
+        {
+          "step":3,
+          "addIngredients":["Olive Oil","Salt"],
+          "action":"Add dressing and serve."
+        }
+      ]
     },
     {
-      "name": "Grilled Cheese Sandwich",
-      "ingredients": [
-        {"name": "Bread", "emoji": "🍞", "image": "bread.png"},
-        {"name": "Cheese", "emoji": "🧀", "image": "cheese.png"},
-        {"name": "Butter", "emoji": "🧈", "image": "butter.png"}
+      "name":"Grilled Cheese Sandwich",
+      "category":"food",
+      "ingredients":[
+        {"name":"Bread","emoji":"🍞","image":"bread.png"},
+        {"name":"Cheese","emoji":"🧀","image":"cheese.png"},
+        {"name":"Butter","emoji":"🧈","image":"butter.png"}
       ],
-      "instructions": "Butter bread, add cheese, grill until golden and melted.",
-      "appliance": {"name": "Toaster", "image": "toaster.png"}
+      "appliance":{"name":"Toaster","image":"toaster.png"},
+      "steps":[
+        {
+          "step":1,
+          "addIngredients":["Bread","Butter"],
+          "action":"Prepare buttered bread."
+        },
+        {
+          "step":2,
+          "addIngredients":["Cheese"],
+          "action":"Add cheese between bread slices."
+        },
+        {
+          "step":3,
+          "addIngredients":[],
+          "action":"Grill until golden and cheese melts."
+        }
+      ]
     },
     {
-      "name": "Spaghetti",
-      "ingredients": [
-        {"name": "Spaghetti", "emoji": "🍝", "image": "spaghetti.png"},
-        {"name": "Tomato Sauce", "emoji": "🍅", "image": "tomato_sauce.png"},
-        {"name": "Salt", "emoji": "🧂", "image": "salt.png"},
-        {"name": "Olive Oil", "emoji": "🫒", "image": "olive_oil.png"},
-        {"name": "Parmesan Cheese", "emoji": "🧀", "image": "parmesan.png"}
+      "name":"Spaghetti",
+      "category":"food",
+      "ingredients":[
+        {"name":"Spaghetti","emoji":"🍝","image":"spaghetti.png"},
+        {"name":"Tomato Sauce","emoji":"🍅","image":"tomato_sauce.png"},
+        {"name":"Salt","emoji":"🧂","image":"salt.png"},
+        {"name":"Olive Oil","emoji":"🫒","image":"olive_oil.png"},
+        {"name":"Parmesan Cheese","emoji":"🧀","image":"parmesan.png"}
       ],
-      "instructions": "Cook spaghetti, mix with sauce, drizzle olive oil and sprinkle cheese.",
-      "appliance": {"name": "Pan_Pot", "image": "pan_pot.png"}
+      "appliance":{"name":"Pan_Pot","image":"pan_pot.png"},
+      "steps":[
+        {
+          "step":1,
+          "addIngredients":["Spaghetti"],
+          "action":"Boil spaghetti until cooked."
+        },
+        {
+          "step":2,
+          "addIngredients":["Tomato Sauce","Olive Oil"],
+          "action":"Mix spaghetti with sauce and olive oil."
+        },
+        {
+          "step":3,
+          "addIngredients":["Salt","Parmesan Cheese"],
+          "action":"Season and finish with parmesan cheese."
+        }
+      ]
     },
     {
-      "name": "Kimchi Fried Rice",
-      "ingredients": [
-        {"name": "Rice", "emoji": "🍚", "image": "rice.png"},
-        {"name": "Kimchi", "emoji": "🥬", "image": "kimchi.png"},
-        {"name": "Vegetables", "emoji": "🥕", "image": "vegetables.png"},
-        {"name": "Egg", "emoji": "🥚", "image": "egg.png"},
-        {"name": "Soy Sauce", "emoji": "🧂", "image": "soy_sauce.png"},
-        {"name": "Sesame Oil", "emoji": "🫒", "image": "sesame_oil.png"}
+      "name":"Kimchi Fried Rice",
+      "category":"food",
+      "ingredients":[
+        {"name":"Rice","emoji":"🍚","image":"rice.png"},
+        {"name":"Kimchi","emoji":"🥬","image":"kimchi.png"},
+        {"name":"Vegetables","emoji":"🥕","image":"vegetables.png"},
+        {"name":"Egg","emoji":"🥚","image":"egg.png"},
+        {"name":"Soy Sauce","emoji":"🧂","image":"soy_sauce.png"},
+        {"name":"Sesame Oil","emoji":"🫒","image":"sesame_oil.png"}
       ],
-      "instructions": "Stir-fry kimchi and vegetables, add rice and seasonings, top with fried egg.",
-      "appliance": {"name": "Pan_Pot", "image": "pan_pot.png"}
+      "appliance":{"name":"Pan_Pot","image":"pan_pot.png"},
+      "steps":[
+        {
+          "step":1,
+          "addIngredients":["Kimchi","Vegetables"],
+          "action":"Stir fry kimchi and vegetables."
+        },
+        {
+          "step":2,
+          "addIngredients":["Rice","Soy Sauce"],
+          "action":"Add rice and season with soy sauce."
+        },
+        {
+          "step":3,
+          "addIngredients":["Sesame Oil","Egg"],
+          "action":"Add sesame oil and top with fried egg."
+        }
+      ]
     },
     {
-      "name": "Tteokbokki",
-      "ingredients": [
-        {"name": "Rice cakes", "emoji": "🍚", "image": "rice_cakes.png"},
-        {"name": "Fish cakes", "emoji": "🐟", "image": "fish_cakes.png"},
-        {"name": "Gochujang sauce", "emoji": "🌶️", "image": "gochujang.png"},
-        {"name": "Sugar", "emoji": "🍬", "image": "sugar.png"},
-        {"name": "Green onions", "emoji": "🧅", "image": "green_onions.png"}
+      "name":"Tteokbokki",
+      "category":"food",
+      "ingredients":[
+        {"name":"Rice cakes","emoji":"🍚","image":"rice_cakes.png"},
+        {"name":"Fish cakes","emoji":"🐟","image":"fish_cakes.png"},
+        {"name":"Gochujang sauce","emoji":"🌶️","image":"gochujang.png"},
+        {"name":"Sugar","emoji":"🍬","image":"sugar.png"},
+        {"name":"Green onions","emoji":"🧅","image":"green_onions.png"}
       ],
-      "instructions": "Cook rice cakes and fish cakes in sauce until tender.",
-      "appliance": {"name": "Pan_Pot", "image": "pan_pot.png"}
+      "appliance":{"name":"Pan_Pot","image":"pan_pot.png"},
+      "steps":[
+        {
+          "step":1,
+          "addIngredients":["Gochujang sauce","Sugar"],
+          "action":"Prepare the spicy sauce."
+        },
+        {
+          "step":2,
+          "addIngredients":["Rice cakes","Fish cakes"],
+          "action":"Cook rice cakes and fish cakes in the sauce."
+        },
+        {
+          "step":3,
+          "addIngredients":["Green onions"],
+          "action":"Add green onions and serve."
+        }
+      ]
     },
     {
-      "name": "Fruit Salad",
-      "ingredients": [
-        {"name": "Apple", "emoji": "🍎", "image": "apple.png"},
-        {"name": "Banana", "emoji": "🍌", "image": "banana.png"},
-        {"name": "Orange", "emoji": "🍊", "image": "orange.png"},
-        {"name": "Grapes", "emoji": "🍇", "image": "grapes.png"},
-        {"name": "Honey", "emoji": "🍯", "image": "honey.png"}
+      "name":"Fruit Salad",
+      "category":"food",
+      "ingredients":[
+        {"name":"Apple","emoji":"🍎","image":"apple.png"},
+        {"name":"Banana","emoji":"🍌","image":"banana.png"},
+        {"name":"Orange","emoji":"🍊","image":"orange.png"},
+        {"name":"Grapes","emoji":"🍇","image":"grapes.png"},
+        {"name":"Honey","emoji":"🍯","image":"honey.png"}
       ],
-      "instructions": "Chop all fruits and drizzle with honey.",
-      "appliance": {"name": "Bowl", "image": "bowl.png"}
+      "appliance":{"name":"Bowl","image":"bowl.png"},
+      "steps":[
+        {
+          "step":1,
+          "addIngredients":["Apple","Banana","Orange","Grapes"],
+          "action":"Prepare and cut the fruits."
+        },
+        {
+          "step":2,
+          "addIngredients":[],
+          "action":"Mix fruits together in the bowl."
+        },
+        {
+          "step":3,
+          "addIngredients":["Honey"],
+          "action":"Drizzle honey and serve."
+        }
+      ]
     }
   ],
-  "chefKooSpecial": [
-    {
-      "name": "Uni Cream Shrimp Pasta",
-      "ingredients": [
-        {"name": "Pasta", "emoji": "🍝", "image": "pasta.png"},
-        {"name": "Shrimp", "emoji": "🍤", "image": "shrimp.png"},
-        {"name": "Garlic", "emoji": "🧄", "image": "garlic.png"},
-        {"name": "Uni soy sauce", "emoji": "🧂", "image": "uni_sauce.png"},
-        {"name": "Heavy cream", "emoji": "🥛", "image": "cream.png"},
-        {"name": "Butter", "emoji": "🧈", "image": "butter.png"},
-        {"name": "Sugar", "emoji": "🍬", "image": "sugar.png"},
-        {"name": "Cheese", "emoji": "🧀", "image": "cheese.png"},
-        {"name": "Green onion", "emoji": "🧅", "image": "green_onion.png"}
-      ],
-      "instructions": "Infuse oil with green onion and shrimp heads. Boil pasta. Stir-fry garlic and seasonings, add uni soy sauce, heavy cream, butter, sugar, chopped shrimp. Simmer, add pasta, toss, finish with cheese and green onion.",
-      "appliance": {"name": "Pan_Pot", "image": "pan_pot.png"}
-    },
-    {
-      "name": "Bulguri Ramen",
-      "ingredients": [
-        {"name": "Noodles", "emoji": "🍜", "image": "noodles.png"},
-        {"name": "Buldak liquid sauce", "emoji": "🌶️", "image": "buldak_sauce.png"},
-        {"name": "Neoguri garnish", "emoji": "🦀", "image": "neoguri_garnish.png"},
-        {"name": "Water", "emoji": "💧", "image": "water.png"},
-        {"name": "Sesame", "emoji": "🧂", "image": "sesame.png"},
-        {"name": "Mayo", "emoji": "🥄", "image": "mayo.png"},
-        {"name": "Seaweed", "emoji": "🌿", "image": "seaweed.png"}
-      ],
-      "instructions": "Add 650-680ml water to pan, add sauce and garnish, boil, add noodles, thicken broth, top with garnish.",
-      "appliance": {"name": "Pan_Pot", "image": "pan_pot.png"}
-    },
-    {
-      "name": "BulMayo Perilla Oil Makguksu",
-      "ingredients": [
-        {"name": "Buckwheat noodles", "emoji": "🍜", "image": "buckwheat_noodles.png"},
-        {"name": "Perilla oil", "emoji": "🫒", "image": "perilla_oil.png"},
-        {"name": "Cham sauce", "emoji": "🌶️", "image": "cham_sauce.png"},
-        {"name": "Buldak sauce", "emoji": "🌶️", "image": "buldak_sauce.png"},
-        {"name": "Buldak mayo", "emoji": "🥄", "image": "buldak_mayo.png"},
-        {"name": "Egg yolk", "emoji": "🥚", "image": "egg_yolk.png"},
-        {"name": "Seaweed flakes", "emoji": "🌿", "image": "seaweed_flakes.png"}
-      ],
-      "instructions": "Boil noodles, rinse in cold water, mix sauces and egg yolk, pour over noodles, top with seaweed.",
-      "appliance": {"name": "Pan_Pot", "image": "pan_pot.png"}
-    },
-    {
-      "name": "Scrambled Egg Toast with Jam",
-      "ingredients": [
-        {"name": "Bread", "emoji": "🍞", "image": "bread.png"},
-        {"name": "Eggs", "emoji": "🥚", "image": "eggs.png"},
-        {"name": "Milk", "emoji": "🥛", "image": "milk.png"},
-        {"name": "Salt", "emoji": "🧂", "image": "salt.png"},
-        {"name": "Pepper", "emoji": "🧂", "image": "pepper.png"},
-        {"name": "Butter", "emoji": "🧈", "image": "butter.png"},
-        {"name": "Strawberry jam", "emoji": "🍓", "image": "strawberry_jam.png"}
-      ],
-      "instructions": "Beat eggs with milk, cook scrambled eggs, toast bread, spread butter and jam, top with eggs.",
-      "appliance": {"name": "Toaster", "image": "toaster.png"}
-    }
-  ]
-}
+
+    "chefKooSpecial":[
+      {
+        "name":"Uni Cream Shrimp Pasta",
+        "category":"chefKooSpecial",
+        "ingredients":[
+          {"name":"Pasta","emoji":"🍝","image":"pasta.png"},
+          {"name":"Shrimp","emoji":"🍤","image":"shrimp.png"},
+          {"name":"Garlic","emoji":"🧄","image":"garlic.png"},
+          {"name":"Uni soy sauce","emoji":"🧂","image":"uni_sauce.png"},
+          {"name":"Heavy cream","emoji":"🥛","image":"cream.png"},
+          {"name":"Butter","emoji":"🧈","image":"butter.png"},
+          {"name":"Sugar","emoji":"🍬","image":"sugar.png"},
+          {"name":"Cheese","emoji":"🧀","image":"cheese.png"},
+          {"name":"Green onion","emoji":"🧅","image":"green_onion.png"}
+        ],
+        "appliance":{"name":"Pan_Pot","image":"pan_pot.png"},
+        "steps":[
+          {
+            "step":1,
+            "addIngredients":["Green onion","Shrimp"],
+            "action":"Infuse oil with green onion and shrimp heads."
+          },
+          {
+            "step":2,
+            "addIngredients":["Pasta"],
+            "action":"Boil pasta until cooked."
+          },
+          {
+            "step":3,
+            "addIngredients":["Garlic","Uni soy sauce","Heavy cream","Butter","Sugar"],
+            "action":"Prepare the creamy uni sauce."
+          },
+          {
+            "step":4,
+            "addIngredients":[],
+            "action":"Mix pasta into the sauce and toss well."
+          },
+          {
+            "step":5,
+            "addIngredients":["Cheese","Green onion"],
+            "action":"Finish with cheese, garnish with green onion and serve."
+          }
+        ]
+      },
+      {
+        "name":"Bulguri Ramen",
+        "category":"chefKooSpecial",
+        "ingredients":[
+          {"name":"Noodles","emoji":"🍜","image":"noodles.png"},
+          {"name":"Buldak liquid sauce","emoji":"🌶️","image":"buldak_sauce.png"},
+          {"name":"Neoguri garnish","emoji":"🦀","image":"neoguri_garnish.png"},
+          {"name":"Water","emoji":"💧","image":"water.png"},
+          {"name":"Sesame","emoji":"🧂","image":"sesame.png"},
+          {"name":"Mayo","emoji":"🥄","image":"mayo.png"},
+          {"name":"Seaweed","emoji":"🌿","image":"seaweed.png"}
+        ],
+        "appliance":{"name":"Pan_Pot","image":"pan_pot.png"},
+        "steps":[
+          {
+            "step":1,
+            "addIngredients":["Water"],
+            "action":"Add water to the pan and bring to boil."
+          },
+          {
+            "step":2,
+            "addIngredients":["Buldak liquid sauce","Neoguri garnish"],
+            "action":"Add sauce and garnish."
+          },
+          {
+            "step":3,
+            "addIngredients":["Noodles"],
+            "action":"Add noodles and cook until soft."
+          },
+          {
+            "step":4,
+            "addIngredients":[],
+            "action":"Reduce broth until thick."
+          },
+          {
+            "step":5,
+            "addIngredients":["Sesame","Mayo","Seaweed"],
+            "action":"Top with sesame, mayo and seaweed."
+          }
+        ]
+      },
+      {
+        "name":"BulMayo Perilla Oil Makguksu",
+        "category":"chefKooSpecial",
+        "ingredients":[
+          {"name":"Buckwheat noodles","emoji":"🍜","image":"buckwheat_noodles.png"},
+          {"name":"Perilla oil","emoji":"🫒","image":"perilla_oil.png"},
+          {"name":"Cham sauce","emoji":"🌶️","image":"cham_sauce.png"},
+          {"name":"Buldak sauce","emoji":"🌶️","image":"buldak_sauce.png"},
+          {"name":"Buldak mayo","emoji":"🥄","image":"buldak_mayo.png"},
+          {"name":"Egg yolk","emoji":"🥚","image":"egg_yolk.png"},
+          {"name":"Seaweed flakes","emoji":"🌿","image":"seaweed_flakes.png"}
+        ],
+        "appliance":{"name":"Pan_Pot","image":"pan_pot.png"},
+        "steps":[
+          {
+            "step":1,
+            "addIngredients":["Buckwheat noodles"],
+            "action":"Boil buckwheat noodles."
+          },
+          {
+            "step":2,
+            "addIngredients":[],
+            "action":"Rinse noodles with cold water."
+          },
+          {
+            "step":3,
+            "addIngredients":["Perilla oil","Cham sauce","Buldak sauce"],
+            "action":"Mix the sauces together."
+          },
+          {
+            "step":4,
+            "addIngredients":["Egg yolk"],
+            "action":"Add noodles and egg yolk, then mix well."
+          },
+          {
+            "step":5,
+            "addIngredients":["Buldak mayo","Seaweed flakes"],
+            "action":"Finish with mayo and seaweed flakes."
+          }
+        ]
+      },
+      {
+        "name":"Scrambled Egg Toast with Jam",
+        "category":"chefKooSpecial",
+        "ingredients":[
+          {"name":"Bread","emoji":"🍞","image":"bread.png"},
+          {"name":"Eggs","emoji":"🥚","image":"eggs.png"},
+          {"name":"Milk","emoji":"🥛","image":"milk.png"},
+          {"name":"Salt","emoji":"🧂","image":"salt.png"},
+          {"name":"Pepper","emoji":"⚫","image":"pepper.png"},
+          {"name":"Butter","emoji":"🧈","image":"butter.png"},
+          {"name":"Strawberry jam","emoji":"🍓","image":"strawberry_jam.png"}
+        ],
+        "appliance":{"name":"Toaster","image":"toaster.png"},
+        "steps":[
+          {
+            "step":1,
+            "addIngredients":["Eggs","Milk","Salt","Pepper"],
+            "action":"Beat eggs with milk, salt and pepper."
+          },
+          {
+            "step":2,
+            "addIngredients":["Butter"],
+            "action":"Cook scrambled eggs in butter."
+          },
+          {
+            "step":3,
+            "addIngredients":["Bread"],
+            "action":"Toast the bread."
+          },
+          {
+            "step":4,
+            "addIngredients":["Strawberry jam"],
+            "action":"Spread strawberry jam on toast."
+          },
+          {
+            "step":5,
+            "addIngredients":[],
+            "action":"Place scrambled eggs on top and serve."
+          }
+        ]
+      }
+    ]
+  }

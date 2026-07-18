@@ -18,12 +18,9 @@
         <p>Follow us to our restaurant and start cooking!</p>
     </div>
     <div class="taekook-row">
-        <!-- Tae -->
-        <img class="taekook-hi"
+         <img class="taekook-hi"
              src="{{ url_for('static', filename='images/games/cookwithtaekook/tae_hello.gif') }}"
              alt="Tae says hi">
-
-        <!-- Koo (cropped) -->
         <div class="crop-box">
             <img class="taekook-hi koo-img"
                  src="{{ url_for('static', filename='images/games/cookwithtaekook/koo_hello.gif') }}"
@@ -68,13 +65,7 @@
         <p id="instructionText">Follow Tae & Koo's instructions to learn how the game works!</p>
         <button id="showFullInstructionsBtn">Show Full Instructions 📖</button>
     </div>
-    <!-- Chat Bubbles -->
-    <div class="chat-bubble left" id="taeBubble">
-        <p id="taeText"></p>
-    </div>
-    <div class="chat-bubble right" id="kooBubble">
-        <p id="kooText"></p>
-    </div>
+
     <!-- Full instructions panel (hidden initially) -->
     <div class="instruction-panel hidden" id="fullInstructionPanel">
         <h2>How the Game Works</h2>
@@ -90,10 +81,8 @@
         <button id="startCookingBtn">Start Cooking 🍳</button>
     </div>
 </div>
-
 <!-- Container for the Prepare / Read Recipe buttons -->
 <div id="orderOptions"></div>
-
 <!-- Recipe Panel -->
 <div id="recipePanel" class="hidden"></div>
 
@@ -103,7 +92,6 @@
         <h2 id="dishTitle" class="dish-title"></h2>
         <p id="ingredientLabel"></p>
         <div id="ingredientList" class="ingredient-display"></div>
-
         <!-- Instructions -->
         <div id="ingredientInstructions" class="game-instructions">
             <h2>How the Game Works</h2>
@@ -114,7 +102,6 @@
                 <li>Take the ingredients back to Koo.</li>
             </ol>
         </div>
-
         <!-- Buttons -->
         <div class="btn-row">
             <button id="startCollectIngredientsBtn" class="btn green">Collect</button>
@@ -125,55 +112,99 @@
     <!-- Game Canvas + HUD -->
     <div id="gameReadyUI" class="hidden fade-in">
         <h2 id="dishTitle2" class="dish-title"></h2>
-    
         <div class="collection-section">
             <div><strong>Ingredients:</strong> <span id="neededIngredients"></span></div>
             <div><strong>Collected:</strong> <span id="collectedIngredients"></span></div>
         </div>
-        
-        <div id="cookingBubbleLayer">
-            <div class="cooking-bubble left" id="taeCookingBubble"><p></p></div>
-            <div class="cooking-bubble right" id="kooCookingBubble"><p></p></div>
-        </div>
-
-        
         <div id="gameCanvasContainer" class="canvas-holder">
             <div class="canvas-background"></div>
             <canvas id="gameCanvas"></canvas>
         </div>
-    
         <button id="cancelDuringGameBtn" class="btn red small">Cancel</button>
-
         <div id="ingredientCollectedPopup" class="hidden popup">
             <div class="popup-content">
                 <h2>🎉 All ingredients collected!</h2>
                 <button id="ingCompleteOk">OK</button>
             </div>
         </div>
-
     </div>
 </div>
   
 <!-- ================== COOKING SCENE ================== -->
 <div id="cookingScene" class="hidden cooking-scene">
-
     <h2 id="cookDishTitle" class="cook-title"></h2>
-    <p id="cookInstructions" class="cook-instructions"></p>
-
-    <!-- Ingredients to drag -->
-    <div id="cookingIngredients" class="cook-ingredient-list"></div>
-
-    <!-- Cooking area -->
-    <div id="cookingArea">
-        <div id="cookingPot" class="cooking-pot" ondragover="event.preventDefault()">
-            <div id="ingredientSlot"></div>
-        </div>
+    <!-- Ingredients needed -->
+    <div class="ingredient-section">
+        <h3>🍽️ Ingredients Required</h3>
+        <div id="cookingIngredients" class="cook-ingredient-list"></div>
     </div>
 
+    <!-- Instructions -->
+    <p id="cookInstructions" class="cook-instructions"></p>
+    <div id="stepIngredients" class="cook-ingredient-list"></div>
     <button id="cookBtn" class="cook-finalize">Finish Cooking 🍽️</button>
-
 </div>
 
+<!-- ================== DELIVERY SCENE ================== -->
+<div id="deliveryScene" class="scene hidden">
+    <img id="deliveryCustomer" class="delivery-customer" src="" alt="Customer">
+    <img id="deliveryDish" class="delivery-dish" src="" alt="Dish">
+    <div class="delivery-panel">
+        <h2 id="deliveryTitle"></h2>
+    </div>
+    <div id="eatingOverlay" class="hidden">
+        <img src="/static/images/games/cookwithtaekook/timer.gif" class="eating-timer">
+        <h2>Customer is enjoying the meal... 🍽️</h2>
+    </div>
+</div>
+
+<!-- ================== RECEIPT SCENE ================== -->
+<div id="receiptScene" class="hidden">
+    <div class="receipt-counter">
+        <div class="receipt-paper">
+            <h2>🧾 Bun & Bear Cafe</h2>
+            <h4>Receipt</h4>
+            <img id="receiptDish">
+            <h3 id="receiptDishName"></h3>
+            <div class="receipt-details">
+            <p>Item:
+                <span id="receiptItem"></span>
+            </p>
+            <p>Amount:
+                <span id="receiptAmount">$xx.xx</span>
+            </p>
+            <div class="receipt-line"></div>
+            <p class="total">TOTAL:
+                <span id="receiptTotal">$xx.xx</span>
+            </p>
+        </div>
+            <p>Thank you for dining with us!</p>
+        </div>
+    </div>
+</div>
+
+<!-- ================== PAYMENT SCENE ================== -->
+<div id="paymentScene" class="hidden">
+</div>
+
+<!-- ==================  CHAT ================== -->
+<!-- Chat Bubbles -->
+<div id="chatLayer">
+    <div class="chat-bubble left" id="taeBubble">
+        <p></p>
+    </div>
+    <div class="chat-bubble right" id="kooBubble">
+        <p></p>
+    </div>
+    <div class="chat-bubble customer" id="customerBubble">
+        <p></p>
+    </div>
+</div>
+
+<!-- ================= TKU HOME BUTTON ================= -->
+<a href="{{ url_for('main.home') }}" id="gameTKULogo">
+    <img src="{{ url_for('static', filename='images/fanbases/tku.webp') }}">
+</a>
 
 <script src="{{ url_for('static', filename='js/cook_with_taekook.js') }}"></script>
 </body>
