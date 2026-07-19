@@ -28,10 +28,14 @@ body {
     display:none !important;
 }
 
+img{
+    max-width:100%;
+}
+
 .scene {
     position:relative;
-    width:100%;
-    height:100vh;
+    width:100vw;
+    height:100dvh;
     display:none;
     justify-content:center;
     align-items:center;
@@ -185,8 +189,8 @@ button {
 }
 
 .taekook-hi {
-    width:230px;
-    height:260px;
+    width:min(25vw,230px);
+    height:min(30vh,260px);
     object-fit:cover;
 }
 
@@ -354,11 +358,11 @@ button {
 
 .chat-bubble{
     position:absolute;
-    max-width:300px;
+    width:min(300px,35vw);
     padding:10px 15px;
     border-radius:20px;
     font-family:'Orbitron',sans-serif;
-    font-size:1rem;
+    font-size:clamp(.7rem,1vw,1rem);
     text-align:center;
     z-index:20;
     display:none;
@@ -415,6 +419,15 @@ button {
     60%{transform:translateX(-2px);}
     80%{transform:translateX(2px);}
     100%{transform:translateX(0);}
+}
+
+#chatLayer{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100vh;
+    pointer-events:none;
+    z-index:999;
 }
 
 /* ================= KITCHEN SCENE ================= */
@@ -648,9 +661,8 @@ button {
 
 .canvas-holder,
 #gameCanvasContainer{
-    width:85%;
-    max-width:1000px;
-    height:700px;
+    width:min(90vw,1000px);
+    height:min(65vh,700px);
     margin:15px auto;
     position:relative;
     overflow:visible;
@@ -704,6 +716,17 @@ button {
     cursor:pointer;
 }
 
+/* ================= COOKING CHAT ================= */
+
+#chatLayer.cooking-mode #taeBubble{
+    left:15%;
+    top:40%;
+}
+
+#chatLayer.cooking-mode #kooBubble{
+    right:25%;
+    top:40%;
+}
 /* ================= COOKING SCENE ================= */
 #cookingScene{
     width:100%;
@@ -715,6 +738,18 @@ button {
     color:white;
     position:relative;
     overflow:hidden;
+}
+
+.ingredient-section{
+    text-align:center;
+    margin:10px auto;
+    padding:5px;
+}
+
+.ingredient-section h3{
+    margin:5px 0;
+    font-size:1.2rem;
+    color:#008000;
 }
 
 .cook-title{
@@ -731,35 +766,6 @@ button {
     margin:10px 0;
 }
 
-/* ================= COOKING CHAT ================= */
-
-#chatLayer.cooking-mode #taeBubble{
-    left:15%;
-    top:40%;
-}
-
-#chatLayer.cooking-mode #kooBubble{
-    right:20%;
-    top:40%;
-}
-/* ================= INGREDIENT SECTIONS ================= */
-.ingredient-section{
-    text-align:center;
-    margin:10px auto;
-    padding:5px;
-}
-
-.ingredient-section h3{
-    margin:5px 0;
-    font-size:1.1rem;
-    color:#008000;
-}
-
-.step-section h3{
-    color:#a855f7;
-}
-
-/* Ingredient rows */
 .cook-ingredient-list{
     display:flex;
     justify-content:center;
@@ -842,20 +848,22 @@ button {
 
 .delivery-dish{
     position:absolute;
-    height:90%;
-    max-width:35%;
     object-fit:contain;
 }
 
 .delivery-dish.chef-koo{
     right:24%;
-    bottom:-12%;
+    bottom:-2%;
+    height:min(100vh,850px);
+    max-width:45vw;
     animation:walkInRight 5s linear forwards;
 }
 
 .delivery-dish.chef-tae{
     left:-35%;
-    bottom:-10%;
+    bottom:0%;
+    height:min(100vh,900px);
+    max-width:45vw;
     animation:walkInLeft 5s linear forwards;
 }
 
@@ -902,8 +910,8 @@ button {
 }
 
 .eating-timer{
-    width:480px;
-    height:480px;
+    width:min(50vw,400px);
+    height:min(50vw,400px);
 }
 
 #eatingOverlay h2{
@@ -945,19 +953,21 @@ button {
     display:flex;
     justify-content:center;
     align-items:center;
-    gap:40px;
+    gap:clamp(20px,5vw,60px);
     width:100%;
+    height:100%;
 }
 
 .receipt-chef{
-    height:70%;
-    max-height:500px;
+    height:min(70vh,500px);
+    max-width:35vw;
     object-fit:contain;
+    max-height:500px;
 }
 
 .receipt-paper{
-    width:300px;
-    min-height:430px;
+    width:min(300px,80vw);
+    min-height:min(430px,70vh);
     background:#fffdf5;
     color:#222;
     padding:25px 20px;
@@ -1077,60 +1087,151 @@ button {
 /* ================= TABLET ================= */
 
 @media(max-width:1024px){
+    #startRideBtn,
+    #headToKitchenBtn,
+    #startCookingBtn,
+    #showFullInstructionsBtn,
+    .action-btn,
+    #startCollectIngredientsBtn,
+    #cancelIngredientBtn,
+    #cancelDuringGameBtn,
+    #ingCompleteOk,
+    .cook-finalize {
+        padding:5px 15px;
+        font-size:1rem;
+    }
 
-.taekook-hi{
-    width:180px;
-    height:200px;
+    .taekook-hi{
+        width:180px;
+        height:200px;
+    }
+
+    .welcomeText{
+        position:relative;
+        top:-300px;
+    }
+
+    .welcomeText h1{
+        font-size:1.8rem;
+    }
+
+    #motorbike{
+        width:80vw;
+    }
+
+    .taekook-welcome{
+        width:60vw;
+    }
+
+    #restaurantScene h1{
+        font-size:2rem;
+    }
+
+    #restaurantScene h2{
+        font-size:1.8rem;
+    }
+
+    #restaurantScene p{
+        font-size:1.5rem;
+    }
+
+    .chat-bubble{
+        max-width:300px;
+        font-size:1rem;
+    }
+
+    #chatLayer.kitchen-mode #taeBubble{
+        left:10%;
+        top:25%;
+    }
+
+    #chatLayer.kitchen-mode #kooBubble{
+        right:10%;
+        top:25%;
+    }
+
+    .instruction-panel{
+        width:80%;
+        font-size:1rem;
+    }
+
+    .canvas-holder,
+    #gameCanvasContainer{
+        width:90%;
+        height:600px;
+    }
+
+    #neededIngredients span,
+    #collectedIngredients span{
+        width:2rem!important;
+        height:2rem!important;
+        font-size:2rem!important;
+        line-height:2rem!important;
+    }
+    
+    .ingredient-display img,
+    #neededIngredients img,
+    #collectedIngredients img{
+        width:2rem!important;
+        height:2rem!important;
+    }
+    
+    .ingredient-display .ingredient-icon{
+        width:2rem!important;
+        height:2rem!important;
+        font-size:2rem!important;
+        line-height:2rem!important;
+    }
+
+    #ingredientCollectedPopup{
+        width:80%;
+        max-width:380px;
+        padding:18px 20px;
+        border-radius:12px;
+    }
+    
+    #ingredientCollectedPopup h2{
+        font-size: 1.2rem;
+    }
+
+    .ingredient-section h3{
+        font-size:1.2rem;
+    }
+
+    #chatLayer.cooking-mode #taeBubble{
+        left:0;
+        top:40%;
+    }
+    
+    #chatLayer.cooking-mode #kooBubble{
+        right:10%;
+        top:40%;
+    }
+
+    .cook-ingredient-list img,
+    .cook-ingredient-list 
+    .ingredient-icon{
+    object-fit:contain!important;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
 }
 
-.welcomeText h1{
-    font-size:1.8rem;
-}
 
-#motorbike{
-    width:80vw;
-}
 
-.taekook-welcome{
-    width:60vw;
-}
 
-.chat-bubble{
-    max-width:300px;
-    font-size:1.2rem;
-}
 
-.instruction-panel{
-    width:95%;
-    font-size:1.2rem;
-}
-
-.canvas-holder,
-#gameCanvasContainer{
-    width:90%;
-    height:600px;
-}
-
-.cooking-bubble{
-    max-width:45%;
-    font-size:.9rem;
-}
-
-#taeCookingBubble,
-#taeIngredientBubble{
-    left:5%;
-}
-
-#kooCookingBubble,
-#kooIngredientBubble{
-    right:5%;
-}
 
 }
 
 /* ================= MOBILE ================= */
 
 @media(max-width:768px){
+#gameTKULogo{
+    width:35px;
+    height:35px;
+}
 
 .taekook-row{
     gap:10px;
@@ -1142,8 +1243,13 @@ button {
     height:180px;
 }
 
+.welcomeText{
+    position:relative;
+    top:-100px;
+}
+
 .welcomeText h1{
-    font-size:1.3rem;
+    font-size:1rem;
 }
 
 .welcomeText p{
@@ -1159,11 +1265,15 @@ button {
 }
 
 #restaurantScene h1{
-    font-size:1.5rem;
+    font-size:1.2rem;
 }
 
 #restaurantScene h2{
-    font-size:1.2rem;
+    font-size:0.9rem;
+}
+
+#restaurantScene p{
+    font-size:0.8rem;
 }
 
 .chat-bubble{
@@ -1180,19 +1290,32 @@ button {
     right:5%;
 }
 
-.instruction-panel{
-    width:90%;
+ .instruction-panel{
+    width:70%;
+    padding:10px 15px;
     font-size:.6rem;
+}
+
+.instruction-panel ol{
+    margin:0;
+    padding-left:20px; 
+}
+
+.instruction-panel li{
+    text-align:left;
 }
 
 #startRideBtn,
 #headToKitchenBtn,
 #startCookingBtn,
 #showFullInstructionsBtn,
+.action-btn,
 #startCollectIngredientsBtn,
 #cancelIngredientBtn,
 #cancelDuringGameBtn,
-#ingCompleteOk{
+#ingCompleteOk,
+.cook-finalize {
+    padding:5px 15px;
     font-size:.6rem;
 }
 
@@ -1204,27 +1327,37 @@ button {
     font-size:.9rem;
 }
 
+
 #neededIngredients span,
 #collectedIngredients span{
-    font-size:1.8rem!important;
+    width:1rem!important;
+    height:1rem!important;
+    font-size:1rem!important;
+    line-height:1rem!important;
 }
 
 .ingredient-display img,
 #neededIngredients img,
 #collectedIngredients img{
-    width:1.2rem;
-    height:1.2rem;
+    width:1rem!important;
+    height:1rem!important;
 }
 
 .ingredient-display .ingredient-icon{
-    width:1.2rem!important;
-    height:1.2rem!important;
-    font-size:1.2rem!important;
-    line-height:1.2rem!important;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    object-fit:contain;
+    width:1rem!important;
+    height:1rem!important;
+    font-size:1rem!important;
+    line-height:1rem!important;
+}
+
+#ingredientInstructions h2{
+    font-size:0.9rem;
+}
+
+#ingredientInstructions ol{
+    font-size:0.6rem;
+    margin:0;
+    padding-left:15px; 
 }
 
 .collection-section{
@@ -1233,44 +1366,95 @@ button {
     font-size:.7rem;
 }
 
+#chatLayer.ingredient-mode #taeBubble{
+    left:3%;
+    top:18%;
+}
+
+#chatLayer.ingredient-mode #kooBubble{
+    right:3%;
+    top:18%;
+}
+
 .canvas-holder,
 #gameCanvasContainer{
     width:95%;
     height:350px;
 }
 
-.cooking-bubble{
-    max-width:30%;
-    font-size:.6rem;
-    padding:8px 12px;
+#ingredientCollectedPopup{
+    width:80%;
+    max-width:280px;
+    padding:18px 20px;
+    border-radius:12px;
 }
 
-#taeIngredientBubble,
-#taeCookingBubble{
-    left:3%;
-}
-
-#kooIngredientBubble,
-#kooCookingBubble{
-    right:3%;
-}
-
-.cooking-pot{
-    width:180px;
-    height:180px;
-}
-
-#ingredientSlot{
-    width:220px;
-    height:120px;
+#ingredientCollectedPopup h2{
+    font-size: 0.9rem;
 }
 
 .cook-title{
-    font-size:1.3rem;
+    font-size:1.2rem;
+}
+
+.ingredient-section h3{
+    font-size:0.8rem;
 }
 
 .cook-instructions{
     font-size:.8rem;
+}
+
+.cook-ingredient-list{
+    gap:6px;
+    margin:5px auto;
+    min-height:auto;
+}
+
+.cook-ingredient-list img{
+    width:30px!important;
+    height:30px!important;
+    max-width:30px!important;
+    max-height:30px!important;
+}
+
+.ingredient-icon{
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    width:30px!important;
+    height:30px!important;
+    font-size:30px!important;
+}
+
+#chatLayer.cooking-mode #taeBubble{
+    left:0;
+    top:40%;
+}
+
+#chatLayer.cooking-mode #kooBubble{
+    right:15%;
+    top:40%;
+}
+
+
+
+
+
+.receipt-counter{
+    flex-direction:column;
+}
+
+.receipt-chef{
+    height:35vh;
+}
+
+.receipt-paper{
+    min-height:350px;
+}
+
+.chat-bubble{
+    width:45vw;
 }
 
 }

@@ -80,7 +80,12 @@
         {
           "step":3,
           "addIngredients":["Whipped Cream"],
-          "action":"Top with whipped cream and serve warm."
+          "action":"Top with whipped cream."
+        },
+        {
+          "step":4,
+          "addIngredients":[],
+          "action":"Serve warm."
         }
       ]
     },
@@ -114,6 +119,7 @@
       "name":"Milk Tea",
       "category":"beverages",
       "ingredients":[
+        {"name":"Water","emoji":"💧","image":"water.png"},
         {"name":"Tea","emoji":"🍵","image":"tea.png"},
         {"name":"Milk","emoji":"🥛","image":"milk.png"},
         {"name":"Sugar","emoji":"🍬","image":"sugar.png"},
@@ -123,7 +129,7 @@
       "steps":[
         {
           "step":1,
-          "addIngredients":["Tea"],
+          "addIngredients":["Water","Tea"],
           "action":"Brew the tea."
         },
         {
@@ -133,8 +139,8 @@
         },
         {
           "step":3,
-          "addIngredients":["Boba (optional)"],
-          "action":"Add boba and serve."
+          "addIngredients":[],
+          "action":"Serve hot."
         }
       ]
     },
@@ -142,6 +148,7 @@
       "name":"Coffee",
       "category":"beverages",
       "ingredients":[
+        {"name":"Water","emoji":"💧","image":"water.png"},
         {"name":"Coffee Powder","emoji":"☕","image":"coffee_powder.png"},
         {"name":"Milk","emoji":"🥛","image":"milk.png"},
         {"name":"Sugar","emoji":"🍬","image":"sugar.png"}
@@ -150,7 +157,7 @@
       "steps":[
         {
           "step":1,
-          "addIngredients":["Coffee Powder"],
+          "addIngredients":["Water","Coffee Powder"],
           "action":"Brew the coffee."
         },
         {
@@ -189,7 +196,12 @@
         {
           "step":3,
           "addIngredients":["Ice"],
-          "action":"Add ice and serve cold."
+          "action":"Add ice."
+        },
+        {
+          "step":4,
+          "addIngredients":[],
+          "action":"Serve cold."
         }
       ]
     }
@@ -221,6 +233,11 @@
           "step":3,
           "addIngredients":["Butter"],
           "action":"Melt butter in the pan and cook eggs until soft."
+        },
+        {
+          "step":4,
+          "addIngredients":[],
+          "action":"Serve hot."
         }
       ]
     },
@@ -250,6 +267,11 @@
           "step":3,
           "addIngredients":["Salt","Pepper"],
           "action":"Season with salt and pepper."
+        },
+        {
+          "step":4,
+          "addIngredients":[],
+          "action":"Serve hot."
         }
       ]
     },
@@ -279,7 +301,12 @@
         {
           "step":3,
           "addIngredients":["Blueberries"],
-          "action":"Add blueberries and serve."
+          "action":"Add blueberries."
+        },
+        {
+          "step":4,
+          "addIngredients":[],
+          "action":"Serve hot."
         }
       ]
     },
@@ -310,6 +337,11 @@
           "step":3,
           "addIngredients":["Strawberries"],
           "action":"Top with fresh strawberries."
+        },
+        {
+          "step":4,
+          "addIngredients":[],
+          "action":"Serve hot."
         }
       ]
     },
@@ -339,6 +371,11 @@
           "step":3,
           "addIngredients":[],
           "action":"Cook until golden brown."
+        },
+        {
+          "step":4,
+          "addIngredients":[],
+          "action":"Serve hot."
         }
       ]
     },
@@ -367,7 +404,12 @@
         {
           "step":3,
           "addIngredients":["Olive Oil","Salt"],
-          "action":"Add dressing and serve."
+          "action":"Add dressing and mix well."
+        },
+        {
+          "step":4,
+          "addIngredients":[],
+          "action":"Serve."
         }
       ]
     },
@@ -395,6 +437,11 @@
           "step":3,
           "addIngredients":[],
           "action":"Grill until golden and cheese melts."
+        },
+        {
+          "step":4,
+          "addIngredients":[],
+          "action":"Serve hot."
         }
       ]
     },
@@ -424,6 +471,11 @@
           "step":3,
           "addIngredients":["Salt","Parmesan Cheese"],
           "action":"Season and finish with parmesan cheese."
+        },
+        {
+          "step":4,
+          "addIngredients":[],
+          "action":"Serve hot."
         }
       ]
     },
@@ -454,6 +506,11 @@
           "step":3,
           "addIngredients":["Sesame Oil","Egg"],
           "action":"Add sesame oil and top with fried egg."
+        },
+        {
+          "step":4,
+          "addIngredients":[],
+          "action":"Serve hot."
         }
       ]
     },
@@ -482,7 +539,12 @@
         {
           "step":3,
           "addIngredients":["Green onions"],
-          "action":"Add green onions and serve."
+          "action":"Add green onions as topping."
+        },
+        {
+          "step":4,
+          "addIngredients":[],
+          "action":"Serve hot."
         }
       ]
     },
@@ -511,7 +573,12 @@
         {
           "step":3,
           "addIngredients":["Honey"],
-          "action":"Drizzle honey and serve."
+          "action":"Drizzle honey and mix well."
+        },
+        {
+          "step":4,
+          "addIngredients":[],
+          "action":"Serve."
         }
       ]
     }
@@ -557,7 +624,12 @@
           {
             "step":5,
             "addIngredients":["Cheese","Green onion"],
-            "action":"Finish with cheese, garnish with green onion and serve."
+            "action":"Top with cheese, garnish with green onion."
+          },
+          {
+            "step":6,
+            "addIngredients":[],
+            "action":"Serve hot."
           }
         ]
       },
@@ -599,6 +671,11 @@
             "step":5,
             "addIngredients":["Sesame","Mayo","Seaweed"],
             "action":"Top with sesame, mayo and seaweed."
+          },
+          {
+            "step":6,
+            "addIngredients":[],
+            "action":"Serve hot."
           }
         ]
       },
@@ -639,7 +716,12 @@
           {
             "step":5,
             "addIngredients":["Buldak mayo","Seaweed flakes"],
-            "action":"Finish with mayo and seaweed flakes."
+            "action":"Top with mayo and seaweed flakes."
+          },
+          {
+            "step":6,
+            "addIngredients":[],
+            "action":"Serve hot."
           }
         ]
       },
@@ -680,7 +762,12 @@
           {
             "step":5,
             "addIngredients":[],
-            "action":"Place scrambled eggs on top and serve."
+            "action":"Place scrambled eggs on top."
+          },
+          {
+            "step":6,
+            "addIngredients":[],
+            "action":"Serve hot."
           }
         ]
       }

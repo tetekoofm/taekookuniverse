@@ -3,11 +3,12 @@ document.addEventListener("DOMContentLoaded",()=>{
     /* -------------------------------------------
        TEST MODE
     -------------------------------------------*/
-    const TEST_MODE=true; // change to true for direct scene testing
+    const TEST_MODE=false; // change to true for direct scene testing
     const TEST_SCENE="delivery"; // landing, ride, restaurant, kitchen, ingredient, cooking, delivery, receipt
     const TEST_RECIPE=
-    "Coffee";
+    // "Coffee";
     // "Banana Milkshake";
+    "Hot Chocolate"
     // "Uni Cream Shrimp Pasta";
 
     /* -------------------------------------------
@@ -50,7 +51,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     ];
 
     const restaurantChatSteps=[
-        {id:"taeBubble",text:"Oh! Our first customer is here!"},
+        {id:"taeBubble",text:"Oh! A customer is here!"},
         {id:"kooBubble",text:"Let's see what they want to order."}
     ];
 
@@ -219,6 +220,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         layer.className="";
         layer.id="chatLayer";
         layer.classList.add(mode+"-mode");
+        console.log("Chat mode:", layer.className);
     }
 
     function showBubble(bubble,msg,duration=1000){
@@ -235,11 +237,13 @@ document.addEventListener("DOMContentLoaded",()=>{
 
     function showKooMessage(msg, duration){
         console.log("KOO:",msg);
+        console.log(document.getElementById("chatLayer").className);
         showBubble(document.getElementById("kooBubble"),msg, duration);
     }
     
     function showTaeMessage(msg, duration){
         console.log("TAE:",msg);
+        console.log(document.getElementById("chatLayer").className);
         showBubble(document.getElementById("taeBubble"), msg, duration);
     }
 
@@ -857,6 +861,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     ADD INGREDIENT
     -------------------------------------------*/
     function addIngredient(ing,item){
+        setChatMode("cooking");
         const recipe=window.currentRecipe;
         const step=recipe.steps[window.cookingStep];   
         if(!step.addIngredients.includes(ing.name)){
