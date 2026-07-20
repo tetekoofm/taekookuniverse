@@ -1109,7 +1109,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         document.getElementById("continueCustomer").onclick=()=>{
             options.classList.add("hidden");
             paymentScene.classList.add("hidden");
-            startKitchenScene();
+            startCustomerArrival();
         };
     
         document.getElementById("backGames").onclick=()=>{
