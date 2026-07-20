@@ -3,13 +3,13 @@ document.addEventListener("DOMContentLoaded",()=>{
     /* -------------------------------------------
        TEST MODE
     -------------------------------------------*/
-    const TEST_MODE=false; // change to true for direct scene testing
-    const TEST_SCENE="delivery"; // landing, ride, restaurant, kitchen, ingredient, cooking, delivery, receipt
+    const TEST_MODE=true; // change to true for direct scene testing
+    const TEST_SCENE="receipt"; // landing, ride, restaurant, kitchen, ingredient, cooking, delivery, receipt
     const TEST_RECIPE=
     // "Coffee";
     // "Banana Milkshake";
-    "Hot Chocolate"
-    // "Uni Cream Shrimp Pasta";
+    // "Hot Chocolate"
+    "Uni Cream Shrimp Pasta";
 
     /* -------------------------------------------
        SCENE REFERENCES
@@ -1005,7 +1005,8 @@ document.addEventListener("DOMContentLoaded",()=>{
         const totalCustomers=5;
         const customerNo=Math.floor(Math.random()*totalCustomers)+1;
         window.currentCustomer=`customer${customerNo}.png`;
-        customer.src=`/static/images/games/cookwithtaekook/customers/customer${customerNo}.png`;
+        document.getElementById("deliveryBackground").style.backgroundImage =
+            `url("/static/images/games/cookwithtaekook/customers/customer${customerNo}.png")`;
         const recipeName = recipe.name;
         const taeImage = `/static/images/games/cookwithtaekook/recipes/tae_${recipeName}.png`;
         const kooImage = `/static/images/games/cookwithtaekook/recipes/koo_${recipeName}.png`;
@@ -1095,6 +1096,25 @@ document.addEventListener("DOMContentLoaded",()=>{
             new Audio("/static/audio/doorlock.mp3")
             .play()
             .catch(()=>{});
+        },6000);
+        setTimeout(()=>{
+            showPaymentOptions();
         },7000);
     }
+
+    function showPaymentOptions(){
+        const options=document.querySelector(".payment-options");
+        options.classList.remove("hidden");
+    
+        document.getElementById("continueCustomer").onclick=()=>{
+            options.classList.add("hidden");
+            paymentScene.classList.add("hidden");
+            startKitchenScene();
+        };
+    
+        document.getElementById("backGames").onclick=()=>{
+            window.location.href="/games";
+        };
+    }
+
 });
