@@ -1548,8 +1548,24 @@ button{
         background-position:85% center;
     }
 
+    #chatLayer.receipt-mode #taeBubble{
+        left:1%;
+        top:35%;
+    }
+    
+    #chatLayer.receipt-mode #kooBubble{
+        right:2px;
+        top:35%;
+    }
+    
+    #chatLayer.receipt-mode #customerBubble{
+        left:32%;
+        top:15%;
+        transform:none;
+    }
+
     .payment-options button{
-        font-size:.7rem;
+        font-size:0.7rem;
     }
 }
 
