@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded",()=>{
        TEST MODE
     -------------------------------------------*/
     const TEST_MODE=false; // change to true for direct scene testing
-    const TEST_SCENE="restaurant"; // landing, ride, restaurant, kitchen, ingredient, cooking, delivery, receipt
+    const TEST_SCENE="payment"; // landing, ride, restaurant, kitchen, ingredient, cooking, delivery, receipt
     const TEST_RECIPE=
     "Strawberry Milkshake";
     // "Banana Milkshake";
@@ -144,8 +144,8 @@ document.addEventListener("DOMContentLoaded",()=>{
     
     const servingMessages=[
         "Here is your order! 😊",
-        "Your meal is ready! 🍽️",
-        "Enjoy your delicious meal! 💜",
+        "Your order is ready! 🍽️",
+        "Enjoy your delicious order! 💜",
         "Fresh from the kitchen! ✨",
         "Hope you enjoy it! 😄",
         "Bon appétit! 🍴",
@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         "Everything's fresh and ready! 😋",
         "Hope it's exactly what you wanted! 💕",
         "Enjoy every bite! 🤤",
-        "Please enjoy your meal! 🍲"
+        "Please enjoy your order! 🍲"
     ];
 
     const customerFoodCompliments=[
@@ -177,7 +177,7 @@ document.addEventListener("DOMContentLoaded",()=>{
 
     const customerMessages=[
         "Wow! That was absolutely delicious! 😍",
-        "This is the best meal I've had in a long time! ✨",
+        "This is the best thing I've had in a long time! ✨",
         "Chef, your cooking is amazing! Thank you! 💜",
         "Everything was perfect. I'll definitely come back! 😊",
         "The flavors were incredible! I loved it! 🍽️",
@@ -190,9 +190,10 @@ document.addEventListener("DOMContentLoaded",()=>{
         "I am leaving with a happy heart! 💚",
         "Wow! This was amazing! 😍",
         "The flavor was perfect! I loved it! 🤤",
-        "Best meal I've had in a long time! ⭐",
+        "Best thing I've had in a long time! ⭐",
         "I will definitely come back again! 😊",
-        "That was absolutely wonderful! Thank you!"
+        "That was absolutely wonderful! Thank you!",
+        "You've earned yourself a loyal customer! 💚"
     ];
 
     /* -------------------------------------------
@@ -295,6 +296,7 @@ document.addEventListener("DOMContentLoaded",()=>{
             startReceiptScene();
         }
         if(TEST_SCENE==="payment"){
+            window.deliveryChef="koo";
             paymentScene.classList.remove("hidden");
             startPaymentScene();
         }
@@ -1183,10 +1185,10 @@ document.addEventListener("DOMContentLoaded",()=>{
         },6000);
         setTimeout(()=>{
             if(window.deliveryChef==="tae"){
-                showTaeMessage("Its our pleasure. Enjoy your meal! 💚",2000);
+                showTaeMessage("Its our pleasure. Hope you enjoy it! 💚",2000);
             }
             else{
-                showKooMessage("Its our pleasure. Enjoy your meal! 💜",2000);
+                showKooMessage("Its our pleasure. Hope you enjoy it! 💜",2000);
             }
             setTimeout(()=>{
                 eatingOverlay.classList.remove("hidden");

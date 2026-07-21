@@ -1083,6 +1083,16 @@ button{
         font-size:1rem;
     }
 
+    #chatLayer.kitchen-mode #taeBubble{
+        left:10%;
+        top:25%;
+    }
+
+    #chatLayer.kitchen-mode #kooBubble{
+        right:10%;
+        top:25%;
+    }
+
     .instruction-panel{
         width:80%;
         font-size:1rem;
@@ -1111,9 +1121,13 @@ button{
     }
 
     #ingredientCollectedPopup{
-        width:80%;
+        width:90%;
         max-width:380px;
         padding:18px 20px;
+    }
+      
+    #ingredientCollectedPopup h2{
+        font-size:1.2rem;
     }
 
     #chatLayer.ingredient-mode #taeBubble{
@@ -1132,7 +1146,7 @@ button{
     }
 
     #chatLayer.cooking-mode #kooBubble{
-        right:10%;
+        right:5%;
         top:40%;
     }
 
@@ -1159,6 +1173,16 @@ button{
         height:45vh;
         max-width:none;
         animation:walkInLeft 3s linear forwards;
+    }
+
+    @keyframes walkInRight{
+        from{right:-35%;}
+        to{right:25%;}
+    }
+    
+    @keyframes walkInLeft{
+        from{left:-35%;}
+        to{left:25%;}
     }
 
     #chatLayer.delivery-mode #taeBubble{
@@ -1206,6 +1230,23 @@ button{
     .payment-bg{
         background-position:90% center;
     }
+
+    #chatLayer.receipt-mode #taeBubble{
+        left:2%;
+        top:35%;
+    }
+    
+    #chatLayer.receipt-mode #kooBubble{
+        right:2px;
+        top:35%;
+    }
+    
+    #chatLayer.receipt-mode #customerBubble{
+        left:35%;
+        top:15%;
+        transform:none;
+    }
+
 }
 
 /* ================= LANDSCAPE TABLET ================= */
