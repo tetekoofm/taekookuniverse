@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     /* -------------------------------------------
        TEST MODE
     -------------------------------------------*/
-    const TEST_MODE=true; // change to true for direct scene testing
+    const TEST_MODE=false; // change to true for direct scene testing
     const TEST_SCENE="delivery"; // landing, ride, restaurant, kitchen, ingredient, cooking, delivery, receipt
     const TEST_RECIPE=
     "Strawberry Milkshake";
@@ -160,7 +160,6 @@ document.addEventListener("DOMContentLoaded",()=>{
 
     const customerFoodCompliments=[
         "Wow! This looks delicious! 😍",
-        "This smells amazing already! 🤤",
         "I can't wait to dig in! 🍽️",
         "It looks absolutely perfect! ✨",
         "Chef, this looks incredible! 👏",
@@ -171,7 +170,9 @@ document.addEventListener("DOMContentLoaded",()=>{
         "This is going to be so good! 🤩",
         "My mouth is watering already! 🤤",
         "This looks fantastic! Thank you! 😊",
-        "I don't even want to ruin how pretty it looks! 😍"
+        "I don't even want to ruin how pretty it looks! 😍",
+        "My taste buds are ready! 🤤",
+        "I love how beautiful this looks! 😍"
     ];
 
     const customerMessages=[
