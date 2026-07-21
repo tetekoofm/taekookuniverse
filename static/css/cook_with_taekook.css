@@ -1209,8 +1209,21 @@ button{
 }
 
 /* ================= LANDSCAPE TABLET ================= */
-
 @media(min-width:1025px) and (max-height:900px) and (orientation:landscape){
+    #startRideBtn,
+    #headToKitchenBtn,
+    #startCookingBtn,
+    #showFullInstructionsBtn,
+    .action-btn,
+    #startCollectIngredientsBtn,
+    #cancelIngredientBtn,
+    #cancelDuringGameBtn,
+    #ingCompleteOk{
+        padding:8px 18px;
+        font-size:.95rem;
+        border-radius:10px;
+        margin-top:10px;
+    }
 
     .chat-bubble{
         width:240px;
@@ -1222,6 +1235,17 @@ button{
     #restaurantScene h1{
         font-size:2rem;
         color:#8affc1;
+        margin-top:2px;
+    }
+
+    #restaurantScene h2{
+        font-size:1.5rem;
+        margin-top:2px;
+    }
+
+    #restaurantScene p{
+        font-size:1rem;
+        margin-top:2px;
     }
 
     .instruction-panel{
