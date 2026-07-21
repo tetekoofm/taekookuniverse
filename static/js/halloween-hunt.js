@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "/meet-koo", "/termsandconditions", "/streaming", "/buying",
     "/voting", "/radio", "/shazam", "/shazamstats", "/spotifystats",
     "/youtubestats", "/brandreputation", "/events", "/reporting",
-    "/donations", "/fanbases", "/games"
+    "/donating", "/fanbases", "/games", "/brandambassador"
   ];
 
   const currentPath = window.location.pathname;
@@ -80,18 +80,24 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
     exitBtn.onclick = () => {
       if (confirm("Exit the Halloween Hunt?")) {
+    
+        document.cookie = "halloween_hunt_active=; Max-Age=0; path=/";
+    
         document.querySelectorAll(".halloween-icon").forEach(i => i.remove());
+    
         counter.remove();
+    
         if (audio) {
           audio.pause();
           audio.currentTime = 0;
         }
+    
         localStorage.setItem("gameActive", false);
         localStorage.removeItem("foundIcons");
         localStorage.removeItem("chosenIcons");
         sessionStorage.clear();
-        popup.style.display = "flex";
-        window.location.href = "/"; 
+    
+        window.location.href = "/";
       }
     };
 
@@ -142,6 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
         img.remove();
 
         if (foundIcons.length >= totalToFind) {
+          document.cookie = "halloween_hunt_active=; Max-Age=0; path=/";
           alert(`🎉 You found all ${totalToFind}! Ghosty’s secret awaits...`);
           localStorage.setItem("gameActive", false);
           window.location.href = redirectUrl;
@@ -198,6 +205,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------------------- START THE HUNT ----------------------
   if (startBtn) {
     startBtn.addEventListener("click", () => {
+      document.cookie = "halloween_hunt_active=true; path=/";
+      const bgAudio = document.getElementById("bgAudio");
+      if (bgAudio) {
+          bgAudio.pause();
+      }
+
       popup.style.display = "none";
       if (audio) audio.play();
       localStorage.setItem("gameActive", true);

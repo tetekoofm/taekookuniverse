@@ -5,14 +5,13 @@
 <div class="main-content">
   <div class="game-page">
     <div class="hero">
-      <h1 class="heading">Song Scramble</h1>
-      <p class="caption">Unscramble the letters to guess the song! You can skip if unsure.</p>
+      <h1 class="heading">Guess the Song</h1>
+      <p class="caption">Read the lyrics and guess the song title!</p>
     </div>
 
-    <div id="scramble-game" class="game-container">
-      <div class="jumbled-song">
-        <p id="clue-text"></p>
-        <p id="jumbled-text"></p>
+    <div id="lyrics-game" class="game-container">
+      <div class="lyrics-song">
+        <p id="lyrics-text"></p>
       </div>
 
       <input type="text" id="user-answer" placeholder="Type your answer here..." autocomplete="off" />
@@ -54,7 +53,7 @@
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <script>
-const GAME_NAME = "Song Scramble";
+const GAME_NAME = "Guess the Song by Lyrics";
 let songs = [];
 let remainingSongs = [];
 let currentSong = '';
@@ -65,20 +64,9 @@ let gameOver = false;
 
 // Load songs JSON
 async function loadSongs() {
-    const res = await fetch('/static/js/guess_song_scrambled.json');
+    const res = await fetch('/static/json/guess_song_lyrics.json');
     songs = await res.json();
-    remainingSongs = [...songs];
     startGame();
-}
-
-// Shuffle word
-function shuffleWord(word) {
-    let arr = word.replace(/\s+/g,'').split('');
-    for(let i = arr.length - 1; i > 0; i--){
-        const j = Math.floor(Math.random() * (i+1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr.join('');
 }
 
 // Start game
@@ -101,21 +89,24 @@ function nextSong() {
         return;
     }
 
-    // Pick a random song from remainingSongs
     const idx = Math.floor(Math.random() * remainingSongs.length);
-    currentSong = remainingSongs[idx];
+    const songObj = remainingSongs[idx];
 
-    // Remove selected song from remainingSongs to prevent repeats
     remainingSongs.splice(idx, 1);
 
-    const wordCount = currentSong.trim().split(/\s+/).length;
-    document.getElementById('clue-text').innerText = `Clue: ${wordCount} word${wordCount > 1 ? 's' : ''}`;
-    document.getElementById('jumbled-text').innerText = shuffleWord(currentSong);
+    // ✅ FIXED
+    currentSong = songObj.song;       // correct answer
+    const currentLyrics = songObj.lyrics;
+
+    document.getElementById("lyrics-text").innerText =
+        `"${currentLyrics}"`;
+
     document.getElementById('user-answer').value = '';
     document.getElementById('feedback').innerText = '';
 
     questionCount++;
     document.getElementById('question-count').innerText = questionCount;
+
     enableButtons();
 }
 
@@ -138,7 +129,7 @@ function enableButtons(){
 document.getElementById('check-answer-btn').addEventListener('click', ()=>{
     if(gameOver) return;
     const userAnswer = document.getElementById('user-answer').value.trim().toLowerCase();
-    if(userAnswer === currentSong.toLowerCase()){
+    if(userAnswer === currentSong.toLowerCase().trim()){
         score++;
         document.getElementById('feedback').innerText = 'Correct! 🎉';
         launchConfetti();
@@ -270,7 +261,7 @@ loadSongs();
 
 <style>
 /* ===== Game ===== */
-.jumbled-song p { font-size: 2rem; letter-spacing: 8px; margin-bottom: 20px; font-weight: bold; font-family:'Orbitron', sans-serif; }
+.lyrics-song p { font-size: 2rem; letter-spacing: 8px; margin-bottom: 20px; font-weight: bold; font-family:'Orbitron', sans-serif; }
 #user-answer { padding: 10px; font-size: 1rem; width: 60%; max-width: 300px; margin-bottom: 10px; }
 .buttons button { padding: 10px 20px; margin: 5px; font-size: 1rem; cursor: pointer; border-radius:10px; font-family:'Orbitron', sans-serif; }
 #feedback { margin-top: 10px; font-weight: bold; }
@@ -410,7 +401,7 @@ loadSongs();
     padding: 15px;
   }
 
-  .jumbled-song p {
+  .lyrics-song p {
     font-size: 1.8rem;
     letter-spacing: 6px;
   }
@@ -447,7 +438,7 @@ loadSongs();
     padding: 10px;
   }
 
-  .jumbled-song p {
+  .lyrics-song p {
     font-size: 1.5rem;
     letter-spacing: 4px;
   }

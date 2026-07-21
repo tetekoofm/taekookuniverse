@@ -24,16 +24,24 @@ document.addEventListener("DOMContentLoaded", function () {
     updateAudioControl(isMuted);
 
     // Attempt autoplay, fallback to user interaction
-    const playPromise = audio.play();
-    if (playPromise !== undefined) {
-        playPromise.catch(() => {
-            // If autoplay is blocked, play on first user interaction
-            const playOnInteraction = () => {
-                audio.play().catch(() => {});
-                document.removeEventListener("click", playOnInteraction);
-            };
-            document.addEventListener("click", playOnInteraction);
-        });
+    const halloweenActive = document.cookie.includes("halloween_hunt_active=true");
+
+    if (!halloweenActive) {
+        const playPromise = audio.play();
+
+        if (playPromise !== undefined) {
+            playPromise.catch(() => {
+                const playOnInteraction = () => {
+                    audio.play().catch(() => {});
+                    document.removeEventListener("click", playOnInteraction);
+                };
+
+                document.addEventListener("click", playOnInteraction);
+            });
+        }
+    } else {
+        audio.pause();
+        audio.currentTime = 0;
     }
 
     // Toggle mute/unmute

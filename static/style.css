@@ -38,7 +38,7 @@ body {
 
 #audioControl {
     position: fixed;
-    top: 20px;
+    top: 90px;
     right: 20px;
     font-size: 28px;
     cursor: pointer;
@@ -46,7 +46,7 @@ body {
     color: white;
     padding: 12px;
     border-radius: 50%;
-    z-index: 9999;
+    z-index: 99999;
     text-align: center;
 }
 
@@ -8102,16 +8102,15 @@ input, select, textarea {
   
   .games-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* exactly 4 equal columns */
+    grid-template-columns: repeat(4, 1fr); 
     gap: 25px;
     margin-top: 10px;
     justify-items: center;
   }
   
-  /* Card container */
   .game-card {
     position: relative;
-    width: 240px; /* ✅ limit width */
+    width: 240px; 
     background: rgba(30, 30, 30, 0.95);
     border: 2px solid #6b46c1;
     border-radius: 15px;
@@ -8125,13 +8124,12 @@ input, select, textarea {
   
   .game-card img {
     width: auto;
-    height: 150px; /* ✅ smaller image height */
+    height: 150px;
     object-fit: cover;
     border-radius: 10px;
     margin-bottom: 10px;
   }
   
-  /* Text always visible */
   .game-card h2 {
     font-size: 1.1rem;
     margin-bottom: 8px;
@@ -8149,7 +8147,6 @@ input, select, textarea {
     border-color: #a855f7;
   }
   
-  /* Optional: only a slight visual upgrade on hover */
   .game-card:hover img {
     transform: scale(1.05);
   }
@@ -8191,7 +8188,7 @@ input, select, textarea {
 
   @media (max-width: 1024px) {
     .games-grid {
-      grid-template-columns: repeat(2, 1fr); /* 2 per row on tablets */
+      grid-template-columns: repeat(2, 1fr);
     }
   }
   
@@ -8203,16 +8200,16 @@ input, select, textarea {
   
     .game-card {
       max-width: 160px;
-      padding: 8px;                /* reduce inner padding */
+      padding: 8px; 
       border-radius: 8px;
     }
   
     .game-card img {
         width: 100%;
-        height: 100px;          /* fixed height */
-        object-fit: contain;     /* makes sure the full image is visible */
+        height: 100px;      
+        object-fit: contain;   
         border-radius: 6px;
-        background: #fff;        /* optional, shows space around image */
+        background: #fff;     
       }
       
 
@@ -8941,5 +8938,397 @@ input, select, textarea {
     .pagination a,
     .page-number{
         font-size:.7rem;
+    }
+}
+
+/*************************************************
+                TKU THEME PARK
+*************************************************/
+
+.themepark-page{
+    width:min(1500px,95%);
+    margin:auto;
+    padding:40px 0 80px;
+    color:white;
+}
+
+/*************************************************
+                PARK HEADER
+*************************************************/
+
+.park-header{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.park-header h1{
+    font-family:'Tangerine',cursive;
+    font-size:5rem;
+    margin-bottom:15px;
+    color:white;
+    text-shadow:0 0 15px #A855F7,0 0 35px #6A0DAD;
+}
+
+.park-header p{
+    color:#ddd;
+    font-size:1.2rem;
+}
+
+.park-ticket{
+    margin-top:25px;
+    padding:12px 35px;
+    border:none;
+    border-radius:30px;
+    background:#FFD700;
+    color:#222;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 0 20px rgba(255,215,0,.6);
+}
+
+/*************************************************
+                PARK MAP
+*************************************************/
+
+.park-map{
+    position:relative;
+    min-height:1500px;
+    overflow:hidden;
+    border-radius:50px;
+    background:
+    linear-gradient(rgba(5,0,20,.55),rgba(0,0,0,.85)),
+    url('/static/images/games/themepark_night.png');
+    background-size:cover;
+    background-position:center;
+    border:3px solid #6A0DAD;
+    box-shadow:0 0 50px rgba(106,13,173,.5);
+}
+
+.park-map:before{
+    content:"🎡";
+    position:absolute;
+    right:80px;
+    top:80px;
+    font-size:18rem;
+    opacity:.12;
+    animation:slowSpin 40s linear infinite;
+}
+
+.park-map:after{
+    content:"✦  ✦  ✦  ✦  ✦";
+    position:absolute;
+    top:20px;
+    left:50%;
+    transform:translateX(-50%);
+    color:#FFD700;
+    font-size:1.5rem;
+    letter-spacing:20px;
+    animation:lightsBlink 2s infinite alternate;
+}
+
+@keyframes slowSpin{
+    from{
+        transform:rotate(0);
+    }
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+@keyframes lightsBlink{
+    from{
+        opacity:.4;
+    }
+    to{
+        opacity:1;
+        text-shadow:0 0 20px #FFD700;
+    }
+}
+
+/*************************************************
+                PARK SIGN
+*************************************************/
+
+.park-sign{
+    position:absolute;
+    top:35px;
+    left:50%;
+    transform:translateX(-50%);
+    text-align:center;
+    background:rgba(0,0,0,.7);
+    padding:20px 40px;
+    border-radius:25px;
+    border:2px solid #FFD700;
+    z-index:3;
+}
+
+.park-sign h2{
+    margin:0 0 8px;
+    color:#FFD700;
+}
+
+.park-sign p{
+    margin:0;
+    color:#ddd;
+}
+
+/*************************************************
+                PATHS
+*************************************************/
+
+.park-path{
+    position:absolute;
+    border:6px dashed rgba(255,215,0,.35);
+    border-radius:50%;
+    z-index:0;
+}
+
+.park-path:after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+    radial-gradient(circle,#FFD700 3px,transparent 4px);
+    background-size:45px 45px;
+    opacity:.5;
+}
+
+.path-one{
+    width:520px;
+    height:520px;
+    top:350px;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+.path-two{
+    width:420px;
+    height:600px;
+    top:380px;
+    left:120px;
+    transform:rotate(-25deg);
+}
+
+.path-three{
+    width:420px;
+    height:600px;
+    top:380px;
+    right:120px;
+    transform:rotate(25deg);
+}
+
+/*************************************************
+                LOCATION POSITIONS
+*************************************************/
+
+.food-zone{
+    top:170px;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+.music-zone{
+    top:300px;
+    left:60px;
+}
+
+.mystery-zone{
+    top:270px;
+    right:60px;
+}
+
+.central-zone{
+    top:700px;
+    left:50%;
+    transform:translateX(-50%);
+    width:300px;
+    z-index:3;
+}
+
+.central-zone img{
+    width:260px;
+    height:200px;
+}
+
+.winter-zone{
+    top:850px;
+    left:180px;
+}
+
+.challenge-zone{
+    top:850px;
+    right:120px;
+}
+
+/*************************************************
+                ATTRACTIONS
+*************************************************/
+
+.attraction{
+    position:absolute;
+    width:270px;
+    padding:25px;
+    text-align:center;
+    background:linear-gradient(180deg,#32104f,#120016);
+    border:3px solid #FFD700;
+    border-radius:40px 40px 20px 20px;
+    z-index:2;
+    transition:.35s;
+    box-shadow:
+    0 0 30px rgba(255,215,0,.3),
+    inset 0 -20px 30px rgba(0,0,0,.5);
+}
+
+.attraction:before{
+    content:"";
+    position:absolute;
+    top:-18px;
+    left:25%;
+    width:50%;
+    height:35px;
+    background:#6A0DAD;
+    clip-path:polygon(50% 0,100% 100%,0 100%);
+}
+
+.attraction:hover{
+    filter:brightness(1.2);
+    border-color:#0FFF50;
+    box-shadow:0 0 40px #0FFF50;
+}
+
+.attraction img{
+    width:230px;
+    height:170px;
+    object-fit:contain;
+    margin:-20px auto 10px;
+    display:block;
+    filter:drop-shadow(0 0 15px rgba(255,215,0,.5));
+    transition:.35s;
+}
+
+.attraction:hover img{
+    transform:scale(1.08);
+    filter:drop-shadow(0 0 25px #0FFF50);
+}
+
+.attraction h3{
+    background:#111;
+    display:inline-block;
+    padding:8px 15px;
+    margin:10px 0;
+    border-radius:15px;
+    border:1px solid #FFD700;
+}
+
+.attraction p{
+    color:#ccc;
+    font-size:.9rem;
+    line-height:1.5;
+}
+
+.attraction a{
+    display:inline-block;
+    margin-top:12px;
+    padding:8px 25px;
+    border-radius:20px;
+    background:#0FFF50;
+    color:#111;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+
+/*************************************************
+                TABLET
+*************************************************/
+
+@media(max-width:1000px){
+
+    .park-map{
+        min-height:1500px;
+    }
+
+    .attraction{
+        width:210px;
+    }
+
+    .attraction img{
+        width:180px;
+        height:140px;
+    }
+
+    .food-zone{
+        top:160px;
+    }
+
+    .music-zone{
+        left:30px;
+    }
+
+    .mystery-zone{
+        right:30px;
+    }
+
+    .central-zone{
+        top:650px;
+    }
+
+    .winter-zone{
+        left:40px;
+    }
+
+    .challenge-zone{
+        right:40px;
+    }
+}
+
+/*************************************************
+                MOBILE
+*************************************************/
+
+@media(max-width:700px){
+
+    .park-header h1{
+        font-size:3.5rem;
+    }
+
+    .park-map{
+        min-height:auto;
+        padding:30px 15px;
+        display:flex;
+        flex-direction:column;
+        gap:30px;
+    }
+
+    .park-sign{
+        position:relative;
+        top:auto;
+        left:auto;
+        transform:none;
+    }
+
+    .park-path{
+        display:none;
+    }
+
+    .attraction,
+    .food-zone,
+    .music-zone,
+    .mystery-zone,
+    .central-zone,
+    .winter-zone,
+    .challenge-zone{
+        position:relative;
+        top:auto;
+        left:auto;
+        right:auto;
+        bottom:auto;
+        transform:none;
+        width:auto;
+    }
+
+    .central-zone img{
+        width:230px;
+        height:180px;
     }
 }

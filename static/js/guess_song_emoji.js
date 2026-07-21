@@ -5,7 +5,7 @@ let score = 0;
 const GAME_NAME = "guess_song_emoji";  // match your Flask route/game key
 
 // Load JSON and pick 10 random songs
-fetch('/static/js/guess_song_emoji.json')
+fetch('/static/json/guess_song_emoji.json')
   .then(res => res.json())
   .then(data => {
       allSongs = data || [];

@@ -232,7 +232,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     -------------------------------------------*/
     async function startTestMode(){
         if(!TEST_MODE) return;
-        const res=await fetch("/static/js/recipes.json");
+        const res=await fetch("/static/json/recipes.json");
         const data=await res.json();
         window.recipes=data;
         const allRecipes=[
@@ -506,7 +506,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     }
 
     function startRestaurantChat(){
-        fetch("/static/js/recipes.json")
+        fetch("/static/json/recipes.json")
         .then(r=>r.json())
         .then(data=>{
             window.recipes=data;
@@ -541,7 +541,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     }
 
     async function loadRandomRecipe(){
-        const res=await fetch("/static/js/recipes.json");
+        const res=await fetch("/static/json/recipes.json");
         const data=await res.json();
         const allRecipes=[
             ...(data.beverages||[]),
