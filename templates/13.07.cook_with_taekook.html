@@ -19,11 +19,11 @@
     </div>
     <div class="taekook-row">
          <img class="taekook-hi"
-             src="{{ url_for('static', filename='images/games/cookwithtaekook/tae_hello.gif') }}"
+             src="{{ url_for('static', filename='images/games/cookwithtaekook/landing/tae_hello.gif') }}"
              alt="Tae says hi">
         <div class="crop-box">
             <img class="taekook-hi koo-img"
-                 src="{{ url_for('static', filename='images/games/cookwithtaekook/koo_hello.gif') }}"
+                 src="{{ url_for('static', filename='images/games/cookwithtaekook/landing/koo_hello.gif') }}"
                  alt="Koo says hi">
         </div>
     </div>
@@ -37,7 +37,7 @@
     <div class="neon-road"></div>
     <!-- <div class="star" style="top:10%; left:20%;"></div> -->
     <!-- <div class="star" style="top:50%; left:70%;"></div> -->
-    <img id="motorbike" src="{{ url_for('static', filename='images/games/cookwithtaekook/ridetorestaurant1.png') }}" alt="Tae & Koo on Harley">
+    <img id="motorbike" src="{{ url_for('static', filename='images/games/cookwithtaekook/ride/ridetorestaurant1.png') }}" alt="Tae & Koo on Harley">
 </div>
 <!-- Restaurant Scene -->
 <div id="restaurantScene" class="scene hidden">
@@ -46,7 +46,7 @@
     <!-- Welcome content -->
     <div class="restaurant-content">
         <img class="taekook-welcome" 
-             src="{{ url_for('static', filename='images/games/cookwithtaekook/taekook_welcome.png') }}" 
+             src="{{ url_for('static', filename='images/games/cookwithtaekook/restaurant/taekook_welcome.png') }}" 
              alt="Tae & Koo Welcome">
         <h2>Welcome to</h2>
         <h1>Bun & Bear Cafe!</h1>
@@ -59,9 +59,9 @@
 <!-- Kitchen Scene -->
 <div id="kitchenScene" class="scene hidden">
     <!-- Background -->
-    <div class="kitchen-bg" style="background-image: url('{{ url_for('static', filename='images/games/cookwithtaekook/taekook_kitchen.png') }}');"></div>
+    <div class="kitchen-bg" style="background-image: url('{{ url_for('static', filename='images/games/cookwithtaekook/kitchen/taekook_kitchen.png') }}');"></div>
     <!-- Top Instruction Panel -->
-    <div class="instruction-panel">
+    <div class="instruction-panel" id="instructionPanel">
         <p id="instructionText">Follow Tae & Koo's instructions to learn how the game works!</p>
         <button id="showFullInstructionsBtn">Show Full Instructions 📖</button>
     </div>
@@ -80,6 +80,7 @@
         <button id="startCookingBtn">Start Cooking 🍳</button>
     </div>
 </div>
+
 <!-- Container for the Prepare / Read Recipe buttons -->
 <div id="orderOptions"></div>
 <!-- Recipe Panel -->
@@ -188,13 +189,17 @@
 
 <!-- ================== PAYMENT SCENE ================== -->
 <div id="paymentScene" class="hidden">
-</div>
 
-<div class="payment-options hidden">
-    <button id="continueCustomer">Continue to Next Customer</button>
-    <button id="backGames">Exit to Games</button>
-</div>
+    <div class="payment-bg"
+         style="background-image:url('{{ url_for('static', filename='images/games/cookwithtaekook/payment/counter.png') }}');">
+    </div>
 
+    <div class="payment-options hidden">
+        <button id="continueCustomer">Continue to Next Customer</button>
+        <button id="backGames">Exit to Games</button>
+    </div>
+
+</div>
 <!-- ==================  CHAT ================== -->
 <!-- Chat Bubbles -->
 <div id="chatLayer">

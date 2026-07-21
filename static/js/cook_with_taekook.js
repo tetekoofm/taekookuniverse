@@ -4,12 +4,30 @@ document.addEventListener("DOMContentLoaded",()=>{
        TEST MODE
     -------------------------------------------*/
     const TEST_MODE=false; // change to true for direct scene testing
-    const TEST_SCENE="receipt"; // landing, ride, restaurant, kitchen, ingredient, cooking, delivery, receipt
+    const TEST_SCENE="restaurant"; // landing, ride, restaurant, kitchen, ingredient, cooking, delivery, receipt
     const TEST_RECIPE=
+    // "Strawberry Milkshake";
+    "Banana Milkshake";
+    // "Hot Chocolate";
+    // "Chocolate Milk"
+    // "Milk Tea"
     // "Coffee";
-    // "Banana Milkshake";
-    // "Hot Chocolate"
-    "Uni Cream Shrimp Pasta";
+    // "Lemonade";
+    // "Scrambled Eggs"
+    // "Mashed Potatoes"
+    // "Blueberry Pancakes"
+    // "Strawberry Pancakes"
+    // "French Toast"
+    // "Salad"
+    // "Grilled Cheese Sandwich";
+    // "Spaghetti"
+    // "Kimchi Fried Rice"
+    // "Tteokbokki"
+    // "Fruit Salad";
+    // "Uni Cream Shrimp Pasta";
+    // "Bulguri Ramen"
+    // "BulMayo Perilla Oil Makguksu"
+    // "Scrambled Egg Toast with Jam"
 
     /* -------------------------------------------
        SCENE REFERENCES
@@ -23,13 +41,15 @@ document.addEventListener("DOMContentLoaded",()=>{
     const motorbike=document.getElementById("motorbike");
     const kitchenScene=document.getElementById("kitchenScene");
     const ingredientScene=document.getElementById("ingredientScene");
+    const instructionPanel=document.getElementById("instructionPanel");
     const fullPanel=document.getElementById("fullInstructionPanel");
     const showFullBtn=document.getElementById("showFullInstructionsBtn");
     const startCookingBtn=document.getElementById("startCookingBtn");
     const cookingScene=document.getElementById("cookingScene");
     const deliveryScene=document.getElementById("deliveryScene");
-    const receiptScene=document.getElementById("receiptScene");
     const eatingOverlay=document.getElementById("eatingOverlay");
+    const receiptScene=document.getElementById("receiptScene");
+    const paymentScene=document.getElementById("paymentScene");
     const taeText=document.getElementById("taeText");
     const kooText=document.getElementById("kooText");
 
@@ -85,6 +105,73 @@ document.addEventListener("DOMContentLoaded",()=>{
         "🎉 Last one Hyung!! Go go go!",
         "💜 Hyung will finish strong!",
         "⚡ We’re almost there — don't stop!"
+    ];
+
+    const taeReminderMessages=[
+        "😤 Add all the ingredients for this step first!",
+        "🍳 We're not done yet! Add all the ingredients first!",
+        "😊 Don't forget the ingredients!",
+        "💚 Let's finish this step before cooking!",
+        "✨ Almost there! Just add everything first.",
+        "👀 Check the ingredient list again!",
+        "🥣 Every ingredient matter!",
+        "😄 Take your time! Add them all first.",
+        "🌟 Let's get everything first!",
+        "💜 You're missing the ingredients!",
+        "🍲 Don't rush—we need everything for this step!",
+        "🤏 Just a little more before we cook!"
+    ];
+
+    const taeEncouragementMessages=[
+        "✨ Keep going, Kookie!",
+        "💚 You're doing amazing!",
+        "🌟 Looking good so far!",
+        "👏 Great job, Kookie!",
+        "💜 You're a natural chef!",
+        "😄 We're almost there!",
+        "✨ That looks delicious already!",
+        "🔥 You're on fire today!",
+        "💪 You've got this!",
+        "🌈 I believe in you, Kookie!",
+        "🍀 Keep it up!",
+        "😍 It's coming together beautifully!",
+        "🎉 Excellent work!",
+        "💚 Just a little more!",
+        "⭐ You're making this look easy!",
+        "🥰 You're the best cooking partner!",
+        "🥰 What would I do without you!"
+    ];
+    
+    const servingMessages=[
+        "Here is your order! 😊",
+        "Your meal is ready! 🍽️",
+        "Enjoy your delicious meal! 💜",
+        "Fresh from the kitchen! ✨",
+        "Hope you enjoy it! 😄",
+        "Bon appétit! 🍴",
+        "Thanks for waiting! 😊",
+        "Your food is served! 🍜",
+        "One special order, coming right up! 🌟",
+        "Everything's fresh and ready! 😋",
+        "Hope it's exactly what you wanted! 💕",
+        "Enjoy every bite! 🤤",
+        "Please enjoy your meal! 🍲"
+    ];
+
+    const customerFoodCompliments=[
+        "Wow! This looks delicious! 😍",
+        "This smells amazing already! 🤤",
+        "I can't wait to dig in! 🍽️",
+        "It looks absolutely perfect! ✨",
+        "Chef, this looks incredible! 👏",
+        "This is so beautifully plated! 💜",
+        "I'm already getting hungry seeing this! 😋",
+        "This is exactly what I was craving! 💚",
+        "It looks even better than the picture! 📸",
+        "This is going to be so good! 🤩",
+        "My mouth is watering already! 🤤",
+        "This looks fantastic! Thank you! 😊",
+        "I don't even want to ruin how pretty it looks! 😍"
     ];
 
     const customerMessages=[
@@ -169,6 +256,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         deliveryScene.classList.add("hidden");
         eatingOverlay.classList.add("hidden");
         receiptScene.classList.add("hidden");
+        paymentScene.classList.add("hidden");
         if(TEST_SCENE==="landing"){
             landingScene.classList.remove("hidden");
         }
@@ -204,6 +292,10 @@ document.addEventListener("DOMContentLoaded",()=>{
             window.deliveryChef="koo";
             receiptScene.classList.remove("hidden");
             startReceiptScene();
+        }
+        if(TEST_SCENE==="payment"){
+            paymentScene.classList.remove("hidden");
+            startPaymentScene();
         }
     }
     startTestMode();
@@ -283,6 +375,38 @@ document.addEventListener("DOMContentLoaded",()=>{
             }
         }    
         showNext();
+    }
+
+    function resetIngredientScene(){
+
+        // Stop old canvas game
+        gameState.running=false;
+        cancelAnimationFrame(gameState.rafId);
+        clearInterval(gameState.itemSpawner);
+    
+        // Clear canvas
+        ctx.clearRect(0,0,gameCanvas.width,gameCanvas.height);
+    
+        // Clear old falling items
+        gameState.items=[];
+    
+        // Reset ingredient UI
+        document.getElementById("ingredientTopBlock").style.display="block";
+        document.getElementById("ingredientInstructions").style.display="block";
+    
+        document.getElementById("gameReadyUI").classList.add("hidden");
+    
+        document.getElementById("neededIngredients").innerHTML="";
+        document.getElementById("collectedIngredients").innerHTML="";
+    
+        document.getElementById("startCollectIngredientsBtn").style.display="block";
+    
+        // Hide old chat bubbles
+        document.querySelectorAll(".chat-bubble").forEach(b=>{
+            b.style.display="none";
+        });
+    
+        lastSpawnedIngredient=null;
     }
 
     /* -------------------------------------------
@@ -429,6 +553,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     /* -------------------------------------------
        CANVAS GAME STATE
     -------------------------------------------*/
+
     const gameCanvas=document.getElementById("gameCanvas");
     const canvasHolder=document.getElementById("gameCanvasContainer");
     const ctx=gameCanvas.getContext("2d");
@@ -440,7 +565,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         itemSpawner:null
     };
     const chefImg=new Image();
-    chefImg.src="/static/images/games/cookwithtaekook/tae_ingredients.png";
+    chefImg.src="/static/images/games/cookwithtaekook/ingredient/tae_ingredients.png";
     chefImg.onload=()=>{
         gameState.chef.img=chefImg;
         if(gameState.running){
@@ -505,6 +630,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     let lastSpawnedIngredient=null;
 
     function spawnItem(){
+        console.log("Spawn", window.currentOrder?.ingredients?.length);
         if(!window.currentOrder?.ingredients) return;
         const collected=window.currentOrder.ingredients.filter(i=>i.collected).length;
         const total=window.currentOrder.ingredients.length;
@@ -536,7 +662,7 @@ document.addEventListener("DOMContentLoaded",()=>{
 
         if(item.image){
             item.img=new Image();
-            item.img.src=`/static/images/games/cookwithtaekook/${item.image}`;    
+            item.img.src=`/static/images/games/cookwithtaekook/ingredient/${item.image}`;    
             item.img.onerror=()=>{
                 item.img=null;
             };
@@ -637,7 +763,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         let el;
         if(item.image){
             el=document.createElement("img");
-            el.src=`/static/images/games/cookwithtaekook/${item.image}`;
+            el.src=`/static/images/games/cookwithtaekook/ingredient/${item.image}`;
             el.className="ingredient-icon";
             el.onerror=()=>{
                 const span=document.createElement("span");
@@ -658,6 +784,8 @@ document.addEventListener("DOMContentLoaded",()=>{
        START GAME
     -------------------------------------------*/
     function startGameCanvas(){
+        console.log("Starting game", window.currentOrder);
+
         const rect=canvasHolder.getBoundingClientRect();
         window.currentOrder.ingredients.forEach(i=>i.collected=false);
         gameCanvas.width=rect.width||800;
@@ -689,6 +817,8 @@ document.addEventListener("DOMContentLoaded",()=>{
        INGREDIENT SCENE
     -------------------------------------------*/
     function startIngredientScene(recipe){
+        console.log("Entering ingredient scene", recipe.name);
+        resetIngredientScene();
         kitchenScene.classList.add("hidden");
         ingredientScene.classList.remove("hidden");
         document.getElementById("dishTitle").textContent=recipe.name;
@@ -699,7 +829,7 @@ document.addEventListener("DOMContentLoaded",()=>{
             let el;
             if(item.image){
                 el=document.createElement("img");
-                el.src=`/static/images/games/cookwithtaekook/${item.image}`;
+                el.src=`/static/images/games/cookwithtaekook/ingredient/${item.image}`;
                 el.alt=item.name;
                 el.title=item.name;
                 el.className="ingredient-icon";
@@ -732,7 +862,7 @@ document.addEventListener("DOMContentLoaded",()=>{
                 let el;
                 if(item.image){
                     el=document.createElement("img");
-                    el.src=`/static/images/games/cookwithtaekook/${item.image}`;
+                    el.src=`/static/images/games/cookwithtaekook/ingredient/${item.image}`;
                     el.className="ingredient-icon";
                     el.onerror=()=>{
                         const span=document.createElement("span");
@@ -797,7 +927,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         title.textContent=recipe.name;
         instructions.textContent=`Step 1: Add ingredients`;
         const bg=recipe.appliance?.image || "taekook_cooking.png";
-        scene.style.backgroundImage=`url("/static/images/games/cookwithtaekook/${bg}")`;
+        scene.style.backgroundImage=`url("/static/images/games/cookwithtaekook/cooking/${bg}")`;
         ingredientList.innerHTML="";
         stepList.innerHTML="";
         stepList.classList.add("hidden");
@@ -807,7 +937,7 @@ document.addEventListener("DOMContentLoaded",()=>{
             item.title=ing.name;
             if(ing.image){
                 const img=document.createElement("img");
-                img.src=`/static/images/games/cookwithtaekook/${ing.image}`;
+                img.src=`/static/images/games/cookwithtaekook/ingredient/${ing.image}`;
                 img.onerror=()=>{
                     item.textContent=ing.emoji;
                 };
@@ -845,7 +975,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         const cookingchat=[
             {id:"taeBubble",text:`Kookie, I got all the ingredients for <strong>${recipe.name}</strong>!`},
             {id:"kooBubble",text:"Thank you Hyung! Let's make it together 💜"},
-            {id:"taeBubble",text:"Let's cook! 👨‍🍳"}
+            {id:"taeBubble",text:"Yes, Let's start! 👨‍🍳"}
         ];
 
         showDynamicChat(cookingchat,()=>{
@@ -899,7 +1029,7 @@ document.addEventListener("DOMContentLoaded",()=>{
             item.title=ing.name;
             if(ing.image){
                 const img=document.createElement("img");
-                img.src=`/static/images/games/cookwithtaekook/${ing.image}`;
+                img.src=`/static/images/games/cookwithtaekook/ingredient/${ing.image}`;
                 img.onerror=()=>{
                     item.textContent=ing.emoji;
                 };
@@ -931,7 +1061,7 @@ document.addEventListener("DOMContentLoaded",()=>{
                 name=>!window.added.includes(name)
             );
             if(missing){
-                showTaeMessage("😤 Add the ingredients for this step first!");
+                showTaeMessage(randomLine(taeReminderMessages));
                 return;
             }
         }
@@ -961,7 +1091,7 @@ document.addEventListener("DOMContentLoaded",()=>{
                 btn.onclick=finishCooking;
             }
             else{
-                showTaeMessage("✨ Keep going, Kookie!");
+                showTaeMessage(randomLine(taeEncouragementMessages));
             }
         }
         else{
@@ -1006,10 +1136,10 @@ document.addEventListener("DOMContentLoaded",()=>{
         const customerNo=Math.floor(Math.random()*totalCustomers)+1;
         window.currentCustomer=`customer${customerNo}.png`;
         document.getElementById("deliveryBackground").style.backgroundImage =
-            `url("/static/images/games/cookwithtaekook/customers/customer${customerNo}.png")`;
+            `url("/static/images/games/cookwithtaekook/delivery/customers/customer${customerNo}.png")`;
         const recipeName = recipe.name;
-        const taeImage = `/static/images/games/cookwithtaekook/recipes/tae_${recipeName}.png`;
-        const kooImage = `/static/images/games/cookwithtaekook/recipes/koo_${recipeName}.png`;
+        const taeImage = `/static/images/games/cookwithtaekook/delivery/recipes/tae_${recipeName}.png`;
+        const kooImage = `/static/images/games/cookwithtaekook/delivery/recipes/koo_${recipeName}.png`;
         const imgTest = new Image();
         imgTest.onload = ()=>{
             dish.src = taeImage;
@@ -1027,7 +1157,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         dish.onerror=()=>{
             dish.onerror=null;
             dish.src=
-            `/static/images/games/cookwithtaekook/recipes/Default${defaultRecipeImage}.png`;
+            `/static/images/games/cookwithtaekook/delivery/recipes/Default${defaultRecipeImage}.png`;
     
             defaultRecipeImage=
             defaultRecipeImage===1?2:1;
@@ -1041,14 +1171,14 @@ document.addEventListener("DOMContentLoaded",()=>{
         },1000);
         setTimeout(()=>{
             if(window.deliveryChef==="tae"){
-                showTaeMessage("Here is your order!");
+                showTaeMessage(randomLine(servingMessages));
             }
             else{
-                showKooMessage("Here is your order!");
+                showKooMessage(randomLine(servingMessages));
             }
         },5000);
         setTimeout(()=>{
-            showCustomerMessage("Wow! This looks delicious! 😍", 2000);
+            showCustomerMessage(randomLine(customerFoodCompliments),2000);
         },6000);
         setTimeout(()=>{
             if(window.deliveryChef==="tae"){
@@ -1075,7 +1205,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         document.getElementById("receiptItem").textContent=recipe.name;
         document.getElementById("receiptDishName").textContent=recipe.name;
         document.getElementById("receiptDish").src=
-        `/static/images/games/cookwithtaekook/recipes/${window.deliveryChef}_${recipe.name}.png`;
+        `/static/images/games/cookwithtaekook/delivery/recipes/${window.deliveryChef}_${recipe.name}.png`;
         setTimeout(()=>{
             receiptScene.classList.add("hidden");
             startPaymentScene();
@@ -1107,9 +1237,15 @@ document.addEventListener("DOMContentLoaded",()=>{
         options.classList.remove("hidden");
     
         document.getElementById("continueCustomer").onclick=()=>{
+            window.currentOrder=null;
+            new Audio("/static/audio/bell.mp3").play().catch(()=>{});
             options.classList.add("hidden");
             paymentScene.classList.add("hidden");
-            startCustomerArrival();
+            kitchenScene.classList.remove("hidden");
+            instructionPanel.classList.add("hidden");
+            fullPanel.classList.add("hidden");
+            setChatMode("kitchen");
+            startRestaurantChat();
         };
     
         document.getElementById("backGames").onclick=()=>{

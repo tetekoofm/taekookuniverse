@@ -1,16 +1,12 @@
 /* ==========================================================
    COOK WITH TAEKOOK
-   BASE + LANDING + RIDE + RESTAURANT
 ========================================================== */
 
-/* ================= GLOBAL ================= */
-
-* {
+*{
     box-sizing:border-box;
 }
 
-html,
-body {
+html,body{
     margin:0;
     padding:0;
     width:100%;
@@ -18,23 +14,23 @@ body {
     overflow:hidden;
 }
 
-body {
+body{
     font-family:'Orbitron',sans-serif;
     background:linear-gradient(to bottom,#000,#1a1a1a);
     color:white;
 }
 
-.hidden {
-    display:none !important;
+.hidden{
+    display:none!important;
 }
 
 img{
     max-width:100%;
 }
 
-.scene {
+.scene{
     position:relative;
-    width:100vw;
+    width:100%;
     height:100dvh;
     display:none;
     justify-content:center;
@@ -43,11 +39,11 @@ img{
     overflow:hidden;
 }
 
-.scene:not(.hidden) {
+.scene:not(.hidden){
     display:block;
 }
 
-/* ================= TKU FLOATING LOGO ================= */
+/* ================= LOGO ================= */
 
 #gameTKULogo{
     position:fixed;
@@ -67,7 +63,7 @@ img{
     cursor:pointer;
     border-radius:50%;
     filter:drop-shadow(0 0 8px #6A0DAD);
-    transition:.3s ease;
+    transition:.3s;
 }
 
 #gameTKULogo img:hover{
@@ -76,7 +72,7 @@ img{
 
 /* ================= BUTTONS ================= */
 
-button {
+button{
     font-family:'Orbitron',sans-serif;
 }
 
@@ -89,7 +85,9 @@ button {
 #cancelIngredientBtn,
 #cancelDuringGameBtn,
 #ingCompleteOk,
-.cook-finalize {
+.cook-finalize{
+    display:block;
+    margin:20px auto;
     padding:10px 20px;
     font-size:1.2rem;
     font-weight:bold;
@@ -99,7 +97,7 @@ button {
     border-radius:12px;
     cursor:pointer;
     box-shadow:0 0 15px #8affc1,0 0 25px #c88aff;
-    transition:.25s ease;
+    transition:.25s;
     position:relative;
     z-index:50;
 }
@@ -113,12 +111,12 @@ button {
 #cancelIngredientBtn:hover,
 #cancelDuringGameBtn:hover,
 #ingCompleteOk:hover,
-.cook-finalize:hover {
+.cook-finalize:hover{
     transform:scale(1.05);
     box-shadow:0 0 25px #8affc1,0 0 50px #c88aff;
 }
 
-.btn {
+.btn{
     padding:10px 20px;
     border:none;
     border-radius:12px;
@@ -126,24 +124,24 @@ button {
     cursor:pointer;
 }
 
-.btn.green {
+.btn.green{
     background:linear-gradient(90deg,#8affc1,#35ff70);
     color:#054523;
 }
 
-.btn.red {
+.btn.red{
     background:linear-gradient(90deg,#ff6b6b,#ff0033);
     color:white;
 }
 
-.btn.small {
+.btn.small{
     padding:8px 14px;
     font-size:.9rem;
 }
 
-/* ================= LANDING SCENE ================= */
+/* ================= LANDING ================= */
 
-#landingScene {
+#landingScene{
     display:flex;
     flex-direction:column;
     justify-content:center;
@@ -151,36 +149,32 @@ button {
     height:100vh;
     padding:20px;
     position:relative;
-    background-image:url("/static/images/games/cook_with_taekook.png");
-    background-size:contain;
-    background-position:center;
-    background-repeat:no-repeat;
+    background:url("/static/images/games/cook_with_taekook.png") center/contain no-repeat;
 }
 
-#landingScene::before {
+#landingScene::before{
     content:"";
     position:absolute;
     inset:0;
     background:rgba(0,0,0,.55);
-    z-index:0;
 }
 
-#landingScene > * {
+#landingScene>*{
     position:relative;
     z-index:1;
 }
 
-.welcomeText h1 {
+.welcomeText h1{
     font-size:2rem;
     color:#8affc1;
 }
 
-.welcomeText p {
+.welcomeText p{
     font-size:1.2rem;
     color:#c88aff;
 }
 
-.taekook-row {
+.taekook-row{
     display:flex;
     gap:20px;
     justify-content:center;
@@ -188,19 +182,19 @@ button {
     margin-bottom:20px;
 }
 
-.taekook-hi {
+.taekook-hi{
     width:min(25vw,230px);
     height:min(30vh,260px);
     object-fit:cover;
 }
 
-.crop-box {
+.crop-box{
     width:230px;
     height:260px;
     overflow:hidden;
 }
 
-.koo-img {
+.koo-img{
     width:100%;
     height:100%;
     object-fit:cover;
@@ -208,13 +202,13 @@ button {
 
 /* ================= RIDE SCENE ================= */
 
-#rideScene {
+#rideScene{
     background:#061028;
     position:relative;
     overflow:hidden;
 }
 
-#rideScene::before {
+#rideScene::before{
     content:"";
     position:absolute;
     inset:0;
@@ -223,7 +217,7 @@ button {
     animation:twinkle 3s infinite alternate;
 }
 
-#rideScene::after {
+#rideScene::after{
     content:"";
     position:absolute;
     top:50px;
@@ -235,12 +229,12 @@ button {
     filter:blur(40px);
 }
 
-@keyframes twinkle {
-    from {opacity:.2;}
-    to {opacity:.7;}
+@keyframes twinkle{
+    from{opacity:.2;}
+    to{opacity:.7;}
 }
 
-.neon-road {
+.neon-road{
     position:absolute;
     bottom:0;
     width:100%;
@@ -248,7 +242,7 @@ button {
     background:#000;
 }
 
-.neon-road::before {
+.neon-road::before{
     content:"";
     position:absolute;
     bottom:260px;
@@ -259,7 +253,7 @@ button {
     animation:moveRoad 80s linear infinite;
 }
 
-.neon-road::after {
+.neon-road::after{
     content:"";
     position:absolute;
     bottom:150px;
@@ -270,35 +264,35 @@ button {
     animation:moveRoad 5s linear infinite;
 }
 
-@keyframes moveRoad {
-    from {transform:rotate(-1deg) translateX(0);}
-    to {transform:rotate(-1deg) translateX(-50%);}
+@keyframes moveRoad{
+    from{transform:rotate(-1deg) translateX(0);}
+    to{transform:rotate(-1deg) translateX(-50%);}
 }
 
-#motorbike {
+#motorbike{
     position:absolute;
     bottom:0;
     right:-300px;
     width:50vw;
-    height:auto;
 }
 
-/* ================= RESTAURANT SCENE ================= */
 
-#restaurantScene {
+/* ================= RESTAURANT ================= */
+
+#restaurantScene{
     position:relative;
     width:100%;
     height:100vh;
     overflow:hidden;
     display:flex;
+    flex-direction:column;
     justify-content:center;
     align-items:center;
-    flex-direction:column;
     text-align:center;
     background:#061028;
 }
 
-.restaurant-bg {
+.restaurant-bg{
     position:absolute;
     inset:0;
     background:
@@ -309,7 +303,7 @@ button {
     animation:twinkle 4s infinite alternate;
 }
 
-.restaurant-content {
+.restaurant-content{
     position:relative;
     z-index:10;
     display:flex;
@@ -318,43 +312,36 @@ button {
     max-width:600px;
 }
 
-.taekook-welcome {
+.taekook-welcome{
     width:50vw;
     max-width:600px;
-    height:auto;
     margin-bottom:20px;
     animation:float 2s infinite ease-in-out;
 }
 
-@keyframes float {
-    0% {transform:translateY(0);}
-    50% {transform:translateY(-10px);}
-    100% {transform:translateY(0);}
+@keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-10px);}
 }
 
-#restaurantScene h1 {
+#restaurantScene h1{
     font-size:2.5rem;
     color:#8affc1;
 }
 
-#restaurantScene h2 {
+#restaurantScene h2{
     font-size:2rem;
     color:#c88aff;
 }
 
-#restaurantScene p {
+#restaurantScene p{
     font-family:'Pacifico',sans-serif;
     font-size:1.2rem;
     color:#c88aff;
 }
 
-@keyframes float{
-    0%{transform:translateY(0);}
-    50%{transform:translateY(-10px);}
-    100%{transform:translateY(0);}
-}
 
-/* ================= CHAT BUBBLES ================= */
+/* ================= CHAT ================= */
 
 .chat-bubble{
     position:absolute;
@@ -382,6 +369,13 @@ button {
     color:#d6b6f3;
 }
 
+.chat-bubble.customer{
+    background:linear-gradient(145deg,#1a0ce4,#3419ad);
+    color:#a19cee;
+    border:2px solid #ddd;
+    transform:translateX(-50%);
+}
+
 .chat-bubble.left::after,
 .chat-bubble.right::after{
     content:"";
@@ -401,24 +395,16 @@ button {
     border-color:#620092 transparent transparent transparent;
 }
 
-.chat-bubble.customer{
-    background:linear-gradient(145deg,#1a0ce4,#3419ad);
-    color:#a19cee;
-    border:2px solid #ddd;
-    transform:translateX(-50%);
-}
-
 .chat-bubble.vibrate{
     animation:vibrate .3s ease-in-out;
 }
 
 @keyframes vibrate{
-    0%{transform:translateX(0);}
+    0%,100%{transform:translateX(0);}
     20%{transform:translateX(-2px);}
     40%{transform:translateX(2px);}
     60%{transform:translateX(-2px);}
     80%{transform:translateX(2px);}
-    100%{transform:translateX(0);}
 }
 
 #chatLayer{
@@ -430,7 +416,7 @@ button {
     z-index:999;
 }
 
-/* ================= KITCHEN SCENE ================= */
+/* ================= KITCHEN ================= */
 
 #kitchenScene{
     background-size:cover;
@@ -453,16 +439,17 @@ button {
     transform:translateX(-50%);
     width:90%;
     max-width:800px;
+    padding:12px 20px;
     background:rgba(0,0,0,.9);
     border:2px solid #8affc1;
     border-radius:12px;
-    padding:12px 20px;
     color:#c88aff;
     font-size:1.2rem;
     z-index:2;
 }
 
-.instruction-panel ol,.instruction-panel li{
+.instruction-panel ol,
+.instruction-panel li{
     text-align:left;
 }
 
@@ -477,6 +464,7 @@ button {
     margin-top:50px;
 }
 
+
 /* ================= KITCHEN CHAT ================= */
 
 #chatLayer.kitchen-mode #taeBubble{
@@ -489,42 +477,8 @@ button {
     top:35%;
 }
 
-/* ================= BUTTONS ================= */
 
-#startRideBtn,
-#headToKitchenBtn,
-#startCookingBtn,
-#showFullInstructionsBtn,
-.action-btn,
-#startCollectIngredientsBtn,
-#cancelIngredientBtn,
-#cancelDuringGameBtn,
-#ingCompleteOk{
-    padding:10px 20px;
-    font-size:1.2rem;
-    font-weight:bold;
-    font-family:'Orbitron',sans-serif;
-    color:#054523;
-    background:linear-gradient(90deg,#8affc1,#c88aff);
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-    box-shadow:0 0 15px #8affc1,0 0 25px #c88aff;
-    transition:.2s;
-    margin:20px auto 0;
-}
-
-#startRideBtn:hover,
-#headToKitchenBtn:hover,
-#startCookingBtn:hover,
-#showFullInstructionsBtn:hover,
-#startCollectIngredientsBtn:hover,
-#cancelIngredientBtn:hover,
-#cancelDuringGameBtn:hover{
-    box-shadow:0 0 25px #8affc1,0 0 50px #c88aff;
-}
-
-/* ================= ORDER / RECIPE ================= */
+/* ================= RECIPE ================= */
 
 #orderOptions{
     display:none;
@@ -543,10 +497,10 @@ button {
     transform:translate(-50%,-50%);
     width:90%;
     max-width:500px;
+    padding:20px;
     background:rgba(0,0,0,.85);
     border:2px solid #8affc1;
     border-radius:12px;
-    padding:20px;
     color:#c88aff;
     text-align:center;
     z-index:100;
@@ -559,13 +513,13 @@ button {
     background:linear-gradient(90deg,#8affc1,#c88aff);
 }
 
-/* ================= INGREDIENT SCENE ================= */
+
+/* ================= INGREDIENT ================= */
 
 #ingredientScene{
     width:100%;
     height:100vh;
     padding:20px;
-    box-sizing:border-box;
     text-align:center;
     font-family:'Orbitron',sans-serif;
     color:#8affc1;
@@ -590,7 +544,8 @@ button {
 }
 
 #neededIngredients span,
-#collectedIngredients span{
+#collectedIngredients span,
+.ingredient-display .ingredient-icon{
     width:2.5rem!important;
     height:2.5rem!important;
     font-size:2.5rem!important;
@@ -605,10 +560,6 @@ button {
 }
 
 .ingredient-display .ingredient-icon{
-    width:2.5rem!important;
-    height:2.5rem!important;
-    font-size:2.5rem!important;
-    line-height:2.5rem!important;
     display:inline-flex;
     align-items:center;
     justify-content:center;
@@ -656,7 +607,6 @@ button {
 
 #ingredientTopBlock .btn-row .btn{
     margin:0!important;
-    width:auto!important;
 }
 
 .canvas-holder,
@@ -671,7 +621,7 @@ button {
 .canvas-background{
     position:absolute;
     inset:0;
-    background:url('/static/images/games/cookwithtaekook/refrigerator.png') center/cover no-repeat;
+    background:url('/static/images/games/cookwithtaekook/ingredient/refrigerator.png') center/cover no-repeat;
     filter:blur(3px) brightness(.2);
 }
 
@@ -681,6 +631,7 @@ button {
     height:100%;
     z-index:2;
 }
+
 
 /* ================= INGREDIENT CHAT ================= */
 
@@ -694,6 +645,7 @@ button {
     top:12%;
 }
 
+
 /* ================= INGREDIENT POPUP ================= */
 
 #ingredientCollectedPopup{
@@ -701,38 +653,22 @@ button {
     top:50%;
     left:50%;
     transform:translate(-50%,-50%);
-    background:rgba(0,0,0,.85);
     padding:25px 35px;
+    background:rgba(0,0,0,.85);
+    border:2px solid #66ffcc;
     border-radius:12px;
     color:white;
     text-align:center;
     z-index:1000;
-    border:2px solid #66ffcc;
 }
 
-#ingredientCollectedPopup button{
-    padding:10px 20px;
-    border-radius:8px;
-    cursor:pointer;
-}
 
-/* ================= COOKING CHAT ================= */
+/* ================= COOKING ================= */
 
-#chatLayer.cooking-mode #taeBubble{
-    left:15%;
-    top:40%;
-}
-
-#chatLayer.cooking-mode #kooBubble{
-    right:25%;
-    top:40%;
-}
-/* ================= COOKING SCENE ================= */
 #cookingScene{
     width:100%;
     height:100vh;
     padding:20px;
-    box-sizing:border-box;
     background-size:cover;
     background-position:center;
     color:white;
@@ -773,48 +709,43 @@ button {
     flex-wrap:wrap;
     gap:15px;
     margin:10px auto;
-    min-height:70px;
 }
 
 .cook-ingredient-list img,
-.cook-ingredient-list .ingredient-icon{
-    object-fit:contain!important;
-    cursor:pointer;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.cook-ingredient-list img{
-    width:45px!important;
-    height:45px!important;
-    max-width:45px!important;
-    max-height:45px!important;
-}
-
+.cook-ingredient-list .ingredient-icon,
 .ingredient-icon{
     display:inline-flex!important;
     align-items:center!important;
     justify-content:center!important;
+    object-fit:contain!important;
+}
+
+.cook-ingredient-list img,
+.ingredient-icon{
     width:45px!important;
     height:45px!important;
+}
+
+.ingredient-icon{
     font-size:2.5rem!important;
 }
 
-/* ================= BUTTON ================= */
-.cook-finalize{
-    display:block;
-    margin:25px auto;
-    background:#35ff70;
-    color:#000;
-    padding:10px 25px;
-    font-size:1.2rem;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
+
+/* ================= COOK CHAT ================= */
+
+#chatLayer.cooking-mode #taeBubble{
+    left:15%;
+    top:40%;
 }
 
-/* ================= COOKING ANIMATION ================= */
+#chatLayer.cooking-mode #kooBubble{
+    right:25%;
+    top:40%;
+}
+
+
+/* ================= COOK ANIMATION ================= */
+
 .active-cook{
     animation:cookingShake .8s;
 }
@@ -869,15 +800,13 @@ button {
     right:24%;
     bottom:-2%;
     height:80vh;
-    max-width:none;
     animation:walkInRight 5s linear forwards;
 }
 
 .delivery-dish.chef-tae{
     left:-35%;
-    bottom:0%;
+    bottom:0;
     height:80vh;
-    max-width:none;
     animation:walkInLeft 5s linear forwards;
 }
 
@@ -913,6 +842,7 @@ button {
     margin-top:20px;
 }
 
+
 /* ================= DELIVERY CHAT ================= */
 
 #chatLayer.delivery-mode #taeBubble{
@@ -929,10 +859,12 @@ button {
     left:50%;
     top:18%;
     transform:translateX(-50%);
-    font-weight: bold;
+    font-weight:bold;
 }
 
-/* ================= RECEIPT SCENE ================= */
+
+/* ================= RECEIPT ================= */
+
 #receiptScene{
     width:100%;
     height:100vh;
@@ -957,13 +889,12 @@ button {
 .receipt-paper{
     width:clamp(340px,45vw,550px);
     min-height:clamp(520px,75vh,720px);
+    padding:30px 25px;
     background:#fffdf5;
     color:#222;
-    padding:30px 25px;
     border-radius:6px;
     box-shadow:0 0 20px rgba(255,255,255,.25);
     font-family:"Courier New",monospace;
-
     display:flex;
     flex-direction:column;
     align-items:center;
@@ -972,15 +903,14 @@ button {
 .receipt-paper h2{
     font-size:2.5rem;
     margin:0 0 10px;
-    text-align:center;
 }
 
 .receipt-paper h2::after{
     content:"";
     display:block;
-    border-bottom:2px dashed #555;
-    margin-top:15px;
     width:100%;
+    margin-top:15px;
+    border-bottom:2px dashed #555;
 }
 
 .receipt-paper h4{
@@ -999,10 +929,8 @@ button {
 .receipt-paper h3{
     font-size:1.8rem;
     margin:5px 0;
-    text-align:center;
 }
 
-/* ================= RECEIPT DETAILS ================= */
 .receipt-details{
     width:100%;
     margin-top:15px;
@@ -1029,7 +957,6 @@ button {
 
 .receipt-row.total{
     font-weight:bold;
-    font-size:1rem;
 }
 
 .receipt-line{
@@ -1042,15 +969,43 @@ button {
     text-align:center;
 }
 
-/* ================= PAYMENT SCENE ================= */
+
+/* ================= PAYMENT ================= */
+
 #paymentScene{
     width:100%;
     height:100vh;
     position:relative;
-    background:url("/static/images/games/cookwithtaekook/counter.png");
+    overflow:hidden;
+}
+
+.payment-bg{
+    position:absolute;
+    inset:0;
     background-size:cover;
     background-position:center;
+    background-repeat:no-repeat;
+    z-index:1;
 }
+
+.payment-options{
+    position:absolute;
+    bottom:40px;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    gap:20px;
+    z-index:20;
+}
+
+.payment-options button{
+    padding:12px 25px;
+    border:none;
+    border-radius:20px;
+    cursor:pointer;
+    font-size:1rem;
+}
+
 
 /* ================= PAYMENT CHAT ================= */
 
@@ -1070,26 +1025,10 @@ button {
     transform:none;
 }
 
-.payment-options{
-    position:absolute;
-    bottom:40px;
-    left:50%;
-    transform:translateX(-50%);
-    display:flex;
-    gap:20px;
-}
-
-.payment-options button{
-    padding:12px 25px;
-    border-radius:20px;
-    border:none;
-    cursor:pointer;
-    font-size:1rem;
-}
-
 /* ================= TABLET ================= */
 
 @media(max-width:1024px){
+
     #startRideBtn,
     #headToKitchenBtn,
     #startCookingBtn,
@@ -1099,9 +1038,10 @@ button {
     #cancelIngredientBtn,
     #cancelDuringGameBtn,
     #ingCompleteOk,
-    .cook-finalize {
-        padding:5px 15px;
-        font-size:1rem;
+    .cook-finalize{
+        padding:15px 15px;
+        font-size:1.2rem;
+        margin:15px auto;
     }
 
     .taekook-hi{
@@ -1110,8 +1050,8 @@ button {
     }
 
     .welcomeText{
-        position:relative;
         top:-300px;
+        position:relative;
     }
 
     .welcomeText h1{
@@ -1143,16 +1083,6 @@ button {
         font-size:1rem;
     }
 
-    #chatLayer.kitchen-mode #taeBubble{
-        left:10%;
-        top:25%;
-    }
-
-    #chatLayer.kitchen-mode #kooBubble{
-        right:10%;
-        top:25%;
-    }
-
     .instruction-panel{
         width:80%;
         font-size:1rem;
@@ -1165,20 +1095,7 @@ button {
     }
 
     #neededIngredients span,
-    #collectedIngredients span{
-        width:2rem!important;
-        height:2rem!important;
-        font-size:2rem!important;
-        line-height:2rem!important;
-    }
-    
-    .ingredient-display img,
-    #neededIngredients img,
-    #collectedIngredients img{
-        width:2rem!important;
-        height:2rem!important;
-    }
-    
+    #collectedIngredients span,
     .ingredient-display .ingredient-icon{
         width:2rem!important;
         height:2rem!important;
@@ -1186,57 +1103,51 @@ button {
         line-height:2rem!important;
     }
 
+    .ingredient-display img,
+    #neededIngredients img,
+    #collectedIngredients img{
+        width:2rem!important;
+        height:2rem!important;
+    }
+
     #ingredientCollectedPopup{
         width:80%;
         max-width:380px;
         padding:18px 20px;
-        border-radius:12px;
-    }
-    
-    #ingredientCollectedPopup h2{
-        font-size: 1.2rem;
     }
 
-    .ingredient-section h3{
-        font-size:1.2rem;
+    #chatLayer.ingredient-mode #taeBubble{
+        left:3%;
+        top:15%;
+    }
+
+    #chatLayer.ingredient-mode #kooBubble{
+        right:3%;
+        top:15%;
     }
 
     #chatLayer.cooking-mode #taeBubble{
         left:0;
         top:40%;
     }
-    
+
     #chatLayer.cooking-mode #kooBubble{
         right:10%;
         top:40%;
     }
 
-    .cook-ingredient-list img,
-    .cook-ingredient-list 
-    .ingredient-icon{
-    object-fit:contain!important;
-    cursor:pointer;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    }
-
     .delivery-panel{
-        top:120px;
-    }
-
-    .delivery-panel h2{
-        font-size: 1.5rem;
+        top:100px;
     }
 
     #deliveryBackground{
-        background-size:110%;
+        background-size:112%;
         background-position:center;
     }
 
     .delivery-dish.chef-koo{
         right:14%;
-        bottom:15%;
+        bottom:14%;
         height:45vh;
         max-width:none;
         animation:walkInRight 3s linear forwards;
@@ -1244,45 +1155,31 @@ button {
 
     .delivery-dish.chef-tae{
         left:0%;
-        bottom:16%;
+        bottom:15%;
         height:45vh;
         max-width:none;
         animation:walkInLeft 3s linear forwards;
     }
 
-    @keyframes walkInRight{
-        from{right:-35%;}
-        to{right:28%;}
-    }
-
-    @keyframes walkInLeft{
-        from{left:-35%;}
-        to{left:28%;}
-    }
-
     #chatLayer.delivery-mode #taeBubble{
         left:25%;
-        top:35%;
     }
 
     #chatLayer.delivery-mode #kooBubble{
         right:20%;
-        top:35%;
     }
 
     #chatLayer.delivery-mode #customerBubble{
-        left:50%;
         top:25%;
-        transform:translateX(-50%);
     }
 
     .eating-timer{
-        width:min(40vw,200px);
-        height:min(40vw,200px);
+        width:200px;
+        height:200px;
     }
-    
+
     .receipt-paper{
-        width:70vw; 
+        width:70vw;
         min-height:75vh;
         padding:20px;
     }
@@ -1291,104 +1188,131 @@ button {
         font-size:1.8rem;
     }
 
-    .receipt-paper h4{
-        font-size:1rem;
-    }
-
     .receipt-paper img{
-        width:420px; 
+        width:420px;
         height:420px;
-        margin:10px 0;
-    }
-
-    .receipt-paper h3{
-        font-size:1.5rem;
-        margin:5px 5px;
-    }
-
-    .receipt-paper p{
-        width:100%;
-        font-size:1.2rem;
-        padding-top:18px;
     }
 
     .receipt-details{
         width:90%;
-        margin:15px auto 0;
-        font-size:1.4rem;
-    }
-    
-    .receipt-header,
-    .receipt-row{
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        width:100%;
-        padding:8px 0;
-    }
-    
-    .receipt-header{
         font-size:1.2rem;
-        font-weight:bold;
-        border-bottom:2px dashed rgba(255,255,255,0.4);
-    }
-    
-    .receipt-row{
-        font-size:1.4rem;
-    }
-    
-    .receipt-row span:first-child{
-        text-align:left;
-    }
-    
-    .receipt-row span:last-child{
-        text-align:right;
-        min-width:100px;
-    }
-    
-    .receipt-details .total{
-        font-size:1.4rem;
-        font-weight:bold;
-        padding-top:12px;
-    }
-    
-    .receipt-line{
-        width:100%;
-        margin:12px 0;
     }
 
-    .receipt-footer{
+    .receipt-row{
+        font-size:1.2rem;
+        padding:5px 0;
+    }
+
+    .payment-bg{
+        background-position:90% center;
+    }
+}
+
+/* ================= LANDSCAPE TABLET ================= */
+
+@media(min-width:1025px) and (max-height:900px) and (orientation:landscape){
+
+    .chat-bubble{
+        width:240px;
+        max-width:240px;
+        padding:8px 12px;
+        font-size:.85rem;
+    }
+
+    #restaurantScene h1{
+        font-size:2rem;
+        color:#8affc1;
+    }
+
+    .instruction-panel{
+        width:80%;
+        font-size:.9rem;
+    }
+
+    #ingredientScene,
+    #cookingScene{
+        padding:10px;
+    }
+
+    #ingredientTopBlock{
+        transform:scale(.9);
+        transform-origin:top center;
+    }
+
+    .canvas-holder,
+    #gameCanvasContainer{
+        width:90vw;
+        height:85vh;
+        max-height:580px;
+        margin:5px auto;
+    }
+
+    #neededIngredients span,
+    #collectedIngredients span,
+    .ingredient-display .ingredient-icon{
+        width:1.5rem!important;
+        height:1.5rem!important;
+        font-size:1.5rem!important;
+    }
+
+    .cook-title{
+        font-size:1.5rem;
+    }
+
+    .ingredient-section{
+        margin:3px auto;
+    }
+
+    .cook-instructions{
         font-size:1rem;
     }
 
-    .receipt-line{
-        margin:8px 0;
+    .cook-ingredient-list{
+        gap:2px;
+        margin:5px auto;
     }
 
-    #paymentScene{
-        background-position:90% center;
+    .ingredient-icon,
+    .cook-ingredient-list img{
+        width:38px!important;
+        height:38px!important;
+        font-size:2rem!important;
     }
 
-    #chatLayer.receipt-mode #taeBubble{
-        left:1%;
-        top:35%;
+    #chatLayer.cooking-mode #taeBubble{
+        left:10%;
     }
-    
-    #chatLayer.receipt-mode #kooBubble{
-        right:2px;
-        top:35%;
+
+    #chatLayer.cooking-mode #kooBubble{
+        right:10%;
     }
-    
-    #chatLayer.receipt-mode #customerBubble{
-        left:32%;
-        top:15%;
-        transform:none;
+
+    .delivery-dish.chef-tae,
+    .delivery-dish.chef-koo{
+        height:60vh;
+    }
+
+    .receipt-paper{
+        width:45vw;
+        min-height:85vh;
+        padding:20px;
+    }
+
+    .receipt-paper img{
+        width:300px;
+        height:300px;
+    }
+
+    .payment-options button{
+        font-size:.7rem;
     }
 }
+
 
 /* ================= MOBILE ================= */
 
 @media(max-width:768px){
+
     #gameTKULogo{
         width:35px;
         height:35px;
@@ -1405,7 +1329,6 @@ button {
     }
 
     .welcomeText{
-        position:relative;
         top:-100px;
     }
 
@@ -1434,21 +1357,13 @@ button {
     }
 
     #restaurantScene p{
-        font-size:0.8rem;
+        font-size:0.9rem;
     }
 
     .chat-bubble{
         max-width:140px;
         font-size:.6rem;
         padding:6px 10px;
-    }
-
-    .chat-bubble.left{
-        left:5%;
-    }
-
-    .chat-bubble.right{
-        right:5%;
     }
 
     .instruction-panel{
@@ -1459,11 +1374,7 @@ button {
 
     .instruction-panel ol{
         margin:0;
-        padding-left:20px; 
-    }
-
-    .instruction-panel li{
-        text-align:left;
+        padding-left:20px;
     }
 
     #startRideBtn,
@@ -1475,9 +1386,9 @@ button {
     #cancelIngredientBtn,
     #cancelDuringGameBtn,
     #ingCompleteOk,
-    .cook-finalize {
-        padding:5px 15px;
-        font-size:.6rem;
+    .cook-finalize{
+        padding:8px 15px;
+        font-size:.7rem;
     }
 
     .dish-title{
@@ -1488,9 +1399,9 @@ button {
         font-size:.9rem;
     }
 
-
     #neededIngredients span,
-    #collectedIngredients span{
+    #collectedIngredients span,
+    .ingredient-display .ingredient-icon{
         width:1rem!important;
         height:1rem!important;
         font-size:1rem!important;
@@ -1504,54 +1415,20 @@ button {
         height:1rem!important;
     }
 
-    .ingredient-display .ingredient-icon{
-        width:1rem!important;
-        height:1rem!important;
-        font-size:1rem!important;
-        line-height:1rem!important;
-    }
-
-    #ingredientInstructions h2{
-        font-size:0.9rem;
-    }
-
-    #ingredientInstructions ol{
-        font-size:0.6rem;
-        margin:0;
-        padding-left:15px; 
-    }
-
     .collection-section{
         flex-direction:column;
         gap:6px;
         font-size:.7rem;
     }
 
-    #chatLayer.ingredient-mode #taeBubble{
-        left:3%;
-        top:18%;
-    }
-
-    #chatLayer.ingredient-mode #kooBubble{
-        right:3%;
-        top:18%;
-    }
-
     .canvas-holder,
     #gameCanvasContainer{
         width:95%;
-        height:350px;
+        height:45vh;
     }
 
-    #ingredientCollectedPopup{
-        width:80%;
-        max-width:280px;
-        padding:18px 20px;
-        border-radius:12px;
-    }
-
-    #ingredientCollectedPopup h2{
-        font-size: 0.9rem;
+    #cookingScene{
+        background-position:48% center;
     }
 
     .cook-title{
@@ -1559,7 +1436,7 @@ button {
     }
 
     .ingredient-section h3{
-        font-size:0.8rem;
+        font-size:.8rem;
     }
 
     .cook-instructions{
@@ -1568,21 +1445,10 @@ button {
 
     .cook-ingredient-list{
         gap:6px;
-        margin:5px auto;
-        min-height:auto;
     }
 
+    .ingredient-icon,
     .cook-ingredient-list img{
-        width:30px!important;
-        height:30px!important;
-        max-width:30px!important;
-        max-height:30px!important;
-    }
-
-    .ingredient-icon{
-        display:inline-flex!important;
-        align-items:center!important;
-        justify-content:center!important;
         width:30px!important;
         height:30px!important;
         font-size:30px!important;
@@ -1590,17 +1456,10 @@ button {
 
     #chatLayer.cooking-mode #taeBubble{
         left:0;
-        top:40%;
     }
 
     #chatLayer.cooking-mode #kooBubble{
-        right:15%;
-        top:40%;
-    }
-
-    #deliveryBackground{
-        background-size:110%;
-        background-position:center;
+        right:0;
     }
 
     .delivery-panel{
@@ -1608,11 +1467,11 @@ button {
     }
 
     .delivery-panel h2{
-        font-size: 0.8rem;
+        font-size:.8rem;
     }
 
     .delivery-dish.chef-koo{
-        bottom:22%;
+        bottom:21%;
         height:35vh;
         max-width:none;
         animation:walkInRight 3s forwards;
@@ -1627,7 +1486,7 @@ button {
 
     @keyframes walkInRight{
         from{right:-35%;}
-        to{right:25%;}
+        to{right:23%;}
     }
 
     @keyframes walkInLeft{
@@ -1645,15 +1504,20 @@ button {
     }
 
     .receipt-paper{
-        width:120vw;
+        width:90vw;
+        padding:8px;
         min-height:auto;
-        padding:4px;
+    }
+
+    .receipt-paper p{
+        font-size:0.8rem;
+        padding-top:10px;
     }
 
     .receipt-paper h2{
         font-size:1.2rem;
     }
-    
+
     .receipt-paper h4{
         font-size:0.8rem;
         padding:0;
@@ -1663,46 +1527,15 @@ button {
     .receipt-paper img{
         width:180px;
         height:180px;
-        margin:10px 0;
     }
 
     .receipt-paper h3{
         font-size:1rem;
-        margin:5px;
     }
 
-    .receipt-paper p{
-        font-size:0.8rem;
-        padding-top:10px;
-    }
-
-    .receipt-details{
-        width:100%;
-        margin-top:5px;
-        font-size:0.8rem;
-    }
-
-    .receipt-header{
-        font-size:0.8rem;
-        padding:2px 0;
-    }
-
+    .receipt-details,
     .receipt-row{
-        font-size:0.8rem;
-        padding:2px 0;
-    }
-
-    .receipt-row span:last-child{
-        min-width:80px;
-    }
-
-    .receipt-details .total{
-        font-size:0.8rem;
-        padding-top:10px;
-    }
-
-    .receipt-line{
-        margin:10px 0;
+        font-size:.8rem;
     }
 
     .receipt-footer{
@@ -1710,25 +1543,19 @@ button {
         margin-bottom: 0;
     }
 
-    #paymentScene{
+    .payment-bg{
         background-size:auto 100%;
-        background-position:84% center;
+        background-position:85% center;
     }
 
-    #chatLayer.receipt-mode #taeBubble{
-        left:1%;
-        top:35%;
+    .payment-options button{
+        font-size:.7rem;
     }
-    
-    #chatLayer.receipt-mode #kooBubble{
-        right:2px;
-        top:35%;
-    }
-    
-    #chatLayer.receipt-mode #customerBubble{
-        left:32%;
-        top:15%;
-        transform:none;
-    }
+}
 
+
+html,
+body,
+.scene{
+    max-width:100%;
 }
