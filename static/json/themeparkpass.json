@@ -1,18 +1,42 @@
 [
     {
         "question":"What is the name of our universe?",
-        "answers":["taekook universe","tku"]
+        "answers":["taekook universe","taekook","tku"]
     },
     {
-        "question":"What color represents our universe?",
-        "answers":["purple"]
+        "question":"Name a color that represents our universe.",
+        "answers":["purple","green","purple and green","purple & green","purple&green"]
     },
     {
         "question":"Who are the two stars of TKU?",
-        "answers":["taehyung and jungkook","tae and koo","taekook"]
+        "answers":["taehyung and jungkook","tae and kook","taekook", "v and jk","v & jungkook"]
     },
     {
-        "question":"What is our fan radio station called?",
+        "question":"What is our fan station called?",
         "answers":["tetekoofm","taekook radio","tku radio"]
+    },
+    {
+        "question":"Purple is the last color of the rainbow colors. So it means I will trust and love you for a long time.",
+        "answers":["taehyung","v","tete","tae"]
+    },
+    {
+        "question":"Be yourself. Create your own unique style.",
+        "answers":["taehyung","v","tete","tae"]
+    },
+    {
+        "question":"I was always worried about things but I focused on finding happiness.",
+        "answers":["taehyung","v","tete","tae"]
+    },
+    {
+        "question":"I'll continue to grow and become a singer that melts hearts.",
+        "answers":["jungkook","jk","jung kook","kook", "kookie"]
+    },
+    {
+        "question":"Living without passion is like being dead.",
+        "answers":["jungkook","jk","jung kook","kook", "kookie"]
     }
 ]
+
+
+
+
