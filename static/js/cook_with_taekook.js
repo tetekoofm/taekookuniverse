@@ -908,7 +908,7 @@ document.addEventListener("DOMContentLoaded",()=>{
             canvasHolder.removeEventListener("touchmove",gameState._touchMove);
         }
         showDynamicChat(cancelReturnChat, ()=>{
-            window.location.href="/games";
+            window.location.href="/food-zone";
         }, "kitchen");
     }
     document.getElementById("cancelIngredientBtn").onclick=stopAndReturnToKitchen;
@@ -1252,7 +1252,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         };
     
         document.getElementById("backGames").onclick=()=>{
-            window.location.href="/games";
+            window.location.href="/food-zone";
         };
     }
 

@@ -1,0 +1,1166 @@
+/*********************************************************** FAN LETTERS ******************************************************/
+
+.letter-intro {
+    max-width:900px;
+    margin:30px auto;
+    padding:20px;
+    background:rgba(168,85,247,0.08);
+    border-radius:20px;
+    text-align:center;
+    border:1px solid rgba(168,85,247,0.3);
+}
+
+.fl-template {
+    color:#ddd;
+    font-size:1.3rem;
+    line-height:1.6;
+}
+
+.fl-template a {
+    background: linear-gradient(110deg, #d62828, #FFD700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-decoration: none;
+    font-weight: bold;
+    text-shadow: 0 0 8px rgba(168,85,247,0.5);
+    font-size: 25px;
+}
+
+.letter-templates a {
+    padding:8px 18px;
+    border-radius:20px;
+    font-size:20px;
+    border:1px solid #FFD700;
+    color:#FFD700;
+    text-decoration:none;
+    transition:all 0.3s ease;
+    background:rgba(255,215,0,0.05);
+}
+
+.letter-templates a:hover {
+    color:white;
+    background:linear-gradient(135deg,#d62828,#FFD700);
+    box-shadow:0 0 15px #FFD700;
+    transform:translateY(-3px);
+}
+
+.love-banner {
+    display:flex;
+    justify-content:center;
+    gap:35px;
+    margin:35px 0 45px;
+    position:relative;
+    margin-top: 50px;
+}
+
+.love-banner::before {
+    content:"";
+    position:absolute;
+    top:-15px;
+    width:80%;
+    height:2px;
+    background:linear-gradient(
+        to right,
+        transparent,
+        #a855f7,
+        #008000,
+        transparent
+    );
+}
+
+.love-banner span {
+    position:relative;
+    font-size:30px;
+    animation:swing 3s ease-in-out infinite;
+    transform-origin:top center;
+}
+
+/* hanging strings */
+.love-banner span::before {
+    content:"";
+    position:absolute;
+    top:-25px;
+    left:50%;
+    width:1px;
+    height:25px;
+    background:#FFD700;
+}
+
+.love-banner span:nth-child(even){
+    animation-delay:.5s;
+}
+
+.love-banner span:nth-child(3n){
+    animation-delay:1s;
+}
+
+@keyframes swing {
+    0%,100% {transform:rotate(0deg);}
+    25% {transform:rotate(8deg);}
+    75% {transform:rotate(-8deg);}
+}
+
+.letter-wall {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 35px;
+    padding: 20px;
+    margin-top: 50px;
+}
+
+.letter-card {
+    display: flex;
+    width: 500px;
+    height: auto;
+    background:linear-gradient(
+        145deg,
+        rgba(199,184,255,0.95),
+        rgba(255,255,255,0.9)
+    );
+    border:2px solid rgba(168,85,247,0.3);
+    box-shadow:
+        0 10px 25px rgba(0,0,0,0.4),
+        0 0 15px rgba(168,85,247,0.3);
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.letter-card:nth-child(odd) {
+    transform: rotate(-5deg);
+}
+
+.letter-card:nth-child(even) {
+    transform: rotate(5deg);
+}
+
+.letter-card:hover {
+    transform: scale(1.05) rotate(0deg);
+}
+
+.letter-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.letter-card .fan-name {
+    color: #c7b8ff;
+}
+
+.letter-card .description {
+    color: #000;
+    background-color: transparent;
+    font-size: 0.9rem;
+    text-align: center;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.fan-name {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 5px 0;
+    font-size: 14px;
+    text-align: center;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 80px;
+    margin-top: 0;
+}
+
+#modalImage {
+    max-width: 90%;
+    max-height: 80%;
+    object-fit: contain;
+    border-radius: 10px;
+    background-color: transparent;
+}
+
+.close {
+    position: absolute;
+    top: 150px;
+    right: 250px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+}
+
+.modal-fanname {
+    font-family: 'Fira Sans Condensed', serif;
+    color: #d62828; 
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.fan-message {
+    font-family: 'Pacifico', cursive;
+    color: #FFD700;
+    margin-top: 10px;
+    font-size:  3rem;
+    text-align: center;
+    max-width: 80%; 
+    word-wrap: break-word; 
+}
+
+.pagination {
+    position: sticky;
+    text-align: center;
+    display: flex; 
+    justify-content: center; 
+    gap: 5px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+.pagination a {
+    display: inline-block;
+    margin: 0;
+    padding: 8px 12px;
+    color: #9354ce;
+    font-family: 'Fira Sans Condensed', serif;
+    font-size: 1.2rem;
+    vertical-align: middle;
+    text-align: center;
+    justify-content: center;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.pagination a:hover {
+    color: #3b9e3b;
+}
+
+.page-number {
+    font-family: 'Fira Sans Condensed', serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #9354ce;
+    margin: 0;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .letter-intro {
+        max-width:85%;
+        padding:18px;
+    }
+
+    .fl-template {
+        font-size:1.1rem;
+    }
+
+    .fl-template a {
+        font-size:22px;
+    }
+
+    .letter-templates {
+        gap:12px;
+        flex-wrap:wrap;
+    }
+
+    .letter-templates a {
+        font-size:18px;
+        padding:7px 15px;
+    }
+
+
+    .love-banner {
+        gap:25px;
+        margin-top:40px;
+    }
+
+    .love-banner span {
+        font-size:26px;
+    }
+
+    .letter-wall {
+        display:grid;
+        grid-template-columns:repeat(2, 1fr);
+        gap:25px;
+        padding:20px;
+    }
+
+    .letter-card {
+        width:100%;
+        height:350px;
+    }
+
+    .modal {
+        padding-top:60px;
+    }
+
+    #modalImage {
+        max-width:85%;
+        max-height:70%;
+    }
+
+    .close {
+        top:80px;
+        right:60px;
+        font-size:35px;
+    }
+
+    .fan-message {
+        font-size:2.2rem;
+        max-width:85%;
+    }
+}
+
+@media(max-width:768px){
+    .letter-intro {
+        width:90%;
+        padding:15px;
+        margin:20px auto;
+    }
+
+    .fl-template {
+        font-size:1rem;
+        line-height:1.5;
+    }
+
+    .fl-template a {
+        font-size:20px;
+    }
+
+    .letter-templates {
+        display:flex;
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:8px;
+    }
+
+    .letter-templates a {
+        font-size:15px;
+        padding:6px 12px;
+    }
+
+    .love-banner {
+        gap:15px;
+        margin-top:35px;
+        margin-bottom:30px;
+    }
+
+    .love-banner::before {
+        width:90%;
+    }
+
+    .love-banner span {
+        font-size:22px;
+    }
+
+    .love-banner span::before {
+        height:20px;
+        top:-20px;
+    }
+
+    .letter-wall {
+        display:grid;
+        grid-template-columns:repeat(2, 1fr);
+        gap:15px;
+        padding:10px;
+    }
+
+    .letter-card {
+        width:100%;
+        height:220px;
+    }
+
+    .letter-card:hover {
+        transform:none;
+    }
+
+    .letter-card img {
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+
+    .fan-name {
+        font-size:11px;
+    }
+
+    .fan-name {
+        font-size:13px;
+        padding:5px;
+    }
+
+    .modal {
+        padding-top:40px;
+    }
+
+
+    #modalImage {
+        max-width:90%;
+        max-height:60%;
+    }
+
+    .modal-fanname {
+        font-size:1.5rem;
+    }
+
+    .fan-message {
+        font-size:1.8rem;
+        max-width:90%;
+    }
+
+    .close {
+        top:20px;
+        right:20px;
+        font-size:30px;
+    }
+
+    .pagination {
+        flex-wrap:wrap;
+        margin-bottom:30px;
+    }
+
+    .pagination a,
+    .page-number {
+        font-size:0.9rem;
+        padding:6px 8px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+/****************************************************************************************************************************************/
+/***********************************************************
+        TAEKOOK LOVE POST BOX - LANDING ANIMATION
+***********************************************************/
+.skip-fan-animation .postbox-scene{
+    display:none !important;
+}
+
+.skip-fan-animation #featuredContent{
+    display:none !important;
+}
+
+.skip-fan-animation #loveWall{
+    display:block !important;
+}
+
+.fan-letter-page{
+    background:
+    radial-gradient(
+        circle at center,
+        rgba(106,13,173,.35),
+        transparent 45%
+    ),
+    linear-gradient(
+        180deg,
+        #05000a,
+        #000
+    );
+
+    min-height:100vh;
+    overflow:hidden;
+}
+
+/***********************************************************
+                    POSTBOX SCENE
+***********************************************************/
+
+.postbox-scene{
+    height:100vh;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+.postbox-container{
+    position:relative;
+    z-index:5;
+    text-align:center;
+}
+
+.postbox{
+    font-size:140px;
+    filter:drop-shadow(0 0 25px #FFD700);
+    transition:1s;
+}
+
+.postbox.burst{
+    animation:postboxBurst 1s forwards;
+}
+
+@keyframes postboxBurst{
+    0%{transform:scale(1);}
+    40%{transform:scale(1.5);
+        filter:drop-shadow(0 0 80px #FFD700);}
+    100%{transform:scale(0);
+         opacity:0;}
+}
+
+.postbox-container h1{
+    font-family:'Tangerine';
+    font-size:100px;
+    color:#FFD700;
+    text-shadow:
+    0 0 20px #6A0DAD,
+    0 0 40px #0FFF50;
+    margin:0 0 5px;
+}
+
+.postbox-container .caption{
+    font-size:25px;
+    color:#ddd;
+    margin:0;
+}
+
+/***********************************************************
+        ARRIVING ENVELOPES
+***********************************************************/
+
+#envelopeContainer{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+}
+
+.arrival-envelope{
+    position:absolute;
+    font-size:65px;
+    z-index:3;
+    opacity:0;
+    filter:drop-shadow(0 0 12px #FFD700);
+    transition:
+    transform 3s cubic-bezier(.22,.61,.36,1),
+    opacity 1s;
+}
+
+/***********************************************************
+        CONFETTI BURST
+***********************************************************/
+
+.arrival-envelope.confetti{
+    animation:envelopeBurst 3s ease-out forwards;
+}
+
+@keyframes envelopeBurst{
+
+    0%{
+        opacity:1;
+        transform:
+        translate(0,0)
+        rotate(0deg)
+        scale(.4);
+    }
+
+    30%{
+        opacity:1;
+    }
+
+    100%{
+        opacity:0;
+        transform:
+        translate(var(--x),var(--y))
+        rotate(720deg)
+        scale(1.8);
+    }
+}
+
+/***********************************************************
+                FEATURED LETTERS
+***********************************************************/
+
+.featured-love{
+    text-align:center;
+    padding:50px 20px;
+    animation:letterReveal 1.5s ease forwards;
+}
+
+.featured-love .heading{
+    font-family:'Tangerine';
+    font-size:90px;
+    /* color: #d62828;
+    text-shadow:2px 2px 2px #FFD700; */
+    color: #FFD700;
+    text-shadow:4px 4px 4px #d62828;
+    margin-bottom:10px;
+}
+
+.featured-love .caption{
+    font-size:26px;
+    color:#ddd;
+    margin-bottom:40px;
+}
+
+@keyframes letterReveal{
+    from{
+        opacity:0;
+        transform:translateY(40px) scale(.95);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+.featured-container{
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    flex-wrap:wrap;
+    margin-top:50px;
+}
+
+.featured-envelope{
+    font-size:65px;
+    cursor:pointer;
+    position:relative;
+    transition:.4s;
+}
+
+.featured-envelope span{
+    display:block;
+    font-size:18px;
+    color:#a855f7;
+    margin-top:-10px;
+    font-family:'Fira Sans Condensed';
+}
+
+.featured-envelope:hover{
+    transform:
+    translateY(-15px)
+    rotate(-8deg)
+    scale(1.2);
+}
+
+.show-all-btn{
+    margin-top:50px;
+    padding:14px 35px;
+    border-radius:30px;
+    border:1px solid #FFD700;
+    background:rgba(255,215,0,.08);
+    color:#FFD700;
+    font-size:20px;
+    font-family:'Fira Sans Condensed';
+    cursor:pointer;
+    transition:.3s;
+    box-shadow:0 0 15px rgba(255,215,0,.2);
+}
+
+.show-all-btn:hover{
+    background:#FFD700;
+    color:#000;
+    box-shadow:0 0 25px #FFD700;
+    transform:translateY(-3px);
+}
+
+/***********************************************************
+                    EXISTING WALL
+***********************************************************/
+
+.love-wall{
+    display:none;
+    grid-template-columns:
+    repeat(4,1fr);
+    gap:30px;
+    padding:50px;
+}
+
+.letter-wall {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 35px;
+    padding: 20px;
+    margin-top: 50px;
+}
+
+.letter-card {
+    display: flex;
+    width: 500px;
+    height: auto;
+    background:linear-gradient(
+        145deg,
+        rgba(199,184,255,0.95),
+        rgba(255,255,255,0.9)
+    );
+    border:2px solid rgba(168,85,247,0.3);
+    box-shadow:
+        0 10px 25px rgba(0,0,0,0.4),
+        0 0 15px rgba(168,85,247,0.3);
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.letter-card:nth-child(odd) {
+    transform: rotate(-5deg);
+}
+
+.letter-card:nth-child(even) {
+    transform: rotate(5deg);
+}
+
+.letter-card:hover {
+    transform: scale(1.05) rotate(0deg);
+}
+
+.letter-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.letter-card .fan-name {
+    color: #c7b8ff;
+}
+
+.letter-card .description{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    width:100%;
+    min-height:250px;
+    padding:20px;
+    margin:0;
+    box-sizing:border-box;
+    color:#000;
+    font-size:.9rem;
+    line-height:1.6;
+}
+
+.fan-name {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 5px 0;
+    font-size: 14px;
+    text-align: center;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 80px;
+    margin-top: 0;
+}
+
+#modalImage {
+    max-width: 90%;
+    max-height: 80%;
+    object-fit: contain;
+    border-radius: 10px;
+    background-color: transparent;
+}
+
+.close {
+    position: absolute;
+    top: 150px;
+    right: 250px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+}
+
+.modal-fanname {
+    font-family: 'Fira Sans Condensed', serif;
+    color: #d62828; 
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.fan-message {
+    font-family: 'Pacifico', cursive;
+    color: #FFD700;
+    margin-top: 10px;
+    font-size:  3rem;
+    text-align: center;
+    max-width: 80%; 
+    word-wrap: break-word; 
+}
+
+.pagination {
+    position: sticky;
+    text-align: center;
+    display: flex; 
+    justify-content: center; 
+    gap: 5px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+.pagination a {
+    display: inline-block;
+    margin: 0;
+    padding: 8px 12px;
+    color: #9354ce;
+    font-family: 'Fira Sans Condensed', serif;
+    font-size: 1.2rem;
+    vertical-align: middle;
+    text-align: center;
+    justify-content: center;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.pagination a:hover {
+    color: #3b9e3b;
+}
+
+.page-number {
+    font-family: 'Fira Sans Condensed', serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #9354ce;
+    margin: 0;
+}
+
+/***********************************************************
+                        TABLET
+***********************************************************/
+
+@media (min-width:769px) and (max-width:1024px){
+
+    html,
+    body{
+        overflow-x:hidden;
+    }
+
+    .fan-letter-page{
+        overflow-x:hidden;
+    }
+
+    .postbox{
+        font-size:120px;
+    }
+
+    .postbox-container h1{
+        font-size:80px;
+        line-height:.9;
+    }
+
+    .postbox-container .caption{
+        font-size:22px;
+    }
+
+    .arrival-envelope{
+        font-size:40px;
+    }
+
+    .featured-content{
+        width:100%;
+        max-width:100%;
+        padding:30px 20px;
+        box-sizing:border-box;
+    }
+
+    .featured-container{
+        display:flex;
+        justify-content:center;
+        align-items:flex-start;
+        flex-wrap:wrap;
+        gap:20px;
+        width:100%;
+    }
+
+    .featured-envelope{
+        font-size:55px;
+    }
+
+    .featured-envelope span{
+        font-size:16px;
+        margin-top:0;
+    }
+
+    .main-content.love-wall{
+        width:100%;
+        max-width:100%;
+        margin:0 auto;
+        padding:20px 15px;
+        box-sizing:border-box;
+        overflow-x:hidden;
+    }
+    
+    .love-wall{
+        width:100%;
+        max-width:100%;
+        padding:20px 15px;
+        margin:0;
+        box-sizing:border-box;
+        overflow-x:hidden;
+    }
+    
+    .letter-wall{
+        width:100%;
+        max-width:100%;
+        display:grid;
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:15px;
+        box-sizing:border-box;
+    }
+
+    .letter-intro{
+        width:100%;
+        max-width:850px;
+        margin:30px auto;
+        padding:20px;
+        box-sizing:border-box;
+    }
+
+    .letter-templates{
+        display:flex;
+        justify-content:center;
+        flex-wrap:wrap;
+        gap:10px;
+    }
+
+    .letter-wall{
+        display:grid;
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:10px;
+        width:90%;
+        margin:0 auto;
+    }
+
+    .letter-card{
+        max-width:100%;
+        margin:0 auto;
+    }
+
+    .letter-card img{
+        width:100%;
+        display:block;
+    }
+    .letter-card .description{
+        min-height:200px;
+        font-size:.9rem;
+        padding:20px;
+    }
+
+    .pagination{
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:6px;
+        margin:25px 0;
+        margin-top: 50px;
+    }
+
+    .pagination a,
+    .page-number{
+        font-size:.8rem;
+        padding:5px 9px;
+        line-height:1.1;
+    }
+
+}
+/***********************************************************
+                    MOBILE
+***********************************************************/
+
+@media(max-width:768px){
+    .postbox{
+        font-size:90px;
+    }
+
+    .postbox-container h1{
+        font-size:2rem !important;
+    }
+
+    .postbox-container p{
+        font-size:.8rem !important;
+    }
+
+    .arrival-envelope{
+        font-size:35px;
+    }
+
+    .featured-love{
+        padding:30px 15px;
+    }
+
+    .featured-love .heading{
+        font-size:2rem !important;
+    }
+
+    .featured-love .caption{
+        font-size:.8rem !important;
+    }
+
+    .love-banner span{
+        font-size:15px !important;
+    }
+
+    .featured-envelope{
+        font-size:35px;
+    }
+    
+    .featured-envelope span{
+        font-size:.9rem;
+    }
+       
+    .show-all-btn{
+        padding:4px 15px;
+        font-size:.9rem;
+    }
+    
+    .main-content.love-wall{
+        width:100%;
+        max-width:100%;
+        margin:0 auto;
+        padding:20px 15px;
+        box-sizing:border-box;
+        overflow-x:hidden;
+    }
+
+    .love-wall{
+        grid-template-columns:
+        repeat(2,1fr);
+        padding:20px;
+    }
+
+    .letter-intro {
+        width:90%;
+        padding:15px;
+        margin:20px auto;
+    }
+
+    .fl-template {
+        font-size:.7rem;
+    }
+
+    .fl-template a {
+        font-size:.9rem;
+    }
+
+    .letter-templates {
+        gap:2px;
+    }
+
+    .letter-templates a {
+        font-size:.7rem;
+        padding:3px 6px;
+    }
+
+    .love-banner {
+        align-items: center;
+        margin-top:35px;
+        margin-bottom:30px;
+    }
+
+    .love-banner::before {
+        width:90%;
+    }
+
+    .love-banner span {
+        font-size:22px;
+    }
+
+    .love-banner span::before {
+        height:20px;
+        top:-20px;
+    }
+
+    .letter-wall {
+        display:grid;
+        grid-template-columns:repeat(2, 1fr);
+        gap:15px;
+        padding:10px;
+    }
+
+    .letter-card {
+        width:100%;
+        height:220px;
+    }
+
+    .letter-card:hover {
+        transform:none;
+    }
+
+    .letter-card img {
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+
+    .letter-card .description{ 
+        min-height:200px; 
+        font-size:.6rem; 
+    }
+
+    .fan-name {
+        font-size:13px;
+        padding:5px;
+    }
+
+    .modal {
+        padding-top:40px;
+    }
+
+    #modalImage {
+        max-width:90%;
+        max-height:60%;
+    }
+
+    .modal-fanname {
+        font-size:1rem;
+    }
+
+    .fan-message {
+        font-size:.9rem;
+        max-width:90%;
+    }
+
+    .close {
+        font-size:30px;
+    }
+
+    .pagination{
+        gap:6px;
+        margin:20px 0;
+        margin-top: 50px;
+    }
+    
+    .pagination a,
+    .page-number{
+        font-size:.7rem;
+    }
+}

@@ -1,4 +1,9 @@
 {% extends "00.base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/pride.css') }}">
+{% endblock %}
+
 {% block title %}Happy Pride Month — Taekook Support{% endblock %}
 
 {% block content %}

@@ -1,4 +1,9 @@
 {% extends "00.base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/fanbases.css') }}">
+{% endblock %}
+
 {% block title %}Fanbases{% endblock %}
 
 {% block content %}

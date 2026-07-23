@@ -1,4 +1,9 @@
 {% extends "00.base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% endblock %}
+
 {% block title %}TKURadio{% endblock %}
 
 {% block content %}

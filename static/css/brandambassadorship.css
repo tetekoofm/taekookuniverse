@@ -1,0 +1,307 @@
+/******************************************** Brand Ambassador ****************************************************/
+/* =========================
+   BRAND SECTIONS
+========================= */
+
+.brand-section {
+    margin: 20px 0;
+    overflow:hidden;
+    width: 90%;
+}
+
+.brand-section-header {
+    text-align: center;
+    margin-bottom: 35px;
+    position: relative;
+}
+
+.brand-section-header h2 {
+    font-size: 46px;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+}
+
+.brand-section-header p {
+    color: #aaa;
+    font-size: 20px;
+    letter-spacing: 1.5px;
+}
+
+.brand-section + .brand-section {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 40px;
+}
+
+.tae-header h2 {
+    color: #d62828;
+    text-shadow:
+        0 0 10px rgba(214,40,40,0.8),
+        0 0 25px rgba(214,40,40,0.5);
+}
+
+.koo-header h2 {
+    color: #FFD700;
+    text-shadow:
+        0 0 10px rgba(255,215,0,0.8),
+        0 0 25px rgba(255,215,0,0.5);
+}
+
+.tae-header::after, 
+.koo-header::after {
+    content: "";
+    display: block;
+    width: 220px;
+    height: 3px;
+    margin: 20px auto 0;
+}
+
+.tae-header::after {
+    background: linear-gradient(to right, transparent, #d62828, transparent);
+    box-shadow: 0 0 15px #d62828;
+}
+
+.koo-header::after {
+    background: linear-gradient(to right, transparent, #FFD700, transparent);
+    box-shadow: 0 0 15px #FFD700;
+}
+
+/* =========================
+   GRID & CARD
+========================= */
+
+.brand-grid {
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:80px;
+    padding:20px;
+    width:100%;
+    max-width:100%;
+    box-sizing:border-box;
+}
+
+.brand-card {
+    background: #111;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.08);
+    cursor: pointer;
+    transition: all 0.35s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex:0 1 340px;
+    height: auto;
+    width:340px;
+    max-width:100%;
+    box-sizing:border-box;
+}
+
+.brand-image{
+    background:#090909;
+    padding:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.brand-card img{
+    width:100%;
+    height:320px;
+    /* height:auto; */
+    object-fit:contain;
+}
+
+.brand-card:hover {
+    transform: translateY(-6px);
+}
+
+.tae-card:hover {
+    box-shadow: 0 0 15px #d62828;
+}
+
+.koo-card:hover {
+    box-shadow: 0 0 15px #FFD700;
+}
+
+.brand-info {
+    padding: 12px;
+}
+
+.brand-info h3 {
+    margin: 0;
+    font-size: 22px;
+    font-family: "Fira Sans Condensed", sans-serif;
+    letter-spacing: 1px;
+}
+
+.tae-info h3{
+    color: #d62828;
+}
+
+.koo-info h3{
+    color: #FFD700;
+}
+
+.brand-tags {
+    margin-top: 4px;
+    font-size: 18px;
+    color: #aaa;
+}
+
+.brand-link {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 16px;
+    text-decoration: none;
+    color:#0FFF50; 
+    border: 1px solid rgba(255,255,255,0.25);
+    transition: all 0.3s ease;
+}
+
+.brand-link:hover {
+    border-color: #6A0DAD;
+    box-shadow: 0 0 12px rgba(106,13,173,0.8);
+    transform: translateY(-2px);
+}
+
+/* =====================================
+        TABLET
+   ===================================== */
+@media (min-width:769px) and (max-width:1024px){
+    .brand-section{
+        margin:50px 0;
+        width:95%;
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+    .brand-section-header{
+        margin-bottom:30px;
+        padding:0 15px;
+    }
+
+    .brand-section-header h2{
+        font-size:36px;
+        letter-spacing:2px;
+    }
+
+    .brand-section-header p{
+        font-size:14px;
+    }
+
+    .tae-header::after,
+    .koo-header::after{
+        width:180px;
+    }
+
+    .brand-grid{
+        display:grid;
+        grid-template-columns:repeat(2, 280px);
+        justify-content:center;
+        gap:25px;
+        padding:20px;
+    }
+
+    .brand-card{
+        width:280px;
+    }
+
+    .brand-card img{
+        height:180px;
+    }
+
+    .brand-info{
+        padding:14px;
+    }
+
+    .brand-info h3{
+        font-size:16px;
+        line-height:1.3;
+    }
+
+    .brand-tags{
+        font-size:12px;
+    }
+
+    .brand-link{
+        margin-top:10px;
+        padding:6px 14px;
+        font-size:12px;
+    }
+
+}
+
+/* =========================
+   MOBILE BRAND PAGE
+========================= */
+
+@media (max-width:768px){
+    .brand-section{
+        margin:35px 0;
+        width:90%;
+        overflow:hidden;
+    }
+
+    .brand-section-header{
+        margin-bottom:20px;
+        padding:0 10px;
+    }
+
+    .brand-section-header h2{
+        font-size:28px;
+        letter-spacing:2px;
+    }
+
+    .brand-section-header p{
+        font-size:10px;
+    }
+
+    .tae-header::after,
+    .koo-header::after{
+        width:150px;
+    }
+
+    .brand-grid{
+        display:grid;
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+        gap:8px;
+        padding:10px;
+        width:100%;
+        box-sizing:border-box;
+    }
+
+    .brand-card{
+        width:100%;
+        min-width:0;
+        overflow:hidden;
+        box-sizing:border-box;
+    }
+
+    .brand-card img{
+        width:100%;
+        height:80px;
+        object-fit:contain;
+    }
+
+    .brand-info{
+        padding:8px;
+    }
+
+    .brand-info h3{
+        font-size:13px;
+        line-height:1.2;
+    }
+
+    .brand-tags{
+        font-size:10px;
+    }
+
+    .brand-link{
+        margin-top:8px;
+        padding:4px 10px;
+        font-size:10px;
+    }
+}

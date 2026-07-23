@@ -1,4 +1,9 @@
 {% extends "00.base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/features.css') }}">
+{% endblock %}
+
 {% from "components/filters.html" import category_filters %}
 {% block title %}In The News{% endblock %}
 {% block content %}

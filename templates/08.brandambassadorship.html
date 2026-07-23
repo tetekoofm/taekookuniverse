@@ -1,4 +1,9 @@
 {% extends "00.base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/brandambassadorship.css') }}">
+{% endblock %}
+
 {% from "components/filters.html" import category_filters %}
 {% block title %}Brand Ambassadorship{% endblock %}
 {% block content %}

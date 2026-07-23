@@ -9,7 +9,7 @@ brand_bp = Blueprint("brand", __name__)
 @brand_bp.route('/brandreputation')
 def brandreputation():
     banners = get_banners('07.08.brand_reputation')
-    return render_template("07.08.brand_reputation.html", banners=banners)
+    return render_template("07.08.brandreputation.html", banners=banners)
 
 
 @brand_bp.route('/promotions')

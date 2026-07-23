@@ -48,14 +48,14 @@ main{
 .wrapper{
     display:flex;
     flex-direction:column;
-    min-height:100%;
+    min-height:100vh;
 }
 
 .hide{
     display:none;
 }
 
-/* Night Sky */
+/*======== Night Sky =========*/
 .night-sky{
     position:fixed;
     top:0;
@@ -85,7 +85,7 @@ main{
     100%{opacity:.5;}
 }
 
-/* Audio Control */
+/*======== Audio Control ========*/
 #audioControl{
     position:fixed;
     top:90px;
@@ -128,7 +128,7 @@ main{
     opacity:1;
 }
 
-/* Navbar */
+/*======== Navbar ========*/
 .navbar{
     background-color:#000;
     padding:20px;
@@ -166,7 +166,7 @@ main{
     color:#0FFF50;
 }
 
-/* Dropdown */
+/*======== Dropdown ========*/
 .dropdown-content{
     display:none;
     position:absolute;
@@ -205,7 +205,7 @@ main{
     cursor:pointer;
 }
 
-/* Footer */
+/*======== Footer ========*/
 footer{
     font-family:'Fira Sans Condensed',serif;
     padding:10px;
@@ -231,6 +231,7 @@ footer a:hover{
     opacity:.8;
 }
 
+/*======== HEADER & CAPTION ========*/
 .main-content {
     display: flex;
     flex-direction: column;
@@ -273,16 +274,162 @@ footer a:hover{
     z-index: 100;
 }
 
-@keyframes fadeIn {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
+/*======== STAY TUNED ========*/
+.stay-tuned-banner {
+    text-align: center;
+    color: #8A00C4;
+    padding: 40px;
+    border-radius: 15px;
+    margin-top: 20px;
+    margin-bottom: 0;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    font-family: "Fira Sans Condensed", sans-serif;
+    animation: fadeIn 1.5s ease-in-out;
 }
 
+.stay-tuned-banner p {
+    font-size: 1.5em;
+    margin-bottom: 12px;
+}
+
+.stay-tuned-image {
+    max-width: 80%;
+    height: auto;
+    border-radius: 12px;
+    margin-top: 20px;
+    border: 3px solid #FFD700;
+    box-shadow: 0 4px 10px rgba(255, 215, 0, 0.4);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* @keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+} */
+
+/*======== BANNER =========*/
+.guide-banner{
+    width:92%;
+    max-width:1100px;
+    margin:30px auto;
+    overflow:hidden;
+    background:rgba(106,13,173,.15);
+    border:1px solid rgba(168,85,247,.4);
+    border-radius:20px;
+}
+
+.banner-track{
+    display:flex;
+    width:max-content;
+    animation:bannerScroll 25s linear infinite;
+}
+
+.banner-slide{
+    flex:0 0 auto;
+    width:100vw;
+    max-width:1100px;
+
+    min-height:90px;
+    padding:20px 40px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+    box-sizing:border-box;
+}
+
+.banner-slide h2{
+    margin:0 0 10px;
+    font-size:1.8rem;
+    color:white;
+}
+
+.banner-btn{
+    padding:6px 18px;
+    border-radius:25px;
+    background:#6A0DAD;
+    border:1px solid #0FFF50;
+    color:white;
+    text-decoration:none;
+}
+
+.guide-banner:hover .banner-track{
+    animation-play-state:paused;
+}
+
+@keyframes bannerScroll{
+    from{
+        transform:translateX(0);
+    }
+    to{
+        transform:translateX(-50%);
+    }
+}
+
+/*======== TAEKOOK FILTER ========*/
+.filters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 25px;
+    margin-bottom: 30px;
+}
+
+.filter-btn {
+    text-decoration:none;
+    padding: 8px 16px;
+    border-radius: 25px;
+    font-family: 'Fira Sans Condensed', serif;
+    font-size: 20px;
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(247, 32, 32, 0.15);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.all-btn:hover {
+    box-shadow: 0 0 15px #6A0DAD;
+    transform: translateY(-2px);
+}
+
+.tae-btn:hover {
+    box-shadow: 0 0 15px #d62828;
+    transform: translateY(-2px);
+}
+
+.koo-btn:hover {
+    box-shadow: 0 0 15px #FFD700;
+    transform: translateY(-2px);
+}
+
+.all-btn.active {
+    background: rgba(106,13,173,0.2);
+    box-shadow: 0 0 15px #a855f7;
+}
+.tae-btn.active {
+    background: rgba(106,13,173,0.2);
+    box-shadow: 0 0 15px #d62828;
+}
+.koo-btn.active {
+    background: rgba(106,13,173,0.2);
+    box-shadow: 0 0 15px #FFD700;
+}
+
+
 /* Tablet */
-@media screen and (min-width:769px) and (max-width:1370px){
+@media (min-width:769px) and (max-width:1023px) and (orientation:portrait){
     #audioControl{
         font-size:1.8rem;
-        top:70px;
+        top:100px;
         background-color:transparent;
     }
 
@@ -321,6 +468,10 @@ footer a:hover{
         font-size:1.1rem;
     }
 
+    .main-content{
+        padding:1vh 0;
+    }
+
     .main-content .heading{
         font-size:3rem!important;
     }
@@ -329,6 +480,68 @@ footer a:hover{
         font-size:1.2rem;
         margin:1rem 0;
         line-height:1.2;
+    }
+
+    .stay-tuned-banner {
+        padding: 10px;
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+
+    .stay-tuned-banner p {
+        font-size: 1.2em;
+    }
+
+    .stay-tuned-image {
+        max-width: 80%;
+    }
+        .filters{
+        gap:12px;
+        margin-top:20px;
+        margin-bottom:30px;
+        padding:0 20px;
+    }
+
+    .filter-btn{
+        padding:6px 12px;
+        font-size:14px;
+    }
+    
+    .guide-banner{
+        width:90%;
+        border-radius:18px;
+        margin:25px auto;
+    }
+
+    .banner-slide{
+        min-height:80px;
+        padding:15px 25px;
+    }
+
+    .banner-slide h2{
+        font-size:1.45rem;
+        line-height:1.3;
+    }
+
+    .banner-btn{
+        padding:5px 16px;
+        font-size:.8rem;
+    }
+
+    .banner-track{
+        animation-duration:22s;
+    }
+
+    .filters{
+        gap:12px;
+        margin-top:20px;
+        margin-bottom:30px;
+        padding:0 20px;
+    }
+
+    .filter-btn{
+        padding:6px 12px;
+        font-size:14px;
     }
 }
 
@@ -443,11 +656,69 @@ footer a:hover{
     }
 
     footer{
-        padding:8px;
+        padding:6px 2px;
+        font-size:.7rem;
+        line-height:1.2;
+    }
+    footer .meet-taekook{
         font-size:.85rem;
+        margin:4px 0;
+    }
+    footer p{
+        margin:4px 0;
     }
 
-    footer .meet-taekook{
-        font-size:1.1rem;
+    .stay-tuned-banner {
+        padding: 5px;
+        margin-top: 5px;
+        margin-bottom: 0 !important;
     }
+
+    .stay-tuned-banner p {
+        font-size: 0.8em;
+        margin-bottom: 8px;
+    }
+
+    .stay-tuned-image {
+        max-width: 50%;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .guide-banner{
+        width:90%;
+        border-radius:15px;
+    }
+
+    .banner-slide{
+        min-height:65px;
+        padding:6px 15px;
+    }
+
+    .banner-slide h2{
+        font-size:0.8rem !important;
+    }
+
+    .banner-btn{
+        padding:4px 12px;
+        font-size:.6rem !important;
+    }
+
+    .banner-track{
+        animation-duration:18s;
+    }
+
+    .filters{
+        gap:8px;
+        margin-top:15px;
+        margin-bottom:20px;
+        padding:0 10px;
+    }
+
+    .filter-btn{
+        padding:3px 6px;
+        font-size:12px;
+    }
+
 }
+    

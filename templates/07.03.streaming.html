@@ -1,4 +1,9 @@
 {% extends "00.base_subnav.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/guide.css') }}">
+{% endblock %}
+
 {% block title %}Streaming{% endblock %}
 {% block content %}
 

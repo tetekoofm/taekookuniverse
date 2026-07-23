@@ -1,0 +1,388 @@
+/****************************************************** VIBE *****************************************************/
+
+.vibe-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    flex-wrap: nowrap;
+    margin-top: 40px;
+    position: relative;
+    z-index: 2;
+    gap: 50px;
+}
+
+.vibe-section {
+    position: relative;
+    width: 46%;
+    padding: 25px;
+    border-radius: 15px;
+    margin: 15px 0;
+    background: radial-gradient(circle at 30% 30%, rgba(147, 84, 206, 0.15), rgba(0, 0, 0, 0.85));
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
+    backdrop-filter: blur(4px);
+}
+
+@keyframes pulseBorderK {
+    0%, 100% { box-shadow: 0 0 15px #FFD700; }
+    50% { box-shadow: 0 0 35px #FFD700; }
+}
+@keyframes pulseBorderT {
+    0%, 100% { box-shadow: 0 0 15px #d62828; }
+    50% { box-shadow: 0 0 35px #d62828; }
+}
+
+.tae-section {
+    animation: pulseBorderT 4s infinite ease-in-out;
+}
+
+.koo-section {
+    animation: pulseBorderK 4s infinite ease-in-out;
+}
+
+.vibe-section h2,
+.music-videos-container .vibe-section h2 {
+    font-family: 'Tangerine', serif;
+    font-size: 4rem;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.vibe-section p {
+    font-family: 'Fira Sans Condensed', serif;
+    font-size: 1.5rem;
+    color: #3b9e3b;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.vibe-section iframe + iframe {
+    margin-top: 15px; 
+}
+
+.song-name {
+    position: absolute;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-size: 16px;
+    color: white;
+    text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.8);
+    opacity: 0.6;
+    pointer-events: none;
+    animation: pop-up-glow 5s ease-out forwards;
+    z-index: 0;
+}
+
+@keyframes pop-up-glow {
+    0% {
+      opacity: 0;
+      transform: translateY(20px) scale(0.5);
+    }
+    40% {
+      opacity: 1;
+      transform: translateY(-10px) scale(1.1);
+      text-shadow: 0 0 10px #d62828, 0 0 25px #FFD700;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-60px) scale(0.7);
+    }
+  }
+
+.song-name:nth-child(odd) {
+    color: #FFD700; /* Purple */
+}
+
+.song-name:nth-child(even) {
+    color: #d62828; /* Green */
+}
+
+.platform-buttons {
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    flex-wrap:wrap;
+    margin:20px 0;
+}
+
+.platform-btn {
+    background:#111;
+    color:white;
+    border:1px solid #a855f7;
+    padding:8px 15px;
+    border-radius:20px;
+    cursor:pointer;
+    font-family:'Fira Sans Condensed',sans-serif;
+}
+
+.platform-btn:hover,.platform-btn.active {
+    background:#a855f7;
+}
+
+.vibe-player iframe {
+    margin-top:10px;
+}
+
+/* ===========================
+   MUSIC VIDEOS
+=========================== */
+
+.music-videos-container h2{
+    font-family:'Tangerine',serif;
+    font-size:5rem;
+    color:#a855f7;
+    text-align:center;
+    margin-bottom: 2px;
+}
+
+.music-videos-container>p{
+    font-family:'Fira Sans Condensed',sans-serif;
+    font-size:1.5rem;
+    color:#3b9e3b;
+    text-align:center;
+    margin-bottom:35px;
+    margin-top: 2px;
+}
+
+.tae-section h2 {
+    color:#d62828;
+}
+
+.koo-section h2 {
+    color:#FFD700;
+}
+
+.music-videos-container .vibe-player iframe{
+    width: 100%;
+    height:352px;
+    border:none;
+    border-radius:12px;
+}
+
+.video-playlist{
+    margin-top:18px;
+    height:250px;
+    overflow-y:auto;
+    border-radius:12px;
+    background:#111;
+    border:1px solid rgba(255,255,255,.08);
+}
+  
+.video-playlist::-webkit-scrollbar{
+    width:15px;
+}
+
+.video-playlist::-webkit-scrollbar-thumb{
+    background:#3b9e3b;
+    border-radius:20px;
+}
+
+.mv-icon-tae {
+    color: #d62828;
+}
+
+.mv-icon-koo {
+    color: #FFD700;
+}
+
+.playlist-item{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:6px 12px;
+    color:#3b9e3b;
+    cursor:pointer;
+    font-family:'Fira Sans Condensed',sans-serif;
+    font-size:20px;
+    line-height:1.1;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    transition:.25s;
+}
+
+.playlist-item:last-child{
+    border-bottom:none;
+}
+
+.playlist-item:hover{
+    background:#242424;
+    color:#0FFF50;
+}
+
+.playlist-item.active{
+    background:#a855f7;
+    color:#fff;
+    font-weight:600;
+}
+
+/* =========================
+   Tablet
+========================= */
+@media (min-width:769px) and (max-width:1370px){
+    .song-name {
+        font-size: 10px;
+    }
+
+    .vibe-container{
+        width:100%;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        gap:20px;
+        padding:10px 0;
+        box-sizing:border-box;
+    }
+    
+    .vibe-section{
+        width:80%;
+        max-width:900px;
+        margin:0 auto;
+        box-sizing:border-box;
+    }
+    
+    .vibe-section h2{
+        font-size:2.8rem;
+    }
+    
+    .vibe-section p{
+        font-size:1rem;
+        line-height:1.5;
+    }
+    
+    .vibe-player iframe{
+        height:320px;
+    }
+    
+    .platform-buttons{
+        gap:6px;
+    }
+    
+    .platform-btn{
+        padding:7px 14px;
+        font-size:.9rem;
+    }
+    
+    .music-videos-container{
+        padding:10px 0;
+    }
+    
+    .music-videos-container h2{
+        font-size:3rem;
+    }
+    
+    .music-videos-container p{
+        font-size:1rem;
+    }
+    
+    .video-playlist{
+        max-height:220px;
+    }    
+
+    .playlist-item{
+        font-size: 16px;
+    }
+
+}
+    
+/* =========================
+    Mobile
+========================= */
+@media (max-width:768px){
+    .song-name {
+        font-size: 8px;
+    }
+
+    .vibe-container{
+        flex-direction:column;
+        align-items:center;
+        gap:20px;
+        padding:10px;
+    }
+    
+    .vibe-section{
+        width:95%;
+        padding:18px;
+    }
+    
+    .vibe-section h2{
+        font-size:2.5rem !important;
+    }
+    
+    .vibe-section p{
+        font-size:.95rem;
+        line-height:1.5;
+    }
+    
+    .platform-buttons{
+        gap:6px;
+    }
+    
+    .platform-btn{
+        padding:6px 12px;
+        font-size:.85rem;
+    }
+    
+    .vibe-player iframe{
+        height:240px;
+    }
+    
+    .music-videos-container{
+        padding:10px;
+    }
+    
+    .music-videos-container h2{
+        font-size:3rem !important;
+    }
+    
+    .music-videos-container p{
+        font-size:1rem;
+    }
+    
+    .music-videos-container .vibe-section h2{
+        font-size:2.5rem !important;
+    }
+
+    .video-playlist{
+        max-height:180px;
+    }
+    
+    .playlist-item{
+        font-size:10px !important;
+    }    
+}
+    
+/* =========================
+    Small Phones
+========================= */
+@media (max-width:480px){
+    .song-name {
+        font-size: 10px;
+    }
+
+    .vibe-section h2{
+        font-size:2rem;
+    }
+    
+    .vibe-section p{
+        font-size:.9rem;
+    }
+    
+    .platform-btn{
+        padding:5px 10px;
+        font-size:.8rem;
+    }
+    
+    .vibe-player iframe{
+        height:210px;
+    }
+    
+    .music-videos-container h2{
+        font-size:2rem;
+    }
+    
+    .video-playlist{
+        max-height:160px;
+    }
+    
+    .playlist-item{
+        font-size:.8rem;
+    }
+}

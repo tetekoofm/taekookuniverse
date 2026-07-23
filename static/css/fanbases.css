@@ -1,0 +1,1285 @@
+/*********************************************** FANBASES ********************************************************/
+
+/* ==========================================
+   WORLD MAP LOCATIONS
+========================================== */
+
+.node-canada{
+    top:24%;
+    left:25%;
+}
+
+.node-usa{
+    top:34%;
+    left:22%;
+}
+
+.node-mexico{
+    top:48%;
+    left:23%;
+}
+
+.node-brazil{
+    top:62%;
+    left:28%;
+}
+
+.node-uk{
+    top:25%;
+    left:45%;
+}
+
+.node-france{
+    top:32%;
+    left:48%;
+}
+
+.node-india{
+    top:48%;
+    left:68%;
+}
+
+.node-korea{
+    top:38%;
+    left:78%;
+}
+
+.node-japan{
+    top:45%;
+    left:83%;
+}
+
+.node-philippines{
+    top:55%;
+    left:78%;
+}
+
+.node-australia{
+    top:72%;
+    left:82%;
+}
+
+.node-honduras{
+    top:48%;
+    left:26%;
+}
+
+.node-colombia{
+    top:62%;
+    left:30%;
+}
+
+.node-argentina{
+    top:78%;
+    left:35%;
+}
+
+.node-china{
+    top:32%;
+    left:70%;
+}
+
+.node-europe{
+    top:28%;
+    left:48%;
+}
+
+.node-asia{
+    top:40%;
+    left:75%;
+}
+
+/* ==========================================
+   WORLD CONNECTION LINES
+========================================== */
+
+.world-line{
+    position:absolute;
+    height:1px;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        #a855f7,
+        #0FFF50,
+        transparent
+    );
+    transform-origin:left center;
+    opacity:.45;
+    animation:lineGlow 3s infinite;
+}
+
+@keyframes lineGlow{
+
+    0%,100%{
+        opacity:.25;
+    }
+
+    50%{
+        opacity:.8;
+    }
+}
+
+.line-usa-canada{
+    top:29%;
+    left:23%;
+    width:8%;
+    transform:rotate(-35deg);
+}
+
+.line-usa-mexico{
+    top:38%;
+    left:22%;
+    width:10%;
+    transform:rotate(75deg);
+}
+
+.line-usa-korea{
+    top:38%;
+    left:20%;
+    width:60%;
+    transform:rotate(8deg);
+}
+
+.line-korea-japan{
+    top:41%;
+    left:79%;
+    width:7%;
+    transform:rotate(35deg);
+}
+
+.line-korea-india{
+    top:42%;
+    left:69%;
+    width:12%;
+    transform:rotate(-20deg);
+}
+
+.line-usa-brazil{
+    top:42%;
+    left:20%;
+    width:25%;
+    transform:rotate(55deg);
+}
+
+.line-uk-korea{
+    top:28%;
+    left:46%;
+    width:34%;
+    transform:rotate(18deg);
+}
+
+.line-australia-japan{
+    top:58%;
+    left:80%;
+    width:15%;
+    transform:rotate(65deg);
+}
+
+.line-mexico-honduras{
+    top:45%;
+    left:24%;
+    width:6%;
+    transform:rotate(70deg);
+}
+
+.line-honduras-colombia{
+    top:55%;
+    left:27%;
+    width:10%;
+    transform:rotate(55deg);
+}
+
+.line-colombia-argentina{
+    top:70%;
+    left:32%;
+    width:15%;
+    transform:rotate(70deg);
+}
+
+.line-china-korea{
+    top:34%;
+    left:70%;
+    width:8%;
+    transform:rotate(25deg);
+}
+
+.line-europe-asia{
+    top:32%;
+    left:52%;
+    width:20%;
+    transform:rotate(10deg);
+}
+
+/* ==========================================
+   EXTRA MAP GLOW
+========================================== */
+
+.world-network-bg:after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+    radial-gradient(
+        circle at center,
+        rgba(106,13,173,.18),
+        transparent 55%
+    );
+}
+
+/* ==========================================
+   REDUCE MOTION ACCESSIBILITY
+========================================== */
+
+@media(prefers-reduced-motion:reduce){
+
+.world-stars,
+.world-node,
+.world-line{
+    animation:none;
+}
+
+*{
+    scroll-behavior:auto;
+}
+
+}
+
+/* ==========================================
+   FANBASE WORLD PAGE
+========================================== */
+.fanbase-world-page{
+    position:relative;
+    min-height:100vh;
+    overflow:visible;
+    background:#020205;
+}
+
+.world-network-bg{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    overflow:hidden;
+    background:
+    radial-gradient(circle at center,rgba(106,13,173,.25),transparent 45%),
+    radial-gradient(circle at 70% 40%,rgba(15,255,80,.12),transparent 35%),
+    #020205;
+}
+
+.fanbase-content{
+    position:relative;
+    z-index:2;
+}
+
+footer{
+    position:relative;
+    z-index:3;
+}
+
+.world-map{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background: transparent;
+    opacity:.18;
+    filter:
+    brightness(1.3)
+    drop-shadow(0 0 25px rgba(106,13,173,.7));
+}
+
+.world-stars{
+    position:absolute;
+    inset:0;
+    background-image:
+    radial-gradient(circle,rgba(255,255,255,.8) 1px,transparent 1px);
+    background-size:80px 80px;
+    opacity:.25;
+    animation:starsMove 80s linear infinite;
+}
+
+@keyframes starsMove{
+    from{
+        transform:translateY(0);
+    }
+    to{
+        transform:translateY(-500px);
+    }
+}
+
+.world-node{
+    position:absolute;
+    width:14px;
+    height:14px;
+    border-radius:50%;
+    background:#0FFF50;
+    box-shadow:
+    0 0 10px #0FFF50,
+    0 0 35px #0FFF50;
+    animation:nodePulse 2.5s infinite;
+}
+
+.world-node:after{
+    content:"";
+    position:absolute;
+    inset:-12px;
+    border:2px solid rgba(15,255,80,.5);
+    border-radius:50%;
+    animation:ringPulse 2.5s infinite;
+}
+
+@keyframesnodePulse{
+    50%{transform:scale(1.3);}
+}
+
+@keyframes ringPulse{
+    from{
+        transform:scale(.5);
+        opacity:1;
+    }
+    to{
+        transform:scale(2.8);
+        opacity:0;
+    }
+}
+
+/* ==========================================
+   HERO SECTION
+========================================== */
+
+.community-hero{
+    min-height:650px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:5px 10px;
+}
+
+.hero-badge{
+    display:inline-block;
+    padding:10px 25px;
+    border-radius:40px;
+    background:rgba(106,13,173,.25);
+    border:1px solid rgba(15,255,80,.45);
+    color:#0FFF50;
+    font-size:18px;
+    font-weight:bold;
+    letter-spacing:2px;
+    backdrop-filter:blur(12px);
+    margin-bottom:25px;
+    box-shadow:0 0 20px rgba(106,13,173,.35);
+}
+
+.community-hero .heading{
+    font-size:85px;
+    line-height:.95;
+    margin:15px 0 25px;
+    color:white;
+    text-shadow:
+    0 0 20px rgba(106,13,173,.8),
+    0 0 40px rgba(15,255,80,.25);
+}
+
+.community-hero .caption{
+    max-width:800px;
+    color:#ddd;
+    font-size:20px;
+    line-height:1.8;
+}
+
+.hero-buttons{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:25px;
+}
+
+.hero-btn{
+    margin-top:30px;
+    padding:12px 35px;
+    border-radius:30px;
+    border:1px solid #a855f7;
+    color:white;
+    font-family:'Fira Sans Condensed',sans-serif;
+    font-size:1.2rem;
+    letter-spacing:2px;
+    cursor:pointer;
+    transition:all .35s ease;
+    display:inline-block;
+    text-decoration:none;
+}
+
+.hero-btn.primary{
+    background:linear-gradient(135deg,#6A0DAD,#a855f7);
+    box-shadow:0 0 20px rgba(168,85,247,.45);
+}
+
+.hero-btn.secondary{
+    background:rgba(15,255,80,.08);
+    border-color:#0FFF50;
+    color:#0FFF50;
+}
+
+.hero-btn:hover{
+    transform:translateY(-5px);
+}
+
+.hero-btn.primary:hover{
+    box-shadow:0 0 35px rgba(168,85,247,.7);
+}
+
+.hero-btn.secondary:hover{
+    background:rgba(15,255,80,.15);
+    box-shadow:0 0 35px rgba(15,255,80,.5);
+}
+
+/* ==========================================
+   COMMUNITY STATS
+========================================== */
+
+.community-stats{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:15px;
+    max-width:1000px;
+    margin:20px auto 70px;
+}
+
+.stat-card{
+    width:200px;
+    padding:15px 12px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    border:1px solid rgba(168,85,247,.35);
+    background:rgba(10,10,15,.55);
+    backdrop-filter:blur(12px);
+    border-radius:18px;
+    transition:.35s ease;
+}
+
+.stat-card:hover{
+    transform:translateY(-5px);
+    border-color:#0FFF50;
+}
+
+.stat-number{
+    font-size:28px;
+    font-weight:bold;
+    color:#0FFF50;
+    line-height:1.1;
+}
+
+.stat-label{
+    color:white;
+    font-size:18px;
+    margin-top:5px;
+}
+
+/* ==========================================
+   COMMUNITY INTRO
+========================================== */
+
+.glass-panel{
+    padding:45px;
+    border-radius:35px;
+    background:
+    linear-gradient(
+        145deg,
+        rgba(106,13,173,.25),
+        rgba(0,0,0,.75)
+    );
+    border:1px solid rgba(255,255,255,.1);
+    backdrop-filter:blur(18px);
+    box-shadow:
+    0 0 40px rgba(106,13,173,.15);
+    text-align:center;
+}
+
+.community-intro{
+    max-width:1200px;
+    margin:70px auto;
+}
+
+.community-intro .glass-panel{
+    padding:45px 55px;
+    text-align:center;
+}
+
+.intro-badge{
+    display:inline-block;
+    padding:7px 18px;
+    border-radius:30px;
+    border:1px solid rgba(15,255,80,.4);
+    background:rgba(15,255,80,.08);
+    color:#0FFF50;
+    font-size:1rem;
+    font-weight:600;
+    letter-spacing:2px;
+    margin-bottom:18px;
+}
+
+.community-intro h2{
+    margin:0 0 20px;
+    font-size:2rem;
+    color:#fff;
+}
+
+.community-intro p{
+    max-width:1100px;
+    margin:15px auto;
+    color:#ddd;
+    font-size:1.3rem;
+    line-height:1.8;
+}
+
+/* ==========================================
+   COMMUNITY ROLES
+========================================== */
+
+.community-roles{
+    max-width:1000px;
+    margin:80px auto;
+    padding:0 20px;
+    text-align:center;
+}
+
+.community-roles h2{
+    /* font-family:'Tangerine',cursive; */
+    font-size:2rem;
+    color:white;
+    margin-bottom:40px;
+}
+
+.roles-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:18px;
+    max-width:1200px;
+    margin:auto;
+}
+
+.role-card{
+    padding:22px 18px;
+    border-radius:20px;
+    background:rgba(10,10,15,.65);
+    border:1px solid rgba(168,85,247,.35);
+    backdrop-filter:blur(12px);
+    transition:.35s ease;
+}
+
+.role-card:hover{
+    transform:translateY(-7px);
+    border-color:#0FFF50;
+    box-shadow:0 0 25px rgba(15,255,80,.18);
+}
+
+.role-card span{
+    display:block;
+    font-size:1.8rem;
+    margin-bottom:10px;
+}
+
+.role-card h3{
+    color:#a855f7;
+    font-size:1.2rem;
+    margin:8px 0 10px;
+}
+
+.role-card p{
+    color:#ddd;
+    font-size:1rem;
+    line-height:1.6;
+    margin:0;
+}
+
+/* ==========================================
+   DIRECTORY SECTION
+========================================== */
+
+.fanbase-directory{
+    margin:80px 0;
+    text-align:center;
+}
+
+.directory-title{
+    font-size:2rem;
+    /* font-family:'Tangerine',cursive; */
+    color:#ddd;
+    text-shadow:
+    0 0 20px rgba(106,13,173,.8);
+    margin-bottom:15px;
+}
+
+.directory-caption{
+    color:#0FFF50;
+    font-size:1.2rem;
+    max-width:900px;
+    margin:0 auto 45px;
+    line-height:1.7;
+}
+
+.fanbase-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(420px,1fr));
+    gap:10px;
+}
+
+.fanbase-card{
+    padding:22px 15px;
+    border-radius:24px;
+}
+
+.fanbase-logo{
+    width:105px;
+    height:105px;
+    border-radius:50%;
+    object-fit:cover;
+    object-position:center;
+    padding:0;
+    background:#111;
+    transition:.3s;
+}
+
+.fanbase-card:hover .fanbase-logo{
+    border-color:#0FFF50;
+    box-shadow:0 0 15px rgba(15,255,80,.35);
+    transform:scale(1.05);
+}
+
+.fanbase-name{
+    margin:15px 0 10px;
+    font-size:25px;
+    color: #a855f7;
+}
+
+.fanbase-info{
+    font-size:16px;
+    margin:7px 0;
+}
+
+.fb-social-icons{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    margin-top:12px;
+}
+
+.fb-social-icons a{
+    width:auto;
+    height:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.fb-social-icons img{
+    width:30px;
+    height:30px;
+}
+
+/* ==========================================
+   FANBASE SOCIAL ICONS
+========================================== */
+
+.fb-social-icons{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+    margin-top:12px;
+    flex-wrap:wrap;
+}
+
+.fb-social-icons a{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.fb-social-icons img{
+    width:22px;
+    height:22px;
+    object-fit:contain;
+    transition:.3s ease;
+}
+
+.fb-social-icons img:hover{
+    transform:scale(1.25);
+}
+
+
+/* ==========================================
+   QUICK TIPS
+========================================== */
+
+.community-tips{
+    max-width:850px;
+    margin:80px auto;
+    padding:0 20px;
+    text-align:center;
+}
+
+.tips-header{
+    margin-bottom:35px;
+}
+
+.tips-header span{
+    color:#0FFF50;
+    font-size:2rem;
+    letter-spacing:3px;
+    font-weight:bold;
+}
+
+.tips-path{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+}
+
+.tips-path:before{
+    content:"";
+    position:absolute;
+    left:27px;
+    top:20px;
+    bottom:20px;
+    width:2px;
+    background:linear-gradient(#a855f7,#0FFF50);
+    opacity:.5;
+}
+
+.tip-item{
+    position:relative;
+    display:flex;
+    align-items:center;
+    gap:20px;
+    padding:15px 20px;
+    border-radius:18px;
+    background:rgba(10,10,15,.6);
+    border:1px solid rgba(168,85,247,.35);
+    backdrop-filter:blur(10px);
+    transition:.3s ease;
+}
+
+.tip-item:hover{
+    transform:translateX(8px);
+    border-color:#0FFF50;
+}
+
+.tip-number{
+    flex-shrink:0;
+    width:38px;
+    height:38px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    background:rgba(168,85,247,.25);
+    border:1px solid rgba(168,85,247,.5);
+    color:#0FFF50;
+    font-weight:bold;
+}
+
+.tip-item p{
+    margin:0;
+    color:#ddd;
+    text-align:left;
+    font-size:1.2rem;
+}
+
+.community-note{
+    max-width:900px;
+    margin:90px auto 40px;
+    padding:0 20px;
+    text-align:center;
+}
+
+.community-note .glass-panel{
+    position:relative;
+    padding:55px 45px;
+    background:transparent;
+    border:none;
+    backdrop-filter:none;
+    box-shadow:none;
+}
+
+.community-note .glass-panel::before{
+    content:"❝";
+    position:absolute;
+    top:-10px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:90px;
+    color:rgba(168,85,247,.25);
+    font-family:serif;
+}
+
+.community-note .glass-panel::after{
+    content:"";
+    display:block;
+    width:120px;
+    height:2px;
+    margin:35px auto 0;
+    background:linear-gradient(90deg,transparent,#0FFF50,#a855f7,transparent);
+}
+
+.community-note h2{
+    font-family:'Tangerine',cursive;
+    font-size:72px;
+    color:#0FFF50;
+    margin-bottom:20px;
+}
+
+.community-note p{
+    max-width:700px;
+    margin:auto;
+    color:#ddd;
+    font-size:1.2rem;
+    line-height:2;
+    font-style:italic;
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width:1024px){
+
+    .world-node{
+        width: 10px;
+        height:10px;
+        box-shadow:
+        0 0 6px #0FFF50,
+        0 0 18px #0FFF50;
+    }
+    
+    .world-node:after{
+        inset:-7px;
+        border-width:1px;
+    }
+
+    .community-hero{
+        min-height:auto;
+        padding:40px 20px 20px;
+    }
+
+    .hero-badge{
+        font-size:15px;
+        padding:8px 20px;
+    }
+    
+    .community-hero .heading{
+        font-size:65px !important;
+    }
+    
+    .community-hero .caption{
+        max-width:700px;
+        font-size:18px;
+    }
+    
+    .hero-buttons{
+        margin-top:15px;
+        gap:15px;
+    }
+    
+    .hero-btn{
+        margin-top:0;
+        padding:10px 28px;
+        font-size:1rem;
+    }
+    
+    .community-stats{
+        margin:20px auto 50px;
+        gap:20px;
+    }
+    
+    .stat-card{
+        width:130px;
+        padding:10px 10px;
+    }
+    
+    .stat-number{
+        font-size:22px;
+    }
+    
+    .stat-label{
+        font-size:15px;
+    }
+    
+    .community-intro{
+        margin:60px auto;
+        padding:0 20px;
+    }
+    
+    .community-intro .glass-panel{
+        padding:35px;
+    }
+    
+    .community-intro h2{
+        font-size:1.8rem;
+    }
+    
+    .community-intro p{
+        font-size:1.1rem;
+    }
+    
+    .community-roles{
+        margin:60px auto;
+    }
+    
+    .community-roles h2{
+        font-size:1.8rem;
+    }
+    
+    .roles-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+    
+    .role-card{
+        padding:10px 12px;
+    }
+    
+    .role-card span{
+        font-size:1.6rem;
+    }
+    
+    .role-card h3{
+        font-size:1.2rem;
+    }
+    
+    .role-card p{
+        font-size:1rem;
+    }
+    
+    .directory-title{
+        font-size:1.8rem;
+    }
+    
+    .directory-caption{
+        font-size:1.2rem;
+        width:70%;
+    }
+    
+    .fanbase-container{
+        grid-template-columns:repeat(3,1fr);
+    }
+    
+    .fanbase-card{
+        padding:18px 12px;
+    }
+    
+    .fanbase-logo{
+        width:75px;
+        height:75px;
+    }
+    
+    .fanbase-name{
+        font-size:20px;
+    }
+    
+    .fanbase-info{
+        font-size:16px;
+    }
+    
+    .fb-social-icons a{
+        width:auto;
+        height:auto;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding:2px;
+    }
+
+    .fb-social-icons img{
+        width:22px;
+        height:22px;
+    }
+    
+    .community-tips{
+        max-width:700px;
+        margin:40px auto;
+        padding:0 15px;
+    }
+    
+    .tips-header span{
+        font-size:1.5rem;
+    }
+    
+    .tip-item{
+        padding:5px 15px;
+    }
+    
+    .tip-item p{
+        font-size:1rem;
+    }   
+    
+    .community-note{
+        margin:70px auto 30px;
+    }
+    
+    .community-note .glass-panel{
+        padding:40px 25px;
+    }
+    
+    .community-note h2{
+        font-size:58px;
+    }
+    
+    .community-note p{
+        font-size:1.2rem;
+        width: 80%;
+    }
+    
+}
+    
+/* ==========================================
+    MOBILE
+========================================== */
+
+@media (max-width:768px){
+
+    .world-node{
+        width:6px;
+        height:6px;
+        box-shadow:
+        0 0 6px #0FFF50,
+        0 0 18px #0FFF50;
+    }
+    
+    .world-node:after{
+        inset:-7px;
+        border-width:1px;
+    }
+
+    .community-hero{
+        min-height:auto;
+        padding:20px 15px;
+    }
+    
+    .hero-badge{
+        font-size:10px;
+        padding:7px 15px;
+        letter-spacing:1px;
+    }
+    
+    .community-hero .heading{
+        font-size:1.5rem;
+        line-height:1;
+    }
+    
+    .community-hero .caption{
+        font-size:.75rem;
+        line-height:1.7;
+    }
+    
+    .hero-buttons{
+        gap:12px;
+        margin-top:15px;
+    }
+    
+    .hero-btn{
+        width:120px;
+        margin-top:0;
+        padding:10px 15px;
+        font-size:.7rem;
+    }
+    
+    .community-stats{
+        flex-wrap:nowrap;
+        gap:6px;
+        margin:15px auto 45px;
+    }
+    
+    .stat-card{
+        width:20%;
+        padding:4px 5px;
+    }
+    
+    .stat-number{
+        font-size:12px;
+    }
+    
+    .stat-label{
+        font-size:10px;
+        margin-top:3px;
+    }
+    
+    .community-intro{
+        margin:40px auto;
+        padding:0 10px;
+    }
+    
+    .community-intro .glass-panel{
+        padding:25px 18px;
+    }
+    
+    .intro-badge{
+        font-size:10px;
+        padding:5px 12px;
+    }
+    
+    .community-intro h2{
+        font-size:1.5rem;
+    }
+    
+    .community-intro p{
+        font-size:.75rem;
+        line-height:1.7;
+    }
+    
+    .community-roles{
+        margin:45px auto;
+        padding:0 10px;
+    }
+    
+    .community-roles h2{
+        font-size:1.5rem;
+        margin-bottom:25px;
+    }
+    
+    .roles-grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:10px;
+    }
+    
+    .role-card{
+        padding:15px 10px;
+    }
+    
+    .role-card span{
+        font-size:1.3rem;
+    }
+    
+    .role-card h3{
+        font-size:.95rem;
+    }
+    
+    .role-card p{
+        font-size:.78rem;
+        line-height:1.5;
+    }
+    
+    .fanbase-directory{
+        margin:50px 0;
+    }
+    
+    .directory-title{
+        font-size:1.5rem;
+    }
+    
+    .directory-caption{
+        width:95%;
+        font-size:.85rem;
+        line-height:1.6;
+        margin-bottom:25px;
+    }
+    
+    .fanbase-container{
+        grid-template-columns:repeat(2,1fr);
+        gap:5px;
+    }
+    
+    .fanbase-card{
+        padding:15px 10px;
+    }
+    
+    .fanbase-logo{
+        width:50px;
+        height:50px;
+    }
+    
+    .fanbase-name{
+        font-size:.9rem;
+        margin:0 0 5px;
+        line-height:1.2;
+    }
+    
+    .fanbase-info{
+        font-size:.7rem;
+        margin:0;
+        line-height:1.2;
+    }
+    
+    .fb-social-icons{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        gap:2px;
+        margin:2px;
+    }
+    
+    .fb-social-icons a{
+        width:auto;
+        height:auto;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding:5px;
+    }
+    
+    .fb-social-icons img{
+        width:17px;
+        height:17px;
+    }
+    
+    .community-tips{
+        margin:50px auto;
+        padding:0 10px;
+    }
+    
+    .tips-header{
+        margin-bottom:20px;
+    }
+    
+    .tips-header span{
+        font-size:1.2rem;
+    }
+    
+    .tips-path:before{
+        left:18px;
+    }
+    
+    .tip-item{
+        gap:10px;
+        padding:4px;
+    }
+    
+    .tip-number{
+        width:28px;
+        height:28px;
+        font-size:.7rem;
+    }
+    
+    .tip-item p{
+        font-size:.7rem;
+        line-height:1.5;
+    }
+    
+    .community-note{
+        margin:55px auto 20px;
+    }
+    
+    .community-note .glass-panel{
+        padding:25px 15px;
+    }
+    
+    .community-note .glass-panel::before{
+        font-size:60px;
+    }
+    
+    .community-note h2{
+        font-size:2rem !important;
+        margin: 2px;
+    }
+    
+    .community-note p{
+        font-size:.9rem;
+        line-height:1.8;
+    }
+    
+}
