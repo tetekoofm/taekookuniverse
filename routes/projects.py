@@ -22,7 +22,7 @@ def brandambassador():
         query = query.filter(
             BrandAmbassador.artist == artist)
     brands = query.all()
-    return render_template("08.brand-ambassadorship.html", endpoint="projects.brandambassador", brands=brands)
+    return render_template("08.brandambassadorship.html", endpoint="projects.brandambassador", brands=brands)
 
 
 @projects_bp.route('/fanletters-old')

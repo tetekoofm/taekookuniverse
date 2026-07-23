@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const totalIconsAvailable = 14;
   const totalToFind = 10;
   const redirectUrl = "/halloween-special";
-  const gamesPage = "/games";
+  const gamesPage = "/themepark";
   const huntPages = [
     "/", "/memories", "/upcoming", "/highlights", "/recap", "/inthenews", "/vibe",
     "/projects", "/guide", "/fanletters", "/pride", "/meet-tae",

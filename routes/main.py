@@ -48,7 +48,7 @@ def meet_tae():
 
 @main_bp.route('/meet-koo')
 def meet_koo():
-    song_file, song_name = get_page_music("meet-koo")
+    song_file, song_name = get_page_music("meet koo")
     return render_template("10.02.meetkoo.html", song_file=song_file, song_name=song_name)
 
 
