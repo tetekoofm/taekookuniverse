@@ -1,0 +1,55 @@
+{% extends "00.base.html" %}
+{% block title %}Winter Zone{% endblock %}
+{% block content %}
+
+<div class="park-zone-page winter-zone-page">
+
+    <div class="zone-background" style="background-image:url('{{ url_for('static', filename='images/games/themepark/winter_zone.png') }}')"></div>
+
+    <section class="zone-header">
+        <h1>❄️ Winter Zone</h1>
+        <p>
+            A magical seasonal area filled with celebrations,
+            surprises and special holiday adventures.
+        </p>
+    </section>
+
+    <section class="zone-attractions">
+
+        <div class="zone-attraction">
+            <img src="{{ url_for('static', filename='images/games/santas_delivery_dash.png') }}">
+            <h2>🎅 Santa's Delivery Dash</h2>
+            <p>
+                Help Santa deliver gifts, avoid obstacles
+                and complete your holiday mission!
+            </p>
+            <a href="{{ url_for('games.santas_delivery_dash') }}">Play</a>
+        </div>
+
+
+        <div class="zone-attraction locked">
+            <div class="lock">🔒</div>
+            <h2>🎁 Holiday Workshop</h2>
+            <p>
+                Create gifts, decorate holiday items
+                and unlock seasonal surprises.
+            </p>
+            <button>Coming Soon</button>
+        </div>
+
+
+        <div class="zone-attraction locked">
+            <div class="lock">🔒</div>
+            <h2>⛄ Winter Festival</h2>
+            <p>
+                Celebrate special events with limited-time
+                games and activities throughout the year.
+            </p>
+            <button>Coming Soon</button>
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}

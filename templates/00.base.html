@@ -4,14 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}">
+
     <title>{% block title %}Taekook Universe{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
-    <meta name="theme-color" content="#008000">
-    <meta name="google-site-verification" content="Nr_jyzjFvtpGRoNiZYZigsOkC8nIy2TalKP0Gxl8gmw" />
+    {% block extra_css %}{% endblock %}
+
+    {% if themepark %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/themepark.css') }}">
+    {% endif %}
+
     {% if halloween_hunt_active %}
         <script src="{{ url_for('static', filename='js/halloween-hunt.js') }}"></script>
     {% endif %}
+
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <meta name="theme-color" content="#008000">
+    <meta name="google-site-verification" content="Nr_jyzjFvtpGRoNiZYZigsOkC8nIy2TalKP0Gxl8gmw">
 </head>
 
 <body>
@@ -25,19 +35,28 @@
                     <div class="dropdown-content">
                         <a href="/upcoming">Upcoming</a>
                         <a href="/highlights">Highlights</a>
+                        <a href="/inthenews">In The News</a>
                     </div>
                 </li>
-                <li><a href="/recap">Weekly Recaps</a></li>
-                <li><a href="/memories">Memories</a></li>
-                <li><a href="/inthenews">In The News</a></li>
+                <li><a href="/recap">Weekly Recaps</a></li>                
                 <li><a href="/vibe">Vibe</a></li>
-        
+                <li><a href="/brandambassador">Ambassadorship</a></li>
+                <li><a href="/guide">Guide</a></li>
+                
                 <li class="dropdown">
                     <a href="/projects" class="dropbtn">Projects ▾</a>
                     <div class="dropdown-content">
                         <a href="/projects">Fan Projects</a>
                         <a href="/events">Fan Events</a>
                         <!-- <a href="/promotions">Promotions</a> -->
+                    </div>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">TKU World ▾</a>
+                    <div class="dropdown-content">
+                        <a href="/games">Theme Park</a>
+                        <a href="/memories">TK Memories</a>
                     </div>
                 </li>
 
@@ -49,10 +68,7 @@
                         <a href="/pride">Pride</a>
                     </div>
                 </li>
-        
-                <li><a href="/guide">Guide</a></li>
-                <li><a href="/games">FunTime</a></li>
-                <li><a href="/brandambassador">Ambassadorship</a></li>
+
                 <li><a href="https://taekook.bimoribox.com/">Spanish Blog</a></li>
             </ul>
         </nav>
@@ -162,5 +178,5 @@
         });
     }    
 </script>
-
+<script src="{{ url_for('static', filename='js/themepark.js') }}"></script>
 </html>

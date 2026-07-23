@@ -1,4 +1,9 @@
 {% extends "00.base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+{% endblock %}
+
 {% block title %}TaeKook Universe{% endblock %}
 {% block content %}
 
@@ -193,8 +198,9 @@
   }
   else{
 
-      overlay.style.display="none";
-      mainContent.classList.add("fade-in");
+overlay.style.display="none";
+mainContent.classList.remove("hidden");
+mainContent.classList.add("fade-in");
 
   }
 
@@ -206,10 +212,13 @@
   const slides=document.querySelectorAll(".image-slide");
   let index=0;
   function getVisibleSlides(){
-      if(window.innerWidth<=768) return 1;
-      if(window.innerWidth<=1024) return 2;
-      return 3;
-  }
+    const isLandscape=window.matchMedia("(orientation: landscape)").matches;
+    const width=window.innerWidth;
+    if(width<=768){return 1;}
+    if(isLandscape && width>=769 && width<=1370){return 2;}
+    if(width<=1024){return 2;}
+    return 3;
+}
 
   function slideCarousel(){
       const visible=getVisibleSlides();

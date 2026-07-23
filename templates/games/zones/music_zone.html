@@ -1,1 +1,48 @@
-music_zone.html
+{% extends "00.base.html" %}
+{% block title %}Music Zone{% endblock %}
+{% block content %}
+
+<div class="park-zone-page music-zone-page">
+    <div class="zone-background" style="background-image:url('{{ url_for('static', filename='images/games/themepark/music_zone.png') }}')"></div>
+    <section class="zone-header">
+        <h1>🎵 Music Zone</h1>
+        <!-- <p>
+            Welcome to TKU's musical playground! 
+            Test your memory, guess songs and enjoy the rhythm.
+        </p> -->
+    </section>
+
+    <section class="zone-attractions">
+        <div class="zone-attraction">
+            <img src="{{ url_for('static', filename='images/games/guess_song_emoji.png') }}">
+            <h2>🎵 Guess the Song by Emoji</h2>
+            <p>Decode the emojis and discover which TaeKook song is hidden.
+                How well do you know their music?
+            </p>
+            <a href="{{ url_for('games.guess_song_emoji') }}">Play</a>
+        </div>
+
+        <div class="zone-attraction">
+            <img src="{{ url_for('static', filename='images/games/guess_song_lyrics.png') }}">
+            <h2>🎤 Guess the Song by Lyrics</h2>
+            <p>Read the lyrics, test your memory and guess the song title.</p>
+            <a href="{{ url_for('games.guess_song_lyrics') }}">Play</a>
+        </div>
+
+        <div class="zone-attraction">
+            <img src="{{ url_for('static', filename='images/games/guess_song_scrambled.png') }}">
+            <h2>🔀 Guess the Scrambled Song</h2>
+            <p>Unscramble the clues and identify the hidden TaeKook songs.</p>
+            <a href="{{ url_for('games.guess_song_scrambled') }}">Play</a>
+        </div>
+        
+        <div class="zone-attraction locked">
+            <img src="{{ url_for('static', filename='images/games/guess_song_random.png') }}">
+            <h2>📻 Guess the Song by Random Words</h2>
+            <p>Piece the puzzle together from scattered words!</p>
+            <button>Coming Soon</button>
+        </div>
+    </section>
+</div>
+
+{% endblock %}

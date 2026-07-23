@@ -1,14 +1,16 @@
 {% extends "00.base.html" %}
 {% block title %}TKU Theme Park{% endblock %}
 {% block content %}
-
+    
 <div class="park-plaza">
-
+    
     <div class="plaza-overlay"></div>
 
     <div class="plaza-header">
-        <h1>🎡 TKU Central Plaza</h1>
-        <p>Your adventure begins here. Choose your next destination!</p>
+        <h1>🎡 Central Plaza</h1>
+        <p> Welcome to the heart of TKU Theme Park! 
+            Explore the map and choose your next adventure.
+        </p>
     </div>
 
     <div class="zone-map">
@@ -16,35 +18,59 @@
         <a class="zone-card food-zone" href="{{ url_for('games.food_zone') }}">
             <img src="{{ url_for('static', filename='images/games/themepark/food_zone.png') }}">
             <h2>🍔 Food Zone</h2>
-            <p>Cook, create and serve delicious dishes.</p>
         </a>
 
-        <a class="zone-card music-zone" href="#">
+        <a class="zone-card music-zone"href="{{ url_for('games.music_zone') }}">
             <img src="{{ url_for('static', filename='images/games/themepark/music_zone.png') }}">
             <h2>🎵 Music Zone</h2>
-            <p>Guess songs and test your music knowledge.</p>
         </a>
 
-        <a class="zone-card mystery-zone" href="{{ url_for('games.halloween_hunt') }}">
+        <a class="zone-card mystery-zone" href="{{ url_for('games.mystery_zone') }}">
             <img src="{{ url_for('static', filename='images/games/themepark/mystery_zone.png') }}">
             <h2>🔎 Mystery Zone</h2>
-            <p>Find clues and uncover hidden secrets.</p>
         </a>
 
-        <a class="zone-card seasonal-zone" href="{{ url_for('games.santas_delivery_dash') }}">
-            <img src="{{ url_for('static', filename='images/games/themepark/seasonal_zone.png') }}">
-            <h2>🎄 Seasonal Zone</h2>
-            <p>Special events and limited-time games.</p>
-        </a>
-
-        <a class="zone-card challenge-zone" href="#">
+        <a class="zone-card challenge-zone" href="{{ url_for('games.challenge_zone') }}">
             <img src="{{ url_for('static', filename='images/games/themepark/challenge_zone.png') }}">
             <h2>🏆 Challenge Zone</h2>
-            <p>Trivia, quizzes and competitions.</p>
+        </a>
+        
+        <a class="zone-card winter-zone" href="{{ url_for('games.winter_zone') }}">
+            <img src="{{ url_for('static', filename='images/games/themepark/winter_zone.png') }}">
+            <h2>🎄 Winter Zone</h2>
         </a>
 
     </div>
 
+    <div class="park-guide">
+        <button id="parkGuideButton" class="guide-button">
+            🧑‍💼 Park Guide
+        </button>
+    </div>
+    
+    <div id="parkGuideModal" class="guide-modal hidden">
+        <div class="guide-content">
+            <span id="closeGuide" class="guide-close">✖</span>
+            <h2 id="guideTitle"></h2>
+            <p id="guideDescription"></p>
+            <p id="guideFooter" class="guide-footer"></p>
+        </div>
+    
+        <div id="guideBubble" class="guide-bubble hidden">
+            <h3>✨ TKU Park Guide</h3>
+            <p id="guideMessage">
+                Welcome to TKU Theme Park!
+            </p>
+    
+            <div class="guide-zones">
+                <button data-zone="Food Zone">🍔 Food Zone</button>
+                <button data-zone="Music Zone">🎵 Music Zone</button>
+                <button data-zone="Mystery Zone">🔎 Mystery Zone</button>
+                <button data-zone="Winter Zone">🎄 Winter Zone</button>
+                <button data-zone="Challenge Zone">🏆 Challenge Zone</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

@@ -1,0 +1,449 @@
+/************************************************
+GLOBAL CSS
+************************************************/
+
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tangerine:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+*,*::before,*::after{
+    box-sizing:border-box;
+}
+
+.hidden{
+    visibility:hidden;
+    opacity:0;
+}
+
+html{
+    scroll-behavior:smooth;
+    height:100%;
+}
+
+body{
+    min-height:100vh;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    background:#000;
+    color:#fff;
+    font-family:'Fira Sans Condensed',sans-serif;
+    line-height:1.7;
+}
+
+main{
+    position:relative;
+    z-index:2;
+}
+
+.wrapper{
+    display:flex;
+    flex-direction:column;
+    min-height:100%;
+}
+
+.hide{
+    display:none;
+}
+
+/* Night Sky */
+.night-sky{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
+    background-color:#000;
+    pointer-events:none;
+    z-index:0;
+}
+
+.star{
+    position:absolute;
+    background:radial-gradient(circle,#a855f7 100%,#008000 100%,#ffffff 50%);
+    width:8px;
+    height:8px;
+    clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+    animation:twinkle 2s infinite ease-in-out;
+    z-index:0;
+}
+
+@keyframes twinkle{
+    0%{opacity:.5;}
+    25%{opacity:.2;}
+    50%{opacity:1;}
+    75%{opacity:.5;}
+    100%{opacity:.5;}
+}
+
+/* Audio Control */
+#audioControl{
+    position:fixed;
+    top:90px;
+    right:20px;
+    font-size:28px;
+    cursor:pointer;
+    background:rgba(0,0,0,.7);
+    color:white;
+    padding:12px;
+    border-radius:50%;
+    z-index:99999;
+    text-align:center;
+}
+
+#tooltip{
+    font-family:'Fira Sans Condensed',serif;
+    font-size:1.6rem;
+    font-weight:bold;
+    visibility:hidden;
+    opacity:0;
+    position:absolute;
+    background-color:rgba(0,0,0,.75);
+    color:#3b9e3b;
+    border-radius:5px;
+    padding:6px;
+    font-size:14px;
+    bottom:-40px;
+    left:50%;
+    transform:translateX(-50%);
+    white-space:nowrap;
+    transition:opacity .3s,visibility .3s;
+    z-index:999;
+    background-color:transparent;
+}
+
+#audioControl:hover #tooltip{
+    left:-50px;
+    top:60px;
+    visibility:visible;
+    opacity:1;
+}
+
+/* Navbar */
+.navbar{
+    background-color:#000;
+    padding:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:9999;
+}
+
+.navbar ul{
+    list-style:none;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin:0;
+    padding:0;
+}
+
+.navbar li{
+    margin:15px 25px;
+    position:relative;
+}
+
+.navbar a{
+    font-family:'Fira Sans Condensed',serif;
+    text-decoration:none;
+    color:#a855f7;
+    font-size:1.5rem;
+    transition:color .3s ease;
+}
+
+.navbar a:hover{
+    color:#0FFF50;
+}
+
+/* Dropdown */
+.dropdown-content{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;
+    background-color:#000;
+    min-width:160px;
+    box-shadow:0 8px 16px rgba(0,0,0,.2);
+    z-index:1;
+    border-radius:6px;
+}
+
+.dropdown-content a{
+    color:#a855f7;
+    padding:10px 15px;
+    text-decoration:none;
+    display:block;
+    font-size:1.3rem;
+}
+
+.dropdown-content a:hover{
+    background-color:#333;
+}
+
+@media (hover:hover) and (pointer:fine){
+    .dropdown:hover .dropdown-content{
+        display:block;
+    }
+}
+
+.dropdown.active .dropdown-content{
+    display:block;
+}
+
+.dropdown .dropbtn{
+    cursor:pointer;
+}
+
+/* Footer */
+footer{
+    font-family:'Fira Sans Condensed',serif;
+    padding:10px;
+    font-size:1rem;
+    font-weight:bold;
+    text-align:center;
+    width:100%;
+    background-color:#000;
+    color:#5a5a5a;
+    box-sizing:border-box;
+    position:relative;
+    margin-top:auto;
+    bottom:0;
+    z-index:1;
+}
+
+footer .meet-taekook{
+    font-size:1.5rem;
+}
+
+footer a:hover{
+    text-decoration:underline;
+    opacity:.8;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    text-align: center;
+    padding: 2vh 0;
+    flex: 1;
+    margin: 0 auto;
+    z-index: 1;
+    background: transparent;
+}
+
+.main-content .heading {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 4.5rem;
+    font-weight: bold;
+    text-align: center;
+    background: linear-gradient(90deg, #a855f7, #008000); 
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fadeIn 2s ease-out;
+    margin: 2vh 0 20px 0;
+    z-index: 100;
+}
+
+.main-content .caption {
+    font-family: 'Fira Sans Condensed', serif;
+    font-size: 1.5rem; 
+    color: #3dcf64; 
+    margin: 0.5rem 10px;
+    text-align: center;
+    max-width: 100%;
+    line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.6), 
+                 -2px -2px 4px rgba(0,0,0,0.4), 
+                 0px 4px 6px rgba(0,0,0,0.3);
+    z-index: 100;
+}
+
+@keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+/* Tablet */
+@media screen and (min-width:769px) and (max-width:1370px){
+    #audioControl{
+        font-size:1.8rem;
+        top:70px;
+        background-color:transparent;
+    }
+
+    #tooltip{
+        font-size:1rem;
+        transition:opacity .3s ease,visibility .3s ease;
+    }
+
+    #tooltip.show{
+        opacity:1;
+        visibility:visible;
+    }
+
+    .navbar{
+        padding:10px 12px;
+    }
+
+    .navbar ul{
+        gap:5px;
+    }
+
+    .navbar li{
+        margin:6px 8px;
+    }
+
+    .navbar a{
+        font-size:1.1rem;
+    }
+
+    footer{
+        padding:8px;
+        font-size:.85rem;
+    }
+
+    footer .meet-taekook{
+        font-size:1.1rem;
+    }
+
+    .main-content .heading{
+        font-size:3rem!important;
+    }
+
+    .main-content .caption{
+        font-size:1.2rem;
+        margin:1rem 0;
+        line-height:1.2;
+    }
+}
+
+/* Tablet Landscape */
+@media (min-width:1024px) and (max-width:1200px) and (orientation:landscape){
+    .main-content{
+        padding:1vh 0;
+    }
+    .main-content .heading{
+        font-size:2.8rem!important;
+        margin:1vh 0 10px;
+    }
+    .main-content .caption{
+        font-size:1.1rem;
+        margin:.3rem 0;
+        line-height:1.1;
+    }
+    #audioControl{
+        font-size:1.5rem;
+        top:65px;
+        right:15px;
+    }
+    .navbar{
+        padding:8px 10px;
+    }
+    .navbar ul{
+        gap:5px;
+    }
+    .navbar li{
+        margin:5px 8px;
+    }
+    .navbar a{
+        font-size:.95rem;
+    }
+    footer{
+        padding:6px;
+        font-size:.75rem;
+    }
+    footer .meet-taekook{
+        font-size:.95rem;
+    }
+}
+
+/* Mobile */
+@media screen and (max-width:768px){
+    #audioControl{
+        font-size:.8rem;
+        top:60px!important;
+        background-color:transparent;
+    }
+
+    #tooltip{
+        font-size:.6rem;
+        transition:opacity .3s ease,visibility .3s ease;
+        align-items:right;
+        text-align:right;
+        transform:translate(-20%,-90%);
+    }
+
+    #tooltip.show{
+        opacity:1;
+        visibility:visible;
+    }
+
+    .navbar{
+        padding:8px 5px;
+        flex-direction:row;
+        align-items:center;
+        justify-content:center;
+    }
+    .navbar ul{
+        display:flex;
+        flex-direction:row;
+        flex-wrap:wrap;
+        gap:3px;
+        justify-content:center;
+        margin:0;
+        padding:0;
+    }
+
+    .navbar li{
+        margin:3px 5px;
+    }
+    .navbar a{
+        font-size:.8rem;
+        font-weight:bold;
+        line-height:1.1;
+    }
+
+    .navbar li.show .submenu{
+        display:block;
+    }
+
+    .navbar .submenu li{
+        margin:6px 0;
+    }
+
+    .navbar .submenu a{
+        font-size:.75rem;
+    }
+
+    .main-content .heading{
+        font-size:1.8rem!important;
+        margin:20px 0;
+        max-width:320px;
+        line-height:1.2;
+    }
+
+    .main-content .caption{
+        font-size:.8rem;
+        line-height:1.2;
+    }
+
+    footer{
+        padding:8px;
+        font-size:.85rem;
+    }
+
+    footer .meet-taekook{
+        font-size:1.1rem;
+    }
+}

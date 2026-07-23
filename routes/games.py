@@ -11,31 +11,31 @@ LEADERBOARD_FILE = "leaderboard.json"
 
 @games_bp.route('/games')
 def games():
-    return render_template('games/13.games.html')
+    return render_template('games/13.games.html', themepark=True)
 
 @games_bp.route("/themepark")
 def themepark():
-    return render_template('games/13.themepark.html')
+    return render_template('games/13.themepark.html', themepark=True)
 
 @games_bp.route('/food-zone')
 def food_zone():
-    return render_template("games/zones/food_zone.html")
+    return render_template("games/zones/food_zone.html", themepark=True)
 
 @games_bp.route('/music-zone')
 def music_zone():
-    return render_template("games/zones/music_zone.html")
+    return render_template("games/zones/music_zone.html", themepark=True)
 
 @games_bp.route('/mystery-zone')
 def mystery_zone():
-    return render_template("games/zones/mystery_zone.html")
+    return render_template("games/zones/mystery_zone.html", themepark=True)
 
-@games_bp.route('/seasonal-zone')
-def seasonal_zone():
-    return render_template("games/zones/seasonal_zone.html")
+@games_bp.route('/winter-zone')
+def winter_zone():
+    return render_template("games/zones/winter_zone.html", themepark=True)
 
 @games_bp.route('/challenge-zone')
 def challenge_zone():
-    return render_template("games/zones/challenge_zone.html")
+    return render_template("games/zones/challenge_zone.html", themepark=True)
     
 @games_bp.route('/santas_delivery_dash')
 def santas_delivery_dash():

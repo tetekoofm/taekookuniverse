@@ -1,1 +1,42 @@
-mystery_zone.html
+{% extends "00.base.html" %}
+{% block title %}Mystery Zone{% endblock %}
+{% block content %}
+
+<div class="park-zone-page mystery-zone-page">
+    <div class="zone-background" style="background-image:url('{{ url_for('static', filename='images/games/themepark/mystery_zone.png') }}')"></div>
+    <section class="zone-header">
+        <h1>🔎 Mystery Zone</h1>
+        <!-- <p>
+            Secrets are waiting to be discovered. 
+            Follow the clues, solve puzzles and uncover hidden surprises.
+        </p> -->
+    </section>
+
+    <section class="zone-attractions">
+        <div class="zone-attraction">
+            <img src="{{ url_for('static', filename='images/games/ghostys_halloween_hunt.png') }}">
+            <h2>🎃 Halloween Hunt</h2>
+            <p>Explore the mysterious park, find hidden clues and complete your spooky adventure.
+            </p>
+            <a href="{{ url_for('games.halloween_hunt') }}">Play</a>
+        </div>
+
+        <div class="zone-attraction locked">
+            <div class="lock">🔒</div>
+            <h2>🕵️ Mystery Missions</h2>
+            <p>Solve puzzles, complete missions and unlock special rewards around TKU Theme Park.
+            </p>
+            <button>Coming Soon</button>
+        </div>
+
+        <div class="zone-attraction locked">
+            <div class="lock">🔒</div>
+            <h2>🚪 Secret Room</h2>
+            <p>A hidden location inside the park. Only true explorers will discover what is inside.
+            </p>
+            <button>Coming Soon</button>
+        </div>
+    </section>
+</div>
+
+{% endblock %}

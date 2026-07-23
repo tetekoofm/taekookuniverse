@@ -1,49 +1,78 @@
 {% extends "00.base.html" %}
-{% block title %}TKU Theme Park{% endblock %}
+{% block title %}Games & Fun{% endblock %}
 {% block content %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/themepark.css') }}">
+<div class="main-content">
+    <div class="games-page">
+        <h1 class="heading">Fun Zone 🎮</h1>
+        <p class="caption">Play, explore, and have fun with our interactive Taekook-themed games!</p>
+    </div>
 
-<div class="themepark-entrance">
+    <div class="games-grid">
 
-    <div id="parkEntranceImage" class="entrance-background"></div>
-    <div class="entrance-overlay"></div>
-    <div class="gatekeeper-box">
-        <h1>🎪</h1>
-        <p id="parkGreeting">
-            Welcome, visitor! 🎟️
-        </p>
-        <div id="passQuestionBox">
-            <h2>🎩 Gatekeeper</h2>
-            <p>
-                Before entering the park,
-                answer one question to receive your FREE Park Pass!
-            </p>
-            <div class="question-card">
-                <h3 id="parkQuestion">
-                    Loading question...
-                </h3>
-                <input id="parkAnswer"
-                       type="text"
-                       placeholder="Enter your answer">
-                <button id="checkPass">
-                    Claim My Park Pass 🎟️
-                </button>
-            </div>
-            <p id="passMessage"></p>
+        <div class="game-card">
+            <img src="{{ url_for('static', filename='images/games/santas_delivery_dash.png') }}" alt="Santa’s Delivery Dash">
+            <h2>Santa’s Delivery Dash</h2>
+            <p>Collect as many gifts as you can while dodging snowy challenges!</p>
+            <a href="{{ url_for('games.santas_delivery_dash') }}" class="play-btn">Play Now</a>
+        </div>
+        
+        <div class="game-card">
+        <img src="{{ url_for('static', filename='images/games/ghostys_halloween_hunt.png') }}" alt="Halloween Hunt">
+        <h2>Ghosty's Halloween Hunt</h2>
+        <p>Find Ghosty and her spooky friends hidden across TKU pages!</p>
+        <a href="{{ url_for('games.halloween_hunt') }}" class="play-btn">Play Now</a>
         </div>
 
-        <div id="parkPass" class="park-pass hidden">
-            <h2>✨ Access Granted ✨</h2>
-            <div class="ticket">
-                🎟️ TKU GOLD PARK PASS
-                <br>
-                Visitor Access: Approved
-            </div>
-            <button id="enterPark">
-                Enter TKU Theme Park 🎡
-            </button>
+        <div class="game-card">
+            <img src="{{ url_for('static', filename='images/games/guess_song_emoji.png') }}" alt="Guess the Song by Emojis">
+            <h2>Guess the Song by Emojis</h2>
+            <p>Can you decode the emojis and name the song?</p>
+            <a href="{{ url_for('games.guess_song_emoji') }}" class="play-btn">Play Now</a>
+        </div>
+
+
+        <div class="game-card">
+            <img src="{{ url_for('static', filename='images/games/guess_song_lyrics.png') }}" alt="Guess the Song by Lyrics">
+            <h2>Guess the Song by Lyrics</h2>
+            <p>Read the lyrics, recall the melody and guess the song!</p>
+            <a href="{{ url_for('games.guess_song_lyrics') }}" class="play-btn">Play Now</a>
+        </div>
+        
+        <div class="game-card">
+            <img src="{{ url_for('static', filename='images/games/guess_song_scrambled.png') }}" alt="Guess the Scrambled Song">
+            <h2>Guess the Scrambled Song</h2>
+            <p>Unscramble the chaos and name the song!</p>
+            <a href="{{ url_for('games.guess_song_scrambled') }}" class="play-btn">Play Now</a>
+        </div>
+
+        <div class="game-card">
+            <img src="{{ url_for('static', filename='images/games/guess_song_random.png') }}" alt="Guess the Song by Random Words">
+            <h2>Guess the Song by Random Words</h2>
+            <p>Piece the puzzle together from scattered words!</p>
+            <button class="play-btn" disabled>Coming Soon</button>
+        </div>
+
+        <div class="game-card">
+            <img src="{{ url_for('static', filename='images/games/who_said_it.png') }}" alt="Who said it - Tae or Koo?">
+            <h2>Who said it - Tae or Koo?</h2>
+            <p>Test your knowledge about our favorite duo!</p>
+            <button class="play-btn" disabled>Coming Soon</button>
+        </div>
+
+        <div class="game-card">
+            <img src="{{ url_for('static', filename='images/games/taekook_trivia.png') }}" alt="Taekook Trivia">
+            <h2>Taekook Trivia</h2>
+            <p>Test your knowledge about our favorite duo!</p>
+            <button class="play-btn" disabled>Coming Soon</button>
+        </div>
+
+        <div class="game-card">
+            <img src="{{ url_for('static', filename='images/games/cook_with_taekook.png') }}" alt="Cook with Taekook">
+            <h2>Cook with Taekook</h2>
+            <p>Chef Tae and Chef Koo need your help! Race around the kitchen, collect ingredients, and prepare the perfect order.</p>
+            <button class="play-btn" disabled>Coming Soon</button>
         </div>
     </div>
 </div>
-<script src="{{ url_for('static', filename='js/themepark.js') }}"></script>
+
 {% endblock %}

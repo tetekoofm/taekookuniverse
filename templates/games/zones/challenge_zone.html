@@ -1,0 +1,34 @@
+{% extends "00.base.html" %}
+{% block title %}Challenge Zone{% endblock %}
+{% block content %}
+
+<div class="park-zone-page challenge-zone-page">
+
+    <div class="zone-background" style="background-image:url('{{ url_for('static', filename='images/games/themepark/challenge_zone.png') }}')"></div>
+
+    <section class="zone-header">
+        <h1>🏆 Challenge Zone</h1>
+        <!-- <p>
+            Put your TaeKook knowledge to the test!
+            Complete challenges and unlock your fan skills.
+        </p> -->
+    </section>
+
+    <section class="zone-attractions">
+        <div class="zone-attraction locked">
+            <div class="lock">🔒</div>
+            <h2>🧠 TKU Trivia Arena</h2>
+            <p>Answer questions about Tae & Kook.</p>
+            <button>Coming Soon</button>
+        </div>
+
+        <div class="zone-attraction locked">
+            <div class="lock">🔒</div>
+            <h2>💬 Who Said It? Tae or Koo?</h2>
+            <p>Guess who said the quote and see how well you know our duo.</p>
+            <button>Coming Soon</button>
+        </div>
+    </section>
+</div>
+
+{% endblock %}

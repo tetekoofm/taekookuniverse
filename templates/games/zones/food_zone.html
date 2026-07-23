@@ -1,0 +1,47 @@
+{% extends "00.base.html" %}
+{% block title %}Food Zone{% endblock %}
+{% block content %}
+
+<div class="park-zone-page food-zone-page">
+    <div class="zone-background" style="background-image:url('{{ url_for('static', filename='images/games/themepark/food_zone.png') }}')"></div>
+
+    <section class="zone-header">
+        <h1>🍔 Food Zone</h1>
+        <!-- <p>Welcome to TKU's delicious corner! Cook, create and explore amazing food experiences.</p> -->
+    </section>
+
+    <section class="zone-attractions">
+
+        <div class="zone-attraction">
+            <img src="{{ url_for('static', filename='images/games/cook_with_taekook.png') }}">
+            <h2>👨‍🍳 Cook With TaeKook</h2>
+            <p>
+                Help Chef Tae and Chef Koo collect ingredients,
+                prepare dishes and deliver orders to happy customers!
+            </p>
+            <a href="{{ url_for('games.cook_with_taekook') }}">Play</a>
+        </div>
+
+        <div class="zone-attraction locked">
+            <div class="lock">🔒</div>
+            <h2>🧁 Dessert Workshop</h2>
+            <p>
+                Create sweet treats, decorate desserts and unlock special recipes.
+            </p>
+            <button>Coming Soon</button>
+        </div>
+
+        <div class="zone-attraction locked">
+            <div class="lock">🔒</div>
+            <h2>⭐ Koo's Recipe Book</h2>
+            <p>
+                Learn our Chef Koo's special recipes here.
+            </p>
+            <button>Coming Soon</button>
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}
