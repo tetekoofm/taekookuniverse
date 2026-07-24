@@ -170,10 +170,10 @@ function displayLeaderboard(leaderboard) {
 
 // Post-game menu actions
 function goHome(){
-    window.location.href = '/';  // adjust as needed
+    window.location.href = '/';
 }
 function goGames(){
-    window.location.href = '/games';  // adjust as needed
+    window.location.href = '/themepark';
 }
 
 function playAgain(){

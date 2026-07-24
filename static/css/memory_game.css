@@ -1,0 +1,342 @@
+.memory-page{
+    min-height:80vh;
+    padding:160px 20px;
+    text-align:center;
+    background:radial-gradient(circle at top,#3b0066 0%,#090012 45%,#000 100%);
+}
+
+.memory-page h1{
+    font-family:Tangerine,cursive;
+    font-size:4rem;
+    color:#0FFF50;
+    text-shadow:0 0 15px #6a0dad;
+    margin:40px 0 8px;
+}
+
+#difficulty-select{
+    margin:25px auto;
+    padding:20px;
+    width:min(450px,90%);
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(216,167,255,.3);
+    border-radius:16px;
+    backdrop-filter:blur(8px);
+}
+
+#difficulty-select h2{
+    color:#d8a7ff;
+    font-size:1.5rem;
+    margin-bottom:15px;
+}
+
+#difficulty-select button{
+    width:160px;
+    margin:6px;
+    padding:10px 15px;
+    border:none;
+    border-radius:25px;
+    font-size:1.2rem;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s ease;
+}
+
+#difficulty-select button:first-of-type{
+    background:linear-gradient(135deg,#6a0dad,#b45cff);
+    color:white;
+}
+
+#difficulty-select button:last-of-type{
+    background:linear-gradient(135deg,#0fff50,#00a83b);
+    color:#000;
+}
+
+#difficulty-select button:hover{
+    transform:translateY(-3px);
+}
+
+#level-text{
+    color:#0fff50;
+    font-size:1.5rem;
+    margin:20px 0 15px;
+}
+
+#game-board{
+    width:min(700px,95%);
+    margin:30px auto;
+    display:grid;
+    gap:18px;
+}
+
+.memory-card{
+    aspect-ratio:1;
+    cursor:pointer;
+    perspective:1000px;
+}
+
+.memory-card>div{
+    position:absolute;
+    inset:0;
+    border-radius:15px;
+    backface-visibility:hidden;
+    transition:.5s;
+}
+
+.memory-card{
+    position:relative;
+}
+
+.memory-front{
+    background:
+        linear-gradient(135deg,#6a0dad,#2a003f);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:2rem;
+    box-shadow:
+        0 0 15px rgba(106,13,173,.8);
+}
+
+.memory-back{
+    transform:rotateY(180deg);
+    overflow:hidden;
+    border:2px solid #d8a7ff;
+}
+
+.memory-back img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.memory-card.flip .memory-front{
+    transform:rotateY(180deg);
+}
+
+.memory-card.flip .memory-back{
+    transform:rotateY(360deg);
+}
+
+#message div:first-child{
+    font-size:3rem;
+    margin-bottom:10px;
+}
+
+#message{
+    display:none;
+    width:min(550px,90%);
+    margin:30px auto;
+    padding:25px;
+    background:rgba(255,255,255,.08);
+    border:2px solid #0FFF50;
+    border-radius:18px;
+    color:#FFF;
+    font-size:1.8rem;
+    font-weight:700;
+    line-height:1.5;
+    text-align:center;
+    box-shadow:0 0 25px rgba(15,255,80,.35);
+    animation:memoryWin .8s ease;
+}
+
+@keyframes memoryWin{
+    0%{
+        opacity:0;
+        transform:scale(.8);
+    }
+    70%{
+        transform:scale(1.05);
+    }
+    100%{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+#message{
+    width:min(500px,90%);
+    padding:22px;
+    font-size:1.5rem;
+}
+
+#message h2{
+    font-size:2rem;
+}
+
+#message h3{
+    font-size:1.5rem;
+}
+
+#confetti-canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:9999;
+}
+
+/* ===========================
+   Tablets Landscape
+   =========================== */
+   @media screen and (min-width:769px) and (max-width:1370px) and (orientation:landscape){
+
+    .memory-page{
+        padding:45px;
+    }
+
+    .memory-page h1{
+        font-size:3rem;
+        margin:20px 0 8px;
+    }
+
+    #difficulty-select{
+        width:min(400px,90%);
+        padding:18px;
+    }
+
+    #difficulty-select h2{
+        font-size:1.3rem;
+    }
+
+    #difficulty-select button{
+        width:145px;
+        font-size:1rem;
+        padding:10px 12px;
+    }
+
+    #level-text{
+        font-size:1.3rem;
+        margin:12px 0;
+    }
+
+    #game-board{
+        width:min(620px,95%);
+        gap:15px;
+    }
+
+    .memory-front{
+        font-size:1.7rem;
+    }
+}
+
+/* ===========================
+   Tablets Portrait
+   =========================== */
+@media screen and (min-width:769px) and (max-width:1024px) and (orientation:portrait){
+
+    .memory-page h1{
+        font-size:3.5rem !important;
+        margin-top:15px;
+    }
+
+    #difficulty-select{
+        width:min(380px,92%);
+    }
+
+    #difficulty-select button{
+        width:160px;
+        font-size:1.2rem;
+    }
+
+    #level-text{
+        font-size:1.25rem;
+    }
+
+    #game-board{
+        width:min(560px,96%);
+        gap:14px;
+    }
+
+    .memory-front{
+        font-size:1.5rem;
+    }
+
+    #message{
+        width:min(450px,92%);
+        padding:20px;
+        font-size:1.35rem;
+    }
+
+    #message h2{
+        font-size:1.8rem;
+    }
+
+    #message h3{
+        font-size:1.5rem;
+    }
+}
+
+/* ===========================
+   Mobile
+   =========================== */
+@media screen and (max-width:768px){
+
+    .memory-page{
+        padding:35px 10px 25px;
+    }
+
+    .memory-page h1{
+        font-size:2rem;
+        margin:10px 0;
+    }
+
+    #difficulty-select{
+        width:85%;
+        padding:15px;
+    }
+
+    #difficulty-select h2{
+        font-size:1rem;
+        margin-bottom:12px;
+    }
+
+    #difficulty-select button{
+        width:125px;
+        padding:8px 10px;
+        font-size:0.7rem;
+        margin:5px;
+    }
+
+    #level-text{
+        font-size:0.8rem;
+        margin:10px 0;
+    }
+
+    #game-board{
+        width:100%;
+        gap:10px;
+    }
+
+    .memory-front{
+        font-size:1.25rem;
+    }
+
+    .memory-back,
+    .memory-front{
+        border-radius:10px;
+    }
+
+    #message{
+        width:95%;
+        padding:18px;
+        font-size:1.1rem;
+        border-radius:14px;
+        margin:20px auto;
+    }
+
+    #message h2{
+        font-size:1.2rem;
+        margin:8px 0;
+    }
+
+    #message h3{
+        font-size:1rem;
+        line-height:1.4;
+    }
+
+    #message div:first-child{
+        font-size:2.2rem !important;
+    }
+}

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, jsonify
+from flask import Blueprint, render_template, request, jsonify, current_app
 import os
 import json
 from models import db
@@ -82,7 +82,24 @@ def cook_with_taekook():
 
 @games_bp.route('/memorygame')
 def memory_game():
-    return render_template('games/13.08.memory_game.html')
+    folders = [
+        "images/home/pictureoftheday",
+        "images/brandambassador"
+    ]
+
+    images = []
+
+    for folder in folders:
+        image_folder = os.path.join(current_app.static_folder, folder)
+
+        if os.path.exists(image_folder):
+            for file in os.listdir(image_folder):
+                if file.lower().endswith((".jpg", ".jpeg", ".png", ".webp")):
+                    images.append("/static/" + folder + "/" + file)
+
+    print("Memory images:", len(images))
+
+    return render_template('games/13.08.memory_game.html', images=images)
 
 
 def load_leaderboard():
