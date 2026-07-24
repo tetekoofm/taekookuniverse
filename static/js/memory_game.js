@@ -3,8 +3,7 @@ const allImages = window.memoryImages || [];
 console.log("Memory images:", allImages);
 
 const difficulties = {
-    // easy:[3, 5, 8, 10, 12],
-    easy:[2],
+    easy:[3, 5, 8, 10, 12],
     difficult:[6, 8, 12, 15, 18]
 };
 
