@@ -1,0 +1,34 @@
+{% extends "00.base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/taekook_trivia.css') }}">
+{% endblock %}
+
+{% block title %}Taekook Trivia{% endblock %}
+
+{% block content %}
+<div class="trivia-game">
+    <div class="hero">
+        <h1 class="heading">TaeKook Trivia</h1>
+        <p class="caption">How many can you solve in 60 seconds?</p>
+    </div>
+    <div class="trivia-container">
+        <div class="hosts">
+            <div class="host-circle">🐻<span>Tae</span></div>
+            <p id="feedback"></p>
+            <div class="host-circle">🐰<span>Koo</span></div>
+        </div>
+        <div class="score-board">
+            <span>⭐ Score: <b id="score">0</b></span>
+            <span>🎯 Solved: <b id="question-count">0</b></span>
+            <span>⏱ Time: <b id="timer">60</b></span>
+        </div>
+        <div class="question-box">
+            <p id="trivia-question"></p>
+        </div>
+        <div id="answer-options" class="answer-options"></div>
+        <button id="skip-btn">Skip</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/taekook_trivia.js') }}"></script>
+{% endblock %}

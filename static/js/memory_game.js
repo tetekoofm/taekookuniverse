@@ -22,6 +22,8 @@ function startGame(mode){
     difficulty = mode;
     level = 0;
 
+    document.querySelector(".memory-game").classList.add("playing");
+
     document.getElementById("difficulty-select").style.display="none";
     document.getElementById("game-area").style.display="block";
 

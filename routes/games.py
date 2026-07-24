@@ -74,6 +74,9 @@ def guess_song_lyrics():
 def guess_song_scrambled():
     return render_template('games/13.04.guess_song_scrambled.html')
 
+@games_bp.route('/taekooktrivia')
+def taekooktrivia():
+    return render_template('games/taekook_trivia.html')
 
 @games_bp.route('/cookwithtaekook')
 def cook_with_taekook():

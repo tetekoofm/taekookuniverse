@@ -1,0 +1,42 @@
+[
+    {
+    "question":"Which BTS member released the album 'Layover'?",
+    "options":["Jungkook","Taehyung","Jimin","RM"],
+    "answer":"Taehyung"
+    },
+    {
+    "question":"Which album did Jungkook release in 2023?",
+    "options":["Layover","Golden","Indigo","FACE"],
+    "answer":"Golden"
+    },
+    {
+    "question":"Which song is from Jungkook's album 'Golden'?",
+    "options":["Love Me Again","Slow Dancing","Seven","Rainy Days"],
+    "answer":"Seven"
+    },
+    {
+    "question":"What is Taehyung's solo album called?",
+    "options":["Golden","Layover","Mono","Face"],
+    "answer":"Layover"
+    },
+    {
+    "question":"Which BTS member is known as the 'Golden Maknae'?",
+    "options":["Jimin","Jungkook","Taehyung","J-Hope"],
+    "answer":"Jungkook"
+    },
+    {
+    "question":"Which song features Jungkook and Latto?",
+    "options":["Seven","3D","Standing Next To You","Euphoria"],
+    "answer":"Seven"
+    },
+    {
+    "question":"Which Taehyung song is part of the 'Layover' album?",
+    "options":["Rainy Days","Dreamers","Still With You","3D"],
+    "answer":"Rainy Days"
+    },
+    {
+    "question":"Which member played the character Hansung in 'Hwarang'?",
+    "options":["Jin","Jungkook","Taehyung","RM"],
+    "answer":"Taehyung"
+    }
+    ]

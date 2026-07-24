@@ -1,16 +1,29 @@
-.memory-page{
+.memory-game{
     min-height:80vh;
     padding:160px 20px;
     text-align:center;
     background:radial-gradient(circle at top,#3b0066 0%,#090012 45%,#000 100%);
 }
 
-.memory-page h1{
-    font-family:Tangerine,cursive;
-    font-size:4rem;
-    color:#0FFF50;
-    text-shadow:0 0 15px #6a0dad;
-    margin:40px 0 8px;
+.hero{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.hero .heading{
+    font-family:"Tangerine",cursive;
+    font-size:5rem;
+    color:#FFD700;
+    text-shadow:0 0 15px #6A0DAD;
+    margin-bottom:0;
+    letter-spacing:2px;
+}
+
+.hero .caption{
+    font-size:1.3rem;
+    color:#d62828;
+    margin-top:-20px;
+    letter-spacing:1px;
 }
 
 #difficulty-select{
@@ -66,6 +79,10 @@
     margin:30px auto;
     display:grid;
     gap:18px;
+}
+
+.memory-game.playing{
+    padding:30px 20px;
 }
 
 .memory-card{
@@ -181,16 +198,23 @@
    Tablets Landscape
    =========================== */
    @media screen and (min-width:769px) and (max-width:1370px) and (orientation:landscape){
-
-    .memory-page{
-        padding:45px;
+    .memory-game{
+        width:min(820px,94%);
+        margin:0 auto;
+    }
+    
+    .hero{
+        margin-bottom:20px;
     }
 
-    .memory-page h1{
-        font-size:3rem;
-        margin:20px 0 8px;
+    .hero .heading{
+        font-size:4rem;
     }
 
+    .hero .caption{
+        font-size:1.1rem;
+    }
+    
     #difficulty-select{
         width:min(400px,90%);
         padding:18px;
@@ -226,9 +250,20 @@
    =========================== */
 @media screen and (min-width:769px) and (max-width:1024px) and (orientation:portrait){
 
-    .memory-page h1{
-        font-size:3.5rem !important;
-        margin-top:15px;
+    .memory-game{
+        width:min(820px,95%);
+    }
+
+    .hero{
+        margin:15px auto 20px;
+    }
+
+    .hero .heading{
+        font-size:3.5rem;
+    }
+
+    .hero .caption{
+        font-size:1.5rem;
     }
 
     #difficulty-select{
@@ -272,14 +307,21 @@
    Mobile
    =========================== */
 @media screen and (max-width:768px){
-
-    .memory-page{
-        padding:35px 10px 25px;
+    .memory-game{
+        width:96%;
     }
 
-    .memory-page h1{
+    .hero{
+        margin-bottom:20px;
+    }
+
+    .hero .heading{
         font-size:2rem;
-        margin:10px 0;
+        margin-bottom: 10px;
+    }
+
+    .hero .caption{
+        font-size:0.8rem;
     }
 
     #difficulty-select{
