@@ -391,8 +391,7 @@
     right:80px;
 }
 
-.seasonal-zone,
-.winter-zone{
+.seasonal-zone{
     bottom:140px;
     right:320px;
     left:auto;
@@ -415,8 +414,7 @@
 .music-zone:after,
 .mystery-zone:after,
 .challenge-zone:after,
-.seasonal-zone:after,
-.winter-zone:after{
+.seasonal-zone:after{
     content:"";
     position:absolute;
     width:300px;
@@ -453,8 +451,7 @@
     transform:rotate(-40deg);
 }
 
-.seasonal-zone:after,
-.winter-zone:after{
+.seasonal-zone:after{
     left:-160px;
     top:-50%;
     transform:rotate(40deg);
@@ -777,8 +774,7 @@
         left:220px;
     }
 
-    .seasonal-zone,
-    .winter-zone{
+    .seasonal-zone{
         top:auto !important;
         bottom:120px !important;
         right:270px;
@@ -801,7 +797,6 @@
     .music-zone:after,
     .mystery-zone:after,
     .seasonal-zone:after,
-    .winter-zone:after,
     .challenge-zone:after{
         opacity:.5;
         width:200px;
@@ -834,8 +829,7 @@
         transform:rotate(-40deg);
     }
 
-    .seasonal-zone:after,
-    .winter-zone:after{
+    .seasonal-zone:after{
         height:140px;
         left:-150px;
         top:-120px;
@@ -1058,8 +1052,7 @@
         left:100px;
     }
 
-    .seasonal-zone,
-    .winter-zone{
+    .seasonal-zone{
         top:auto !important;
         bottom:120px !important;
         right:100px;
@@ -1082,7 +1075,6 @@
     .music-zone:after,
     .mystery-zone:after,
     .seasonal-zone:after,
-    .winter-zone:after,
     .challenge-zone:after{
         opacity:.5;
         width:150px;
@@ -1115,8 +1107,7 @@
         transform:rotate(-35deg);
     }
 
-    .seasonal-zone:after,
-    .winter-zone:after{
+    .seasonal-zone:after{
         height:120px;
         left:-80px;
         top:-70px;
@@ -1358,8 +1349,7 @@ MOBILE
         left:40px;
     }
     
-    .seasonal-zone,
-    .winter-zone{
+    .seasonal-zone{
         bottom:240px;
         right:40px;
     }
@@ -1372,7 +1362,6 @@ MOBILE
     .music-zone:after,
     .mystery-zone:after,
     .seasonal-zone:after,
-    .winter-zone:after,
     .challenge-zone:after{
         opacity:.45;
         width:90px;
@@ -1409,8 +1398,7 @@ MOBILE
         transform:rotate(-45deg);
     }
 
-    .seasonal-zone:after,
-    .winter-zone:after{
+    .seasonal-zone:after{
         width:80px;
         height:70px;
         left:-65px;

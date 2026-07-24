@@ -7,7 +7,7 @@
     <div class="zone-background" style="background-image:url('{{ url_for('static', filename='images/games/themepark/challenge_zone.png') }}')"></div>
 
     <section class="zone-header">
-        <h1>🏆 Challenge Zone</h1>
+        <h1>🏆 Challenge Arena</h1>
         <!-- <p>
             Put your TaeKook knowledge to the test!
             Complete challenges and unlock your fan skills.
@@ -22,11 +22,11 @@
             <button onclick="location.href='/memorygame'">Play Now</button>
         </div>
 
-        <div class="zone-attraction locked">
-            <div class="lock">🔒</div>
+        <div class="zone-attraction">.
+            <img src="{{ url_for('static', filename='images/games/taekook_trivia.png') }}">
             <h2>🧠 TKU Trivia Arena</h2>
-            <p>Answer questions about Tae & Kook.</p>
-            <button>Coming Soon</button>
+            <p>Let's test to see how much you know about Tae & Kook.</p>
+            <button onclick="location.href='/taekooktrivia'">Play Now</button>
         </div>
 
         <div class="zone-attraction locked">

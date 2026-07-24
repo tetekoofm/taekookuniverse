@@ -1,42 +1,162 @@
 [
     {
-    "question":"Which BTS member released the album 'Layover'?",
-    "options":["Jungkook","Taehyung","Jimin","RM"],
-    "answer":"Taehyung"
+        "question":"What was the first Christmas song Tae sang on the 2019 SBS stage?",
+        "options":["Jingle Bells Rock","Oh Holy Night","Santa Claus Is Coming To Town","Last Christmas"],
+        "answer":"Jingle Bells Rock"
     },
     {
-    "question":"Which album did Jungkook release in 2023?",
-    "options":["Layover","Golden","Indigo","FACE"],
-    "answer":"Golden"
+        "question":"Which musical instrument lesson was Tae taking in middle school?",
+        "options":["Piano","Saxophone","Guitar","Violin"],
+        "answer":"Saxophone"
     },
     {
-    "question":"Which song is from Jungkook's album 'Golden'?",
-    "options":["Love Me Again","Slow Dancing","Seven","Rainy Days"],
-    "answer":"Seven"
+        "question":"What does Tae prefer to create first when making a song?",
+        "options":["Melody","Lyrics","Choreography","Concept"],
+        "answer":"Melody"
     },
     {
-    "question":"What is Taehyung's solo album called?",
-    "options":["Golden","Layover","Mono","Face"],
-    "answer":"Layover"
+        "question":"Tae is ambidextrous, but what was his dominant hand originally?",
+        "options":["Left","Right","Both equally","Neither"],
+        "answer":"Left"
     },
     {
-    "question":"Which BTS member is known as the 'Golden Maknae'?",
-    "options":["Jimin","Jungkook","Taehyung","J-Hope"],
-    "answer":"Jungkook"
+        "question":"According to Guinness World Records, how long did it take Tae to reach 1 million Instagram followers?",
+        "options":["43 minutes","1 hour","30 minutes","2 hours"],
+        "answer":"43 minutes"
     },
     {
-    "question":"Which song features Jungkook and Latto?",
-    "options":["Seven","3D","Standing Next To You","Euphoria"],
-    "answer":"Seven"
+        "question":"Whose artworks is Tae fond of?",
+        "options":["Vincent Van Gogh","Pablo Picasso","Claude Monet","Leonardo da Vinci"],
+        "answer":"Vincent Van Gogh"
     },
     {
-    "question":"Which Taehyung song is part of the 'Layover' album?",
-    "options":["Rainy Days","Dreamers","Still With You","3D"],
-    "answer":"Rainy Days"
+        "question":"In which concert did Tae coin the phrase 'Borahae'?",
+        "options":["3rd Muster","Love Yourself Concert","Wings Tour","Magic Shop"],
+        "answer":"3rd Muster"
     },
     {
-    "question":"Which member played the character Hansung in 'Hwarang'?",
-    "options":["Jin","Jungkook","Taehyung","RM"],
-    "answer":"Taehyung"
+        "question":"Who is Tae's inspiration in photography?",
+        "options":["Ante Badzim","Ansel Adams","Steve McCurry","David LaChapelle"],
+        "answer":"Ante Badzim"
+    },
+    {
+        "question":"What does 'V' signify?",
+        "options":["Victory","Voice","Vision","Vibe"],
+        "answer":"Victory"
+    },
+    {
+        "question":"Where is Tae's hometown?",
+        "options":["Daegu","Seoul","Busan","Gwangju"],
+        "answer":"Daegu"
+    },
+    {
+        "question":"What was Tae's favourite animated movie as a child?",
+        "options":["Oseam","Toy Story","Spirited Away","The Lion King"],
+        "answer":"Oseam"
+    },
+    {
+        "question":"What drama did Tae make his acting debut in?",
+        "options":["Hwarang","Itaewon Class","Dream High","Reply 1988"],
+        "answer":"Hwarang"
+    },
+    {
+        "question":"What manga does Tae like to read?",
+        "options":["One Piece","Naruto","Dragon Ball","Attack on Titan"],
+        "answer":"One Piece"
+    },
+    {
+        "question":"Which OST did Tae release for the K-drama 'Itaewon Class'?",
+        "options":["Sweet Night","Christmas Tree","Scenery","Winter Bear"],
+        "answer":"Sweet Night"
+    },
+    {
+        "question":"Which album features Tae's solo track 'Stigma'?",
+        "options":["Wings","Love Yourself: Tear","Map of the Soul: 7","BE"],
+        "answer":"Wings"
+    },
+    {
+        "question":"Which year did Tae release 'Winter Bear'?",
+        "options":["2019","2018","2020","2021"],
+        "answer":"2019"
+    },
+    {
+        "question":"When did Tae enlist for military service?",
+        "options":["11 December 2023","1 January 2024","12 December 2023","15 November 2023"],
+        "answer":"11 December 2023"
+    },
+    {
+        "question":"What rank did Tae's 'Layover' debut at on Billboard 200?",
+        "options":["#2","#1","#5","#10"],
+        "answer":"#2"
+    },
+    {
+        "question":"Where is Tae's 7 tattoo located?",
+        "options":["Left thigh","Right arm","Behind left ear","Shoulder"],
+        "answer":"Left thigh"
+    },
+    {
+        "question":"What was the first song Tae composed himself?",
+        "options":["Scenery","Winter Bear","Sweet Night","Blue & Grey"],
+        "answer":"Scenery"
+    },
+    {
+        "question":"Which brand is Tae a Global Ambassador for?",
+        "options":["Celine","Dior","Gucci","Louis Vuitton"],
+        "answer":"Celine"
+    },
+    {
+        "question":"What was the first Christmas song Jungkook sang on the 2019 SBS stage?",
+        "options":["Oh Holy Night","Jingle Bells Rock","Silent Night","Last Christmas"],
+        "answer":"Oh Holy Night"
+    },
+    {
+        "question":"Who was Jungkook a background dancer for before debut?",
+        "options":["Jo Kwon and GLAM","G-Dragon and BigBang","2AM and EXO","SHINee and Infinite"],
+        "answer":"Jo Kwon and GLAM"
+    },
+    {
+        "question":"Who inspired Jungkook to become a singer?",
+        "options":["G-Dragon","Rain","Taeyang","IU"],
+        "answer":"G-Dragon"
+    },
+    {
+        "question":"What was Jungkook's childhood ambition?",
+        "options":["Badminton player","Football player","Chef","Artist"],
+        "answer":"Badminton player"
+    },
+    {
+        "question":"What superpower does Jungkook wish to have?",
+        "options":["Talking to animals","Flying","Teleportation","Time travel"],
+        "answer":"Talking to animals"
+    },
+    {
+        "question":"How many music labels approached Jungkook before debut?",
+        "options":["7","3","5","10"],
+        "answer":"7"
+    },
+    {
+        "question":"What stage name was primarily planned for Jungkook before he changed his mind?",
+        "options":["Seagull","JK","Golden","Ian"],
+        "answer":"Seagull"
+    },
+    {
+        "question":"Which martial art does Jungkook hold a black belt in?",
+        "options":["Taekwondo","Judo","Karate","Hapkido"],
+        "answer":"Taekwondo"
+    },
+    {
+        "question":"What is Jungkook's video production studio called?",
+        "options":["Golden Closet Film","JK Studio","Golden Studio","Kookie Films"],
+        "answer":"Golden Closet Film"
+    },
+    {
+        "question":"Where is Jungkook's hometown?",
+        "options":["Busan","Daegu","Seoul","Ilsan"],
+        "answer":"Busan"
+    },
+    {
+        "question":"What does Jeon Jungkook mean?",
+        "options":["Pillar of the Nation","Strong Leader","Bright Star","Golden Voice"],
+        "answer":"Pillar of the Nation"
     }
-    ]
+]

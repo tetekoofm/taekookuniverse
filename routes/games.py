@@ -29,9 +29,9 @@ def music_zone():
 def mystery_zone():
     return render_template("games/zones/mystery_zone.html", themepark=True)
 
-@games_bp.route('/winter-zone')
-def winter_zone():
-    return render_template("games/zones/winter_zone.html", themepark=True)
+@games_bp.route('/seasonal-zone')
+def seasonal_zone():
+    return render_template("games/zones/seasonal_zone.html", themepark=True)
 
 @games_bp.route('/challenge-zone')
 def challenge_zone():
