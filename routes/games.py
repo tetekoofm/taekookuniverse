@@ -11,11 +11,11 @@ LEADERBOARD_FILE = "leaderboard.json"
 
 @games_bp.route('/games')
 def games():
-    return render_template('games/13.games.html', themepark=True)
+    return render_template('games/games.html', themepark=True)
 
 @games_bp.route("/themepark")
 def themepark():
-    return render_template('games/13.themepark.html', themepark=True)
+    return render_template('games/themepark.html', themepark=True)
 
 @games_bp.route('/food-zone')
 def food_zone():
@@ -36,10 +36,22 @@ def seasonal_zone():
 @games_bp.route('/challenge-zone')
 def challenge_zone():
     return render_template("games/zones/challenge_zone.html", themepark=True)
-    
-@games_bp.route('/santas_delivery_dash')
-def santas_delivery_dash():
-    return render_template('games/13.01.santas_delivery_dash.html')
+
+
+#====== GOOD ========
+@games_bp.route('/cookwithtaekook')
+def cook_with_taekook():
+    return render_template('games/cook_with_taekook.html')
+
+
+#====== MYSTERY ========
+@games_bp.route('/halloween-hunt')
+def halloween_hunt():
+    return render_template('games/halloween_hunt.html')
+
+@games_bp.route('/halloween-special')
+def halloween_special():
+    return render_template('games/halloween_special.html')
 
 @games_bp.app_context_processor
 def inject_halloween_flag():
@@ -50,73 +62,60 @@ def inject_halloween_flag():
         )
     }
 
-@games_bp.route('/halloween-hunt')
-def halloween_hunt():
-    return render_template('games/13.01.halloween_hunt.html')
-
-
-@games_bp.route('/halloween-special')
-def halloween_special():
-    return render_template('games/13.01.halloween_special.html')
-
-
+#====== MUSIC ========
 @games_bp.route('/guesswithemoji')
 def guess_song_emoji():
-    return render_template('games/13.02.guess_song_emoji.html')
-
+    return render_template('games/guess_song_emoji.html')
 
 @games_bp.route('/guesswithlyrics')
 def guess_song_lyrics():
-    return render_template('games/13.03.guess_song_lyrics.html')
-
+    return render_template('games/guess_song_lyrics.html')
 
 @games_bp.route('/guesswithscrambled')
 def guess_song_scrambled():
-    return render_template('games/13.04.guess_song_scrambled.html')
+    return render_template('games/guess_song_scrambled.html')
 
+
+#====== CHALLENGE ========
 @games_bp.route('/taekooktrivia')
 def taekooktrivia():
     return render_template('games/taekook_trivia.html')
 
-@games_bp.route('/cookwithtaekook')
-def cook_with_taekook():
-    return render_template('games/13.07.cook_with_taekook.html')
-
+@games_bp.route('/whosaidit')
+def whosaidit():
+    return render_template('games/whosaidit.html')
 
 @games_bp.route('/memorygame')
 def memory_game():
-    folders = [
-        "images/home/pictureoftheday",
-        "images/brandambassador"
-    ]
-
+    folders = ["images/home/pictureoftheday", "images/brandambassador"]
     images = []
-
     for folder in folders:
         image_folder = os.path.join(current_app.static_folder, folder)
-
         if os.path.exists(image_folder):
             for file in os.listdir(image_folder):
                 if file.lower().endswith((".jpg", ".jpeg", ".png", ".webp")):
                     images.append("/static/" + folder + "/" + file)
-
     print("Memory images:", len(images))
+    return render_template('games/memory_game.html', images=images)
 
-    return render_template('games/13.08.memory_game.html', images=images)
+
+#====== SEASONAL ========
+@games_bp.route('/santas_delivery_dash')
+def santas_delivery_dash():
+    return render_template('games/santas_delivery_dash.html')
 
 
+
+#====== LEADERBOARD ========
 def load_leaderboard():
     if not os.path.exists(LEADERBOARD_FILE):
         return {}
-
     with open(LEADERBOARD_FILE, 'r') as f:
         return json.load(f)
-
 
 def save_leaderboard(data):
     with open(LEADERBOARD_FILE, 'w') as f:
         json.dump(data, f, indent=2)
-
 
 @games_bp.route('/submit_score', methods=['POST'])
 @csrf.exempt
@@ -153,7 +152,6 @@ def submit_score():
         "success": True,
         "leaderboard": data[game]
     })
-
 
 @games_bp.route('/leaderboard/<game_name>')
 def get_leaderboard(game_name):

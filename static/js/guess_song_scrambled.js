@@ -81,8 +81,11 @@ function enableButtons(){
 // Check answer
 document.getElementById('check-answer-btn').addEventListener('click', ()=>{
     if(gameOver) return;
-    const userAnswer = document.getElementById('user-answer').value.trim().toLowerCase();
-    if(userAnswer === currentSong.toLowerCase()){
+    const normalize = str => str.toLowerCase().replace(/[^a-z0-9]/g,'');
+    const userAnswer = normalize(document.getElementById('user-answer').value);
+    const correctAnswer = normalize(currentSong);
+
+    if(userAnswer === correctAnswer.toLowerCase()){
         score++;
         document.getElementById('feedback').innerText = 'Correct! 🎉';
         launchConfetti();

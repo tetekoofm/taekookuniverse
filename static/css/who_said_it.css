@@ -1,0 +1,377 @@
+.who-said-game{
+    width:min(900px,95%);
+    margin:auto;
+    color:white;
+}
+
+.game-header{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.game-header h1{
+    font-family:"Tangerine",cursive;
+    font-size:5rem;
+    color:#FFD700;
+    text-shadow:0 0 15px #6A0DAD;
+    margin-bottom:0;
+    letter-spacing:2px;
+}
+
+.game-header p{
+    font-size:1.3rem;
+    color:#d62828;
+    margin-top:-20px;
+    letter-spacing:1px;
+}
+
+.game-status{
+    display:flex;
+    justify-content:space-around;
+    background:#000;
+    border:2px solid #FFD700;
+    border-radius:15px;
+    padding:15px;
+    margin-bottom:30px;
+    font-size:1.2rem;
+}
+
+.score span,.question-count span{
+    color:#0FFF50;
+}
+
+.quote-stage{
+    margin:0;
+}
+
+.quote-bubble{
+    min-height:180px;
+    width:100%;
+    border-radius:25px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+    text-align:center;
+    box-shadow:inset 0 0 25px #d62828;
+    position:relative;
+}
+
+.quote-icon{
+    position:absolute;
+    top:-25px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:2.5rem;
+}
+
+#quoteText{
+    font-size:1.8rem;
+    line-height:1.5;
+    color:white;
+}
+
+.character-choice{
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    margin:30px 0;
+}
+
+.character-btn{
+    width:120px;
+    height:100px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    border-radius:25px;
+    background:#000;
+    font-size:1.2rem;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.tae-btn{
+    color:#0FFF50;
+    border-color:#0FFF50;
+    box-shadow:inset 0 0 25px #0FFF50;
+}
+
+.koo-btn{
+    color:#6A0DAD;
+    border-color:#6A0DAD;
+    box-shadow:inset 0 0 25px #6A0DAD;
+}
+
+.character-icon{
+    font-size:2rem;
+    margin-bottom:8px;
+}
+
+.character-btn:hover{
+    transform:scale(1.05);
+}
+
+.result-area{
+    display:none;
+    text-align:center;
+    min-height:40px;
+    margin-top:20px;
+    color:#FFD700;
+    font-size:1.2rem;
+}
+
+.result-area.show{
+    animation:resultPop .3s ease;
+}
+
+@keyframes resultPop{
+    from{
+        opacity:0;
+        transform:scale(.8);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+#resultText{
+    font-size:1.2rem;
+    margin-bottom:20px;
+}
+
+.next-btn,#restartBtn{
+    display:block;
+    margin:auto;
+    width:150px;
+    height:50px;
+    border-radius:25px;
+    border:none;
+    background:#FFD700;
+    color:#000;
+    font-size:1.1rem;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.next-btn:hover,#restartBtn:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 15px #FFD700;
+}
+
+.game-complete{
+    margin-top:40px;
+    padding:35px;
+    border-radius:30px;
+    background:linear-gradient(145deg,#12001f,#050505);
+    border:2px solid #FFD700;
+    text-align:center;
+}
+
+.game-complete h2{
+    font-size:2.5rem;
+    color:#FFD700;
+}
+
+.hidden{
+    display:none!important;
+}
+
+@media screen and (min-width:769px) and (max-width:1024px) and (orientation:portrait){
+
+    .who-said-game{
+        width:min(820px,94%);
+    }
+
+    .game-header{
+        margin-bottom:20px;
+    }
+
+    .game-header h1{
+        font-size:4rem;
+    }
+
+    .game-header p{
+        font-size:1.5rem;
+    }
+
+    .game-status{
+        padding:12px;
+        font-size:1rem;
+        margin-bottom:20px;
+    }
+
+    .quote-bubble{
+        min-height:140px;
+        padding:20px;
+    }
+
+    #quoteText{
+        font-size:1.5rem;
+    }
+
+    .character-choice{
+        gap:15px;
+        margin:20px 0;
+    }
+
+    .character-btn{
+        min-height:60px;
+        font-size:1rem;
+    }
+
+    .character-icon{
+        font-size:1.5rem;
+    }
+
+    .next-btn,#restartBtn{
+        width:130px;
+        height:45px;
+        font-size:1rem;
+    }
+
+    .result-area{
+        font-size:1rem;
+    }
+}
+
+@media (min-width:1024px) and (max-width:1200px) and (orientation:landscape){
+
+    .who-said-game{
+        width:min(820px,95%);
+    }
+
+    .game-header{
+        margin:15px auto 20px;
+    }
+
+    .game-header h1{
+        font-size:3.5rem;
+    }
+
+    .game-header p{
+        font-size:1rem;
+    }
+
+    .game-status{
+        padding:10px;
+        margin-bottom:18px;
+        font-size:.95rem;
+    }
+
+    .quote-bubble{
+        min-height:120px;
+        padding:20px;
+    }
+
+    #quoteText{
+        font-size:1.2rem;
+    }
+
+    .character-choice{
+        gap:12px;
+        margin:18px 0;
+    }
+
+    .character-btn{
+        min-height:55px;
+        font-size:.95rem;
+    }
+
+    .character-icon{
+        font-size:1.3rem;
+    }
+
+    .next-btn,#restartBtn{
+        width:120px;
+        height:42px;
+        font-size:.9rem;
+    }
+
+    .result-area{
+        font-size:1rem;
+        margin-top:10px;
+    }
+}
+
+@media screen and (max-width:768px){
+
+    .who-said-game{
+        width:96%;
+    }
+
+    .game-header{
+        margin-bottom:20px;
+    }
+
+    .game-header h1{
+        font-size:2rem;
+        margin-bottom:10px;
+    }
+
+    .game-header p{
+        font-size:.8rem;
+    }
+
+    .game-status{
+        padding:10px;
+        font-size:.75rem;
+        margin-bottom:15px;
+        gap:8px;
+        text-align:center;
+    }
+
+    .quote-bubble{
+        min-height:80px;
+        padding:15px;
+        border-radius:18px;
+    }
+
+    #quoteText{
+        font-size:.8rem;
+        line-height:1.4;
+    }
+
+    .quote-icon{
+        font-size:1.8rem;
+    }
+
+    .character-choice{
+        gap:5px;
+        margin:15px 0;
+    }
+
+    .character-btn{
+        min-height:32px;
+        font-size:.7rem;
+    }
+
+    .character-icon{
+        font-size:1rem;
+    }
+
+    .next-btn,#restartBtn{
+        width:80px;
+        height:32px;
+        font-size:.75rem;
+    }
+
+    .result-area{
+        font-size:.8rem;
+        margin-top:20px;
+    }
+
+    #resultText{
+        font-size:.8rem;
+    }
+
+    .game-complete{
+        padding:20px;
+    }
+
+    .game-complete h2{
+        font-size:1.8rem;
+    }
+}

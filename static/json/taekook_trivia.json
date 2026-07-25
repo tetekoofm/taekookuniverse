@@ -158,5 +158,35 @@
         "question":"What does Jeon Jungkook mean?",
         "options":["Pillar of the Nation","Strong Leader","Bright Star","Golden Voice"],
         "answer":"Pillar of the Nation"
+    },
+    {
+        "question":"For which vocal cover did Jungkook use a photo of himself taken by his V hyung?",
+        "options":["Nothing Like Us","10,000 Hours","2U","Paper Hearts"],
+        "answer":"2U"
+    },
+    {
+        "question":"Where did Jungkook want to take Taehyung after getting his driver's license?",
+        "options":["Camping","Desert","Beach","Mountains"],
+        "answer":"Beach"
+    },
+    {
+        "question":"According to Tae, what would he do to make Jungkook happy if he had only one hour?",
+        "options":["Dance","Play video games","Do skits","Eat together"],
+        "answer":"Do skits"
+    },
+    {
+        "question":"According to V, which part of Jungkook's body is most likely to draw attention besides his muscles?",
+        "options":["Eyes","Thighs","Lips","Hair"],
+        "answer":"Eyes"
+    },
+    {
+        "question":"What name did Taehyung give Jungkook when he wore a Pikachu onesie?",
+        "options":["Pikakoochu","Kookachu","Jungkachu","Pikajung"],
+        "answer":"Kookachu"
+    },
+    {
+        "question":"During which MV shooting was Taehyung locked outside, making Jungkook laugh a lot?",
+        "options":["Spring Day","Blood Sweat & Tears","ON","Not Today"],
+        "answer":"Not Today"
     }
 ]
