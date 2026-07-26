@@ -1,0 +1,66 @@
+{% extends "00.base.html" %}
+
+{% block title %}Puzzle Challenge{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/puzzle.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="puzzle-game">
+    <section class="hero">
+        <h1 class="heading">🧩 Puzzle Challenge</h1>
+        <p class="caption">Swap the pieces and complete the picture!</p>
+    </section>
+    <div id="startScreen" class="start-screen">
+        <h2>Select Difficulty</h2>
+        <div class="difficulty-buttons">
+            <button class="difficulty-btn active" data-size="3">Easy 3×3</button>
+            <button class="difficulty-btn" data-size="4">Medium 4×4</button>
+            <button class="difficulty-btn" data-size="5">Hard 5×5</button>
+        </div>
+        <button id="startBtn" class="start-btn">Start Puzzle</button>
+    </div>
+    <div id="gameScreen" class="game-screen hidden">
+        <div class="game-top">
+            <div class="stat-box">
+                <span>Score</span>
+                <strong id="score">0</strong>
+            </div>
+            <div class="stat-box">
+                <span>Completed</span>
+                <strong id="completedCount">0</strong>
+            </div>
+            <div class="stat-box">
+                <span>Time</span>
+                <strong id="timer">00:00</strong>
+            </div>
+        </div>
+        <div id="puzzleBoard" class="puzzle-board"></div>
+        <button id="exitBtn" class="exit-btn">Exit</button>
+    </div>
+    <div id="completeScreen" class="complete-overlay hidden">
+        <div class="complete-popup">
+            <div class="complete-icon">🎉</div>
+            <h2>Puzzle Complete!</h2>
+            <p>You did it!</p>
+            <div class="results">
+                <div class="result-item">
+                    <span>Score</span>
+                    <strong id="completeScore">0</strong>
+                </div>
+                <div class="result-item">
+                    <span>Time</span>
+                    <strong id="completeTime">00:00</strong>
+                </div>
+            </div>
+            <button id="nextPuzzleBtn" class="start-btn">Next Puzzle</button>
+            <button id="exitBtn" class="exit-btn">Exit</button>
+        </div>
+    </div>
+</div>
+<script>
+const puzzleImages={{ images|tojson }};
+</script>
+<script src="{{ url_for('static', filename='js/puzzle.js') }}"></script>
+{% endblock %}

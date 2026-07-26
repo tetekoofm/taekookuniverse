@@ -29,10 +29,38 @@
             <button onclick="location.href='/taekooktrivia'">Play Now</button>
         </div>
 
-        <div class="zone-attraction locked">
-            <div class="lock">🔒</div>
+        <div class="zone-attraction">.
+            <img src="{{ url_for('static', filename='images/games/puzzle_challenge.png') }}">
+            <h2>🧩 Puzzle Challenge</h2>
+            <p>Put the pieces together and complete the picture!</p>
+            <button onclick="location.href='/taekooktrivia'">Play Now</button>
+        </div>
+
+        <div class="zone-attraction">
+            <img src="{{ url_for('static', filename='images/games/who_said_it.png') }}">
             <h2>💬 Who Said It? Tae or Koo?</h2>
             <p>Guess who said the quote and see how well you know our duo.</p>
+            <button onclick="location.href='/whosaidit'">Play Now</button>
+        </div>
+
+        <div class="zone-attraction locked">
+            <div class="lock">🔒</div>
+            <h2>🔤 Crossword</h2>
+            <p>Connect the letters. Complete the grid.</p>
+            <button>Coming Soon</button>
+        </div>
+        
+        <div class="zone-attraction locked">
+            <div class="lock">🔒</div>
+            <h2>🔎 Word Search</h2>
+            <p>Find hidden words in the puzzle.</p>
+            <button>Coming Soon</button>
+        </div>
+
+        <div class="zone-attraction locked">
+            <div class="lock">🔒</div>
+            <h2>⚡ Reaction Speed</h2>
+            <p>Tap fast and test your reflexes.</p>
             <button>Coming Soon</button>
         </div>
     </section>

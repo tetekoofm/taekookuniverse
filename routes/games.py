@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, request, jsonify, current_app
-import os
-import json
+import os, json, random
 from models import db
 from extensions import csrf
 
@@ -98,6 +97,22 @@ def memory_game():
     print("Memory images:", len(images))
     return render_template('games/memory_game.html', images=images)
 
+@games_bp.route('/puzzle')
+def puzzle():
+    folders=["images/home/pictureoftheday","images/brandambassador"]
+    images=[]
+
+    for folder in folders:
+        image_folder=os.path.join(current_app.static_folder,folder)
+
+        if os.path.exists(image_folder):
+            for file in os.listdir(image_folder):
+                if file.lower().endswith((".jpg",".jpeg",".png",".webp")):
+                    images.append("/static/"+folder+"/"+file)
+
+    random.shuffle(images)
+
+    return render_template("games/puzzle.html",images=images)
 
 #====== SEASONAL ========
 @games_bp.route('/santas_delivery_dash')
