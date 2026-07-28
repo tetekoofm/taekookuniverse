@@ -223,6 +223,7 @@
     border-radius:18px;
     padding:20px;
     border:1px solid #e5b63f;
+    margin-bottom:25px;
 }
 #recipeDetails h3{
     color:#8b6500;
@@ -284,51 +285,184 @@
         opacity:.4;
     }
 }
-@media(max-width:900px){
-    .kitchen-room{
-        min-height:650px;
-    }
-    .recipe-chest{
-        width:92%;
-    }
-    .chest-lid h2{
-        font-size:2.8rem;
-    }
-    #recipeDetails h2{
-        font-size:3rem;
-    }
-}
-@media(max-width:768px){
+
+@media (min-width:769px) and (max-width:1023px) and (orientation:portrait){
     .golden-kitchen{
-        padding:20px 12px;
+        padding:30px 15px;
+    }
+    .kitchen-header{
+        margin-bottom:40px;
     }
     .kitchen-header h1{
-        font-size:3.3rem;
+        font-size:3.8rem;
     }
     .kitchen-header p{
-        font-size:1rem;
+        font-size:1.1rem;
+    }
+    .kitchen-room{
+        min-height:700px;
+        padding-top:50px;
+    }
+    .recipe-chest{
+        width:620px;
+        margin-top:-70px;
     }
     .chest-lid{
-        padding:25px;
+        padding:30px;
     }
     .chest-lid h2{
-        font-size:2.3rem;
+        font-size:3rem;
+    }
+    .recipe-menu{
+        padding:15px;
+    }
+    .category-header{
+        padding:14px 18px;
+        font-size:1.05rem;
+    }
+    .recipe-modal{
+        padding:100px 15px 30px;
     }
     .recipe-card{
-        padding:25px;
+        width:90%;
+        padding:30px;
+    }
+    #recipeDetails img{
+        width:80%;
+        height:250px;
+    }
+    .recipe-columns{
+        grid-template-columns:1fr;
+        gap:20px;
     }
 }
-@media(max-width:480px){
+@media (min-width:1024px) and (max-width:1200px) and (orientation:landscape){
+    .golden-kitchen{
+        padding:30px 20px;
+    }
+    .kitchen-header{
+        margin-bottom:45px;
+    }
+    .kitchen-header h1{
+        font-size:4rem;
+    }
     .kitchen-room{
-        min-height:500px;
+        min-height:650px;
+        padding-top:60px;
+    }
+    .recipe-chest{
+        width:650px;
+        margin-top:-80px;
+    }
+    .chest-lid h2{
+        font-size:3.2rem;
+    }
+    .recipe-menu{
+        padding:18px;
+    }
+    .recipe-modal{
+        padding:100px 20px 30px;
+    }
+    .recipe-card{
+        width:850px;
+        padding:35px;
+    }
+    #recipeDetails img{
+        width:65%;
+        height:260px;
+    }
+    .recipe-columns{
+        grid-template-columns:1fr 1fr;
+        gap:25px;
+    }
+}
+@media screen and (max-width:768px){
+    .golden-kitchen{
+        padding:20px 10px;
+    }
+    .kitchen-header{
+        margin-bottom:30px;
+    }
+    .kitchen-header h1{
+        font-size:2rem;
+        margin-bottom:-3px;
+    }
+    .kitchen-header p{
+        font-size:.8rem;
+    }
+    .kitchen-room{
+        min-height:600px;
+        padding-top:40px;
+    }
+    .recipe-chest{
+        width:95%;
+        margin-top:-40px;
+    }
+    .chest-lid{
+        padding:22px;
+        border-width:4px;
+    }
+    .sparkles{
+        font-size:1.1rem;
     }
     .chest-lid h2{
         font-size:2rem;
     }
+    .chest-lid p{
+        font-size:.8rem;
+    }
+    .recipe-menu{
+        padding:12px;
+    }
+    .recipe-category{
+        margin-bottom:12px;
+    }
     .category-header{
+        padding:12px 15px;
         font-size:1rem;
     }
+    .recipe-item{
+        padding:12px 15px;
+        font-size:.8rem !important;
+    }
+    .recipe-modal{
+        padding:90px 10px 20px;
+    }
+    .recipe-card{
+        width:100%;
+        padding:20px;
+        border-radius:18px;
+    }
+    .close-btn{
+        width:36px;
+        height:36px;
+        top:12px;
+        right:12px;
+    }
     #recipeDetails h2{
-        font-size:2.5rem;
+        font-size:1.5rem !important;
+        padding:20px 35px 10px;
+    }
+    #recipeDetails img{
+        width:100%;
+        height:200px;
+    }
+    .recipe-info{
+        flex-direction:column;
+        align-items:center;
+        gap:10px;
+    }
+    .recipe-columns{
+        grid-template-columns:1fr;
+        gap:15px;
+    }
+    .recipe-section{
+        padding:15px;
+    }
+    .memory-box{
+        padding:15px;
+    }
+    .achievement{
+        font-size:1rem;
     }
 }
