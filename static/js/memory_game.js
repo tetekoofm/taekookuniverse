@@ -225,3 +225,7 @@ function animateConfetti(){
 
     requestAnimationFrame(animateConfetti);
 }
+
+document.getElementById("exitBtn").onclick=()=>{
+    window.location.href="/challenge-zone";
+};

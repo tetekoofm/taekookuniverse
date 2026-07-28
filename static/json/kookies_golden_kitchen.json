@@ -1,0 +1,581 @@
+[
+    {
+        "id": "jungkook_egg_toastie",
+        "name": "Jungkook's Egg Toastie",
+        "icon": "🍳",
+        "category": "Breakfast",
+        "difficulty": "Easy",
+        "time": "15 minutes",
+        "image": "egg_toastie.png",
+        "status": "published",
+        "memory": {
+            "title": "Golden Kitchen Memory",
+            "description": "A cozy recipe moment shared by Jungkook with fans."
+        },
+        "description": "A simple and comforting toast recipe inspired by Jungkook's kitchen moments.",
+        "ingredients": [
+            {
+                "name": "Egg",
+                "icon": "🥚",
+                "image": "egg.png",
+                "quantity": "2"
+            },
+            {
+                "name": "Bread",
+                "icon": "🍞",
+                "image": "bread.png",
+                "quantity": "2 slices"
+            },
+            {
+                "name": "Butter",
+                "icon": "🧈",
+                "image": "butter.png",
+                "quantity": "1 tablespoon"
+            }
+        ],
+        "steps": [
+            {
+                "number": 1,
+                "addIngredients": [
+                    "Egg"
+                ],
+                "instruction": "Prepare the egg mixture.",
+                "tip": "Mix gently for a softer texture."
+            },
+            {
+                "number": 2,
+                "addIngredients": [
+                    "Butter",
+                    "Bread"
+                ],
+                "instruction": "Cook the egg and toast the bread.",
+                "tip": "Keep the heat gentle."
+            },
+            {
+                "number": 3,
+                "addIngredients": [],
+                "instruction": "Assemble the toast and enjoy.",
+                "tip": "Serve warm."
+            }
+        ],
+        "kookie_notes": [
+            "Simple recipes can become special with love.",
+            "Adjust ingredients to your own taste."
+        ],
+        "army_tips": [
+            "Try adding your favorite toppings.",
+            "Share your recreation with fellow ARMY."
+        ],
+        "achievement": {
+            "name": "Golden Breakfast Chef",
+            "icon": "🥚"
+        }
+    },
+    {
+        "id": "uni_cream_shrimp_pasta",
+        "name": "Uni Cream Shrimp Pasta",
+        "icon": "🍝",
+        "category": "Main Dishes",
+        "difficulty": "Medium",
+        "time": "40 minutes",
+        "image": "uni_cream_shrimp_pasta.png",
+        "status": "published",
+        "memory": {
+            "title": "Chef Koo Special",
+            "description": "A special pasta creation inspired by Jungkook's love for experimenting in the kitchen."
+        },
+        "description": "A creamy seafood pasta with uni-inspired flavors and a rich buttery sauce.",
+        "appliance": {
+            "name": "Pan Pot",
+            "image": "pan_pot.png"
+        },
+        "ingredients": [
+            {
+                "name": "Pasta",
+                "icon": "🍝",
+                "image": "pasta.png",
+                "quantity": "1 serving"
+            },
+            {
+                "name": "Shrimp",
+                "icon": "🍤",
+                "image": "shrimp.png",
+                "quantity": "6 pieces"
+            },
+            {
+                "name": "Garlic",
+                "icon": "🧄",
+                "image": "garlic.png",
+                "quantity": "2 cloves"
+            },
+            {
+                "name": "Uni soy sauce",
+                "icon": "🧂",
+                "image": "uni_sauce.png",
+                "quantity": "2 tablespoons"
+            },
+            {
+                "name": "Heavy cream",
+                "icon": "🥛",
+                "image": "cream.png",
+                "quantity": "1 cup"
+            },
+            {
+                "name": "Butter",
+                "icon": "🧈",
+                "image": "butter.png",
+                "quantity": "1 tablespoon"
+            },
+            {
+                "name": "Sugar",
+                "icon": "🍬",
+                "image": "sugar.png",
+                "quantity": "1 teaspoon"
+            },
+            {
+                "name": "Cheese",
+                "icon": "🧀",
+                "image": "cheese.png",
+                "quantity": "As needed"
+            },
+            {
+                "name": "Green onion",
+                "icon": "🧅",
+                "image": "green_onion.png",
+                "quantity": "For garnish"
+            }
+        ],
+        "steps": [
+            {
+                "number": 1,
+                "addIngredients": [
+                    "Green onion",
+                    "Shrimp"
+                ],
+                "instruction": "Infuse oil with green onion and shrimp heads.",
+                "tip": "Build flavor slowly for a richer sauce."
+            },
+            {
+                "number": 2,
+                "addIngredients": [
+                    "Pasta"
+                ],
+                "instruction": "Boil pasta until cooked.",
+                "tip": "Keep pasta slightly firm."
+            },
+            {
+                "number": 3,
+                "addIngredients": [
+                    "Garlic",
+                    "Uni soy sauce",
+                    "Heavy cream",
+                    "Butter",
+                    "Sugar"
+                ],
+                "instruction": "Prepare the creamy uni sauce.",
+                "tip": "Mix gently to keep the sauce smooth."
+            },
+            {
+                "number": 4,
+                "addIngredients": [],
+                "instruction": "Mix pasta into the sauce and toss well.",
+                "tip": "Coat every strand evenly."
+            },
+            {
+                "number": 5,
+                "addIngredients": [
+                    "Cheese",
+                    "Green onion"
+                ],
+                "instruction": "Top with cheese and garnish with green onion.",
+                "tip": "Serve immediately."
+            },
+            {
+                "number": 6,
+                "addIngredients": [],
+                "instruction": "Serve hot.",
+                "tip": "Enjoy your Chef Koo creation."
+            }
+        ],
+        "kookie_notes": [
+            "Experimenting with flavors makes cooking fun.",
+            "A special sauce can transform a simple dish."
+        ],
+        "army_tips": [
+            "Try adjusting the creaminess to your preference."
+        ],
+        "achievement": {
+            "name": "Chef Koo Pasta Master",
+            "icon": "🍝"
+        }
+    },
+    {
+        "id": "bulguri_ramen",
+        "name": "Bulguri Ramen",
+        "icon": "🍜",
+        "category": "Noodles",
+        "difficulty": "Easy",
+        "time": "15 minutes",
+        "image": "bulguri_ramen.png",
+        "status": "published",
+        "memory": {
+            "title": "Late Night Ramen Moment",
+            "description": "A spicy noodle creation inspired by Jungkook's love for ramen."
+        },
+        "description": "A spicy and creamy ramen combination featuring Buldak and Neoguri flavors.",
+        "appliance": {
+            "name": "Pan Pot",
+            "image": "pan_pot.png"
+        },
+        "ingredients": [
+            {
+                "name": "Noodles",
+                "icon": "🍜",
+                "image": "noodles.png",
+                "quantity": "1 pack"
+            },
+            {
+                "name": "Buldak liquid sauce",
+                "icon": "🌶️",
+                "image": "buldak_sauce.png",
+                "quantity": "1 packet"
+            },
+            {
+                "name": "Neoguri garnish",
+                "icon": "🦀",
+                "image": "neoguri_garnish.png",
+                "quantity": "1 packet"
+            },
+            {
+                "name": "Water",
+                "icon": "💧",
+                "image": "water.png",
+                "quantity": "As needed"
+            },
+            {
+                "name": "Sesame",
+                "icon": "🧂",
+                "image": "sesame.png",
+                "quantity": "For topping"
+            },
+            {
+                "name": "Mayo",
+                "icon": "🥄",
+                "image": "mayo.png",
+                "quantity": "1 spoon"
+            },
+            {
+                "name": "Seaweed",
+                "icon": "🌿",
+                "image": "seaweed.png",
+                "quantity": "For topping"
+            }
+        ],
+        "steps": [
+            {
+                "number": 1,
+                "addIngredients": [
+                    "Water"
+                ],
+                "instruction": "Add water to the pan and bring to boil.",
+                "tip": "Use enough water for the noodles."
+            },
+            {
+                "number": 2,
+                "addIngredients": [
+                    "Buldak liquid sauce",
+                    "Neoguri garnish"
+                ],
+                "instruction": "Add sauce and garnish.",
+                "tip": "Adjust spice level if needed."
+            },
+            {
+                "number": 3,
+                "addIngredients": [
+                    "Noodles"
+                ],
+                "instruction": "Add noodles and cook until soft.",
+                "tip": "Avoid overcooking."
+            },
+            {
+                "number": 4,
+                "addIngredients": [],
+                "instruction": "Reduce broth until thick.",
+                "tip": "Let flavors concentrate."
+            },
+            {
+                "number": 5,
+                "addIngredients": [
+                    "Sesame",
+                    "Mayo",
+                    "Seaweed"
+                ],
+                "instruction": "Top with sesame, mayo and seaweed.",
+                "tip": "Mix before eating."
+            },
+            {
+                "number": 6,
+                "addIngredients": [],
+                "instruction": "Serve hot.",
+                "tip": "Enjoy your ramen creation."
+            }
+        ],
+        "kookie_notes": [
+            "Simple ramen can become a signature dish.",
+            "Spicy food is even better with your own twist."
+        ],
+        "army_tips": [
+            "Add toppings like egg or vegetables."
+        ],
+        "achievement": {
+            "name": "Ramen Explorer",
+            "icon": "🍜"
+        }
+    },
+    {
+        "id": "bulmayo_perilla_oil_makguksu",
+        "name": "BulMayo Perilla Oil Makguksu",
+        "icon": "🍜",
+        "category": "Noodles",
+        "difficulty": "Medium",
+        "time": "25 minutes",
+        "image": "bulmayo_perilla_oil_makguksu.png",
+        "status": "published",
+        "memory": {
+            "title": "Chef Koo's Noodle Creation",
+            "description": "A refreshing noodle dish inspired by Jungkook's creative cooking style."
+        },
+        "description": "A flavorful buckwheat noodle dish with perilla oil, spicy sauce, mayo and fresh toppings.",
+        "appliance": {
+            "name": "Pan Pot",
+            "image": "pan_pot.png"
+        },
+        "ingredients": [
+            {
+                "name": "Buckwheat noodles",
+                "icon": "🍜",
+                "image": "buckwheat_noodles.png",
+                "quantity": "1 serving"
+            },
+            {
+                "name": "Perilla oil",
+                "icon": "🫒",
+                "image": "perilla_oil.png",
+                "quantity": "2 tablespoons"
+            },
+            {
+                "name": "Cham sauce",
+                "icon": "🌶️",
+                "image": "cham_sauce.png",
+                "quantity": "1 tablespoon"
+            },
+            {
+                "name": "Buldak sauce",
+                "icon": "🌶️",
+                "image": "buldak_sauce.png",
+                "quantity": "1 tablespoon"
+            },
+            {
+                "name": "Buldak mayo",
+                "icon": "🥄",
+                "image": "buldak_mayo.png",
+                "quantity": "1 spoon"
+            },
+            {
+                "name": "Egg yolk",
+                "icon": "🥚",
+                "image": "egg_yolk.png",
+                "quantity": "1"
+            },
+            {
+                "name": "Seaweed flakes",
+                "icon": "🌿",
+                "image": "seaweed_flakes.png",
+                "quantity": "For topping"
+            }
+        ],
+        "steps": [
+            {
+                "number": 1,
+                "addIngredients": [
+                    "Buckwheat noodles"
+                ],
+                "instruction": "Boil buckwheat noodles.",
+                "tip": "Cook until the noodles are tender."
+            },
+            {
+                "number": 2,
+                "addIngredients": [],
+                "instruction": "Rinse noodles with cold water.",
+                "tip": "This keeps the noodles fresh and chewy."
+            },
+            {
+                "number": 3,
+                "addIngredients": [
+                    "Perilla oil",
+                    "Cham sauce",
+                    "Buldak sauce"
+                ],
+                "instruction": "Mix the sauces together.",
+                "tip": "Balance the flavors before adding noodles."
+            },
+            {
+                "number": 4,
+                "addIngredients": [
+                    "Egg yolk"
+                ],
+                "instruction": "Add noodles and egg yolk, then mix well.",
+                "tip": "Mix until creamy."
+            },
+            {
+                "number": 5,
+                "addIngredients": [
+                    "Buldak mayo",
+                    "Seaweed flakes"
+                ],
+                "instruction": "Top with mayo and seaweed flakes.",
+                "tip": "Add toppings just before serving."
+            },
+            {
+                "number": 6,
+                "addIngredients": [],
+                "instruction": "Serve hot.",
+                "tip": "Enjoy your Chef Koo noodle creation."
+            }
+        ],
+        "kookie_notes": [
+            "Different sauces can create completely new flavors.",
+            "Cooking is about experimenting and having fun."
+        ],
+        "army_tips": [
+            "Adjust the spice level based on your preference."
+        ],
+        "achievement": {
+            "name": "Noodle Creator",
+            "icon": "🍜"
+        }
+    },
+    {
+        "id": "scrambled_egg_toast_with_jam",
+        "name": "Scrambled Egg Toast with Jam",
+        "icon": "🍞",
+        "category": "Breakfast",
+        "difficulty": "Easy",
+        "time": "20 minutes",
+        "image": "scrambled_egg_toast.png",
+        "status": "published",
+        "memory": {
+            "title": "Morning Kitchen Moment",
+            "description": "A cozy breakfast combination inspired by Jungkook's simple and comforting meals."
+        },
+        "description": "A sweet and savory toast recipe combining fluffy scrambled eggs with strawberry jam.",
+        "appliance": {
+            "name": "Toaster",
+            "image": "toaster.png"
+        },
+        "ingredients": [
+            {
+                "name": "Bread",
+                "icon": "🍞",
+                "image": "bread.png",
+                "quantity": "2 slices"
+            },
+            {
+                "name": "Eggs",
+                "icon": "🥚",
+                "image": "eggs.png",
+                "quantity": "2"
+            },
+            {
+                "name": "Milk",
+                "icon": "🥛",
+                "image": "milk.png",
+                "quantity": "2 tablespoons"
+            },
+            {
+                "name": "Salt",
+                "icon": "🧂",
+                "image": "salt.png",
+                "quantity": "A pinch"
+            },
+            {
+                "name": "Pepper",
+                "icon": "⚫",
+                "image": "pepper.png",
+                "quantity": "A pinch"
+            },
+            {
+                "name": "Butter",
+                "icon": "🧈",
+                "image": "butter.png",
+                "quantity": "1 tablespoon"
+            },
+            {
+                "name": "Strawberry jam",
+                "icon": "🍓",
+                "image": "strawberry_jam.png",
+                "quantity": "As needed"
+            }
+        ],
+        "steps": [
+            {
+                "number": 1,
+                "addIngredients": [
+                    "Eggs",
+                    "Milk",
+                    "Salt",
+                    "Pepper"
+                ],
+                "instruction": "Beat eggs with milk, salt and pepper.",
+                "tip": "Mix well for fluffy eggs."
+            },
+            {
+                "number": 2,
+                "addIngredients": [
+                    "Butter"
+                ],
+                "instruction": "Cook scrambled eggs in butter.",
+                "tip": "Keep heat low for a soft texture."
+            },
+            {
+                "number": 3,
+                "addIngredients": [
+                    "Bread"
+                ],
+                "instruction": "Toast the bread.",
+                "tip": "Toast until golden."
+            },
+            {
+                "number": 4,
+                "addIngredients": [
+                    "Strawberry jam"
+                ],
+                "instruction": "Spread strawberry jam on toast.",
+                "tip": "Add sweetness according to taste."
+            },
+            {
+                "number": 5,
+                "addIngredients": [],
+                "instruction": "Place scrambled eggs on top.",
+                "tip": "Serve immediately."
+            },
+            {
+                "number": 6,
+                "addIngredients": [],
+                "instruction": "Serve hot.",
+                "tip": "Enjoy your breakfast creation."
+            }
+        ],
+        "kookie_notes": [
+            "Sweet and savory combinations can be surprisingly delicious.",
+            "Breakfast is a great time to try new ideas."
+        ],
+        "army_tips": [
+            "Try different jams for new flavors."
+        ],
+        "achievement": {
+            "name": "Golden Breakfast Maker",
+            "icon": "🍞"
+        }
+    }
+]

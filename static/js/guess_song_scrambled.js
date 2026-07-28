@@ -213,3 +213,7 @@ document.addEventListener('DOMContentLoaded', async ()=>{
 });
 
 loadSongs();
+
+document.getElementById("exitBtn").onclick=()=>{
+    window.location.href="/challenge-zone";
+};

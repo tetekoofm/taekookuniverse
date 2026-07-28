@@ -1,0 +1,76 @@
+{% extends "00.base.html" %}
+{% from "components/filters.html" import category_filters %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/learn_the_lyrics.css') }}">
+{% endblock %}
+{% block title %}Learn the Lyrics{% endblock %}
+{% block content %}
+<div class="lyrics-page">
+    {% if not song %}
+    <div class="zone-title">
+        <h1>Learn the Lyrics</h1>
+        <p>Discover Tae & Kook songs through music and language.</p>
+    </div>
+    {{ category_filters(endpoint) }}
+    {% if lyrics %}
+    <div class="lyrics-song-grid">
+        {% for song in lyrics %}
+        <a href="{{ url_for('games.learn_the_lyrics', song_name=song.song) }}" class="lyrics-song-card">
+            <div class="song-cover">
+                <img src="{{ url_for('static', filename='images/songs/' + song.cover) }}" alt="{{ song.song }}">
+            </div>
+            <div class="song-card-content">
+                <h2>{{ song.song }}</h2>
+                <p class="artist">{{ song.artist }}</p>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-message">
+        <p>More songs coming soon 🎶</p>
+    </div>
+    {% endif %}
+    {% else %}
+    <div class="learn-song-page">
+        <a href="{{ url_for('games.learn_the_lyrics') }}" class="back-btn">← Back to Songs</a>
+        <div class="song-header">
+            <img src="{{ url_for('static', filename='images/songs/' + song.cover) }}" alt="{{ song.song }}">
+            <div class="song-details">
+                <h1>{{ song.song }}</h1>
+                <span>{{ song.album }}</span>
+            </div>
+        </div>
+        <div class="lyrics-controls">
+            <button class="toggle-btn active" data-target="all">All</button>
+            <button class="toggle-btn" data-target="korean-section">Original</button>
+            <button class="toggle-btn" data-target="romanization-section">Romanization</button>
+            <button class="toggle-btn" data-target="translation-section">Translation</button>
+        </div>
+        <div class="lyrics-container">
+            <div class="lyrics-section korean-section">
+                <h2>Original</h2>
+                <p>{{ song.lyrics }}</p>
+            </div>
+            <div class="lyrics-section romanization-section">
+                <h2>Romanization</h2>
+                <p>{{ song.romanization }}</p>
+            </div>
+            <div class="lyrics-section translation-section">
+                <h2>Translation</h2>
+                <p>{{ song.translation }}</p>
+            </div>
+        </div>
+        {% if song.vocabulary %}
+        <div class="vocabulary-section">
+            <h2>📚 Vocabulary</h2>
+            <div class="vocabulary-box">
+                {{ song.vocabulary }}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+<script src="{{ url_for('static', filename='js/learn_the_lyrics.js') }}"></script>
+{% endblock %}

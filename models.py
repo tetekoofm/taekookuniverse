@@ -222,3 +222,16 @@ class FanLetter(db.Model):
         self.fanname = fanname
         self.image = image
         self.description = description
+
+class Lyrics(db.Model):
+    __tablename__ = "lyrics"
+
+    id = db.Column(db.Integer, primary_key=True)
+    artist = db.Column(db.String(100))
+    cover = db.Column(db.String(200))
+    song = db.Column(db.String(200))
+    album = db.Column(db.String(200))
+    lyrics = db.Column(db.Text)
+    romanization = db.Column(db.Text)
+    translation = db.Column(db.Text)
+    vocabulary = db.Column(db.Text)

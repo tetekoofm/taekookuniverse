@@ -1,0 +1,216 @@
+.to-find-you-game{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+
+.tfy-scene{
+    position:relative;
+    width:100%;
+    height:100vh;
+    min-height:600px;
+    overflow:hidden;
+    background:#000;
+}
+
+.tfy-background{
+    position:absolute;
+    inset:0;
+}
+
+.tfy-background img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.tfy-background::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        rgba(0,0,0,.35),
+        rgba(0,0,0,.6)
+    );
+}
+
+.tfy-character{
+    position:absolute;
+    bottom:5%;
+    z-index:3;
+    transition:1s ease;
+}
+
+.tfy-character img{
+    height:360px;
+    max-width:30vw;
+    filter:drop-shadow(0 10px 20px rgba(0,0,0,.5));
+}
+
+.tae-character{
+    left:12%;
+}
+
+.jk-character{
+    right:12%;
+}
+
+.tfy-character.tfy-hidden{
+    opacity:0;
+    transform:translateY(40px) scale(.9);
+}
+
+/* Chat bubbles */
+.story-bubble{
+    position:absolute;
+    max-width:360px;
+    padding:20px 25px;
+    border-radius:25px;
+    background:rgba(5,5,15,.88);
+    backdrop-filter:blur(10px);
+    color:white;
+    font-family:"Fira Sans Condensed",sans-serif;
+    font-size:1.25rem;
+    line-height:1.5;
+    opacity:0;
+    transform:translateY(25px);
+    transition:.5s ease;
+    z-index:5;
+    box-shadow:0 10px 40px rgba(0,0,0,.6);
+}
+
+.story-bubble.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.bubble-name{
+    font-weight:bold;
+    font-size:1.05rem;
+    margin-bottom:8px;
+    color:#d9a7ff;
+}
+
+.bubble-text{
+    min-height:40px;
+}
+
+
+/* Bubble positions */
+.tae-bubble{
+    left:10%;
+    bottom:40%;
+    border:1px solid rgba(180,120,255,.5);
+}
+
+.jk-bubble{
+    right:10%;
+    bottom:40%;
+    border:1px solid rgba(255,255,255,.25);
+}
+
+
+/* Transition */
+.tfy-dark-overlay{
+    position:absolute;
+    inset:0;
+    background:#000;
+    opacity:0;
+    pointer-events:none;
+    transition:1.2s ease;
+    z-index:10;
+}
+
+.tfy-dark-overlay.active{
+    opacity:1;
+}
+
+
+/* Note */
+.tfy-note{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    width:min(90%,420px);
+    padding:35px 30px;
+    text-align:center;
+    background:rgba(20,15,35,.96);
+    border-radius:25px;
+    color:white;
+    z-index:20;
+    box-shadow:0 0 50px rgba(106,13,173,.6);
+    animation:noteAppear .8s ease;
+}
+
+.note-title{
+    font-size:1.6rem;
+    font-weight:bold;
+    color:#d9a7ff;
+    margin-bottom:15px;
+}
+
+.tfy-note p{
+    font-size:1.1rem;
+    line-height:1.6;
+}
+
+.tfy-note button{
+    margin-top:20px;
+    padding:12px 28px;
+    border:none;
+    border-radius:30px;
+    background:#6A0DAD;
+    color:white;
+    font-size:1rem;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.tfy-note button:hover{
+    transform:scale(1.05);
+}
+
+
+/* Use game-specific hide class */
+.tfy-hidden{
+    display:none!important;
+}
+
+
+@keyframes noteAppear{
+    from{
+        opacity:0;
+        transform:translate(-50%,-45%) scale(.95);
+    }
+    to{
+        opacity:1;
+        transform:translate(-50%,-50%) scale(1);
+    }
+}
+
+
+/* Mobile */
+@media(max-width:600px){
+
+    .story-bubble{
+        max-width:270px;
+        font-size:1rem;
+        padding:16px 18px;
+    }
+
+    .tae-bubble{
+        left:5%;
+        top:12%;
+    }
+
+    .jk-bubble{
+        right:5%;
+        bottom:25%;
+    }
+
+    .tfy-character img{
+        width:150px;
+    }
+
+}

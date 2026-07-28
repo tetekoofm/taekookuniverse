@@ -206,3 +206,7 @@ window.onload = async function() {
         console.error("Failed to load leaderboard:", err);
     }
 }
+
+document.getElementById("exitBtn").onclick=()=>{
+    window.location.href="/challenge-zone";
+};

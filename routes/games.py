@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, jsonify, current_app
 import os, json, random
-from models import db
+from models import db, Lyrics
 from extensions import csrf
 
 games_bp = Blueprint("games", __name__)
@@ -18,39 +18,45 @@ def themepark():
 
 @games_bp.route('/food-zone')
 def food_zone():
-    return render_template("games/zones/food_zone.html", themepark=True)
+    return render_template("games/zones/food_zone/food_zone.html", themepark=True)
 
 @games_bp.route('/music-zone')
 def music_zone():
-    return render_template("games/zones/music_zone.html", themepark=True)
+    return render_template("games/zones/music_zone/music_zone.html", themepark=True)
 
 @games_bp.route('/mystery-zone')
 def mystery_zone():
-    return render_template("games/zones/mystery_zone.html", themepark=True)
+    return render_template("games/zones/mystery_zone/mystery_zone.html", themepark=True)
 
 @games_bp.route('/seasonal-zone')
 def seasonal_zone():
-    return render_template("games/zones/seasonal_zone.html", themepark=True)
+    return render_template("games/zones/seasonal_zone/seasonal_zone.html", themepark=True)
 
 @games_bp.route('/challenge-zone')
 def challenge_zone():
-    return render_template("games/zones/challenge_zone.html", themepark=True)
+    return render_template("games/zones/challenge_zone/challenge_zone.html", themepark=True)
 
 
-#====== GOOD ========
+#=============================== FOOD ====================================
 @games_bp.route('/cookwithtaekook')
 def cook_with_taekook():
-    return render_template('games/cook_with_taekook.html')
+    return render_template('games/zones/food_zone/cook_with_taekook.html')
 
+@games_bp.route('/kookies-golden-kitchen')
+def kookies_golden_kitchen():
+    return render_template(
+        "games/zones/food_zone/kookies_golden_kitchen.html",
+        themepark=True
+    )
 
-#====== MYSTERY ========
+#=============================== MYSTERY ====================================
 @games_bp.route('/halloween-hunt')
 def halloween_hunt():
-    return render_template('games/halloween_hunt.html')
+    return render_template('games/zones/mystery_zone/halloween_hunt.html')
 
 @games_bp.route('/halloween-special')
 def halloween_special():
-    return render_template('games/halloween_special.html')
+    return render_template('games/zones/mystery_zone/halloween_special.html')
 
 @games_bp.app_context_processor
 def inject_halloween_flag():
@@ -61,28 +67,52 @@ def inject_halloween_flag():
         )
     }
 
-#====== MUSIC ========
+@games_bp.route('/tofindyou')
+def tofindyou():
+    return render_template('games/mystery_zone/to_find_you.html')
+
+#=============================== MUSIC ====================================
 @games_bp.route('/guesswithemoji')
 def guess_song_emoji():
-    return render_template('games/guess_song_emoji.html')
+    return render_template('games/zones/music_zone/guess_song_emoji.html')
 
 @games_bp.route('/guesswithlyrics')
 def guess_song_lyrics():
-    return render_template('games/guess_song_lyrics.html')
+    return render_template('games/zones/music_zone/guess_song_lyrics.html')
 
 @games_bp.route('/guesswithscrambled')
 def guess_song_scrambled():
-    return render_template('games/guess_song_scrambled.html')
+    return render_template('games/zones/music_zone/guess_song_scrambled.html')
 
-
+@games_bp.route("/learnthelyrics")
+@games_bp.route("/learnthelyrics/<song_name>")
+def learn_the_lyrics(song_name=None):
+    if song_name:
+        song = Lyrics.query.filter_by(song=song_name).first_or_404()
+        return render_template(
+            "games/zones/music_zone/learn_the_lyrics.html",
+            song=song,
+            endpoint="games.learn_the_lyrics"
+        )
+    artist = request.args.get("artist")
+    if artist:
+        lyrics = Lyrics.query.filter_by(artist=artist).all()
+    else:
+        lyrics = Lyrics.query.all()
+    return render_template(
+        "games/zones/music_zone/learn_the_lyrics.html",
+        lyrics=lyrics,
+        endpoint="games.learn_the_lyrics"
+    )
+    
 #====== CHALLENGE ========
 @games_bp.route('/taekooktrivia')
 def taekooktrivia():
-    return render_template('games/taekook_trivia.html')
+    return render_template('games/zones/challenge_zone/taekook_trivia.html')
 
 @games_bp.route('/whosaidit')
 def whosaidit():
-    return render_template('games/whosaidit.html')
+    return render_template('games/zones/challenge_zone/whosaidit.html')
 
 @games_bp.route('/memorygame')
 def memory_game():
@@ -95,7 +125,7 @@ def memory_game():
                 if file.lower().endswith((".jpg", ".jpeg", ".png", ".webp")):
                     images.append("/static/" + folder + "/" + file)
     print("Memory images:", len(images))
-    return render_template('games/memory_game.html', images=images)
+    return render_template('games/zones/challenge_zone/memory_game.html', images=images)
 
 @games_bp.route('/puzzle')
 def puzzle():
@@ -112,12 +142,12 @@ def puzzle():
 
     random.shuffle(images)
 
-    return render_template("games/puzzle.html",images=images)
+    return render_template("games/zones/challenge_zone/puzzle.html",images=images)
 
 #====== SEASONAL ========
 @games_bp.route('/santas_delivery_dash')
 def santas_delivery_dash():
-    return render_template('games/santas_delivery_dash.html')
+    return render_template('games/zones/seasonal_zone/santas_delivery_dash.html')
 
 
 

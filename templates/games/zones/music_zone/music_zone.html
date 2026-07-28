@@ -13,12 +13,19 @@
     </section>
 
     <section class="zone-attractions">
+       
+        <div class="zone-attraction locked">
+            <img src="{{ url_for('static', filename='images/games/learn_the_lyrics.png') }}">
+            <h2>🎤 Learn the Lyrics</h2>
+            <p>Learn Tae & Kook songs with Korean lyrics, romanization, translations, and vocabulary.</p>
+            <!-- <a href="{{ url_for('games.learn_the_lyrics') }}">Play</a> -->
+            <button>Coming Soon</button>
+        </div>
+
         <div class="zone-attraction">
             <img src="{{ url_for('static', filename='images/games/guess_song_emoji.png') }}">
             <h2>🎵 Guess the Song by Emoji</h2>
-            <p>Decode the emojis and discover which TaeKook song is hidden.
-                How well do you know their music?
-            </p>
+            <p>Decode the emojis and discover which TaeKook song is hidden. How well do you know their music?</p>
             <a href="{{ url_for('games.guess_song_emoji') }}">Play</a>
         </div>
 

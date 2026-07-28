@@ -9,7 +9,6 @@
 {% block content %}
 
 <section class="who-said-game">
-
     <div class="game-header">
         <h1>✨ Who Said It? ✨</h1>
         <p>Can you recognize whether these words came from Tae or Koo?</p>
@@ -25,50 +24,34 @@
     </div>
 
     <div class="quote-stage">
-
         <div class="quote-bubble">
             <span class="quote-icon">💬</span>
-            <p id="quoteText">
-                "I want to become someone who gives happiness to others."
-            </p>
+            <p id="quoteText">"I want to become someone who gives happiness to others."</p>
         </div>
-
     </div>
 
     <div class="character-choice">
-
         <button class="character-btn tae-btn" id="taeAnswer">
             <div class="character-icon">💚</div>
             <span>Tae</span>
         </button>
-
         <button class="character-btn koo-btn" id="kooAnswer">
             <div class="character-icon">💜</div>
             <span>Koo</span>
         </button>
-
     </div>
+    <button id="exitBtn" class="exit-btn">Exit</button>
 
     <div class="result-area" id="resultArea">
         <p id="resultText"></p>
     </div>
 
-
     <div class="game-complete hidden" id="gameComplete">
-
         <h2>🎉 Game Complete!</h2>
-
-        <p>
-            Your final score:
-            <strong id="finalScore">0</strong>
-        </p>
-
+        <p>Your final score:<strong id="finalScore">0</strong></p>
         <p id="finalMessage"></p>
-
-        <button id="restartBtn">
-            Play Again
-        </button>
-
+        <button id="restartBtn">Play Again</button>
+        <button id="exitBtn" class="exit-btn">Exit</button>
     </div>
 
 </section>

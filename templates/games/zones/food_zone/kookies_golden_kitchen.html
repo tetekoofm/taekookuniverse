@@ -1,0 +1,51 @@
+{% extends "00.base.html" %}
+{% block title %}Kookie's Golden Kitchen{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/kookies_golden_kitchen.css') }}">
+{% endblock %}
+{% block content %}
+<section class="golden-kitchen">
+    <div class="kitchen-header">
+        <h1>🐰 Kookie's Golden Kitchen</h1>
+        <p>Discover recipes, memories, and little moments from Jungkook's kitchen.</p>
+    </div>
+    <div class="kitchen-room">
+        <div class="recipe-chest" id="recipeChest">
+            <div class="chest-lid" id="chestLid">
+                <div class="sparkles">✨ ✨ ✨</div>
+                <h2>Golden Recipe Collection</h2>
+                <p>Click to Open</p>
+            </div>
+            <div class="recipe-menu hidden" id="recipeMenu">
+                <div class="recipe-category" data-category="breakfast">
+                    <div class="category-header">🍳 Breakfast</div>
+                    <div class="category-recipes"></div>
+                </div>
+                <div class="recipe-category" data-category="noodles">
+                    <div class="category-header">🍜 Noodles</div>
+                    <div class="category-recipes"></div>
+                </div>
+                <div class="recipe-category" data-category="main dishes">
+                    <div class="category-header">🍗 Main Dishes</div>
+                    <div class="category-recipes"></div>
+                </div>
+                <div class="recipe-category" data-category="snacks">
+                    <div class="category-header">🍪 Snacks</div>
+                    <div class="category-recipes"></div>
+                </div>
+                <div class="recipe-category" data-category="drinks">
+                    <div class="category-header">🥤 Drinks</div>
+                    <div class="category-recipes"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="recipe-modal hidden" id="recipeModal">
+    <div class="recipe-card">
+        <button class="close-btn" id="closeRecipe">✕</button>
+        <div id="recipeDetails"></div>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/kookies_golden_kitchen.js') }}"></script>
+{% endblock %}

@@ -170,7 +170,7 @@
 }
 
 /* ===== Mobile ===== */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .game-container {
     width: 95%;
     padding: 10px;

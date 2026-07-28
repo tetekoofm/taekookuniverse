@@ -1,0 +1,60 @@
+{% extends "00.base.html" %}
+
+{% block title %}Puzzle Challenge{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/to_find_you.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="to-find-you-game">
+
+    <div class="tfy-scene" id="tfyIntroScene">
+
+        <div class="tfy-background">
+            <img src="/static/images/games/themepark/themepark_night.png" alt="Birthday Park">
+        </div>
+
+        <div class="tfy-character tae-character">
+            <img src="/static/images/games/tfy/tae.png" alt="Tae">
+        </div>
+        
+        <div class="tfy-character jk-character">
+            <img src="/static/images/games/tfy/koo.png" alt="Koo">
+        </div>
+
+        <!-- Chat bubbles -->
+        <div class="story-bubble tae-bubble" id="taeBubble">
+            <div class="bubble-name">Tae</div>
+            <div class="bubble-text"></div>
+        </div>
+
+        <div class="story-bubble jk-bubble" id="jkBubble">
+            <div class="bubble-name">JK</div>
+            <div class="bubble-text"></div>
+        </div>
+
+
+        <!-- Disappearance effect -->
+        <div class="tfy-dark-overlay" id="darkOverlay"></div>
+
+
+        <!-- Tae's note -->
+        <div class="tfy-note hidden" id="taeNote">
+            <div class="note-title">A Note From Tae 💜</div>
+            <p>
+                Kook, if you want to find me,
+                follow the clues I left behind.
+            </p>
+
+            <button id="startClueBtn">
+                Find The First Clue
+            </button>
+        </div>
+
+
+    </div>
+
+</div>
+<script src="{{ url_for('static', filename='js/to_find_you.js') }}"></script>
+{% endblock %}

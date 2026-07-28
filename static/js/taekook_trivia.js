@@ -101,3 +101,7 @@ document.getElementById("feedback").innerText="🎉 Time's up! Final Score: "+sc
 document.querySelectorAll(".answer-btn").forEach(btn=>btn.disabled=true);
 document.getElementById("skip-btn").disabled=true;
 }
+
+document.getElementById("exitBtn").onclick=()=>{
+    window.location.href="/challenge-zone";
+};

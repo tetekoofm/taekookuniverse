@@ -1,5 +1,6 @@
 import pandas as pd
-from models import db, TKURadio, BackgroundMusic, Upcoming, Highlights, Recap, Memory, InTheNews, Discography, MusicVideo, Vote, Radio, Fanbase, Project, Event, Promotion, BrandAmbassador, Banner, FanLetter
+from models import db, TKURadio, BackgroundMusic, Discography, MusicVideo, Lyrics, Upcoming, Highlights, Recap, Memory, InTheNews
+from models import Vote, Radio, Fanbase, Project, Event, Promotion, BrandAmbassador, Banner, FanLetter
 from app import app
 from datetime import datetime, time
 
@@ -48,6 +49,29 @@ def insert_data_from_excel():
 
         db.session.commit()
         print("Background Music updated from Excel!")
+
+
+        lyrics_df = pd.read_excel(excel_file, sheet_name='Lyrics')
+
+        for _, row in lyrics_df.iterrows():
+            existing = Lyrics.query.filter_by(song=row['Song'], artist=row['Artist']).first()
+
+            if not existing:
+                lyrics_entry = Lyrics(
+                    artist=row['Artist'],
+                    cover=row['Cover'],
+                    song=row['Song'],
+                    album=row['Album'],
+                    lyrics=row['Lyrics'],
+                    romanization=row['Romanization'],
+                    translation=row['Translation'],
+                    vocabulary=row['Vocabulary']
+                )
+                db.session.add(lyrics_entry)
+
+        db.session.commit()
+        print("Lyrics updated from Excel!")
+
 
         upcoming_df = pd.read_excel(excel_file, sheet_name='Upcoming')
         upcoming_df['date'] = pd.to_datetime(upcoming_df['date'], errors='coerce')
