@@ -89,22 +89,34 @@ def guess_song_scrambled():
 def learn_the_lyrics(song_name=None):
     if song_name:
         song = Lyrics.query.filter_by(song=song_name).first_or_404()
-        return render_template(
-            "games/zones/music_zone/learn_the_lyrics.html",
-            song=song,
-            endpoint="games.learn_the_lyrics"
-        )
+        vocabulary = []
+        current_section = "Vocabulary"
+        if song.vocabulary:
+            current_section = "Vocabulary"
+            for line in song.vocabulary.splitlines():
+                line = line.strip()
+                if not line:
+                    continue
+                if line.startswith("#"):
+                    current_section = line.replace("#", "").strip()
+                    continue
+                if "|" in line:
+                    parts = line.split("|")
+                    if len(parts) == 3:
+                        vocabulary.append({
+                            "section": current_section,
+                            "korean": parts[0].strip(),
+                            "romanization": parts[1].strip(),
+                            "meaning": parts[2].strip()
+                        })
+        song.vocabulary = vocabulary
+        return render_template("games/zones/music_zone/learn_the_lyrics.html",song=song,endpoint="games.learn_the_lyrics")
+
     artist = request.args.get("artist")
-    if artist:
-        lyrics = Lyrics.query.filter_by(artist=artist).all()
-    else:
-        lyrics = Lyrics.query.all()
-    return render_template(
-        "games/zones/music_zone/learn_the_lyrics.html",
-        lyrics=lyrics,
-        endpoint="games.learn_the_lyrics"
-    )
-    
+    if artist:lyrics = Lyrics.query.filter_by(artist=artist).all()
+    else:lyrics = Lyrics.query.all()
+    return render_template("games/zones/music_zone/learn_the_lyrics.html",lyrics=lyrics,endpoint="games.learn_the_lyrics")
+
 #====== CHALLENGE ========
 @games_bp.route('/taekooktrivia')
 def taekooktrivia():

@@ -63,10 +63,26 @@
         </div>
         {% if song.vocabulary %}
         <div class="vocabulary-section">
-            <h2>📚 Vocabulary</h2>
-            <div class="vocabulary-box">
-                {{ song.vocabulary }}
+            <div class="section-header">
+                <h2>Vocabulary &amp; Expressions</h2>
+                <p>Learn the key words and expressions used in this song.</p>
             </div>
+            {% for section in song.vocabulary|groupby('section') %}
+            <div class="vocab-category">
+                <h3 class="vocab-section-title">
+                    {{ section.grouper }}
+                </h3>
+                <div class="vocab-grid">
+                    {% for item in section.list %}
+                    <div class="vocab-card">
+                        <div class="vocab-korean">{{ item.korean }}</div>
+                        <div class="vocab-roman">{{ item.romanization }}</div>
+                        <div class="vocab-meaning">{{ item.meaning }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
         </div>
         {% endif %}
     </div>
