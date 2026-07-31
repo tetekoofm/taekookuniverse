@@ -254,6 +254,24 @@
     line-height:1.4;
 }
 
+.radio-footer{
+    margin-top:35px;
+    padding:20px;
+    text-align:center;
+    border-top:1px solid rgba(255,255,255,0.12);
+    color:rgba(255,255,255,0.65);
+    font-size:0.9rem;
+    line-height:1.6;
+}
+
+.radio-footer p{
+    margin:5px 0;
+}
+
+.radio-footer p:first-child{
+    color:#b9a3ff;
+}
+
 #player{
     position:absolute;
     width:1px;

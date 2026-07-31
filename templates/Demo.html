@@ -9,8 +9,8 @@
         <div class="radio-header">
             <div class="radio-icon">🎙️</div>
             <h1 class="heading">TKU Radio</h1>
-            <p class="caption">Your TaeKook music universe, anytime anywhere</p>
-            <p class="caption">Listening together across the world</p>
+            <p class="caption">A little corner with TaeKook music</p>
+            <p class="caption">Where Taekookers listen together from across the globe 💜</p>
         </div>
         <div class="listen-options">
             <div class="listen-card stationhead-card">
@@ -19,9 +19,9 @@
                 <div class="live-status">
                     <span></span> LIVE NOW
                 </div>
-                <p class="broadcast-label">Currently Broadcasting:</p>
+                <p class="broadcast-label">Broadcasting through:</p>
                 <h3>Stationhead</h3>
-                <p>Join our community live broadcast and listen together with fellow fans.</p>
+                <p>Join our TKFM live Stationhead and stream together with fellow Taekookers.</p>
                 <a href="https://stationhead.com/tetekoofm" target="_blank" class="listen-btn">
                     ▶ Join Live
                 </a>
@@ -32,9 +32,9 @@
                 <div class="live-status on-air">
                     <span></span> ON AIR
                 </div>
-                <p class="broadcast-label">Currently Broadcasting:</p>
-                <h3 id="radio-name">TaeKook Music Station</h3>
-                <p id="radio-description">Random songs from our TaeKook collection.</p>
+                <p class="broadcast-label">Broadcasting through:</p>
+                <h3 id="radio-name">Youtube</h3>
+                <p id="radio-description">Enjoy our shuffled playlist from our TaeKook collection.</p>
                 <button id="play-radio" class="listen-btn">
                     ▶ Listen Now
                 </button>
@@ -68,10 +68,15 @@
                 <p id="dj-text">Welcome to TKU Radio 💜</p>
             </div>
         </div>
+        <div class="radio-footer">
+            <p>
+                🎧 TKU Radio plays music using YouTube's official embedded player.
+                We don't host, download, or redistribute any audio.
+            </p>
+        </div>
     </div>
 </div>
 <div id="player"></div>
-<script src="https://www.youtube.com/iframe_api"></script>
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
 const radioSongs=[
@@ -185,27 +190,27 @@ const djMessages=[
 {
     name:"ILY",
     image:"{{ url_for('static', filename='images/admins/ily.png') }}",
-    message:"🎙️ Welcome to TKU Radio. Your TaeKook music journey starts here 💜"
+    message:"🎙️ Hi! I'm ILY. Thanks for stopping by TKU Radio. Hope you enjoy today's songs."
 },
 {
     name:"Snowy",
     image:"{{ url_for('static', filename='images/admins/snowy.png') }}",
-    message:"❄️ You're listening to TKU Radio. Enjoy these warm TaeKook memories."
+    message:"❄️ Snowy is here. Sit back, relax and enjoy a little TaeKook music."
 },
 {
     name:"Berry",
     image:"{{ url_for('static', filename='images/admins/berry.png') }}",
-    message:"🍓 A new song, a new memory. Stay tuned with TeteKooFM & TK Universe."
+    message:"🍓 Berry checking in. Enjoy today's songs from our TaeKook collection."
 },
 {
     name:"Ghosty",
     image:"{{ url_for('static', filename='images/admins/ghosty.png') }}",
-    message:"👻 Ghosty is here! Let's enjoy another TaeKook moment together."
+    message:"👻 Ghosty here! Hope your favorite song comes up next."
 },
 {
     name:"Clovy",
     image:"{{ url_for('static', filename='images/admins/clovy.png') }}",
-    message:"🍀 Sending purple vibes your way. Happy listening 💜"
+    message:"🍀 Clovy here sending a little purple vibes your way. Happy listening"
 }
 ];
 
