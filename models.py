@@ -5,11 +5,21 @@ from extensions import db
 class TKURadio(db.Model):
     __tablename__ = 'tkuradio'
     id = db.Column(db.Integer, primary_key=True)
-    playlist_name = db.Column(db.String(200))
-    spotify_playlist_id = db.Column(db.String(200))
+    song_id = db.Column(db.Integer, unique=True)
+    song_title = db.Column(db.String(300), nullable=False)
+    youtube_url = db.Column(db.String(500))
+    youtube_id = db.Column(db.String(100), nullable=False)
+    artist = db.Column(db.String(100))
+    album = db.Column(db.String(200))
+    era = db.Column(db.String(100))
+    channel = db.Column(db.String(100))
+    priority = db.Column(db.Integer, default=0)
+    version_type = db.Column(db.String(100))
+    cover_image = db.Column(db.String(300))
     description = db.Column(db.Text)
-    image = db.Column(db.String(200))  # optional thumbnail
-    is_active = db.Column(db.Boolean, default=True)
+    published = db.Column(db.Boolean, default=True)
+    notes = db.Column(db.Text)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 class BackgroundMusic(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -235,3 +245,20 @@ class Lyrics(db.Model):
     romanization = db.Column(db.Text)
     translation = db.Column(db.Text)
     vocabulary = db.Column(db.Text)
+
+
+class Recipe(db.Model):
+    __tablename__ = "recipe"
+    id = db.Column(db.Integer, primary_key=True)
+    recipe_name = db.Column(db.String(200), nullable=False)
+    category = db.Column(db.String(100), nullable=False)
+    difficulty = db.Column(db.String(50))
+    cook_time = db.Column(db.String(50))
+    image = db.Column(db.String(200))
+    description = db.Column(db.Text)
+    ingredients = db.Column(db.Text)
+    steps = db.Column(db.Text)
+    jk_corner = db.Column(db.Text)
+    memory = db.Column(db.Text)
+    notes = db.Column(db.Text)
+    published = db.Column(db.Boolean, default=False)

@@ -17,22 +17,41 @@
                 <p>Click to Open</p>
             </div>
             <div class="recipe-menu hidden" id="recipeMenu">
-                <div class="recipe-category" data-category="breakfast">
-                    <div class="category-header">🍳 Breakfast</div>
+                <div class="recipe-category" data-category="bread & toast">
+                    <div class="category-header">🍞 Bread & Toast</div>
                     <div class="category-recipes"></div>
                 </div>
-                <div class="recipe-category" data-category="noodles">
-                    <div class="category-header">🍜 Noodles</div>
+                
+                <div class="recipe-category" data-category="noodles & pasta">
+                    <div class="category-header">🍜 Noodles & Pasta</div>
                     <div class="category-recipes"></div>
                 </div>
-                <div class="recipe-category" data-category="main dishes">
-                    <div class="category-header">🍗 Main Dishes</div>
+                
+                <div class="recipe-category" data-category="rice">
+                    <div class="category-header">🍚 Rice</div>
                     <div class="category-recipes"></div>
                 </div>
+                
+                <div class="recipe-category" data-category="meat">
+                    <div class="category-header">🍖 Meat</div>
+                    <div class="category-recipes"></div>
+                </div>
+                
+                <div class="recipe-category" data-category="eggs">
+                    <div class="category-header">🍳 Eggs</div>
+                    <div class="category-recipes"></div>
+                </div>
+                
+                <div class="recipe-category" data-category="side dishes">
+                    <div class="category-header">🥗 Side Dishes</div>
+                    <div class="category-recipes"></div>
+                </div>
+                
                 <div class="recipe-category" data-category="snacks">
                     <div class="category-header">🍪 Snacks</div>
                     <div class="category-recipes"></div>
                 </div>
+                
                 <div class="recipe-category" data-category="drinks">
                     <div class="category-header">🥤 Drinks</div>
                     <div class="category-recipes"></div>
@@ -47,5 +66,24 @@
         <div id="recipeDetails"></div>
     </div>
 </div>
+<script>
+    window.kitchenRecipes=[
+    {% for recipe in recipes %}
+    {
+        recipe_name:{{ recipe.recipe_name|tojson }},
+        category:{{ recipe.category|tojson }},
+        difficulty:{{ recipe.difficulty|tojson }},
+        cook_time:{{ recipe.cook_time|tojson }},
+        image:{{ recipe.image|tojson }},
+        description:{{ recipe.description|tojson }},
+        ingredients:{{ recipe.ingredients|tojson }},
+        steps:{{ recipe.steps|tojson }},
+        jk_corner:{{ recipe.jk_corner|tojson }},
+        memory:{{ recipe.memory|tojson }},
+        notes:{{ recipe.notes|tojson }}
+    },
+    {% endfor %}
+    ];
+</script>
 <script src="{{ url_for('static', filename='js/kookies_golden_kitchen.js') }}"></script>
 {% endblock %}

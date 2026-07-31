@@ -1,78 +1,240 @@
 {% extends "00.base.html" %}
-{% block title %}Games & Fun{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/Demo.css') }}">
+{% endblock %}
+{% block title %}TKU Radio{% endblock %}
 {% block content %}
 <div class="main-content">
-    <div class="games-page">
-        <h1 class="heading">Fun Zone 🎮</h1>
-        <p class="caption">Play, explore, and have fun with our interactive Taekook-themed games!</p>
-    </div>
-
-    <div class="games-grid">
-
-        <div class="game-card">
-            <img src="{{ url_for('static', filename='images/games/santas_delivery_dash.png') }}" alt="Santa’s Delivery Dash">
-            <h2>Santa’s Delivery Dash</h2>
-            <p>Collect as many gifts as you can while dodging snowy challenges!</p>
-            <a href="{{ url_for('games.santas_delivery_dash') }}" class="play-btn">Play Now</a>
+    <div class="tkuradio-page">
+        <div class="radio-header">
+            <div class="radio-icon">🎙️</div>
+            <h1 class="heading">TKU Radio</h1>
+            <div class="on-air">
+                <span></span> ON AIR
+            </div>
+            <p class="caption">24/7 TaeKook music station</p>
         </div>
-        
-        <div class="game-card">
-        <img src="{{ url_for('static', filename='images/games/ghostys_halloween_hunt.png') }}" alt="Halloween Hunt">
-        <h2>Ghosty's Halloween Hunt</h2>
-        <p>Find Ghosty and her spooky friends hidden across TKU pages!</p>
-        <a href="{{ url_for('games.halloween_hunt') }}" class="play-btn">Play Now</a>
+        <div class="station-selection">
+            <div class="station-card active" data-channel="GOLDEN_HOUR">
+                <img src="{{ url_for('static', filename='images/songs/golden.webp') }}" alt="Golden Hour">
+                <div class="station-info">
+                    <h2>Golden Hour</h2>
+                    <p>Jung Kook's golden moments, solo songs and special versions.</p>
+                    <button class="tune-btn">Tune In</button>
+                </div>
+            </div>
+            <div class="station-card" data-channel="LAYOVER_LOUNGE">
+                <img src="{{ url_for('static', filename='images/songs/layover.webp') }}" alt="Layover Lounge">
+                <div class="station-info">
+                    <h2>Layover Lounge</h2>
+                    <p>A cozy V station with Layover, OSTs and solo tracks.</p>
+                    <button class="tune-btn">Tune In</button>
+                </div>
+            </div>
+            <div class="station-card" data-channel="PURPLE_UNIVERSE">
+                <img src="{{ url_for('static', filename='images/songs/purple.jpg') }}" alt="Purple Universe">
+                <div class="station-info">
+                    <h2>Purple Universe</h2>
+                    <p>BTS memories, TaeKook moments and special songs.</p>
+                    <button class="tune-btn">Tune In</button>
+                </div>
+            </div>
+            <div class="station-card" data-channel="WINTER_SPECIAL">
+                <img src="{{ url_for('static', filename='images/songs/winter.jpg') }}" alt="Winter Special">
+                <div class="station-info">
+                    <h2>Winter Special</h2>
+                    <p>Snowy nights, Christmas songs and warm memories.</p>
+                    <button class="tune-btn">Tune In</button>
+                </div>
+            </div>
         </div>
-
-        <div class="game-card">
-            <img src="{{ url_for('static', filename='images/games/guess_song_emoji.png') }}" alt="Guess the Song by Emojis">
-            <h2>Guess the Song by Emojis</h2>
-            <p>Can you decode the emojis and name the song?</p>
-            <a href="{{ url_for('games.guess_song_emoji') }}" class="play-btn">Play Now</a>
+        <div class="radio-player">
+            <div id="player"></div>
+            <div class="broadcast">
+                <div class="broadcast-message">
+                    <h3 id="station-title">Golden Hour</h3>
+                    <p id="station-message">Welcome to Jung Kook's golden moments 💜</p>
+                </div>
+                <div class="dj-message">
+                    <span id="dj-icon">🎙️</span>
+                    <p id="dj-text">Welcome to TKU Radio 💜</p>
+                </div>
+                <div class="equalizer">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="now-playing">
+                    <img id="song-image" src="{{ url_for('static', filename='images/radio/default.jpg') }}" alt="Now Playing">
+                    <div>
+                        <h2 id="song-title">TKU Radio</h2>
+                        <p id="song-artist">Waiting for broadcast...</p>
+                    </div>
+                </div>
+                <div class="radio-actions">
+                    <button id="play-radio">▶ Listen Live</button>
+                    <button id="pause-radio">⏸ Pause</button>
+                </div>
+                <div class="radio-status">
+                    <span></span>
+                    <p id="status-text">Ready to broadcast</p>
+                </div>
+            </div>
         </div>
-
-
-        <div class="game-card">
-            <img src="{{ url_for('static', filename='images/games/guess_song_lyrics.png') }}" alt="Guess the Song by Lyrics">
-            <h2>Guess the Song by Lyrics</h2>
-            <p>Read the lyrics, recall the melody and guess the song!</p>
-            <a href="{{ url_for('games.guess_song_lyrics') }}" class="play-btn">Play Now</a>
-        </div>
-        
-        <div class="game-card">
-            <img src="{{ url_for('static', filename='images/games/guess_song_scrambled.png') }}" alt="Guess the Scrambled Song">
-            <h2>Guess the Scrambled Song</h2>
-            <p>Unscramble the chaos and name the song!</p>
-            <a href="{{ url_for('games.guess_song_scrambled') }}" class="play-btn">Play Now</a>
-        </div>
-
-        <div class="game-card">
-            <img src="{{ url_for('static', filename='images/games/guess_song_random.png') }}" alt="Guess the Song by Random Words">
-            <h2>Guess the Song by Random Words</h2>
-            <p>Piece the puzzle together from scattered words!</p>
-            <button class="play-btn" disabled>Coming Soon</button>
-        </div>
-
-        <div class="game-card">
-            <img src="{{ url_for('static', filename='images/games/who_said_it.png') }}" alt="Who said it - Tae or Koo?">
-            <h2>Who said it - Tae or Koo?</h2>
-            <p>Test your knowledge about our favorite duo!</p>
-            <button class="play-btn" disabled>Coming Soon</button>
-        </div>
-
-        <div class="game-card">
-            <img src="{{ url_for('static', filename='images/games/taekook_trivia.png') }}" alt="Taekook Trivia">
-            <h2>Taekook Trivia</h2>
-            <p>Test your knowledge about our favorite duo!</p>
-            <button class="play-btn" disabled>Coming Soon</button>
-        </div>
-
-        <div class="game-card">
-            <img src="{{ url_for('static', filename='images/games/cook_with_taekook.png') }}" alt="Cook with Taekook">
-            <h2>Cook with Taekook</h2>
-            <p>Chef Tae and Chef Koo need your help! Race around the kitchen, collect ingredients, and prepare the perfect order.</p>
-            <button class="play-btn" disabled>Coming Soon</button>
+        <div class="radio-footer">
+            <p>🎧 You are listening to TeteKooFM on TKU Radio</p>
+            <p>Stay tuned. More memories coming next 💜</p>
         </div>
     </div>
 </div>
-
+<script src="https://www.youtube.com/iframe_api"></script>
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+const radioSongs={
+{% for channel in ['GOLDEN_HOUR','LAYOVER_LOUNGE','PURPLE_UNIVERSE','WINTER_SPECIAL'] %}
+"{{ channel }}":[
+{% for song in songs if song.channel == channel %}
+{
+title:"{{ song.song_title|escape }}",
+artist:"{{ song.artist|escape }}",
+youtube:"{{ song.youtube_id }}",
+image:"{{ song.cover_image }}"
+}{% if not loop.last %},{% endif %}
+{% endfor %}
+],
+{% endfor %}
+};
+let currentChannel="GOLDEN_HOUR";
+let currentQueue=[];
+let currentIndex=0;
+let player=null;
+let playerReady=false;
+let started=false;
+function onYouTubeIframeAPIReady(){
+    player=new YT.Player('player',{
+        height:'100',
+        width:'100',
+        videoId:'',
+        playerVars:{
+            autoplay:0,
+            controls:1,
+            playsinline:1
+        },
+        events:{
+            onReady:function(){
+                playerReady=true;
+                console.log("YouTube Player Ready");
+            },
+            onStateChange:function(event){
+                console.log("Player State:",event.data);
+                if(event.data===YT.PlayerState.ENDED){
+                    playNext();
+                }
+            },
+            onError:function(event){
+                console.log("YouTube Error:",event.data);
+            }
+        }
+    });
+}
+function startStation(){
+    if(!playerReady){
+        console.log("Player not ready yet");
+        return;
+    }
+    currentQueue=[...radioSongs[currentChannel]];
+    if(currentQueue.length===0){
+        console.log("No songs found for",currentChannel);
+        return;
+    }
+    currentQueue.sort(()=>Math.random()-0.5);
+    currentIndex=0;
+    playCurrent();
+}
+function playCurrent(){
+    let song=currentQueue[currentIndex];
+    if(!song){
+        return;
+    }
+    console.log("Playing:",song.youtube);
+    player.loadVideoById({
+        videoId:song.youtube,
+        startSeconds:0
+    });
+    document.getElementById("song-title").innerText=song.title;
+    document.getElementById("song-artist").innerText=song.artist;
+    document.getElementById("song-image").src=song.image;
+    document.getElementById("status-text").innerText="LIVE";
+}
+function playNext(){
+    currentIndex++;
+    if(currentIndex>=currentQueue.length){
+        currentQueue.sort(()=>Math.random()-0.5);
+        currentIndex=0;
+    }
+    playCurrent();
+}
+document.querySelectorAll(".station-card").forEach(card=>{
+    card.querySelector(".tune-btn").addEventListener("click",()=>{
+        currentChannel=card.dataset.channel;
+        document.getElementById("station-title").innerText=card.querySelector("h2").innerText;
+        document.getElementById("station-message").innerText=card.querySelector("p").innerText;
+        startStation();
+    });
+});
+document.getElementById("play-radio").addEventListener("click",()=>{
+    if(!started){
+        started=true;
+        startStation();
+    }
+    setTimeout(()=>{
+        if(player){
+            player.playVideo();
+        }
+    },1000);
+});
+document.getElementById("pause-radio").addEventListener("click",()=>{
+    if(player){
+        player.pauseVideo();
+        document.getElementById("status-text").innerText="PAUSED";
+    }
+});
+const djMessages={
+GOLDEN_HOUR:[
+"✨ Welcome to Golden Hour. Let's spend time with Jung Kook's golden moments.",
+"🎧 You're listening to Jung Kook's solo journey on TKU Radio.",
+"💜 A golden song, a golden memory, a golden moment."
+],
+LAYOVER_LOUNGE:[
+"🌧️ Welcome to Layover Lounge. Relax with V's warm vocals.",
+"☕ Cozy evening vibes with Taehyung on TKU Radio.",
+"💚 Slow down and enjoy this little moment."
+],
+PURPLE_UNIVERSE:[
+"💜 Welcome to our purple universe.",
+"🎶 Memories, music and TaeKook moments continue here.",
+"🌌 Stay with us under the purple sky."
+],
+WINTER_SPECIAL:[
+"❄️ Welcome to our winter broadcast.",
+"☃️ Warm songs for cold nights.",
+"🎄 A little holiday magic on TKU Radio."
+]
+};
+let djIndex=0;
+function rotateDJMessage(){
+    const messages=djMessages[currentChannel];
+    if(!messages){
+        return;
+    }
+    document.getElementById("dj-text").innerText=messages[djIndex];
+    djIndex++;
+    if(djIndex>=messages.length){
+        djIndex=0;
+    }
+}
+setInterval(rotateDJMessage,7000);
+</script>
 {% endblock %}

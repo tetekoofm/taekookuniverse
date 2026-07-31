@@ -1,0 +1,246 @@
+.tkuradio-page{
+    width:100%;
+    max-width:1200px;
+    margin:auto;
+    padding:30px 20px;
+}
+.radio-header{
+    text-align:center;
+    margin-bottom:40px;
+}
+.radio-icon{
+    font-size:55px;
+    margin-bottom:10px;
+}
+.radio-header .heading{
+    margin:0;
+}
+.on-air{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin:15px auto;
+    padding:8px 20px;
+    background:#220022;
+    border:2px solid #0FFF50;
+    border-radius:30px;
+    color:#0FFF50;
+    font-weight:bold;
+    letter-spacing:2px;
+    box-shadow:0 0 15px rgba(15,255,80,.5);
+}
+.on-air span{
+    width:12px;
+    height:12px;
+    background:#0FFF50;
+    border-radius:50%;
+    display:inline-block;
+    animation:livePulse 1.2s infinite;
+}
+@keyframes livePulse{
+    0%{
+        opacity:1;
+        transform:scale(1);
+    }
+    50%{
+        opacity:.3;
+        transform:scale(1.5);
+    }
+    100%{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+.radio-header .caption{
+    font-size:18px;
+    opacity:.8;
+}
+.station-selection{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+    margin-bottom:40px;
+}
+.station-card{
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(106,13,173,.5);
+    border-radius:20px;
+    overflow:hidden;
+    cursor:pointer;
+    transition:.3s;
+}
+.station-card:hover,
+.station-card.active{
+    transform:translateY(-5px);
+    box-shadow:0 0 25px rgba(106,13,173,.5);
+    border-color:#0FFF50;
+}
+.station-card img{
+    width:100%;
+    aspect-ratio:1/1;
+    object-fit:cover;
+}
+.station-info{
+    padding:18px;
+    text-align:center;
+}
+.station-info h2{
+    font-size:22px;
+    margin:0 0 10px;
+}
+.station-info p{
+    font-size:14px;
+    min-height:55px;
+    opacity:.8;
+}
+.tune-btn{
+    margin-top:15px;
+    background:#6A0DAD;
+    color:white;
+    border:none;
+    padding:10px 25px;
+    border-radius:25px;
+    cursor:pointer;
+    font-size:15px;
+}
+.tune-btn:hover{
+    background:#0FFF50;
+    color:black;
+}
+.radio-player{
+    background:linear-gradient(135deg,rgba(106,13,173,.25),rgba(0,0,0,.8));
+    border-radius:25px;
+    padding:30px;
+    border:1px solid rgba(255,255,255,.1);
+    box-shadow:0 0 30px rgba(106,13,173,.4);
+}
+#player{
+    width:320px;
+    height:180px;
+    margin:auto;
+}
+.broadcast{
+    text-align:center;
+}
+.broadcast-message h3{
+    font-size:32px;
+    margin-bottom:10px;
+    font-family:Tangerine,cursive;
+}
+.broadcast-message p{
+    font-size:18px;
+    opacity:.85;
+}
+.now-playing{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:25px;
+    margin:30px 0;
+}
+.now-playing img{
+    width:130px;
+    height:130px;
+    border-radius:20px;
+    object-fit:cover;
+    box-shadow:0 0 20px rgba(15,255,80,.3);
+}
+.now-playing h2{
+    margin:0 0 10px;
+    font-size:26px;
+}
+.now-playing p{
+    opacity:.8;
+}
+.radio-actions{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+}
+.radio-actions button{
+    padding:12px 30px;
+    border:none;
+    border-radius:30px;
+    background:#6A0DAD;
+    color:white;
+    cursor:pointer;
+    font-size:16px;
+}
+.radio-actions button:hover{
+    background:#0FFF50;
+    color:black;
+}
+.radio-status{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    margin-top:25px;
+    color:#0FFF50;
+}
+.radio-status span{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:#0FFF50;
+}
+.radio-footer{
+    text-align:center;
+    margin-top:35px;
+    opacity:.7;
+    font-size:15px;
+}
+.dj-message{
+    margin:25px auto;
+    max-width:600px;
+    padding:15px 25px;
+    background:rgba(0,0,0,.4);
+    border-radius:20px;
+    border-left:4px solid #0FFF50;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:15px;
+}
+.dj-message span{
+    font-size:25px;
+}
+.dj-message p{
+    margin:0;
+    font-size:17px;
+}
+.equalizer{
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+    gap:6px;
+    height:40px;
+    margin:20px 0;
+}
+.equalizer span{
+    width:7px;
+    height:15px;
+    background:#0FFF50;
+    border-radius:5px;
+    animation:eqMove .8s infinite ease-in-out;
+}
+.equalizer span:nth-child(2){
+    animation-delay:.2s;
+}
+.equalizer span:nth-child(3){
+    animation-delay:.4s;
+}
+.equalizer span:nth-child(4){
+    animation-delay:.6s;
+}
+.equalizer span:nth-child(5){
+    animation-delay:.8s;
+}
+@keyframes eqMove{
+    0%,100%{
+        height:10px;
+    }
+    50%{
+        height:40px;
+    }
+}

@@ -48,7 +48,6 @@ def voting():
         vote_apps=vote_apps
     )
 
-
 @support_bp.route('/radio')
 def radio():
     radio_stations = Radio.query.all()

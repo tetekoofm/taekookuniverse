@@ -3,7 +3,7 @@ from collections import defaultdict
 from datetime import datetime
 import random
 
-from models import db, Memory, Discography, MusicVideo, BackgroundMusic
+from models import db, Memory, Discography, MusicVideo, BackgroundMusic, TKURadio
 from helpers import extract_youtube_id, get_page_music
 
 media_bp = Blueprint("media", __name__)
@@ -60,3 +60,9 @@ def vibe():
 
     song_file, song_name = get_page_music("vibe")
     return render_template("05.vibe.html", song_names=song_names, taehyung_videos=taehyung_videos, jungkook_videos=jungkook_videos, song_file=song_file, song_name=song_name)
+
+
+@media_bp.route('/tkuradio')
+def tkuradio():
+    songs = TKURadio.query.filter_by(published=True).all()
+    return render_template("12.tkuradio.html", songs=songs)

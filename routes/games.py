@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, jsonify, current_app
 import os, json, random
-from models import db, Lyrics
+from models import db, Lyrics, Recipe
 from extensions import csrf
 
 games_bp = Blueprint("games", __name__)
@@ -44,8 +44,12 @@ def cook_with_taekook():
 
 @games_bp.route('/kookies-golden-kitchen')
 def kookies_golden_kitchen():
+    recipes = Recipe.query.filter_by(published=True).all()
+    print("COUNT:", len(recipes))
+    for r in recipes:
+        print(r.recipe_name, r.published, type(r.published))
     return render_template(
-        "games/zones/food_zone/kookies_golden_kitchen.html",
+        "games/zones/food_zone/kookies_golden_kitchen.html", recipes=recipes, 
         themepark=True
     )
 

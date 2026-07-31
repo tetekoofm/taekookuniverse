@@ -1,5 +1,5 @@
 import pandas as pd
-from models import db, TKURadio, BackgroundMusic, Discography, MusicVideo, Lyrics, Upcoming, Highlights, Recap, Memory, InTheNews
+from models import db, TKURadio, BackgroundMusic, Discography, MusicVideo, Lyrics, Recipe, Upcoming, Highlights, Recap, Memory, InTheNews
 from models import Vote, Radio, Fanbase, Project, Event, Promotion, BrandAmbassador, Banner, FanLetter
 from app import app
 from datetime import datetime, time
@@ -9,30 +9,43 @@ def insert_data_from_excel():
 
     with app.app_context():
 
-        radio_df = pd.read_excel(excel_file, sheet_name="TKURadio")  # Sheet with radio data
-        radio_df = radio_df.fillna('')  # Replace NaNs with empty strings
+        radio_df = pd.read_excel(excel_file, sheet_name="TKURadio")
+        radio_df = radio_df.fillna('')
         radio_df.columns = radio_df.columns.str.strip()
 
-        # Insert / update records
         for _, row in radio_df.iterrows():
-            # Check if record already exists (avoid duplicates)
+
             existing = TKURadio.query.filter_by(
-                playlist_name=row['playlist_name'],
-                spotify_playlist_id=row['spotify_playlist_id']
+                youtube_id=row['youtube_id']
             ).first()
-            
+
             if not existing:
+
                 radio = TKURadio(
-                    playlist_name=row['playlist_name'],
-                    spotify_playlist_id=row['spotify_playlist_id'],
-                    description=row.get('description', ''),
-                    image=row.get('image', ''),
-                    is_active=True  # Default to True
+                    song_id=row['song_id'],
+                    song_title=row['song_title'],
+                    youtube_url=row['youtube_url'],
+                    youtube_id=row['youtube_id'],
+
+                    artist=row['artist'],
+                    album=row['album'],
+                    era=row['era'],
+                    channel=row['channel'],
+
+                    priority=row['priority'] if row['priority'] else 0,
+                    version_type=row['version_type'],
+
+                    cover_image=row['cover_image'],
+
+                    published=True,
+                    notes=row['notes']
                 )
+
                 db.session.add(radio)
 
         db.session.commit()
-        print("TKURadio table updated from Excel!")
+
+        print("TKU Radio songs updated from Excel!")
 
         music_df = pd.read_excel(excel_file, sheet_name='Background Music')
 
@@ -72,6 +85,35 @@ def insert_data_from_excel():
         db.session.commit()
         print("Lyrics updated from Excel!")
 
+        recipe_df = pd.read_excel(excel_file, sheet_name='Recipes')
+
+        for _, row in recipe_df.iterrows():
+
+            existing = Recipe.query.filter_by(
+                recipe_name=row['recipe_name']
+            ).first()
+
+            if not existing:
+                recipe_entry = Recipe(
+                    recipe_name=row['recipe_name'],
+                    category=row['category'],
+                    difficulty=row['difficulty'],
+                    cook_time=row['cook_time'],
+                    image=row['image'],
+                    description=row['description'],
+                    ingredients=row['ingredients'],
+                    steps=row['steps'],
+                    jk_corner=row['jk_corner'],
+                    memory=row['memory'],
+                    notes=row['notes'],
+                    published=str(row['published']).strip().upper() == "TRUE"
+                )
+
+                db.session.add(recipe_entry)
+
+        db.session.commit()
+
+        print("Recipes updated from Excel!")
 
         upcoming_df = pd.read_excel(excel_file, sheet_name='Upcoming')
         upcoming_df['date'] = pd.to_datetime(upcoming_df['date'], errors='coerce')

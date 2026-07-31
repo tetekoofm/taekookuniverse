@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, send_from_directory, send_file, current_app
-from models import BackgroundMusic
+from models import BackgroundMusic, TKURadio
 import os
 import random
 from helpers import get_page_music
@@ -61,6 +61,7 @@ def termsandconditions():
 def pride():
     return render_template("11.pride.html")
 
-# @main_bp.route('/demo')
-# def demo():
-#     return render_template("Demo.html")
+@main_bp.route('/demo')
+def demo():
+    songs = TKURadio.query.filter_by(published=True).all()
+    return render_template("Demo.html", songs=songs)
