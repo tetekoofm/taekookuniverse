@@ -1,165 +1,289 @@
 {% extends "00.base.html" %}
-
 {% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tkuradio.css') }}">
 {% endblock %}
-
-{% block title %}TKURadio{% endblock %}
-
+{% block title %}TKU Radio{% endblock %}
 {% block content %}
 <div class="main-content">
     <div class="tkuradio-page">
-        <div class="hero">
-            <h1 class="heading">TKU Radio</h1>
-            <p class="caption">Click Play to listen. Login will be requested automatically.</p>
+        <div class="radio-header">
+            <div class="hero-badge">🎧 NOW BROADCASTING</div>
+            <div class="radio-icon">🎙️</div>
+            <h1 class="radio-title">TKU Radio</h1>
+            <p class="radio-tagline">A little corner with TaeKook music</p>
+            <p class="radio-tagline">Where Taekookers listen together from across the globe 💜</p>
         </div>
-
-        <div class="playlist-buttons global-buttons">
-            <button id="global-play">Play All</button>
-            <button id="global-stop">Stop All</button>
-        </div>
-
-        <div class="player-status" id="player-status">Stopped</div>
-
-        <div class="playlist-grid">
-            {% for playlist in playlists %}
-            <div class="playlist-card" data-id="{{ playlist.spotify_playlist_id }}">
-                <img src="{{ playlist.image or 'https://via.placeholder.com/300x300' }}" alt="{{ playlist.playlist_name }}">
-                <h3>{{ playlist.playlist_name }}</h3>
-                <p>{{ playlist.description }}</p>
-                <div class="playlist-buttons">
-                    <button class="play-station">Play</button>
-                    <button class="stop-station">Stop</button>
+        <div class="listen-options">
+            <div class="listen-card stationhead-card">
+                <div class="listen-icon">🎙️</div>
+                <h2>TeteKooFM</h2>
+                <div class="live-status">
+                    <span></span> LIVE NOW
+                </div>
+                <p class="broadcast-label">Broadcasting through:</p>
+                <h3>Stationhead</h3>
+                <p>Join our TKFM live Stationhead and stream together with fellow Taekookers.</p>
+                <a href="https://stationhead.com/tetekoofm" target="_blank" class="listen-btn">
+                    ▶ Join Live
+                </a>
+            </div>
+            <div class="listen-card tku-radio-card">
+                <div class="listen-icon">🎧</div>
+                <h2>TKU Radio</h2>
+                <div class="live-status on-air">
+                    <span></span> ON AIR
+                </div>
+                <p class="broadcast-label">Broadcasting through:</p>
+                <h3 id="radio-name">Youtube</h3>
+                <p id="radio-description">Enjoy our shuffled playlist from our TaeKook collection.</p>
+                <button id="play-radio" class="listen-btn">
+                    ▶ Listen Now
+                </button>
+                <div id="radio-playing" class="radio-playing hidden">
+                    <div class="now-playing">
+                        <p class="playing-label">Now Playing</p>
+                        <h2 id="song-title">TKU Radio</h2>
+                    </div>
+                    <div class="equalizer" id="equalizer">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="radio-controls">
+                        <button id="pause-radio" class="control-btn">
+                            ⏸ Pause
+                        </button>
+                        <button id="stop-radio" class="control-btn">
+                            ⏹ Stop
+                        </button>
+                    </div>
                 </div>
             </div>
-            {% endfor %}
+        </div>
+        <div class="dj-message">
+            <img id="dj-avatar" src="{{ url_for('static', filename='images/admins/ily.png') }}" alt="DJ">
+            <div class="dj-info">
+                <h3 id="dj-name">ILY</h3>
+                <p id="dj-text">Welcome to TKU Radio 💜</p>
+            </div>
+        </div>
+        <div class="radio-footer">
+            <p>
+                🎧 TKU Radio plays music using YouTube's official embedded player.
+                We don't host, download, or redistribute any audio.
+            </p>
         </div>
     </div>
 </div>
+<div id="player"></div>
 
-<script src="https://sdk.scdn.co/spotify-player.js"></script>
+<script src="https://www.youtube.com/iframe_api"></script>
 <script>
-    const playlists = Array.from(document.querySelectorAll('.playlist-card'));
-    let player, deviceId, spotifyToken = "{{ access_token }}";
-    let queue = [];
-    let currentIndex = 0;
-    let globalPlaying = false;
-    
-    // Initialize Spotify Player
-    function initSpotifyPlayer(token, callback) {
-        player = new Spotify.Player({
-            name: 'TKU Radio Web Player',
-            getOAuthToken: cb => cb(token),
-            volume: 0.5
-        });
-    
-        player.addListener('ready', ({ device_id }) => {
-            deviceId = device_id;
-            console.log("Device ready", device_id);
-            if (callback) callback();
-        });
-    
-        player.addListener('player_state_changed', state => {
-            console.log(state);
-            if (state && state.paused && globalPlaying) {
-                // Play next when playlist finishes
-                currentIndex++;
-                if (currentIndex < queue.length) {
-                    playPlaylist(queue[currentIndex]);
-                } else {
-                    globalPlaying = false;
-                    document.getElementById('player-status').innerText = "Stopped";
+    const radioSongs=[
+    {% for song in songs %}
+    {
+    title:"{{ song.song_title|escape }}",
+    artist:"{{ song.artist|escape }}",
+    youtube:"{{ song.youtube_id }}"
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+    ];
+
+    let player=null;
+    let playerReady=false;
+    let currentSong=null;
+
+    function onYouTubeIframeAPIReady(){
+        player=new YT.Player('player',{
+            height:'1',
+            width:'1',
+            playerVars:{
+                autoplay:0,
+                controls:0,
+                playsinline:1
+            },
+            events:{
+                onReady:function(){
+                    playerReady=true;
+                },
+                onStateChange:function(event){
+                    if(event.data===YT.PlayerState.ENDED){
+                        playNewSong();
+                    }
                 }
             }
         });
-    
-        player.connect();
     }
-    
-    // Play a single playlist
-    function playPlaylist(card) {
-        if (!spotifyToken) {
-            window.location.href = "{{ url_for('login') }}"; // ensures correct path
+
+    function playNewSong(){
+        if(!playerReady || radioSongs.length===0){
+            console.log("Player not ready");
             return;
         }
 
-        if (!player) {
-            initSpotifyPlayer(spotifyToken, () => playPlaylist(card));
-            return;
-        }
-
-        // Make sure deviceId is ready
-        if (!deviceId) {
-            console.log("Waiting for device...");
-            setTimeout(() => playPlaylist(card), 500);
-            return;
-        }
-
-        const playlistId = card.dataset.id;
-        const name = card.querySelector('h3').innerText;
-        document.getElementById('player-status').innerText = `Playing: ${name}`;
-
-        fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, {
-            method: 'PUT',
-            body: JSON.stringify({ context_uri: `spotify:playlist:${playlistId}` }),
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${spotifyToken}`
-            },
-        }).then(res => {
-            if (!res.ok) console.error('Spotify play error', res);
-        });
+        let randomIndex=Math.floor(Math.random()*radioSongs.length);
+        currentSong=radioSongs[randomIndex];
+        player.loadVideoById(currentSong.youtube);
+        player.playVideo();
+        document.getElementById("song-title").innerText=currentSong.title;
+        document.getElementById("radio-playing").classList.remove("hidden");
+        document.getElementById("play-radio").style.display="none";
+        document.getElementById("equalizer").classList.add("playing");
     }
-    
-    // Stop playback
-    function stopPlayback() {
-        if (!deviceId) return;
-        fetch(`https://api.spotify.com/v1/me/player/pause?device_id=${deviceId}`, {
-            method: 'PUT',
-            headers: {'Authorization': `Bearer ${spotifyToken}`}
-        });
-        document.getElementById('player-status').innerText = 'Stopped';
-        globalPlaying = false;
-    }
-    
-    // Prepare random queue
-    function prepareQueue() {
-        queue = [...playlists];
-        for (let i = queue.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [queue[i], queue[j]] = [queue[j], queue[i]];
+
+    function pauseSong(){
+        if(player){
+            player.pauseVideo();
+            document.getElementById("equalizer").classList.remove("playing");
+            document.getElementById("pause-radio").innerText="▶ Play";
         }
     }
-    
-    // Global Play All button
-    document.getElementById('global-play').addEventListener('click', () => {
-        if (!spotifyToken) {
-            window.location.href = "{{ url_for('login') }}"; 
-            return;
+
+    function resumeSong(){
+        if(player && currentSong){
+            player.playVideo();
+            document.getElementById("equalizer").classList.add("playing");
+            document.getElementById("pause-radio").innerText="⏸ Pause";
         }
-        if (!globalPlaying) {
-            prepareQueue();
-            currentIndex = 0;
-            globalPlaying = true;
-            playPlaylist(queue[currentIndex]);
-        }
+    }
+
+    function stopSong(){
+        if(player){player.stopVideo();}
+        currentSong=null;
+        document.getElementById("radio-playing").classList.add("hidden");
+        document.getElementById("play-radio").style.display="inline-flex";
+        document.getElementById("equalizer").classList.remove("playing");
+        document.getElementById("song-title").innerText="TKU Radio";
+    }
+
+    document.getElementById("play-radio").addEventListener("click",function(){
+        if(currentSong){resumeSong();}
+        else{playNewSong();}
     });
-    
-    document.getElementById('global-stop').addEventListener('click', () => {
-        stopPlayback();
+
+    document.getElementById("pause-radio").addEventListener("click",function(){
+        let button=this;
+        if(button.innerText.includes("Play")){resumeSong();}
+        else{pauseSong();}
     });
-    
-    // Individual card play/stop
-    playlists.forEach(card => {
-        const name = card.querySelector('h3').innerText;
-        card.querySelector('.play-station').addEventListener('click', () => {
-            globalPlaying = false;
-            playPlaylist(card);
-        });
-        card.querySelector('.stop-station').addEventListener('click', () => {
-            stopPlayback();
-        });
+
+    document.getElementById("stop-radio").addEventListener("click",function(){
+        stopSong();
     });
-    </script>
-    
+
+
+    const djs = {
+
+        ily:{
+            name:"🤟 ILY",
+            image:"{{ url_for('static', filename='images/admins/ily.png') }}",
+            messages:[
+                "Welcome to TKU Radio! Thanks for spending a little time with us. 💜",
+                "Hope today's playlist has one of your favorites.",
+                "Grab a snack, relax, and enjoy the music.",
+                "Listening together makes every song a little more special.",
+                "If you're streaming too, thank you for supporting Tae and Kook!",
+                "Another shuffle is on the way. Let's see what comes next."
+            ]
+        },
+
+        snowy:{
+            name:"❄️ Snowy",
+            image:"{{ url_for('static', filename='images/admins/snowy.png') }}",
+            messages:[
+                "Snowy here! Hope you're having a wonderful day.",
+                "Enjoy today's random TaeKook playlist.",
+                "Thanks for tuning in to TKU Radio.",
+                "Every shuffle brings back a different memory.",
+                "Stay awhile—we've got lots more songs coming.",
+                "Hope this song makes your day a little brighter."
+            ]
+        },
+
+        berry:{
+            name:"🍓 Berry",
+            image:"{{ url_for('static', filename='images/admins/berry.png') }}",
+            messages:[
+                "Berry here! Let's enjoy another favorite together.",
+                "Nothing beats good music and good company.",
+                "Hope you're enjoying today's playlist.",
+                "Every visit to TKU Radio means a lot to us.",
+                "Another random song is just around the corner.",
+                "Thanks for listening with us today!"
+            ]
+        },
+
+        ghosty:{
+            name:"👻 Ghosty",
+            image:"{{ url_for('static', filename='images/admins/ghosty.png') }}",
+            messages:[
+                "Ghosty checking in!",
+                "Let's see what the shuffle gives us next.",
+                "Hope you're enjoying your time on TKU Radio.",
+                "Here's another song from our collection.",
+                "Thanks for stopping by today!",
+                "Keep listening—there's always another favorite coming."
+            ]
+        },
+
+        clovy:{
+            name:"🍀 Clovy",
+            image:"{{ url_for('static', filename='images/admins/clovy.png') }}",
+            messages:[
+                "Clovy here! Sending purple vibes your way.",
+                "Hope this playlist brightens your day.",
+                "Thanks for joining us on TKU Radio.",
+                "Let's enjoy another TaeKook song together.",
+                "Music always sounds better when shared.",
+                "Happy listening! 💜"
+            ]
+        }
+
+    };
+
+
+    function getCurrentDJ(){
+        const now = new Date();
+        const estHour = Number(
+            new Intl.DateTimeFormat("en-US",{
+                timeZone:"America/New_York",
+                hour:"numeric",
+                hour12:false
+            }).format(now)
+        );
+
+        if(estHour >= 0 && estHour < 4){return "ghosty";}
+        if(estHour >= 4 && estHour < 8){return "clovy";}
+        if(estHour >= 8 && estHour < 12){return "ily";}
+        if(estHour >= 12 && estHour < 16){return "snowy";}
+        if(estHour >= 16 && estHour < 20){return "berry";}
+        
+        return "ily";
+    }
+
+    let messageIndex = 0;
+
+    function changeDJMessage(){
+
+        const currentDJ = djs[getCurrentDJ()];
+
+        document.getElementById("dj-avatar").src = currentDJ.image;
+        document.getElementById("dj-name").innerText = currentDJ.name;
+
+        document.getElementById("dj-text").innerText =
+            currentDJ.messages[messageIndex];
+
+        messageIndex++;
+
+        if(messageIndex >= currentDJ.messages.length){
+            messageIndex = 0;
+        }
+    }
+
+    changeDJMessage();
+    setInterval(changeDJMessage,10000);
+
+</script>
 {% endblock %}

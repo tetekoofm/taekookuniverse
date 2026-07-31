@@ -7,10 +7,11 @@
 <div class="main-content">
     <div class="tkuradio-page">
         <div class="radio-header">
+            <div class="hero-badge">🎧 NOW BROADCASTING</div>
             <div class="radio-icon">🎙️</div>
-            <h1 class="heading">TKU Radio</h1>
-            <p class="caption">A little corner with TaeKook music</p>
-            <p class="caption">Where Taekookers listen together from across the globe 💜</p>
+            <h1 class="radio-title">TKU Radio</h1>
+            <p class="radio-tagline">A little corner with TaeKook music</p>
+            <p class="radio-tagline">Where Taekookers listen together from across the globe 💜</p>
         </div>
         <div class="listen-options">
             <div class="listen-card stationhead-card">
@@ -77,161 +78,212 @@
     </div>
 </div>
 <div id="player"></div>
+
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
-const radioSongs=[
-{% for song in songs %}
-{
-title:"{{ song.song_title|escape }}",
-artist:"{{ song.artist|escape }}",
-youtube:"{{ song.youtube_id }}"
-}{% if not loop.last %},{% endif %}
-{% endfor %}
-];
+    const radioSongs=[
+    {% for song in songs %}
+    {
+    title:"{{ song.song_title|escape }}",
+    artist:"{{ song.artist|escape }}",
+    youtube:"{{ song.youtube_id }}"
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+    ];
 
-let player=null;
-let playerReady=false;
-let currentSong=null;
+    let player=null;
+    let playerReady=false;
+    let currentSong=null;
 
-function onYouTubeIframeAPIReady(){
-    player=new YT.Player('player',{
-        height:'1',
-        width:'1',
-        playerVars:{
-            autoplay:0,
-            controls:0,
-            playsinline:1
-        },
-        events:{
-            onReady:function(){
-                playerReady=true;
+    function onYouTubeIframeAPIReady(){
+        player=new YT.Player('player',{
+            height:'1',
+            width:'1',
+            playerVars:{
+                autoplay:0,
+                controls:0,
+                playsinline:1
             },
-            onStateChange:function(event){
-                if(event.data===YT.PlayerState.ENDED){
-                    playNewSong();
+            events:{
+                onReady:function(){
+                    playerReady=true;
+                },
+                onStateChange:function(event){
+                    if(event.data===YT.PlayerState.ENDED){
+                        playNewSong();
+                    }
                 }
             }
+        });
+    }
+
+    function playNewSong(){
+        if(!playerReady || radioSongs.length===0){
+            console.log("Player not ready");
+            return;
         }
-    });
-}
 
-function playNewSong(){
-    if(!playerReady || radioSongs.length===0){
-        console.log("Player not ready");
-        return;
-    }
-
-    let randomIndex=Math.floor(Math.random()*radioSongs.length);
-    currentSong=radioSongs[randomIndex];
-
-    player.loadVideoById(currentSong.youtube);
-    player.playVideo();
-
-    document.getElementById("song-title").innerText=currentSong.title;
-
-    document.getElementById("radio-playing").classList.remove("hidden");
-    document.getElementById("play-radio").style.display="none";
-
-    document.getElementById("equalizer").classList.add("playing");
-}
-
-function pauseSong(){
-    if(player){
-        player.pauseVideo();
-        document.getElementById("equalizer").classList.remove("playing");
-        document.getElementById("pause-radio").innerText="▶ Play";
-    }
-}
-
-function resumeSong(){
-    if(player && currentSong){
+        let randomIndex=Math.floor(Math.random()*radioSongs.length);
+        currentSong=radioSongs[randomIndex];
+        player.loadVideoById(currentSong.youtube);
         player.playVideo();
+        document.getElementById("song-title").innerText=currentSong.title;
+        document.getElementById("radio-playing").classList.remove("hidden");
+        document.getElementById("play-radio").style.display="none";
         document.getElementById("equalizer").classList.add("playing");
-        document.getElementById("pause-radio").innerText="⏸ Pause";
-    }
-}
-
-function stopSong(){
-    if(player){
-        player.stopVideo();
     }
 
-    currentSong=null;
-
-    document.getElementById("radio-playing").classList.add("hidden");
-    document.getElementById("play-radio").style.display="inline-flex";
-    document.getElementById("equalizer").classList.remove("playing");
-    document.getElementById("song-title").innerText="TKU Radio";
-}
-
-document.getElementById("play-radio").addEventListener("click",function(){
-    if(currentSong){
-        resumeSong();
-    }else{
-        playNewSong();
+    function pauseSong(){
+        if(player){
+            player.pauseVideo();
+            document.getElementById("equalizer").classList.remove("playing");
+            document.getElementById("pause-radio").innerText="▶ Play";
+        }
     }
-});
 
-document.getElementById("pause-radio").addEventListener("click",function(){
-    let button=this;
-
-    if(button.innerText.includes("Play")){
-        resumeSong();
-    }else{
-        pauseSong();
+    function resumeSong(){
+        if(player && currentSong){
+            player.playVideo();
+            document.getElementById("equalizer").classList.add("playing");
+            document.getElementById("pause-radio").innerText="⏸ Pause";
+        }
     }
-});
 
-document.getElementById("stop-radio").addEventListener("click",function(){
-    stopSong();
-});
-
-const djMessages=[
-{
-    name:"ILY",
-    image:"{{ url_for('static', filename='images/admins/ily.png') }}",
-    message:"🎙️ Hi! I'm ILY. Thanks for stopping by TKU Radio. Hope you enjoy today's songs."
-},
-{
-    name:"Snowy",
-    image:"{{ url_for('static', filename='images/admins/snowy.png') }}",
-    message:"❄️ Snowy is here. Sit back, relax and enjoy a little TaeKook music."
-},
-{
-    name:"Berry",
-    image:"{{ url_for('static', filename='images/admins/berry.png') }}",
-    message:"🍓 Berry checking in. Enjoy today's songs from our TaeKook collection."
-},
-{
-    name:"Ghosty",
-    image:"{{ url_for('static', filename='images/admins/ghosty.png') }}",
-    message:"👻 Ghosty here! Hope your favorite song comes up next."
-},
-{
-    name:"Clovy",
-    image:"{{ url_for('static', filename='images/admins/clovy.png') }}",
-    message:"🍀 Clovy here sending a little purple vibes your way. Happy listening"
-}
-];
-
-let djIndex=0;
-
-function changeDJMessage(){
-    const dj=djMessages[djIndex];
-
-    document.getElementById("dj-avatar").src=dj.image;
-    document.getElementById("dj-name").innerText=dj.name;
-    document.getElementById("dj-text").innerText=dj.message;
-
-    djIndex++;
-
-    if(djIndex>=djMessages.length){
-        djIndex=0;
+    function stopSong(){
+        if(player){player.stopVideo();}
+        currentSong=null;
+        document.getElementById("radio-playing").classList.add("hidden");
+        document.getElementById("play-radio").style.display="inline-flex";
+        document.getElementById("equalizer").classList.remove("playing");
+        document.getElementById("song-title").innerText="TKU Radio";
     }
-}
 
-setInterval(changeDJMessage,7000);
-changeDJMessage();
+    document.getElementById("play-radio").addEventListener("click",function(){
+        if(currentSong){resumeSong();}
+        else{playNewSong();}
+    });
+
+    document.getElementById("pause-radio").addEventListener("click",function(){
+        let button=this;
+        if(button.innerText.includes("Play")){resumeSong();}
+        else{pauseSong();}
+    });
+
+    document.getElementById("stop-radio").addEventListener("click",function(){
+        stopSong();
+    });
+
+
+    const djs = {
+
+        ily:{
+            name:"🤟 ILY",
+            image:"{{ url_for('static', filename='images/admins/ily.png') }}",
+            messages:[
+                "Welcome to TKU Radio! Thanks for spending a little time with us. 💜",
+                "Hope today's playlist has one of your favorites.",
+                "Grab a snack, relax, and enjoy the music.",
+                "Listening together makes every song a little more special.",
+                "If you're streaming too, thank you for supporting Tae and Kook!",
+                "Another shuffle is on the way. Let's see what comes next."
+            ]
+        },
+
+        snowy:{
+            name:"❄️ Snowy",
+            image:"{{ url_for('static', filename='images/admins/snowy.png') }}",
+            messages:[
+                "Snowy here! Hope you're having a wonderful day.",
+                "Enjoy today's random TaeKook playlist.",
+                "Thanks for tuning in to TKU Radio.",
+                "Every shuffle brings back a different memory.",
+                "Stay awhile—we've got lots more songs coming.",
+                "Hope this song makes your day a little brighter."
+            ]
+        },
+
+        berry:{
+            name:"🍓 Berry",
+            image:"{{ url_for('static', filename='images/admins/berry.png') }}",
+            messages:[
+                "Berry here! Let's enjoy another favorite together.",
+                "Nothing beats good music and good company.",
+                "Hope you're enjoying today's playlist.",
+                "Every visit to TKU Radio means a lot to us.",
+                "Another random song is just around the corner.",
+                "Thanks for listening with us today!"
+            ]
+        },
+
+        ghosty:{
+            name:"👻 Ghosty",
+            image:"{{ url_for('static', filename='images/admins/ghosty.png') }}",
+            messages:[
+                "Ghosty checking in!",
+                "Let's see what the shuffle gives us next.",
+                "Hope you're enjoying your time on TKU Radio.",
+                "Here's another song from our collection.",
+                "Thanks for stopping by today!",
+                "Keep listening—there's always another favorite coming."
+            ]
+        },
+
+        clovy:{
+            name:"🍀 Clovy",
+            image:"{{ url_for('static', filename='images/admins/clovy.png') }}",
+            messages:[
+                "Clovy here! Sending purple vibes your way.",
+                "Hope this playlist brightens your day.",
+                "Thanks for joining us on TKU Radio.",
+                "Let's enjoy another TaeKook song together.",
+                "Music always sounds better when shared.",
+                "Happy listening! 💜"
+            ]
+        }
+
+    };
+
+
+    function getCurrentDJ(){
+        const now = new Date();
+        const estHour = Number(
+            new Intl.DateTimeFormat("en-US",{
+                timeZone:"America/New_York",
+                hour:"numeric",
+                hour12:false
+            }).format(now)
+        );
+
+        if(estHour >= 0 && estHour < 4){return "ghosty";}
+        if(estHour >= 4 && estHour < 8){return "clovy";}
+        if(estHour >= 8 && estHour < 12){return "ily";}
+        if(estHour >= 12 && estHour < 16){return "snowy";}
+        if(estHour >= 16 && estHour < 20){return "berry";}
+        
+        return "ily";
+    }
+
+    let messageIndex = 0;
+
+    function changeDJMessage(){
+
+        const currentDJ = djs[getCurrentDJ()];
+
+        document.getElementById("dj-avatar").src = currentDJ.image;
+        document.getElementById("dj-name").innerText = currentDJ.name;
+
+        document.getElementById("dj-text").innerText =
+            currentDJ.messages[messageIndex];
+
+        messageIndex++;
+
+        if(messageIndex >= currentDJ.messages.length){
+            messageIndex = 0;
+        }
+    }
+
+    changeDJMessage();
+    setInterval(changeDJMessage,10000);
 
 </script>
 {% endblock %}
