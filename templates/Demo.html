@@ -9,232 +9,224 @@
         <div class="radio-header">
             <div class="radio-icon">🎙️</div>
             <h1 class="heading">TKU Radio</h1>
-            <div class="on-air">
-                <span></span> ON AIR
-            </div>
-            <p class="caption">24/7 TaeKook music station</p>
+            <p class="caption">Your TaeKook music universe, anytime anywhere</p>
+            <p class="caption">Listening together across the world</p>
         </div>
-        <div class="station-selection">
-            <div class="station-card active" data-channel="GOLDEN_HOUR">
-                <img src="{{ url_for('static', filename='images/songs/golden.webp') }}" alt="Golden Hour">
-                <div class="station-info">
-                    <h2>Golden Hour</h2>
-                    <p>Jung Kook's golden moments, solo songs and special versions.</p>
-                    <button class="tune-btn">Tune In</button>
+        <div class="listen-options">
+            <div class="listen-card stationhead-card">
+                <div class="listen-icon">🎙️</div>
+                <h2>TeteKooFM</h2>
+                <div class="live-status">
+                    <span></span> LIVE NOW
                 </div>
+                <p class="broadcast-label">Currently Broadcasting:</p>
+                <h3>Stationhead</h3>
+                <p>Join our community live broadcast and listen together with fellow fans.</p>
+                <a href="https://stationhead.com/tetekoofm" target="_blank" class="listen-btn">
+                    ▶ Join Live
+                </a>
             </div>
-            <div class="station-card" data-channel="LAYOVER_LOUNGE">
-                <img src="{{ url_for('static', filename='images/songs/layover.webp') }}" alt="Layover Lounge">
-                <div class="station-info">
-                    <h2>Layover Lounge</h2>
-                    <p>A cozy V station with Layover, OSTs and solo tracks.</p>
-                    <button class="tune-btn">Tune In</button>
+            <div class="listen-card tku-radio-card">
+                <div class="listen-icon">🎧</div>
+                <h2>TKU Radio</h2>
+                <div class="live-status on-air">
+                    <span></span> ON AIR
                 </div>
-            </div>
-            <div class="station-card" data-channel="PURPLE_UNIVERSE">
-                <img src="{{ url_for('static', filename='images/songs/purple.jpg') }}" alt="Purple Universe">
-                <div class="station-info">
-                    <h2>Purple Universe</h2>
-                    <p>BTS memories, TaeKook moments and special songs.</p>
-                    <button class="tune-btn">Tune In</button>
-                </div>
-            </div>
-            <div class="station-card" data-channel="WINTER_SPECIAL">
-                <img src="{{ url_for('static', filename='images/songs/winter.jpg') }}" alt="Winter Special">
-                <div class="station-info">
-                    <h2>Winter Special</h2>
-                    <p>Snowy nights, Christmas songs and warm memories.</p>
-                    <button class="tune-btn">Tune In</button>
-                </div>
-            </div>
-        </div>
-        <div class="radio-player">
-            <div id="player"></div>
-            <div class="broadcast">
-                <div class="broadcast-message">
-                    <h3 id="station-title">Golden Hour</h3>
-                    <p id="station-message">Welcome to Jung Kook's golden moments 💜</p>
-                </div>
-                <div class="dj-message">
-                    <span id="dj-icon">🎙️</span>
-                    <p id="dj-text">Welcome to TKU Radio 💜</p>
-                </div>
-                <div class="equalizer">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-                <div class="now-playing">
-                    <img id="song-image" src="{{ url_for('static', filename='images/radio/default.jpg') }}" alt="Now Playing">
-                    <div>
+                <p class="broadcast-label">Currently Broadcasting:</p>
+                <h3 id="radio-name">TaeKook Music Station</h3>
+                <p id="radio-description">Random songs from our TaeKook collection.</p>
+                <button id="play-radio" class="listen-btn">
+                    ▶ Listen Now
+                </button>
+                <div id="radio-playing" class="radio-playing hidden">
+                    <div class="now-playing">
+                        <p class="playing-label">Now Playing</p>
                         <h2 id="song-title">TKU Radio</h2>
-                        <p id="song-artist">Waiting for broadcast...</p>
+                    </div>
+                    <div class="equalizer" id="equalizer">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="radio-controls">
+                        <button id="pause-radio" class="control-btn">
+                            ⏸ Pause
+                        </button>
+                        <button id="stop-radio" class="control-btn">
+                            ⏹ Stop
+                        </button>
                     </div>
                 </div>
-                <div class="radio-actions">
-                    <button id="play-radio">▶ Listen Live</button>
-                    <button id="pause-radio">⏸ Pause</button>
-                </div>
-                <div class="radio-status">
-                    <span></span>
-                    <p id="status-text">Ready to broadcast</p>
-                </div>
             </div>
         </div>
-        <div class="radio-footer">
-            <p>🎧 You are listening to TeteKooFM on TKU Radio</p>
-            <p>Stay tuned. More memories coming next 💜</p>
+        <div class="dj-message">
+            <img id="dj-avatar" src="{{ url_for('static', filename='images/admins/ily.png') }}" alt="DJ">
+            <div class="dj-info">
+                <h3 id="dj-name">ILY</h3>
+                <p id="dj-text">Welcome to TKU Radio 💜</p>
+            </div>
         </div>
     </div>
 </div>
+<div id="player"></div>
 <script src="https://www.youtube.com/iframe_api"></script>
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
-const radioSongs={
-{% for channel in ['GOLDEN_HOUR','LAYOVER_LOUNGE','PURPLE_UNIVERSE','WINTER_SPECIAL'] %}
-"{{ channel }}":[
-{% for song in songs if song.channel == channel %}
+const radioSongs=[
+{% for song in songs %}
 {
 title:"{{ song.song_title|escape }}",
 artist:"{{ song.artist|escape }}",
-youtube:"{{ song.youtube_id }}",
-image:"{{ song.cover_image }}"
+youtube:"{{ song.youtube_id }}"
 }{% if not loop.last %},{% endif %}
 {% endfor %}
-],
-{% endfor %}
-};
-let currentChannel="GOLDEN_HOUR";
-let currentQueue=[];
-let currentIndex=0;
+];
+
 let player=null;
 let playerReady=false;
-let started=false;
+let currentSong=null;
+
 function onYouTubeIframeAPIReady(){
     player=new YT.Player('player',{
-        height:'100',
-        width:'100',
-        videoId:'',
+        height:'1',
+        width:'1',
         playerVars:{
             autoplay:0,
-            controls:1,
+            controls:0,
             playsinline:1
         },
         events:{
             onReady:function(){
                 playerReady=true;
-                console.log("YouTube Player Ready");
             },
             onStateChange:function(event){
-                console.log("Player State:",event.data);
                 if(event.data===YT.PlayerState.ENDED){
-                    playNext();
+                    playNewSong();
                 }
-            },
-            onError:function(event){
-                console.log("YouTube Error:",event.data);
             }
         }
     });
 }
-function startStation(){
-    if(!playerReady){
-        console.log("Player not ready yet");
+
+function playNewSong(){
+    if(!playerReady || radioSongs.length===0){
+        console.log("Player not ready");
         return;
     }
-    currentQueue=[...radioSongs[currentChannel]];
-    if(currentQueue.length===0){
-        console.log("No songs found for",currentChannel);
-        return;
-    }
-    currentQueue.sort(()=>Math.random()-0.5);
-    currentIndex=0;
-    playCurrent();
+
+    let randomIndex=Math.floor(Math.random()*radioSongs.length);
+    currentSong=radioSongs[randomIndex];
+
+    player.loadVideoById(currentSong.youtube);
+    player.playVideo();
+
+    document.getElementById("song-title").innerText=currentSong.title;
+
+    document.getElementById("radio-playing").classList.remove("hidden");
+    document.getElementById("play-radio").style.display="none";
+
+    document.getElementById("equalizer").classList.add("playing");
 }
-function playCurrent(){
-    let song=currentQueue[currentIndex];
-    if(!song){
-        return;
-    }
-    console.log("Playing:",song.youtube);
-    player.loadVideoById({
-        videoId:song.youtube,
-        startSeconds:0
-    });
-    document.getElementById("song-title").innerText=song.title;
-    document.getElementById("song-artist").innerText=song.artist;
-    document.getElementById("song-image").src=song.image;
-    document.getElementById("status-text").innerText="LIVE";
-}
-function playNext(){
-    currentIndex++;
-    if(currentIndex>=currentQueue.length){
-        currentQueue.sort(()=>Math.random()-0.5);
-        currentIndex=0;
-    }
-    playCurrent();
-}
-document.querySelectorAll(".station-card").forEach(card=>{
-    card.querySelector(".tune-btn").addEventListener("click",()=>{
-        currentChannel=card.dataset.channel;
-        document.getElementById("station-title").innerText=card.querySelector("h2").innerText;
-        document.getElementById("station-message").innerText=card.querySelector("p").innerText;
-        startStation();
-    });
-});
-document.getElementById("play-radio").addEventListener("click",()=>{
-    if(!started){
-        started=true;
-        startStation();
-    }
-    setTimeout(()=>{
-        if(player){
-            player.playVideo();
-        }
-    },1000);
-});
-document.getElementById("pause-radio").addEventListener("click",()=>{
+
+function pauseSong(){
     if(player){
         player.pauseVideo();
-        document.getElementById("status-text").innerText="PAUSED";
+        document.getElementById("equalizer").classList.remove("playing");
+        document.getElementById("pause-radio").innerText="▶ Play";
+    }
+}
+
+function resumeSong(){
+    if(player && currentSong){
+        player.playVideo();
+        document.getElementById("equalizer").classList.add("playing");
+        document.getElementById("pause-radio").innerText="⏸ Pause";
+    }
+}
+
+function stopSong(){
+    if(player){
+        player.stopVideo();
+    }
+
+    currentSong=null;
+
+    document.getElementById("radio-playing").classList.add("hidden");
+    document.getElementById("play-radio").style.display="inline-flex";
+    document.getElementById("equalizer").classList.remove("playing");
+    document.getElementById("song-title").innerText="TKU Radio";
+}
+
+document.getElementById("play-radio").addEventListener("click",function(){
+    if(currentSong){
+        resumeSong();
+    }else{
+        playNewSong();
     }
 });
-const djMessages={
-GOLDEN_HOUR:[
-"✨ Welcome to Golden Hour. Let's spend time with Jung Kook's golden moments.",
-"🎧 You're listening to Jung Kook's solo journey on TKU Radio.",
-"💜 A golden song, a golden memory, a golden moment."
-],
-LAYOVER_LOUNGE:[
-"🌧️ Welcome to Layover Lounge. Relax with V's warm vocals.",
-"☕ Cozy evening vibes with Taehyung on TKU Radio.",
-"💚 Slow down and enjoy this little moment."
-],
-PURPLE_UNIVERSE:[
-"💜 Welcome to our purple universe.",
-"🎶 Memories, music and TaeKook moments continue here.",
-"🌌 Stay with us under the purple sky."
-],
-WINTER_SPECIAL:[
-"❄️ Welcome to our winter broadcast.",
-"☃️ Warm songs for cold nights.",
-"🎄 A little holiday magic on TKU Radio."
-]
-};
-let djIndex=0;
-function rotateDJMessage(){
-    const messages=djMessages[currentChannel];
-    if(!messages){
-        return;
+
+document.getElementById("pause-radio").addEventListener("click",function(){
+    let button=this;
+
+    if(button.innerText.includes("Play")){
+        resumeSong();
+    }else{
+        pauseSong();
     }
-    document.getElementById("dj-text").innerText=messages[djIndex];
+});
+
+document.getElementById("stop-radio").addEventListener("click",function(){
+    stopSong();
+});
+
+const djMessages=[
+{
+    name:"ILY",
+    image:"{{ url_for('static', filename='images/admins/ily.png') }}",
+    message:"🎙️ Welcome to TKU Radio. Your TaeKook music journey starts here 💜"
+},
+{
+    name:"Snowy",
+    image:"{{ url_for('static', filename='images/admins/snowy.png') }}",
+    message:"❄️ You're listening to TKU Radio. Enjoy these warm TaeKook memories."
+},
+{
+    name:"Berry",
+    image:"{{ url_for('static', filename='images/admins/berry.png') }}",
+    message:"🍓 A new song, a new memory. Stay tuned with TeteKooFM & TK Universe."
+},
+{
+    name:"Ghosty",
+    image:"{{ url_for('static', filename='images/admins/ghosty.png') }}",
+    message:"👻 Ghosty is here! Let's enjoy another TaeKook moment together."
+},
+{
+    name:"Clovy",
+    image:"{{ url_for('static', filename='images/admins/clovy.png') }}",
+    message:"🍀 Sending purple vibes your way. Happy listening 💜"
+}
+];
+
+let djIndex=0;
+
+function changeDJMessage(){
+    const dj=djMessages[djIndex];
+
+    document.getElementById("dj-avatar").src=dj.image;
+    document.getElementById("dj-name").innerText=dj.name;
+    document.getElementById("dj-text").innerText=dj.message;
+
     djIndex++;
-    if(djIndex>=messages.length){
+
+    if(djIndex>=djMessages.length){
         djIndex=0;
     }
 }
-setInterval(rotateDJMessage,7000);
+
+setInterval(changeDJMessage,7000);
+changeDJMessage();
+
 </script>
 {% endblock %}
