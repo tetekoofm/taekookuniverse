@@ -29,11 +29,12 @@ def insert_data_from_excel():
 
                     artist=row['artist'],
                     album=row['album'],
-                    era=row['era'],
-                    channel=row['channel'],
 
-                    priority=row['priority'] if row['priority'] else 0,
-                    version_type=row['version_type'],
+                    playlist_group=row['playlist_group'],
+
+                    play_order=row['play_order'] if row['play_order'] else 0,
+
+                    track_type=row['track_type'],
 
                     cover_image=row['cover_image'],
 
@@ -99,7 +100,7 @@ def insert_data_from_excel():
                     category=row['category'],
                     difficulty=row['difficulty'],
                     cook_time=row['cook_time'],
-                    image=row['image'],
+                    media=row['media'],
                     description=row['description'],
                     ingredients=row['ingredients'],
                     steps=row['steps'],

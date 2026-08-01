@@ -172,14 +172,45 @@
     padding:20px 50px 10px;
 }
 
-#recipeDetails img{
-    display:block;
-    width:70%;
-    max-width:500px;
-    height:280px;
-    object-fit:cover;
+.media-card{
+    width:300px;
     margin:20px auto;
-} 
+    padding:30px;
+    background:linear-gradient(135deg,#6A0DAD,#FFD700);
+    border-radius:20px;
+    color:white;
+    cursor:pointer;
+    text-align:center;
+}
+
+.play-icon{
+    font-size:3rem;
+}
+
+.media-card p{
+    margin:10px 0 0;
+    font-weight:bold;
+}
+
+.media-card:hover{
+    background:#8b2be2;
+}
+
+.weverse-frame{
+    width:600px;
+    height:390px;
+    overflow:hidden;
+    margin:20px auto;
+    border-radius:18px;
+}
+
+.weverse-frame iframe{
+    width:380px;
+    height:250px;
+    border:0;
+    transform:scale(1.6);
+    transform-origin:top left;
+}
 
 .recipe-info{
     display:flex;

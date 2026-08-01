@@ -69,6 +69,17 @@
                 <p id="dj-text">Welcome to TKU Radio 💜</p>
             </div>
         </div>
+        <div class="playlist-section">
+            <h2>🎶 TKU Radio Playlists</h2>
+        
+            <div class="playlist-list">
+                {% for playlist in playlists %}
+                <div class="playlist-card" data-playlist="{{ playlist }}">
+                    <p>{{ playlist.replace('_', ' ') }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
         <div class="radio-footer">
             <p>
                 🎧 TKU Radio plays music using YouTube's official embedded player.
@@ -84,13 +95,17 @@
     const radioSongs=[
     {% for song in songs %}
     {
-    title:"{{ song.song_title|escape }}",
-    artist:"{{ song.artist|escape }}",
-    youtube:"{{ song.youtube_id }}"
+        title: {{ song.song_title|tojson }},
+        artist: {{ song.artist|tojson }},
+        youtube: {{ song.youtube_id|tojson }},
+        album: {{ song.album|tojson }},
+        playlist: {{ song.playlist_group|tojson }}.split(","),
+        order: {{ song.play_order|tojson }},
+        type: {{ song.track_type|tojson }}
     }{% if not loop.last %},{% endif %}
     {% endfor %}
     ];
-
+    
     let player=null;
     let playerReady=false;
     let currentSong=null;
@@ -118,15 +133,17 @@
     }
 
     function playNewSong(){
-        if(!playerReady || radioSongs.length===0){
+        if(!playerReady || selectedSongs.length===0){
             console.log("Player not ready");
             return;
         }
 
-        let randomIndex=Math.floor(Math.random()*radioSongs.length);
-        currentSong=radioSongs[randomIndex];
+        let randomIndex=Math.floor(Math.random()*selectedSongs.length);
+        currentSong=selectedSongs[randomIndex];
+
         player.loadVideoById(currentSong.youtube);
         player.playVideo();
+
         document.getElementById("song-title").innerText=currentSong.title;
         document.getElementById("radio-playing").classList.remove("hidden");
         document.getElementById("play-radio").style.display="none";
@@ -243,7 +260,6 @@
 
     };
 
-
     function getCurrentDJ(){
         const now = new Date();
         const estHour = Number(
@@ -285,5 +301,27 @@
     changeDJMessage();
     setInterval(changeDJMessage,10000);
 
+    let selectedSongs = radioSongs.filter(song =>
+        song.playlist.includes("TKU_LIBRARY")
+    );
+
+
+    // Playlist selection
+    document.querySelectorAll(".playlist-card").forEach(card=>{
+        card.addEventListener("click",()=>{
+
+            let playlist = card.dataset.playlist;
+
+            selectedSongs = radioSongs.filter(song =>
+                song.playlist.includes(playlist)
+            );
+
+            document.getElementById("radio-description").innerText =
+                "Playing " + playlist.replaceAll("_"," ") + " playlist 🎧";
+
+            currentSong=null;
+            document.getElementById("play-radio").click();
+        });
+    });
 </script>
 {% endblock %}

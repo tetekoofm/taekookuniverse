@@ -63,6 +63,21 @@ def vibe():
 
 
 @media_bp.route('/tkuradio')
-def tkuradio():
+def tku_radio():
     songs = TKURadio.query.filter_by(published=True).all()
-    return render_template("12.tkuradio.html", songs=songs)
+    playlists = set()
+    for song in songs:
+        for playlist in song.playlist_group.split(","):
+            playlists.add(playlist.strip())
+    priority_playlists = [
+        "TKU_LIBRARY",
+        "LAYOVER_ALBUM",
+        "GOLDEN_ALBUM",
+        "TETE_VIBES",
+        "KOOKIE_VIBES"
+    ]
+    playlists = (
+        [p for p in priority_playlists if p in playlists] +
+        sorted([p for p in playlists if p not in priority_playlists])
+    )
+    return render_template("12.tkuradio.html",songs=songs,playlists=playlists)

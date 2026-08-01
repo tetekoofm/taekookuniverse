@@ -85,11 +85,20 @@ document.addEventListener("DOMContentLoaded",()=>{
 
         recipeDetails.innerHTML=`
         <h2>${recipe.recipe_name}</h2>
-
-        ${recipe.image ?
-        `<img src="/static/images/games/cookwithtaekook/${recipe.image}">`
+        
+        ${recipe.media ?
+            recipe.media.startsWith("http") ?
+            `<div class="weverse-frame">
+                <iframe 
+                    src="${recipe.media}"
+                    allow="autoplay; fullscreen"
+                    allowfullscreen>
+                </iframe>
+            </div>`
+            :
+            `<img src="/static/images/games/kitchen/${recipe.media}">`
         :""}
-
+        
         <p class="recipe-description">
         ${recipe.description || ""}
         </p>
