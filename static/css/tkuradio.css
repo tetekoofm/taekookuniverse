@@ -198,17 +198,34 @@
     border:1px solid rgba(255,255,255,.12);
     border-radius:18px;
     padding:10px;
-    text-align:center;
+    display:flex;
+    align-items:center;
+    gap:15px;
     box-shadow:0 0 20px rgba(106,13,173,.15);
+}
+
+.song-cover{
+    width:70px;
+    height:70px;
+    object-fit:cover;
+    border-radius:12px;
+    flex-shrink:0;
+}
+
+.song-info{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    text-align:left;
 }
 
 .playing-label{
     font-size:0.8rem;
-    opacity:1;
-    margin:0 0 8px;
+    opacity:.8;
+    margin:0 0 5px;
 }
 
-.now-playing h2{
+.song-info h2{
     margin:0;
     font-size:1.1rem;
 }

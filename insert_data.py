@@ -26,18 +26,11 @@ def insert_data_from_excel():
                     song_title=row['song_title'],
                     youtube_url=row['youtube_url'],
                     youtube_id=row['youtube_id'],
-
                     artist=row['artist'],
                     album=row['album'],
-
                     playlist_group=row['playlist_group'],
-
-                    play_order=row['play_order'] if row['play_order'] else 0,
-
                     track_type=row['track_type'],
-
                     cover_image=row['cover_image'],
-
                     published=True,
                     notes=row['notes']
                 )
@@ -86,27 +79,27 @@ def insert_data_from_excel():
         db.session.commit()
         print("Lyrics updated from Excel!")
 
-        recipe_df = pd.read_excel(excel_file, sheet_name='Recipes')
+
+        recipe_df = pd.read_excel(excel_file,sheet_name='Recipes')
+        recipe_df['date'] = pd.to_datetime(recipe_df['date'],format='%m/%d/%Y',errors='coerce')
 
         for _, row in recipe_df.iterrows():
-
-            existing = Recipe.query.filter_by(
-                recipe_name=row['recipe_name']
-            ).first()
-
+            existing = Recipe.query.filter_by(recipe_name=row['recipe_name']).first()
             if not existing:
+                recipe_date = (row['date'].date()if pd.notna(row['date'])else None)
                 recipe_entry = Recipe(
                     recipe_name=row['recipe_name'],
                     category=row['category'],
                     difficulty=row['difficulty'],
                     cook_time=row['cook_time'],
+                    date=recipe_date,
                     media=row['media'],
                     description=row['description'],
                     ingredients=row['ingredients'],
                     steps=row['steps'],
-                    jk_corner=row['jk_corner'],
-                    memory=row['memory'],
-                    notes=row['notes'],
+                    jk_corner=None if pd.isna(row['jk_corner']) else row['jk_corner'],
+                    memory=None if pd.isna(row['memory']) else row['memory'],
+                    notes=None if pd.isna(row['notes']) else row['notes'],
                     published=str(row['published']).strip().upper() == "TRUE"
                 )
 
@@ -115,6 +108,7 @@ def insert_data_from_excel():
         db.session.commit()
 
         print("Recipes updated from Excel!")
+
 
         upcoming_df = pd.read_excel(excel_file, sheet_name='Upcoming')
         upcoming_df['date'] = pd.to_datetime(upcoming_df['date'], errors='coerce')
