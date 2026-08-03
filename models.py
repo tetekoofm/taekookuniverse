@@ -261,4 +261,5 @@ class Recipe(db.Model):
     jk_corner = db.Column(db.Text)
     memory = db.Column(db.Text)
     notes = db.Column(db.Text)
+    cultural_notes = db.Column(db.Text)
     published = db.Column(db.Boolean, default=False)

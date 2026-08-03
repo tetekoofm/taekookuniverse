@@ -101,6 +101,7 @@ def insert_data_from_excel():
                     jk_corner=None if pd.isna(row['jk_corner']) else row['jk_corner'],
                     memory=None if pd.isna(row['memory']) else row['memory'],
                     notes=None if pd.isna(row['notes']) else row['notes'],
+                    cultural_notes=None if pd.isna(row['cultural_notes']) else row['cultural_notes'],
                     published=str(row['published']).strip().upper() == "TRUE"
                 )
 

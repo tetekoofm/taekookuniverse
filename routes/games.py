@@ -47,6 +47,8 @@ def kookies_golden_kitchen():
     recipes = Recipe.query.filter_by(published=True).all()
     print("COUNT:", len(recipes))
     for r in recipes:
+        if r.date:
+            r.date = r.date.strftime("%b %d, %Y")
         print(r.recipe_name, r.published, type(r.published))
     return render_template(
         "games/zones/food_zone/kookies_golden_kitchen.html", recipes=recipes, 

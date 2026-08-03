@@ -72,6 +72,7 @@
     {
         recipe_name:{{ recipe.recipe_name|tojson }},
         category:{{ recipe.category|tojson }},
+        date: {{ recipe.date|tojson }},
         difficulty:{{ recipe.difficulty|tojson }},
         cook_time:{{ recipe.cook_time|tojson }},
         image:{{ recipe.image|tojson }},
@@ -81,7 +82,8 @@
         steps:{{ recipe.steps|tojson }},
         jk_corner:{{ recipe.jk_corner|tojson }},
         memory:{{ recipe.memory|tojson }},
-        notes:{{ recipe.notes|tojson }}
+        notes:{{ recipe.notes|tojson }},
+        cultural_notes:{{ recipe.cultural_notes|tojson }}
     },
     {% endfor %}
     ];

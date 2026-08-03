@@ -88,15 +88,18 @@ document.addEventListener("DOMContentLoaded",()=>{
         
         ${recipe.image ?
             `
+            <div class="recipe-image-gallery">
+            ${recipe.image.split("<br>").map(img =>
+            `
             <div class="recipe-image-container">
-                <img 
-                    class="recipe-image"
-                    src="/static/images/games/recipes/${recipe.image}"
-                    alt="${recipe.recipe_name}" loading="lazy">
+            <img class="recipe-image" src="/static/images/games/recipes/${img}">
+            </div>
+            `
+            ).join("")}
             </div>
             `
             :""}
-            
+
             ${recipe.video ?
             `
             <div class="recipe-video-section">
@@ -114,6 +117,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         </p>
 
         <div class="recipe-info">
+            ${recipe.date ? `<span>📅 ${recipe.date}</span>` : ""}
             ${recipe.difficulty ? `<span>⭐ ${recipe.difficulty}</span>`:""}
             ${recipe.cook_time ? `<span>⏱️ ${recipe.cook_time}</span>`:""}
         </div>
@@ -122,33 +126,58 @@ document.addEventListener("DOMContentLoaded",()=>{
 
         <div class="recipe-section">
             <h3>Ingredients</h3>
-            <ul>
-            ${(recipe.ingredients || "").split(/\r?\n|<br>/).filter(Boolean).map(item=>
-                `<li>${item}</li>`
-            ).join("")}
-            </ul>
+            <p class="ingredient-note">* Estimated measurements based on Jungkook's livestream.</p>
+
+            ${(recipe.ingredients || "")
+                .split(/\r?\n\r?\n/)
+                .map(section=>{
+                    const lines=section.split(/\r?\n/).filter(Boolean);
+                    if(!lines.length) return "";
+
+                    const title=lines.shift();
+
+                    return `
+                        <div class="recipe-subsection">
+                            <h4>${title}</h4>
+                            <ul>
+                                ${lines.map(item=>`<li>${item}</li>`).join("")}
+                            </ul>
+                        </div>
+                    `;
+                }).join("")}
         </div>
 
         <div class="recipe-section">
             <h3>Cooking Steps</h3>
-            <ol>
-            ${(recipe.steps || "").split(/\r?\n|<br>/).filter(Boolean).map(step=>
-                `<li>${step}</li>`
-            ).join("")}
-            </ol>
-        </div>
 
+            ${(recipe.steps || "")
+                .split(/\r?\n\r?\n/)
+                .map(section=>{
+                    const lines=section.split(/\r?\n/).filter(Boolean);
+                    if(!lines.length) return "";
+
+                    const title=lines.shift();
+
+                    return `
+                        <div class="recipe-subsection">
+                            <h4>${title}</h4>
+                            <ol>
+                                ${lines.map(step=>`<li>${step}</li>`).join("")}
+                            </ol>
+                        </div>
+                    `;
+                }).join("")}
         </div>
 
         ${recipe.jk_corner ?
         `<div class="jk-corner">
-            <h3>✨ JK Corner</h3>
+            <h3>JK Corner</h3>
             <p>${recipe.jk_corner.replace(/\r?\n/g, "<br>")}</p>
         </div>`:""}
 
         ${recipe.memory ?
         `<div class="memory-box">
-            <h3>✨ Memory</h3>
+            <h3>Memory</h3>
             <p>${recipe.memory.replace(/\r?\n/g, "<br>")}</p>
         </div>`:""}
 
@@ -156,6 +185,12 @@ document.addEventListener("DOMContentLoaded",()=>{
         `<div class="tku-notes">
             <h3>TKU Notes</h3>
             <p>${recipe.notes.replace(/\r?\n/g, "<br>")}</p>
+        </div>`:""}
+
+        ${recipe.cultural_notes ?
+            `<div class="cultural-notes">
+                <h3>Cultural Notes</h3>
+            <p>${recipe.cultural_notes.replace(/\r?\n/g, "<br>")}</p>
         </div>`:""}
         `;
     }
