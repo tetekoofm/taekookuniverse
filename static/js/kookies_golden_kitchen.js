@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded",()=>{
                 <img 
                     class="recipe-image"
                     src="/static/images/games/recipes/${recipe.image}"
-                    alt="${recipe.recipe_name}">
+                    alt="${recipe.recipe_name}" loading="lazy">
             </div>
             `
             :""}
