@@ -86,19 +86,29 @@ document.addEventListener("DOMContentLoaded",()=>{
         recipeDetails.innerHTML=`
         <h2>${recipe.recipe_name}</h2>
         
-        ${recipe.media ?
-            recipe.media.startsWith("http") ?
-            `<div class="weverse-frame">
-                <iframe 
-                    src="${recipe.media}"
-                    allow="autoplay; fullscreen"
-                    allowfullscreen>
-                </iframe>
-            </div>`
-            :
-            `<img src="/static/images/games/kitchen/${recipe.media}">`
-        :""}
-        
+        ${recipe.image ?
+            `
+            <div class="recipe-image-container">
+                <img 
+                    class="recipe-image"
+                    src="/static/images/games/recipes/${recipe.image}"
+                    alt="${recipe.recipe_name}">
+            </div>
+            `
+            :""}
+            
+            ${recipe.video ?
+            `
+            <div class="recipe-video-section">
+                <a href="${recipe.video}" 
+                   target="_blank"
+                   class="watch-video-btn">
+                   🎥 Watch Jungkook Cook This
+                </a>
+            </div>
+            `
+            :""}
+
         <p class="recipe-description">
         ${recipe.description || ""}
         </p>
@@ -113,7 +123,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         <div class="recipe-section">
             <h3>Ingredients</h3>
             <ul>
-            ${(recipe.ingredients || "").split("<br>").map(item=>
+            ${(recipe.ingredients || "").split(/\r?\n|<br>/).filter(Boolean).map(item=>
                 `<li>${item}</li>`
             ).join("")}
             </ul>
@@ -122,7 +132,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         <div class="recipe-section">
             <h3>Cooking Steps</h3>
             <ol>
-            ${(recipe.steps || "").split("<br>").map(step=>
+            ${(recipe.steps || "").split(/\r?\n|<br>/).filter(Boolean).map(step=>
                 `<li>${step}</li>`
             ).join("")}
             </ol>
@@ -133,19 +143,19 @@ document.addEventListener("DOMContentLoaded",()=>{
         ${recipe.jk_corner ?
         `<div class="jk-corner">
             <h3>✨ JK Corner</h3>
-            <p>${recipe.jk_corner}</p>
+            <p>${recipe.jk_corner.replace(/\r?\n/g, "<br>")}</p>
         </div>`:""}
 
         ${recipe.memory ?
         `<div class="memory-box">
             <h3>✨ Memory</h3>
-            <p>${recipe.memory}</p>
+            <p>${recipe.memory.replace(/\r?\n/g, "<br>")}</p>
         </div>`:""}
 
         ${recipe.notes ?
         `<div class="tku-notes">
             <h3>TKU Notes</h3>
-            <p>${recipe.notes}</p>
+            <p>${recipe.notes.replace(/\r?\n/g, "<br>")}</p>
         </div>`:""}
         `;
     }
