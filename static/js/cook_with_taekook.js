@@ -3,12 +3,12 @@ document.addEventListener("DOMContentLoaded",()=>{
     /* -------------------------------------------
        TEST MODE
     -------------------------------------------*/
-    const TEST_MODE=false; // change to true for direct scene testing
-    const TEST_SCENE="payment"; // landing, ride, restaurant, kitchen, ingredient, cooking, delivery, receipt
+    const TEST_MODE=true; // change to true for direct scene testing
+    const TEST_SCENE="ingredient"; // landing, ride, restaurant, kitchen, ingredient, cooking, delivery, receipt
     const TEST_RECIPE=
-    "Strawberry Milkshake";
+    // "Strawberry Milkshake";
     // "Banana Milkshake";
-    // "Hot Chocolate";
+    "Hot Chocolate";
     // "Chocolate Milk"
     // "Milk Tea"
     // "Coffee";
@@ -652,15 +652,19 @@ document.addEventListener("DOMContentLoaded",()=>{
             : randomLine(window.currentOrder.ingredients);
             lastSpawnedIngredient=chosen;
         }
-        const scale=window.innerWidth<=768?0.5:window.innerWidth<=1024?0.8:1;
-        const item={
-            emoji:chosen.emoji,
-            image:chosen.image||null,
-            img:null,
-            x:Math.random()*(gameCanvas.width-40)+20,
-            y:-40,
-            size:(30+Math.random()*20)*scale,
-            speed:(2+Math.random()*2)*scale
+        const scale = window.innerWidth <= 768 ? 0.5 :
+                window.innerWidth <= 1024 ? 0.8 : 1;
+
+        const itemSize = 40 * scale;
+
+        const item = {
+        emoji: chosen.emoji,
+        image: chosen.image || null,
+        img: null,
+        x: Math.random() * (gameCanvas.width - itemSize),
+        y: -itemSize,
+        size: itemSize,
+        speed: (2 + Math.random() * 2) * scale
         };
 
         if(item.image){
@@ -682,12 +686,21 @@ document.addEventListener("DOMContentLoaded",()=>{
         if(!gameState.running) return;
         ctx.clearRect(0,0,gameCanvas.width,gameCanvas.height);
         if(gameState.chef.img && gameState.chef.img.complete){
+
+            const ratio = Math.min(
+                gameState.chef.w / gameState.chef.img.naturalWidth,
+                gameState.chef.h / gameState.chef.img.naturalHeight
+            );
+        
+            const drawWidth = gameState.chef.img.naturalWidth * ratio;
+            const drawHeight = gameState.chef.img.naturalHeight * ratio;
+        
             ctx.drawImage(
                 gameState.chef.img,
-                gameState.chef.x,
-                gameState.chef.y,
-                gameState.chef.w,
-                gameState.chef.h
+                gameState.chef.x + (gameState.chef.w - drawWidth) / 2,
+                gameState.chef.y + (gameState.chef.h - drawHeight) / 2,
+                drawWidth,
+                drawHeight
             );
         }
         else{
@@ -729,7 +742,21 @@ document.addEventListener("DOMContentLoaded",()=>{
                 continue;
             }
             if(item.img && item.img.complete && item.img.naturalWidth>0){
-                ctx.drawImage(item.img,item.x,item.y,item.size,item.size);
+                const ratio = Math.min(
+                    item.size / item.img.naturalWidth,
+                    item.size / item.img.naturalHeight
+                );
+            
+                const drawWidth = item.img.naturalWidth * ratio;
+                const drawHeight = item.img.naturalHeight * ratio;
+            
+                ctx.drawImage(
+                    item.img,
+                    item.x + (item.size - drawWidth) / 2,
+                    item.y + (item.size - drawHeight) / 2,
+                    drawWidth,
+                    drawHeight
+                );
             }
             else{
                 ctx.font=`${item.size}px serif`;

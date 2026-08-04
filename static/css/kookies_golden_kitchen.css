@@ -332,9 +332,8 @@
 .jk-corner::before{
     content:"🐰";
     position:absolute;
-    top:-15px;
+    top:-20px;
     left:20px;
-    background:#fff9e6;
     padding:0 8px;
     font-size:24px;
 }
@@ -348,6 +347,7 @@
 }
 
 .memory-box{
+    background:#fff3c4;
     border-left:5px solid #FFD700;
     padding:18px;
     border-radius:12px;
@@ -358,13 +358,14 @@
 .memory-box::before{
     content:"🫶";
     position:absolute;
-    top:-15px;
+    top:-20px;
     left:20px;
     padding:0 8px;
     font-size:24px;
 }
 
 .tku-notes{
+    background:#fff9e6;
     border:1px solid #e6c86a;
     border-radius:20px;
     padding:22px;
@@ -375,9 +376,8 @@
 .tku-notes::before{
     content:"💚💜";
     position:absolute;
-    top:-15px;
+    top:-20px;
     left:20px;
-    background:#fff9e6;
     padding:0 8px;
     font-size:24px;
 }
@@ -403,7 +403,7 @@
 .cultural-notes::before{
     content:"🌏";
     position:absolute;
-    top:-15px;
+    top:-20px;
     left:20px;
     padding:0 8px;
     font-size:24px;

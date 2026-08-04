@@ -365,7 +365,7 @@
         {
           "step":2,
           "addIngredients":["Bread Slices"],
-          "action":"Dip bread into the egg mixture."
+          "action":"Dip bread slices into the egg mixture."
         },
         {
           "step":3,
@@ -417,7 +417,7 @@
       "name":"Grilled Cheese Sandwich",
       "category":"food",
       "ingredients":[
-        {"name":"Bread","emoji":"🍞","image":"bread.png"},
+        {"name":"Bread Slices","emoji":"🍞","image":"bread.png"},
         {"name":"Cheese","emoji":"🧀","image":"cheese.png"},
         {"name":"Butter","emoji":"🧈","image":"butter.png"}
       ],
@@ -425,8 +425,8 @@
       "steps":[
         {
           "step":1,
-          "addIngredients":["Bread","Butter"],
-          "action":"Prepare buttered bread."
+          "addIngredients":["Bread Slices","Butter"],
+          "action":"Prepare buttered bread slices."
         },
         {
           "step":2,
@@ -520,7 +520,7 @@
       "ingredients":[
         {"name":"Rice cakes","emoji":"🍚","image":"rice_cakes.png"},
         {"name":"Fish cakes","emoji":"🐟","image":"fish_cakes.png"},
-        {"name":"Gochujang sauce","emoji":"🌶️","image":"gochujang.png"},
+        {"name":"Gochujang sauce","emoji":"🌶️","image":"gochujang_sauce.png"},
         {"name":"Sugar","emoji":"🍬","image":"sugar.png"},
         {"name":"Green onions","emoji":"🧅","image":"green_onions.png"}
       ],
@@ -589,7 +589,7 @@
         "name":"Uni Cream Shrimp Pasta",
         "category":"chefKooSpecial",
         "ingredients":[
-          {"name":"Pasta","emoji":"🍝","image":"pasta.png"},
+          {"name":"Pasta","emoji":"🍝","image":"spaghetti.png"},
           {"name":"Shrimp","emoji":"🍤","image":"shrimp.png"},
           {"name":"Garlic","emoji":"🧄","image":"garlic.png"},
           {"name":"Uni soy sauce","emoji":"🧂","image":"uni_sauce.png"},
@@ -637,11 +637,11 @@
         "name":"Bulguri Ramen",
         "category":"chefKooSpecial",
         "ingredients":[
-          {"name":"Noodles","emoji":"🍜","image":"noodles.png"},
-          {"name":"Buldak liquid sauce","emoji":"🌶️","image":"buldak_sauce.png"},
+          {"name":"Ramen","emoji":"🍜","image":"ramen.png"},
+          {"name":"Buldak sauce","emoji":"🌶️","image":"buldak_sauce.png"},
           {"name":"Neoguri garnish","emoji":"🦀","image":"neoguri_garnish.png"},
           {"name":"Water","emoji":"💧","image":"water.png"},
-          {"name":"Sesame","emoji":"🧂","image":"sesame.png"},
+          {"name":"Sesame","emoji":"🧂","image":"sesame_seeds.png"},
           {"name":"Mayo","emoji":"🥄","image":"mayo.png"},
           {"name":"Seaweed","emoji":"🌿","image":"seaweed.png"}
         ],
@@ -654,13 +654,13 @@
           },
           {
             "step":2,
-            "addIngredients":["Buldak liquid sauce","Neoguri garnish"],
+            "addIngredients":["Buldak sauce","Neoguri garnish"],
             "action":"Add sauce and garnish."
           },
           {
             "step":3,
-            "addIngredients":["Noodles"],
-            "action":"Add noodles and cook until soft."
+            "addIngredients":["Ramen"],
+            "action":"Add ramen and cook until soft."
           },
           {
             "step":4,
@@ -729,7 +729,7 @@
         "name":"Scrambled Egg Toast with Jam",
         "category":"chefKooSpecial",
         "ingredients":[
-          {"name":"Bread","emoji":"🍞","image":"bread.png"},
+          {"name":"Bread Slices","emoji":"🍞","image":"bread.png"},
           {"name":"Eggs","emoji":"🥚","image":"eggs.png"},
           {"name":"Milk","emoji":"🥛","image":"milk.png"},
           {"name":"Salt","emoji":"🧂","image":"salt.png"},
@@ -751,8 +751,8 @@
           },
           {
             "step":3,
-            "addIngredients":["Bread"],
-            "action":"Toast the bread."
+            "addIngredients":["Bread Slices"],
+            "action":"Toast the bread slices."
           },
           {
             "step":4,

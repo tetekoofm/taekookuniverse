@@ -612,7 +612,7 @@ button{
 .canvas-holder,
 #gameCanvasContainer{
     width:min(90vw,1000px);
-    height:min(65vh,700px);
+    height:min(calc(100vh - 180px),700px);
     margin:15px auto;
     position:relative;
     overflow:visible;
@@ -1101,7 +1101,19 @@ button{
     .canvas-holder,
     #gameCanvasContainer{
         width:90%;
-        height:600px;
+        height:450px !important;
+    }
+   
+    #ingredientInstructions h2{
+        font-size:1rem;
+    }
+    
+    #ingredientInstructions ol{
+        font-size:0.7rem;
+    }
+    
+    #ingredientInstructions li{
+        font-size:0.7rem;
     }
 
     #neededIngredients span,
@@ -1467,17 +1479,17 @@ button{
     #neededIngredients span,
     #collectedIngredients span,
     .ingredient-display .ingredient-icon{
-        width:1rem!important;
-        height:1rem!important;
-        font-size:1rem!important;
+        width:1.5rem!important;
+        height:1.5rem!important;
+        font-size:1.5rem!important;
         line-height:1rem!important;
     }
 
     .ingredient-display img,
     #neededIngredients img,
     #collectedIngredients img{
-        width:1rem!important;
-        height:1rem!important;
+        width:1.5rem!important;
+        height:1.5rem!important;
     }
 
     .collection-section{
@@ -1505,7 +1517,7 @@ button{
     }
 
     .cook-instructions{
-        font-size:.8rem;
+        font-size:.7rem;
     }
 
     .cook-ingredient-list{
