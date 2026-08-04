@@ -4,13 +4,14 @@ document.addEventListener("DOMContentLoaded",()=>{
        TEST MODE
     -------------------------------------------*/
     const TEST_MODE=false; // change to true for direct scene testing
-    const TEST_SCENE="ingredient"; // landing, ride, restaurant, kitchen, ingredient, cooking, delivery, receipt
+    const TEST_SCENE="cooking"; // landing, ride, restaurant, kitchen, ingredient, cooking, delivery, receipt
     const TEST_RECIPE=
     // "Strawberry Milkshake";
     // "Banana Milkshake";
-    "Hot Chocolate";
+    // "Hot Chocolate";
     // "Chocolate Milk"
     // "Milk Tea"
+    "Boba Milk Tea"
     // "Coffee";
     // "Lemonade";
     // "Scrambled Eggs"
@@ -759,13 +760,14 @@ document.addEventListener("DOMContentLoaded",()=>{
                 );
             }
             else{
-                ctx.font=`${item.size}px serif`;
+                ctx.font=`${item.size * 0.85}px serif`;
                 ctx.textAlign="center";
-                ctx.textBaseline="middle";         
+                ctx.textBaseline="middle";
+            
                 ctx.fillText(
                     item.emoji,
-                    item.x+item.size/2,
-                    item.y+item.size/2
+                    item.x + item.size/2,
+                    item.y + item.size/2
                 );
             }
         }

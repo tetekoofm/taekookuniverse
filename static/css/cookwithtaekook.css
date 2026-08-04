@@ -543,27 +543,39 @@ button{
     gap:4px;
 }
 
-#neededIngredients span,
-#collectedIngredients span,
-.ingredient-display .ingredient-icon{
+/* Ingredient containers (emoji + image) */
+#neededIngredients .ingredient-icon,
+#collectedIngredients .ingredient-icon{
     width:2.5rem!important;
     height:2.5rem!important;
-    font-size:2.5rem!important;
-    line-height:2.5rem!important;
-}
-
-.ingredient-display img,
-#neededIngredients img,
-#collectedIngredients img{
-    width:2.5rem!important;
-    height:2.5rem!important;
-}
-
-.ingredient-display .ingredient-icon{
     display:inline-flex;
     align-items:center;
     justify-content:center;
+    vertical-align:middle;
+    margin:0 2px;
+}
+
+/* Emoji ingredients */
+#neededIngredients span.ingredient-icon,
+#collectedIngredients span.ingredient-icon{
+    font-size:1.8rem!important;
+    line-height:1!important;
+    transform:scale(1.35);
+    transform-origin:center;
+}
+
+/* Image ingredients */
+#neededIngredients img.ingredient-icon,
+#collectedIngredients img.ingredient-icon{
+    width:2.5rem!important;
+    height:2.5rem!important;
     object-fit:contain;
+}
+
+/* Prevent inherited image/span styles */
+#neededIngredients .ingredient-icon,
+#collectedIngredients .ingredient-icon{
+    flex:none;
 }
 
 #ingredientInstructions{
@@ -718,18 +730,29 @@ button{
     align-items:center!important;
     justify-content:center!important;
     object-fit:contain!important;
+    vertical-align:middle;
 }
 
+
+/* Image ingredients */
 .cook-ingredient-list img,
-.ingredient-icon{
+.ingredient-icon img{
     width:45px!important;
     height:45px!important;
+    object-fit:contain!important;
 }
 
-.ingredient-icon{
+
+/* Emoji ingredients */
+.cook-ingredient-list span.ingredient-icon,
+.ingredient-icon:not(img){
+    width:45px!important;
+    height:45px!important;
     font-size:2.5rem!important;
+    line-height:1!important;
+    transform:scale(1.1);
+    transform-origin:center;
 }
-
 
 /* ================= COOK CHAT ================= */
 
