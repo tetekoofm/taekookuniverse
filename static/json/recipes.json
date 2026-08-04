@@ -120,7 +120,7 @@
       "category":"beverages",
       "ingredients":[
         {"name":"Water","emoji":"💧","image":"water.png"},
-        {"name":"Tea","emoji":"🍵","image":"tea.png"},
+        {"name":"Tea","emoji":"🍵","image":"tea_powder.png"},
         {"name":"Milk","emoji":"🥛","image":"milk.png"},
         {"name":"Sugar","emoji":"🍬","image":"sugar.png"},
         {"name":"Boba (optional)","emoji":"🟤","image":"boba.png"}
