@@ -4,15 +4,15 @@ document.addEventListener("DOMContentLoaded",()=>{
        TEST MODE
     -------------------------------------------*/
     const TEST_MODE=false; // change to true for direct scene testing
-    const TEST_SCENE="cooking"; // landing, ride, restaurant, kitchen, ingredient, cooking, delivery, receipt
+    const TEST_SCENE="delivery"; // landing, ride, restaurant, kitchen, ingredient, cooking, delivery, receipt
     const TEST_RECIPE=
     // "Strawberry Milkshake";
     // "Banana Milkshake";
     // "Hot Chocolate";
     // "Chocolate Milk"
     // "Milk Tea"
-    "Boba Milk Tea"
-    // "Coffee";
+    // "Boba Milk Tea"
+    "Coffee";
     // "Lemonade";
     // "Scrambled Eggs"
     // "Mashed Potatoes"
