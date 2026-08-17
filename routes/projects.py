@@ -21,7 +21,7 @@ def brandambassador():
     if artist:
         query = query.filter(
             BrandAmbassador.artist == artist)
-    brands = query.all()
+    brands = query.order_by(BrandAmbassador.year.desc()).all()
     return render_template("08.brandambassadorship.html", endpoint="projects.brandambassador", brands=brands)
 
 
