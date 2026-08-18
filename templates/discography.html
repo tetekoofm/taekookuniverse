@@ -1,21 +1,28 @@
 {% extends "00.base.html" %}
-
 {% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/vibe.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/discography.css') }}">
 {% endblock %}
 
 {% block title %}Rhythm of Taekook{% endblock %}
 {% block content %}
 
-<!-- Heading and Intro Section -->
 <div class="main-content">
-    <div class="song-names"></div>
-    <h1 class="heading">Rhythm of Taekook</h1>
-    <p class="caption">Both artists have distinct musical tastes and styles, offering a blend of soul, energy, and emotion in their playlists.</p>
-    <p class="caption">Explore their unique vibes and discover new music along the way!</p>
+    <div class="discography-page">
+        <div class="discography-header">
+            <div class="song-names"></div>
+            <div class="hero-badge">🎵 DISCOGRAPHY</div>
+            <div class="discography-icon">🎧</div>
+            <h1 class="discography-title">Rhythm of Taekook</h1>
+            <p class="discography-tagline">
+                Both artists have distinct musical tastes and styles, offering a blend of soul, energy, and emotion in their playlists.
+            </p>
+            <p class="discography-tagline">
+                Explore their unique vibes and discover new music along the way!
+            </p>
+    <!-- Floating song names -->
+    <!-- <div class="song-names"></div> -->
     
     <div class="vibe-container">
-
         <!-- =========================
              TAEHYUNG VIBES
         ========================== -->

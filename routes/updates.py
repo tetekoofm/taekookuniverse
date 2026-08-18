@@ -13,7 +13,7 @@ def upcoming():
     song_file, song_name = get_page_music("upcoming")
     for event in upcoming_events:
         if isinstance(event.date, str): event.date = datetime.strptime(event.date, '%Y-%m-%d')
-    return render_template("02.01.upcoming.html", upcoming=upcoming_events, song_file=song_file, song_name=song_name)
+    return render_template("upcoming.html", upcoming=upcoming_events, song_file=song_file, song_name=song_name)
 
 
 @updates_bp.route('/highlights')
@@ -26,7 +26,7 @@ def highlights():
     song_file, song_name = get_page_music("highlights")
     for event in pagination.items:
         if isinstance(event.date, str): event.date = datetime.strptime(event.date, '%Y-%m-%d')
-    return render_template("02.02.highlights.html", highlights=pagination.items, pagination=pagination, endpoint="updates.highlights", song_file=song_file, song_name=song_name)
+    return render_template("highlights.html", highlights=pagination.items, pagination=pagination, endpoint="updates.highlights", song_file=song_file, song_name=song_name)
 
 
 @updates_bp.route('/recap')
@@ -34,7 +34,7 @@ def recap():
     page = request.args.get('page', 1, type=int)
     pagination = Recap.query.order_by(Recap.date.desc()).paginate(page=page, per_page=8, error_out=False)
     song_file, song_name = get_page_music("recap")
-    return render_template("02.03.recap.html", recaps=pagination.items, pagination=pagination, endpoint="updates.recap", song_file=song_file, song_name=song_name)
+    return render_template("recap.html", recaps=pagination.items, pagination=pagination, endpoint="updates.recap", song_file=song_file, song_name=song_name)
 
 
 @updates_bp.route('/inthenews')
@@ -45,4 +45,4 @@ def inthenews():
     if artist: query = query.filter((InTheNews.artist == artist) | (InTheNews.artist == "TaeKook"))
     pagination = query.order_by(InTheNews.date.desc()).paginate(page=page, per_page=8, error_out=False)
     song_file, song_name = get_page_music("inthenews")
-    return render_template("04.inthenews.html", inthenews=pagination.items, pagination=pagination, endpoint="updates.inthenews", song_file=song_file, song_name=song_name)
+    return render_template("inthenews.html", inthenews=pagination.items, pagination=pagination, endpoint="updates.inthenews", song_file=song_file, song_name=song_name)

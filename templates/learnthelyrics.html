@@ -1,21 +1,32 @@
 {% extends "00.base.html" %}
 {% from "components/filters.html" import category_filters %}
 {% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/learn_the_lyrics.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/learnthelyrics.css') }}">
 {% endblock %}
 {% block title %}Learn the Lyrics{% endblock %}
 {% block content %}
+
 <div class="lyrics-page">
     {% if not song %}
-    <div class="zone-title">
+    <section class="vibe-hero vibe-lyrics-hero">
+        <div class="vibe-hero-glow"></div>
+        <span class="vibe-hero-eyebrow">🎵 VIBE · LYRICS</span>
+        <div class="vibe-hero-icon">🎤</div>
         <h1>Learn the Lyrics</h1>
-        <p>Discover Tae & Kook songs through music and language.</p>
-    </div>
+        <p>Discover Tae &amp; Kook songs</p>
+        <p>Learn the words, expressions, and meaning behind their songs 💜</p>
+        <div class="vibe-hero-divider">
+            <span></span>
+            <i>♪</i>
+            <span></span>
+        </div>
+    </section>
+
     {{ category_filters(endpoint) }}
     {% if lyrics %}
     <div class="lyrics-song-grid">
         {% for song in lyrics %}
-        <a href="{{ url_for('games.learn_the_lyrics', song_name=song.song) }}" class="lyrics-song-card">
+        <a href="{{ url_for('media.learn_the_lyrics', song_name=song.song) }}" class="lyrics-song-card">
             <div class="song-cover">
                 <img src="{{ url_for('static', filename='images/songs/' + song.cover) }}" alt="{{ song.song }}">
             </div>
@@ -33,7 +44,7 @@
     {% endif %}
     {% else %}
     <div class="learn-song-page">
-        <a href="{{ url_for('games.learn_the_lyrics') }}" class="back-btn">← Back to Songs</a>
+        <a href="{{ url_for('media.learn_the_lyrics') }}" class="back-btn">← Back to Songs</a>
         <div class="song-header">
             <img src="{{ url_for('static', filename='images/songs/' + song.cover) }}" alt="{{ song.song }}">
             <div class="song-details">
@@ -88,5 +99,5 @@
     </div>
     {% endif %}
 </div>
-<script src="{{ url_for('static', filename='js/learn_the_lyrics.js') }}"></script>
+<script src="{{ url_for('static', filename='js/learnthelyrics.js') }}"></script>
 {% endblock %}

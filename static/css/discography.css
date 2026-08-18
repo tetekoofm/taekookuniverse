@@ -1,0 +1,1091 @@
+/****************************************************** VIBE *****************************************************/
+/* =========================================================
+   DISCOGRAPHY PAGE
+========================================================= */
+
+.discography-page{
+    width:100%;
+    max-width:2000px;
+    margin:auto;
+    padding:40px 20px;
+    box-sizing:border-box;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.discography-header{
+    position:relative;
+    text-align:center;
+    padding:30px 20px 45px;
+    margin-bottom:20px;
+}
+
+.song-names{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:0;
+}
+
+.discography-header > *:not(.song-names){
+    position:relative;
+    z-index:2;
+}
+
+.song-name{
+    position:absolute;
+    font-family:'Fira Sans Condensed',sans-serif;
+    font-size:13px;
+    font-weight:500;
+    letter-spacing:.5px;
+    white-space:nowrap;
+    opacity:0;
+    pointer-events:none;
+    text-shadow:0 0 8px rgba(0,0,0,.8);
+    animation:songFloat 4.5s ease-out forwards;
+}
+
+.song-name:nth-child(3n){
+    color:#b9a3ff;
+}
+
+.song-name:nth-child(3n+1){
+    color:#0FFF50;
+}
+
+.song-name:nth-child(3n+2){
+    color:#FFD700;
+}
+
+@keyframes songFloat{
+    0%{
+        opacity:0;
+        transform:translateY(12px) scale(.9);
+    }
+
+    20%{
+        opacity:.7;
+    }
+
+    70%{
+        opacity:.45;
+    }
+
+    100%{
+        opacity:0;
+        transform:translateY(-18px) scale(1);
+    }
+}
+
+/* =========================================================
+   GLOW
+========================================================= */
+
+.discography-header::before{
+    content:"";
+    position:absolute;
+    width:350px;
+    height:350px;
+    top:-80px;
+    left:50%;
+    transform:translateX(-50%);
+    background:radial-gradient(
+        circle,
+        rgba(106,13,173,.35),
+        transparent 70%
+    );
+    z-index:-1;
+}
+
+/* =========================================================
+   BADGE
+========================================================= */
+
+.discography-header .hero-badge{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:8px 18px;
+    border-radius:30px;
+    background:rgba(106,13,173,.25);
+    border:1px solid rgba(255,255,255,.15);
+    color:#b9a3ff;
+    font-family:'Fira Sans Condensed',sans-serif;
+    font-size:14px;
+    letter-spacing:1px;
+    margin-bottom:15px;
+}
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.discography-icon{
+    font-size:70px;
+    margin-bottom:10px;
+    animation:floatDiscography 3s ease-in-out infinite;
+    filter:
+        drop-shadow(0 0 12px rgba(106,13,173,.7))
+        drop-shadow(0 0 25px rgba(15,255,80,.25));
+}
+
+@keyframes floatDiscography{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-8px);
+    }
+}
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.discography-title{
+    font-family:'Fira Sans Condensed',sans-serif;
+    font-size:52px;
+    margin:10px 0;
+    background:linear-gradient(
+        100deg,
+        #ffffff 10%,
+        #b9a3ff 35%,
+        #6A0DAD 50%,
+        #0FFF50 75%
+    );
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    font-weight:800;
+    letter-spacing:1px;
+}
+
+/* =========================================================
+   TAGLINES
+========================================================= */
+
+.discography-header .discography-tagline{
+    font-family:'Fira Sans Condensed',sans-serif;
+    font-size:18px;
+    color:rgba(255,255,255,.75);
+    max-width:700px;
+    margin:8px auto;
+    line-height:1.6;
+}
+
+.vibe-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    flex-wrap: nowrap;
+    margin-top: 40px;
+    position: relative;
+    z-index: 2;
+    gap: 50px;
+}
+
+.vibe-section {
+    position: relative;
+    width: 46%;
+    padding: 25px;
+    border-radius: 15px;
+    margin: 15px 0;
+    background: radial-gradient(circle at 30% 30%, rgba(147, 84, 206, 0.15), rgba(0, 0, 0, 0.85));
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
+    backdrop-filter: blur(4px);
+}
+
+@keyframes pulseBorderK {
+    0%, 100% { box-shadow: 0 0 15px #FFD700; }
+    50% { box-shadow: 0 0 35px #FFD700; }
+}
+@keyframes pulseBorderT {
+    0%, 100% { box-shadow: 0 0 15px #d62828; }
+    50% { box-shadow: 0 0 35px #d62828; }
+}
+
+.tae-section {
+    animation: pulseBorderT 4s infinite ease-in-out;
+}
+
+.koo-section {
+    animation: pulseBorderK 4s infinite ease-in-out;
+}
+
+.vibe-section h2,
+.music-videos-container .vibe-section h2 {
+    font-family: 'Tangerine', serif;
+    font-size: 4rem;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.vibe-section p {
+    font-family: 'Fira Sans Condensed', serif;
+    font-size: 1.5rem;
+    color: #0FFF50;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.vibe-section iframe + iframe {
+    margin-top: 15px; 
+}
+
+.platform-buttons {
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    flex-wrap:wrap;
+    margin:20px 0;
+}
+
+.platform-btn {
+    background:#111;
+    color:white;
+    border:1px solid #a855f7;
+    padding:8px 15px;
+    border-radius:20px;
+    cursor:pointer;
+    font-family:'Fira Sans Condensed',sans-serif;
+}
+
+.platform-btn:hover,.platform-btn.active {
+    background:#a855f7;
+}
+
+.vibe-player iframe {
+    margin-top:10px;
+}
+
+/* ===========================
+   MUSIC VIDEOS
+=========================== */
+
+.music-videos-container h2{
+    font-family:'Tangerine',serif;
+    font-size:5rem;
+    color:#a855f7;
+    text-align:center;
+    margin-bottom: 2px;
+}
+
+.music-videos-container p{
+    font-family:'Fira Sans Condensed',sans-serif;
+    font-size:1.5rem;
+    color:#0FFF50;
+    text-align:center;
+    margin-bottom:35px;
+    margin-top: 2px;
+}
+
+.tae-section h2 {
+    color:#d62828;
+}
+
+.koo-section h2 {
+    color:#FFD700;
+}
+
+.music-videos-container .vibe-player iframe{
+    width: 100%;
+    height:352px;
+    border:none;
+    border-radius:12px;
+}
+
+.video-playlist{
+    margin-top:18px;
+    height:250px;
+    overflow-y:auto;
+    border-radius:12px;
+    background:#111;
+    border:1px solid rgba(255,255,255,.08);
+}
+  
+.video-playlist::-webkit-scrollbar{
+    width:15px;
+}
+
+.video-playlist::-webkit-scrollbar-thumb{
+    background:#0FFF50;
+    border-radius:20px;
+}
+
+.mv-icon-tae {
+    color: #d62828;
+}
+
+.mv-icon-koo {
+    color: #FFD700;
+}
+
+.playlist-item{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:6px 12px;
+    color:#0FFF50;
+    cursor:pointer;
+    font-family:'Fira Sans Condensed',sans-serif;
+    font-size:20px;
+    line-height:1.1;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    transition:.25s;
+}
+
+.playlist-item:last-child{
+    border-bottom:none;
+}
+
+.playlist-item:hover{
+    background:#242424;
+    color:#0FFF50;
+}
+
+.playlist-item.active{
+    background:#a855f7;
+    color:#fff;
+    font-weight:600;
+}
+
+/* =========================================================
+   TABLET — LANDSCAPE
+========================================================= */
+
+@media (min-width:1024px) and (max-width:1200px) and (orientation:landscape){
+    .discography-page{
+        max-width:1200px;
+        padding:25px 18px;
+    }
+
+    .discography-header{
+        padding:20px 15px 30px;
+        margin-bottom:15px;
+    }
+
+    .discography-header::before{
+        width:300px;
+        height:300px;
+        top:-75px;
+    }
+
+    .discography-header .hero-badge{
+        padding:7px 15px;
+        font-size:12px;
+        margin-bottom:12px;
+    }
+
+    .discography-icon{
+        font-size:58px;
+        margin-bottom:7px;
+    }
+
+    .discography-title{
+        font-size:44px;
+        margin:7px 0;
+    }
+
+    .discography-header .discography-tagline{
+        font-size:15px;
+        max-width:720px;
+        margin:5px auto;
+        line-height:1.45;
+    }
+
+    /* =====================================================
+       FLOATING SONG NAMES
+    ===================================================== */
+
+    .song-names .song-name{
+        font-size:9px !important;
+    }
+
+    /* =====================================================
+       VIBE CONTAINER
+    ===================================================== */
+
+    .vibe-container{
+        width:100%;
+        display:flex;
+        flex-direction:row;
+        justify-content:center;
+        align-items:stretch;
+        gap:20px;
+        padding:10px 15px;
+        margin-top:15px;
+        box-sizing:border-box;
+    }
+
+    /* =====================================================
+       VIBE SECTIONS
+    ===================================================== */
+
+    .vibe-section{
+        width:calc(50% - 10px);
+        max-width:none;
+        padding:16px;
+        margin:5px 0;
+        border-radius:12px;
+        box-sizing:border-box;
+    }
+
+    /* =====================================================
+       VIBE HEADINGS
+    ===================================================== */
+
+    .vibe-section h2,
+    .music-videos-container .vibe-section h2{
+        font-size:2.7rem;
+        margin-top:0;
+        margin-bottom:10px;
+        line-height:1;
+    }
+
+    /* =====================================================
+       VIBE DESCRIPTION
+    ===================================================== */
+
+    .vibe-section p{
+        font-size:.8rem !important;
+        line-height:1.4;
+        margin-top:3px;
+        margin-bottom:8px;
+    }
+
+    /* =====================================================
+       PLATFORM BUTTONS
+    ===================================================== */
+
+    .platform-buttons{
+        gap:5px;
+        margin:10px 0;
+    }
+
+    .platform-btn{
+        padding:5px 10px;
+        border-radius:16px;
+        font-size:.75rem;
+    }
+
+    /* =====================================================
+       VIBE PLAYER
+    ===================================================== */
+
+    .vibe-player{
+        width:100%;
+    }
+
+    .vibe-player iframe{
+        width:100%;
+        height:400px;
+        margin-top:6px;
+    }
+
+    /* =====================================================
+       MUSIC VIDEOS SECTION
+    ===================================================== */
+
+    .music-videos-container{
+        width:100%;
+        padding:10px 0;
+        box-sizing:border-box;
+    }
+
+    .music-videos-container h2{
+        font-size:3.4rem;
+        margin-top:15px;
+        margin-bottom:0;
+        line-height:1;
+    }
+
+    .music-videos-container > p{
+        font-size:.9rem;
+        margin-top:2px;
+        margin-bottom:18px;
+        line-height:1.35;
+    }
+
+
+    /* =====================================================
+       MUSIC VIDEO VIBE SECTIONS
+    ===================================================== */
+
+    .music-videos-container .vibe-container{
+        margin-top:5px;
+        gap:20px;
+        padding:10px 15px;
+    }
+
+    .music-videos-container .vibe-section{
+        width:calc(50% - 10px);
+        padding:16px;
+        margin:5px 0;
+    }
+
+    .music-videos-container .vibe-section h2{
+        font-size:2.5rem;
+        margin-bottom:8px;
+    }
+
+    .music-videos-container .vibe-section p{
+        font-size:.85rem;
+        line-height:1.4;
+        margin-bottom:8px;
+    }
+
+
+    /* =====================================================
+       MUSIC VIDEO PLAYER
+    ===================================================== */
+
+    .music-videos-container .vibe-player{
+        width:100%;
+    }
+
+    .music-videos-container .vibe-player iframe{
+        width:100%;
+        height:230px;
+        border-radius:10px;
+    }
+
+
+    /* =====================================================
+       VIDEO PLAYLIST
+    ===================================================== */
+
+    .video-playlist{
+        width:100%;
+        height:150px;
+        max-height:150px;
+        margin-top:10px;
+        border-radius:10px;
+    }
+
+
+    /* =====================================================
+       PLAYLIST SCROLLBAR
+    ===================================================== */
+
+    .video-playlist::-webkit-scrollbar{
+        width:8px;
+    }
+
+    .video-playlist::-webkit-scrollbar-thumb{
+        border-radius:10px;
+    }
+
+    /* =====================================================
+       PLAYLIST ITEMS
+    ===================================================== */
+
+    .playlist-item{
+        gap:6px;
+        padding:5px 9px;
+        font-size:13px;
+        line-height:1.15;
+    }
+
+    /* =====================================================
+       MV ICONS
+    ===================================================== */
+
+    .mv-icon-tae,
+    .mv-icon-koo{
+        font-size:.85rem;
+        flex-shrink:0;
+    }
+}
+
+/* =========================================================
+   TABLET — PORTRAIT
+   769px–1100px
+========================================================= */
+
+@media screen and (min-width:769px) and (max-width:1370px) and (orientation:portrait){
+
+    .discography-page{
+        max-width:900px;
+        padding:30px 20px;
+    }
+
+    .discography-header{
+        padding:25px 18px 35px;
+        margin-bottom:20px;
+    }
+
+    .discography-header::before{
+        width:350px;
+        height:350px;
+        top:-80px;
+    }
+
+    .discography-header .hero-badge{
+        padding:8px 17px;
+        font-size:13px;
+        margin-bottom:15px;
+    }
+
+    .discography-icon{
+        font-size:65px;
+        margin-bottom:10px;
+    }
+
+    .discography-title{
+        font-size:50px;
+    }
+
+    .discography-header .discography-tagline{
+        font-size:17px;
+        max-width:650px;
+        line-height:1.5;
+    }
+
+    /* =====================================================
+       FLOATING SONG NAMES
+    ===================================================== */
+
+    .song-names .song-name{
+        font-size:10px !important;
+    }
+
+    /* =====================================================
+       VIBE CONTAINER
+    ===================================================== */
+
+    .vibe-container{
+        width:100%;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        gap:20px;
+        padding:10px 15px;
+        margin-top:20px;
+        box-sizing:border-box;
+    }
+
+    /* =====================================================
+       VIBE SECTIONS
+    ===================================================== */
+
+    .vibe-section{
+        width:88%;
+        max-width:850px;
+        padding:22px;
+        margin:5px auto;
+        border-radius:14px;
+        box-sizing:border-box;
+    }
+
+
+    /* =====================================================
+       VIBE HEADINGS
+    ===================================================== */
+
+    .vibe-section h2,
+    .music-videos-container .vibe-section h2{
+        font-size:3.4rem;
+        margin-top:0;
+        margin-bottom:12px;
+        line-height:1;
+    }
+
+    /* =====================================================
+       VIBE DESCRIPTION
+    ===================================================== */
+
+    .vibe-section p{
+        font-size:1rem;
+        line-height:1.5;
+        margin-top:4px;
+        margin-bottom:10px;
+    }
+
+    /* =====================================================
+       PLATFORM BUTTONS
+    ===================================================== */
+
+    .platform-buttons{
+        gap:7px;
+        margin:14px 0;
+    }
+
+    .platform-btn{
+        padding:7px 13px;
+        border-radius:18px;
+        font-size:.85rem;
+    }
+
+    /* =====================================================
+       MUSIC PLAYER
+    ===================================================== */
+
+    .vibe-player{
+        width:100%;
+    }
+
+    .vibe-player iframe{
+        width:100%;
+        height:390px;
+        margin-top:8px;
+    }
+
+    /* =====================================================
+       MUSIC VIDEOS
+    ===================================================== */
+
+    .music-videos-container{
+        width:100%;
+        padding:10px 5px;
+        box-sizing:border-box;
+    }
+
+    .music-videos-container h2{
+        font-size:4rem;
+        margin-top:10px;
+        margin-bottom:2px;
+        line-height:1;
+    }
+
+    .music-videos-container > p{
+        font-size:1rem;
+        line-height:1.4;
+        margin-top:3px;
+        margin-bottom:25px;
+    }
+
+    /* =====================================================
+       MUSIC VIDEO SECTIONS
+    ===================================================== */
+
+    .music-videos-container .vibe-container{
+        flex-direction:column;
+        gap:20px;
+        padding:10px 15px;
+        margin-top:5px;
+    }
+
+    .music-videos-container .vibe-section{
+        width:88%;
+        max-width:850px;
+        padding:22px;
+    }
+
+    .music-videos-container .vibe-section h2{
+        font-size:3.2rem;
+        margin-bottom:10px;
+    }
+
+    .music-videos-container .vibe-section p{
+        font-size:.95rem;
+        line-height:1.5;
+    }
+
+    /* =====================================================
+       MUSIC VIDEO PLAYER
+    ===================================================== */
+
+    .music-videos-container .vibe-player iframe{
+        width:100%;
+        height:290px;
+        border-radius:11px;
+    }
+
+    /* =====================================================
+       VIDEO PLAYLIST
+    ===================================================== */
+
+    .video-playlist{
+        width:100%;
+        height:210px;
+        max-height:210px;
+        margin-top:14px;
+        border-radius:11px;
+    }
+
+    /* =====================================================
+       SCROLLBAR
+    ===================================================== */
+
+    .video-playlist::-webkit-scrollbar{
+        width:10px;
+    }
+
+    .video-playlist::-webkit-scrollbar-thumb{
+        border-radius:12px;
+    }
+
+    /* =====================================================
+       PLAYLIST ITEMS
+    ===================================================== */
+
+    .playlist-item{
+        gap:7px;
+        padding:6px 11px;
+        font-size:15px;
+        line-height:1.15;
+    }
+
+    /* =====================================================
+       MV ICONS
+    ===================================================== */
+
+    .mv-icon-tae,
+    .mv-icon-koo{
+        font-size:.95rem;
+        flex-shrink:0;
+    }
+}
+
+/* =========================================================
+   MOBILE
+   0px–767px
+========================================================= */
+
+@media only screen and (max-width:768px){
+
+    .discography-page{
+        width:100%;
+        padding:20px 10px;
+    }
+
+    .discography-header{
+        padding:20px 10px 28px;
+        margin-bottom:10px;
+    }
+
+    .discography-header::before{
+        width:260px;
+        height:260px;
+        top:-55px;
+    }
+
+    .discography-header .hero-badge{
+        padding:6px 13px;
+        font-size:11px;
+        margin-bottom:10px;
+    }
+
+    .discography-icon{
+        font-size:42px;
+        margin-bottom:6px;
+    }
+
+    .discography-title{
+        font-size:30px;
+        margin:7px 0;
+    }
+
+    .discography-header .discography-tagline{
+        font-size:12px;
+        max-width:350px;
+        margin:5px auto;
+        line-height:1.45;
+    }
+
+    /* =====================================================
+       FLOATING SONG NAMES
+    ===================================================== */
+
+    .song-names{
+        position:absolute;
+        inset:0;
+        width:100%;
+        height:100%;
+        overflow:hidden;
+        pointer-events:none;
+    }
+
+    .song-name{
+        font-size:8px !important;
+    }
+
+    /* =====================================================
+       VIBE CONTAINER
+    ===================================================== */
+
+    .vibe-container{
+        width:100%;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        gap:15px;
+        padding:7px 8px;
+        margin-top:12px;
+        box-sizing:border-box;
+    }
+
+    /* =====================================================
+       VIBE SECTIONS
+    ===================================================== */
+
+    .vibe-section{
+        width:95%;
+        max-width:none;
+        padding:15px;
+        margin:4px auto;
+        border-radius:11px;
+        box-sizing:border-box;
+    }
+
+    /* =====================================================
+       VIBE HEADINGS
+    ===================================================== */
+
+    .vibe-section h2,
+    .music-videos-container .vibe-section h2{
+        font-size:2.4rem !important;
+        line-height:1;
+        margin-top:0;
+        margin-bottom:8px;
+    }
+
+    /* =====================================================
+       VIBE DESCRIPTION
+    ===================================================== */
+
+    .vibe-section p{
+        font-size:.85rem;
+        line-height:1.4;
+        margin-top:3px;
+        margin-bottom:8px;
+    }
+
+    /* =====================================================
+       PLATFORM BUTTONS
+    ===================================================== */
+
+    .platform-buttons{
+        gap:4px;
+        margin:9px 0;
+    }
+
+    .platform-btn{
+        padding:5px 9px;
+        border-radius:14px;
+        font-size:.7rem;
+    }
+
+    /* =====================================================
+       VIBE PLAYER
+    ===================================================== */
+
+    .vibe-player{
+        width:100%;
+    }
+
+    .vibe-player iframe{
+        width:100%;
+        height:320px;
+        margin-top:5px;
+    }
+
+    /* =====================================================
+       MUSIC VIDEOS
+    ===================================================== */
+
+    .music-videos-container{
+        width:100%;
+        padding:7px 5px;
+        box-sizing:border-box;
+    }
+
+    .music-videos-container h2{
+        font-size:3rem !important;
+        line-height:1;
+        margin-top:8px;
+        margin-bottom:2px;
+    }
+
+    .music-videos-container > p{
+        font-size:.85rem;
+        line-height:1.35;
+        margin-top:2px;
+        margin-bottom:15px;
+    }
+
+    /* =====================================================
+       MUSIC VIDEO SECTIONS
+    ===================================================== */
+
+    .music-videos-container .vibe-container{
+        flex-direction:column;
+        gap:15px;
+        padding:7px 8px;
+        margin-top:5px;
+    }
+
+    .music-videos-container .vibe-section{
+        width:95%;
+        padding:15px;
+        box-sizing:border-box;
+    }
+
+    .music-videos-container .vibe-section h2{
+        font-size:2.2rem !important;
+        margin-bottom:7px;
+    }
+
+    .music-videos-container .vibe-section p{
+        font-size:.8rem;
+        line-height:1.4;
+    }
+
+    /* =====================================================
+       MUSIC VIDEO PLAYER
+    ===================================================== */
+
+    .music-videos-container .vibe-player iframe{
+        width:100%;
+        height:220px;
+        border-radius:9px;
+    }
+
+    /* =====================================================
+       VIDEO PLAYLIST
+    ===================================================== */
+
+    .video-playlist{
+        width:100%;
+        height:160px;
+        max-height:160px;
+        margin-top:9px;
+        border-radius:9px;
+    }
+
+    /* =====================================================
+       PLAYLIST SCROLLBAR
+    ===================================================== */
+
+    .video-playlist::-webkit-scrollbar{
+        width:7px;
+    }
+
+    .video-playlist::-webkit-scrollbar-thumb{
+        border-radius:10px;
+    }
+
+    /* =====================================================
+       PLAYLIST ITEMS
+    ===================================================== */
+
+    .playlist-item{
+        gap:5px;
+        padding:5px 8px;
+        font-size:11px !important;
+        line-height:1.15;
+    }
+
+    /* =====================================================
+       MV ICONS
+    ===================================================== */
+
+    .mv-icon-tae,
+    .mv-icon-koo{
+        font-size:.75rem;
+        flex-shrink:0;
+    }
+}

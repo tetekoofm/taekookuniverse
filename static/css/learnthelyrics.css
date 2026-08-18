@@ -1,0 +1,722 @@
+/* =========================================================
+   LEARN THE LYRICS
+========================================================= */
+.lyrics-page{
+    width:100%;
+    max-width:1200px;
+    margin:0 auto;
+    padding:0 20px 30px;
+    box-sizing:border-box;
+}
+/* =========================================================
+   HERO
+========================================================= */
+.vibe-lyrics-hero{
+    position:relative;
+    text-align:center;
+    padding:10px 20px 20px;
+    margin:0 0 15px;
+    overflow:hidden;
+}
+
+.vibe-hero > *{
+    position:relative;
+    z-index:2;
+}
+
+.vibe-hero .vibe-hero-glow{
+    position:absolute;
+    top:-120px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:0;
+}
+
+.vibe-hero-glow{
+    position:absolute;
+    width:350px;
+    height:350px;
+    top:-120px;
+    left:50%;
+    transform:translateX(-50%);
+    background:radial-gradient(circle,rgba(106,13,173,.35),transparent 70%);
+    z-index:0;
+    pointer-events:none;
+}
+
+.vibe-hero-eyebrow{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:8px 18px;
+    border-radius:30px;
+    background:rgba(106,13,173,.25);
+    border:1px solid rgba(255,255,255,.15);
+    color:#b9a3ff;
+    font-family:'Fira Sans Condensed',sans-serif;
+    font-size:14px;
+    letter-spacing:2px;
+    margin-bottom:15px;
+}
+.vibe-hero-icon{
+    font-size:65px;
+    margin-bottom:10px;
+    animation:floatLyrics 3s ease-in-out infinite;
+    filter:drop-shadow(0 0 18px rgba(106,13,173,.7));
+}
+@keyframes floatLyrics{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-8px);}
+}
+.vibe-lyrics-hero h1{
+    font-family:'Fira Sans Condensed',sans-serif;
+    font-size:52px;
+    font-weight:800;
+    margin:10px 0;
+    letter-spacing:1px;
+    background:linear-gradient(100deg,#fff 10%,#b9a3ff 35%,#6A0DAD 55%,#0FFF50 80%);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+}
+.vibe-lyrics-hero p{
+    font-family:'Fira Sans Condensed',sans-serif;
+    font-size:18px;
+    color:rgba(255,255,255,.75);
+    max-width:700px;
+    margin:7px auto;
+    line-height:1.6;
+}
+.vibe-hero-divider{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    width:240px;
+    margin:20px auto 0;
+}
+.vibe-hero-divider span{
+    flex:1;
+    height:1px;
+    background:linear-gradient(90deg,transparent,rgba(168,85,247,.65));
+}
+.vibe-hero-divider span:last-child{
+    background:linear-gradient(90deg,rgba(168,85,247,.65),transparent);
+}
+.vibe-hero-divider i{
+    font-family:serif;
+    font-size:1.2rem;
+    font-style:normal;
+    color:#FFD700;
+    text-shadow:0 0 12px rgba(255,215,0,.5);
+}
+/* =========================================================
+   SONG GRID
+========================================================= */
+.lyrics-song-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:22px;
+    margin-top:25px;
+}
+.lyrics-song-card{
+    display:block;
+    text-decoration:none;
+    color:inherit;
+    background:rgba(20,20,20,.75);
+    border:1px solid rgba(168,85,247,.2);
+    border-radius:18px;
+    overflow:hidden;
+    transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;
+}
+.lyrics-song-card:hover{
+    transform:translateY(-5px);
+    border-color:rgba(168,85,247,.7);
+    box-shadow:0 10px 30px rgba(106,13,173,.3);
+}
+.song-cover{
+    width:100%;
+    aspect-ratio:1/1;
+    overflow:hidden;
+    background:#111;
+}
+.song-cover img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    transition:transform .35s ease;
+}
+.lyrics-song-card:hover .song-cover img{
+    transform:scale(1.04);
+}
+.song-card-content{
+    padding:12px 14px 15px;
+    text-align:center;
+}
+.song-card-content h2{
+    font-family:'Fira Sans Condensed',sans-serif;
+    font-size:1.2rem;
+    margin:0 0 4px;
+    color:#fff;
+}
+.song-card-content .artist{
+    font-family:'Fira Sans Condensed',sans-serif;
+    font-size:.9rem;
+    color:#b9a3ff;
+    margin:0;
+}
+/* =========================================================
+   EMPTY
+========================================================= */
+.empty-message{
+    text-align:center;
+    padding:50px 20px;
+    font-family:'Fira Sans Condensed',sans-serif;
+    color:#b9a3ff;
+    font-size:1.2rem;
+}
+/* =========================================================
+   SONG PAGE
+========================================================= */
+.learn-song-page{
+    width:100%;
+}
+.back-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    margin:0 0 18px;
+    color:#b9a3ff;
+    text-decoration:none;
+    font-family:'Fira Sans Condensed',sans-serif;
+    font-size:1rem;
+    transition:.25s;
+}
+.back-btn:hover{
+    color:#0FFF50;
+    transform:translateX(-3px);
+}
+.song-header{
+    position:relative;
+    display:flex;
+    align-items:center;
+    gap:25px;
+    padding:25px;
+    border-radius:20px;
+    background:
+        radial-gradient(
+            circle at 20% 50%,
+            rgba(106,13,173,.22),
+            transparent 55%
+        ),
+        rgba(15,15,15,.8);
+    border:1px solid rgba(168,85,247,.25);
+    margin-bottom:20px;
+    overflow:hidden;
+}
+.song-header:before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        90deg,
+        rgba(168,85,247,.08),
+        transparent 50%,
+        rgba(15,255,80,.04)
+    );
+    pointer-events:none;
+}
+.song-header img{
+    position:relative;
+    z-index:2;
+    width:150px;
+    height:150px;
+    object-fit:cover;
+    border-radius:16px;
+    box-shadow:0 0 25px rgba(106,13,173,.35);
+}
+.song-details{
+    position:relative;
+    z-index:2;
+}
+.song-details h1{
+    font-family:'Fira Sans Condensed',sans-serif;
+    font-size:2.8rem;
+    font-weight:800;
+    margin:0 0 8px;
+    color:#fff;
+}
+.song-details span{
+    font-family:'Fira Sans Condensed',sans-serif;
+    color:#b9a3ff;
+    font-size:1.1rem;
+}
+
+/* =========================================================
+   LYRICS CONTROLS
+========================================================= */
+.lyrics-controls{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    flex-wrap:wrap;
+    margin:20px 0;
+}
+.toggle-btn{
+    background:#111;
+    color:#fff;
+    border:1px solid #6A0DAD;
+    padding:8px 16px;
+    border-radius:20px;
+    cursor:pointer;
+    font-family:'Fira Sans Condensed',sans-serif;
+}
+.toggle-btn:hover,
+.toggle-btn.active{
+    background:#6A0DAD;
+}
+/* =========================================================
+   LYRICS
+========================================================= */
+.lyrics-container{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+.lyrics-section{
+    padding:22px;
+    border-radius:18px;
+    background:rgba(20,20,20,.75);
+    border:1px solid rgba(168,85,247,.2);
+}
+.lyrics-section h2{
+    font-family:'Tangerine',serif;
+    font-size:2.8rem;
+    color:#b9a3ff;
+    text-align:center;
+    margin:0 0 15px;
+}
+.lyrics-section p{
+    font-family:'Fira Sans Condensed',sans-serif;
+    font-size:1rem;
+    line-height:1.8;
+    color:rgba(255,255,255,.85);
+    white-space:pre-line;
+}
+/* =========================================================
+   VOCABULARY
+========================================================= */
+.vocabulary-section{
+    margin-top:30px;
+}
+.section-header{
+    text-align:center;
+    margin-bottom:25px;
+}
+.section-header h2{
+    font-family:'Tangerine',serif;
+    font-size:4rem;
+    color:#a855f7;
+    margin:0;
+}
+.section-header p{
+    font-family:'Fira Sans Condensed',sans-serif;
+    color:#3b9e3b;
+    font-size:1.1rem;
+}
+.vocab-category{
+    margin-bottom:25px;
+}
+.vocab-section-title{
+    font-family:'Tangerine',serif;
+    font-size:2.5rem;
+    color:#FFD700;
+    margin:0 0 12px;
+}
+.vocab-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+.vocab-card{
+    padding:15px;
+    border-radius:14px;
+    background:#111;
+    border:1px solid rgba(168,85,247,.18);
+    text-align:center;
+}
+.vocab-korean{
+    font-size:1.3rem;
+    color:#fff;
+    margin-bottom:4px;
+}
+.vocab-roman{
+    font-family:'Fira Sans Condensed',sans-serif;
+    font-size:.9rem;
+    color:#b9a3ff;
+    margin-bottom:7px;
+}
+.vocab-meaning{
+    font-family:'Fira Sans Condensed',sans-serif;
+    font-size:.9rem;
+    color:#0FFF50;
+}
+/* =========================================================
+   TABLET LANDSCAPE
+========================================================= */
+@media only screen and (min-width:1024px) and (max-width:1200px) and (orientation:landscape){
+    .lyrics-page{
+        max-width:1050px;
+        padding:0 18px 25px;
+    }
+    .vibe-lyrics-hero{
+        padding:10px 15px 20px;
+        margin-bottom:12px;
+    }
+    .vibe-hero-eyebrow{
+        font-size:12px;
+        padding:7px 15px;
+    }
+    .vibe-hero-icon{
+        font-size:52px;
+    }
+    .vibe-lyrics-hero h1{
+        font-size:44px;
+    }
+    .vibe-lyrics-hero p{
+        font-size:15px;
+        line-height:1.45;
+    }
+    .vibe-hero-divider{
+        width:210px;
+        margin-top:15px;
+    }
+    .lyrics-song-grid{
+        grid-template-columns:repeat(4,1fr);
+        gap:15px;
+        margin-top:18px;
+    }
+    .song-card-content{
+        padding:9px 10px 11px;
+    }
+    .song-card-content h2{
+        font-size:1rem;
+    }
+    .song-card-content .artist{
+        font-size:.8rem;
+    }
+    .learn-song-page{
+        width:100%;
+    }
+    .song-header{
+        padding:18px;
+        gap:18px;
+        margin-bottom:15px;
+    }
+    .song-header img{
+        width:110px;
+        height:110px;
+    }
+    .song-details h1{
+        font-size:2rem;
+    }
+    .song-details span{
+        font-size:.95rem;
+    }
+    .lyrics-controls{
+        margin:15px 0;
+        gap:6px;
+    }
+    .toggle-btn{
+        padding:7px 13px;
+        font-size:.9rem;
+    }
+    .lyrics-container{
+        grid-template-columns:repeat(3,1fr);
+        gap:12px;
+    }
+    .lyrics-section{
+        padding:15px;
+    }
+    .lyrics-section h2{
+        font-size:2.3rem;
+    }
+    .lyrics-section p{
+        font-size:.85rem;
+        line-height:1.6;
+    }
+    .vocabulary-section{
+        margin-top:22px;
+    }
+    .section-header{
+        margin-bottom:18px;
+    }
+    .section-header h2{
+        font-size:3.3rem;
+    }
+    .section-header p{
+        font-size:.95rem;
+        margin:5px 0;
+    }
+    .vocab-category{
+        margin-bottom:20px;
+    }
+    .vocab-section-title{
+        font-size:2.2rem;
+    }
+    .vocab-grid{
+        grid-template-columns:repeat(4,1fr);
+        gap:9px;
+    }
+    .vocab-card{
+        padding:11px 8px;
+    }
+    .vocab-korean{
+        font-size:1.1rem;
+    }
+    .vocab-roman,
+    .vocab-meaning{
+        font-size:.8rem;
+    }
+}
+/* =========================================================
+   TABLET PORTRAIT
+========================================================= */
+@media only screen and (min-width:768px) and (max-width:1023px) and (orientation:portrait){
+    .lyrics-page{
+        max-width:900px;
+        padding:0 20px 30px;
+    }
+    .vibe-lyrics-hero{
+        padding:15px 18px 25px;
+        margin-bottom:15px;
+    }
+    .vibe-hero-eyebrow{
+        font-size:13px;
+    }
+    .vibe-hero-icon{
+        font-size:60px;
+    }
+    .vibe-lyrics-hero h1{
+        font-size:50px;
+    }
+    .vibe-lyrics-hero p{
+        font-size:17px;
+    }
+    .lyrics-song-grid{
+        grid-template-columns:repeat(3,1fr);
+        gap:18px;
+        margin-top:20px;
+    }
+    .song-card-content h2{
+        font-size:1.1rem;
+    }
+    .song-card-content .artist{
+        font-size:.85rem;
+    }
+    .song-header{
+        padding:20px;
+        gap:20px;
+    }
+    .song-header img{
+        width:125px;
+        height:125px;
+    }
+    .song-details h1{
+        font-size:2.2rem;
+    }
+    .song-details span{
+        font-size:1rem;
+    }
+    .lyrics-controls{
+        margin:18px 0;
+    }
+    .lyrics-container{
+        grid-template-columns:1fr;
+        gap:14px;
+    }
+    .lyrics-section{
+        padding:20px;
+    }
+    .lyrics-section h2{
+        font-size:2.6rem;
+    }
+    .lyrics-section p{
+        font-size:.95rem;
+        line-height:1.7;
+    }
+    .vocabulary-section{
+        margin-top:25px;
+    }
+    .section-header{
+        margin-bottom:20px;
+    }
+    .section-header h2{
+        font-size:3.6rem;
+    }
+    .section-header p{
+        font-size:1rem;
+    }
+    .vocab-category{
+        margin-bottom:22px;
+    }
+    .vocab-section-title{
+        font-size:2.3rem;
+    }
+    .vocab-grid{
+        grid-template-columns:repeat(3,1fr);
+        gap:10px;
+    }
+    .vocab-card{
+        padding:13px 9px;
+    }
+    .vocab-korean{
+        font-size:1.2rem;
+    }
+    .vocab-roman,
+    .vocab-meaning{
+        font-size:.85rem;
+    }
+}
+/* =========================================================
+   MOBILE
+========================================================= */
+@media only screen and (max-width:767px){
+    .lyrics-page{
+        padding:0 10px 25px;
+    }
+    .vibe-lyrics-hero{
+        padding:15px 10px 22px;
+        margin-bottom:12px;
+    }
+    .vibe-hero-glow{
+        width:260px;
+        height:260px;
+        top:-80px;
+    }
+    .vibe-hero-eyebrow{
+        padding:6px 13px;
+        font-size:11px;
+        letter-spacing:1px;
+        margin-bottom:10px;
+    }
+    .vibe-hero-icon{
+        font-size:48px;
+        margin-bottom:7px;
+    }
+    .vibe-lyrics-hero h1{
+        font-size:38px;
+        margin:7px 0;
+    }
+    .vibe-lyrics-hero p{
+        font-size:14px;
+        line-height:1.45;
+        margin:5px auto;
+    }
+    .vibe-hero-divider{
+        width:190px;
+        margin-top:13px;
+    }
+    .lyrics-song-grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:12px;
+        margin-top:15px;
+    }
+    .song-card-content{
+        padding:9px 7px 11px;
+    }
+    .song-card-content h2{
+        font-size:.95rem;
+    }
+    .song-card-content .artist{
+        font-size:.75rem;
+    }
+    .empty-message{
+        padding:35px 15px;
+        font-size:1rem;
+    }
+    .back-btn{
+        font-size:.9rem;
+        margin-bottom:14px;
+    }
+    .song-header{
+        padding:15px;
+        gap:15px;
+        margin-bottom:15px;
+        border-radius:16px;
+    }
+    .song-header img{
+        width:90px;
+        height:90px;
+        border-radius:12px;
+    }
+    .song-details h1{
+        font-size:1.6rem;
+        line-height:1.1;
+    }
+    .song-details span{
+        font-size:.85rem;
+    }
+    .lyrics-controls{
+        gap:5px;
+        margin:13px 0;
+    }
+    .toggle-btn{
+        padding:6px 11px;
+        font-size:.8rem;
+    }
+    .lyrics-container{
+        grid-template-columns:1fr;
+        gap:12px;
+    }
+    .lyrics-section{
+        padding:15px;
+        border-radius:15px;
+    }
+    .lyrics-section h2{
+        font-size:2.3rem;
+        margin-bottom:10px;
+    }
+    .lyrics-section p{
+        font-size:.9rem;
+        line-height:1.6;
+    }
+    .vocabulary-section{
+        margin-top:22px;
+    }
+    .section-header{
+        margin-bottom:18px;
+    }
+    .section-header h2{
+        font-size:3rem;
+    }
+    .section-header p{
+        font-size:.9rem;
+        line-height:1.4;
+        margin:5px 0;
+    }
+    .vocab-category{
+        margin-bottom:20px;
+    }
+    .vocab-section-title{
+        font-size:2.2rem;
+        margin-bottom:10px;
+    }
+    .vocab-grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:9px;
+    }
+    .vocab-card{
+        padding:11px 7px;
+        border-radius:12px;
+    }
+    .vocab-korean{
+        font-size:1.1rem;
+    }
+    .vocab-roman,
+    .vocab-meaning{
+        font-size:.8rem;
+        line-height:1.35;
+    }
+}

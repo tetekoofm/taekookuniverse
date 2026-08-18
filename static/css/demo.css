@@ -1,0 +1,2120 @@
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+.universe-hero,
+.today-section,
+.universe-pulse,
+.constellation-section,
+.universe-ending {
+
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+
+}
+
+.universe-hero *,
+.today-section *,
+.universe-pulse *,
+.constellation-section *,
+.universe-ending * {
+
+    box-sizing: border-box;
+
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.universe-hero {
+
+    min-height: calc(100vh - 70px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            rgba(106,13,173,.18),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 30% 70%,
+            rgba(15,255,80,.06),
+            transparent 30%
+        ),
+        #030305;
+
+}
+
+
+.hero-glow {
+
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    border-radius: 50%;
+
+    filter: blur(100px);
+
+    pointer-events: none;
+
+    transition:
+        transform 1s ease;
+
+}
+
+.hero-glow-purple {
+
+    background:
+        rgba(106,13,173,.12);
+
+    left: 5%;
+    top: 15%;
+
+}
+
+.hero-glow-green {
+
+    background:
+        rgba(15,255,80,.06);
+
+    right: 5%;
+    bottom: 10%;
+
+}
+
+
+/* =========================================================
+   HERO STARS
+========================================================= */
+
+.hero-stars {
+
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+
+}
+
+.hero-star {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    background: white;
+
+    opacity: .25;
+
+    animation:
+        starTwinkle 4s
+        ease-in-out infinite;
+
+}
+
+@keyframes starTwinkle {
+
+    0%,
+    100% {
+
+        opacity: .15;
+        transform: scale(.8);
+
+    }
+
+    50% {
+
+        opacity: .9;
+        transform: scale(1.5);
+
+    }
+
+}
+
+
+/* =========================================================
+   HERO ORBITS
+========================================================= */
+
+.hero-orbit {
+
+    position: absolute;
+
+    border:
+        1px solid
+        rgba(255,255,255,.045);
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+}
+
+.orbit-one {
+
+    width: 650px;
+    height: 650px;
+
+    transform:
+        rotate(-25deg)
+        scaleY(.35);
+
+}
+
+.orbit-two {
+
+    width: 900px;
+    height: 900px;
+
+    transform:
+        rotate(30deg)
+        scaleY(.25);
+
+}
+
+
+/* =========================================================
+   HERO CONTENT
+========================================================= */
+
+.hero-content {
+
+    position: relative;
+
+    z-index: 5;
+
+    text-align: center;
+
+    transition:
+        transform 1s ease;
+
+}
+
+
+.universe-symbol {
+
+    position: relative;
+
+    width: 70px;
+    height: 40px;
+
+    margin:
+        0 auto 35px;
+
+}
+
+
+.universe-symbol span {
+
+    position: absolute;
+
+    width: 34px;
+    height: 34px;
+
+    top: 3px;
+
+    border-radius: 50%;
+
+}
+
+
+.universe-symbol span:first-child {
+
+    left: 5px;
+
+    background:
+        radial-gradient(
+            circle at 35% 35%,
+            #c98cff,
+            #6a0dad 65%,
+            #18002b
+        );
+
+    box-shadow:
+        0 0 35px
+        rgba(106,13,173,.7);
+
+}
+
+
+.universe-symbol span:last-child {
+
+    right: 5px;
+
+    background:
+        radial-gradient(
+            circle at 35% 35%,
+            #b8ffcc,
+            #0fff50 60%,
+            #002b0d
+        );
+
+    box-shadow:
+        0 0 35px
+        rgba(15,255,80,.4);
+
+}
+
+
+/* =========================================================
+   HERO TYPE
+========================================================= */
+
+.hero-eyebrow {
+
+    font-family:
+        "Fira Sans Condensed",
+        sans-serif;
+
+    font-size: .7rem;
+
+    letter-spacing: .45em;
+
+    opacity: .55;
+
+    margin-bottom: 15px;
+
+}
+
+
+.hero-content h1 {
+
+    margin: 0;
+
+    font-family:
+        "Tangerine",
+        cursive;
+
+    font-size:
+        clamp(5rem, 11vw, 9rem);
+
+    line-height: .72;
+
+    font-weight: 400;
+
+    color: white;
+
+    text-shadow:
+        0 0 30px
+        rgba(106,13,173,.4);
+
+}
+
+
+.hero-content h1 span {
+
+    display: block;
+
+    font-size: .55em;
+
+    margin-top: 25px;
+
+    color: #cfaaff;
+
+    text-shadow:
+        0 0 35px
+        rgba(106,13,173,.7);
+
+}
+
+
+.hero-subtitle {
+
+    margin-top: 45px;
+
+    font-family:
+        "Fira Sans Condensed",
+        sans-serif;
+
+    font-size: 1rem;
+
+    line-height: 1.8;
+
+    letter-spacing: .2em;
+
+    text-transform: uppercase;
+
+    opacity: .6;
+
+}
+
+
+/* =========================================================
+   HERO BUTTON
+========================================================= */
+
+.enter-universe {
+
+    margin-top: 45px;
+
+    padding:
+        13px 25px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.18);
+
+    border-radius: 50px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    color: white;
+
+    cursor: pointer;
+
+    font-family:
+        "Fira Sans Condensed",
+        sans-serif;
+
+    letter-spacing: .15em;
+
+    text-transform: uppercase;
+
+    transition:
+        .4s ease;
+
+    backdrop-filter:
+        blur(10px);
+
+}
+
+
+.enter-universe b {
+
+    margin-left: 15px;
+
+    color: #0fff50;
+
+}
+
+
+.enter-universe:hover {
+
+    transform:
+        translateY(-3px);
+
+    border-color:
+        rgba(15,255,80,.5);
+
+    box-shadow:
+        0 0 30px
+        rgba(15,255,80,.1);
+
+}
+
+
+/* =========================================================
+   HERO CORNERS
+========================================================= */
+
+.hero-corner {
+
+    position: absolute;
+
+    bottom: 30px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+
+    font-family:
+        "Fira Sans Condensed",
+        sans-serif;
+
+    opacity: .35;
+
+    font-size: .65rem;
+
+    letter-spacing: .2em;
+
+}
+
+
+.hero-corner-left {
+    left: 30px;
+}
+
+.hero-corner-right {
+
+    right: 30px;
+
+    text-align: right;
+
+}
+
+
+/* =========================================================
+   TODAY
+========================================================= */
+
+.today-section {
+
+    padding:
+        130px 7vw 150px;
+
+    background:
+        radial-gradient(
+            circle at 70% 30%,
+            rgba(106,13,173,.08),
+            transparent 35%
+        ),
+        #050507;
+
+}
+
+
+.section-intro {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: end;
+
+    max-width: 1300px;
+
+    margin:
+        0 auto 55px;
+
+}
+
+
+.section-kicker {
+
+    font-family:
+        "Fira Sans Condensed",
+        sans-serif;
+
+    font-size: .7rem;
+
+    letter-spacing: .3em;
+
+    color: #0fff50;
+
+    opacity: .7;
+
+}
+
+
+.section-intro h2 {
+
+    font-family:
+        "Tangerine",
+        cursive;
+
+    font-weight: 400;
+
+    font-size:
+        clamp(3.5rem, 6vw, 6rem);
+
+    line-height: .8;
+
+    margin:
+        20px 0 0;
+
+}
+
+
+.section-intro h2 em {
+
+    color: #b987ff;
+
+    font-style: normal;
+
+}
+
+
+.section-intro > p {
+
+    max-width: 260px;
+
+    font-family:
+        "Fira Sans Condensed",
+        sans-serif;
+
+    font-size: .9rem;
+
+    line-height: 1.7;
+
+    opacity: .5;
+
+}
+
+
+/* =========================================================
+   TODAY LAYOUT
+========================================================= */
+
+.today-layout {
+
+    max-width: 1300px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.7fr)
+        minmax(300px, .8fr);
+
+    gap: 35px;
+
+}
+
+
+.feature-frame {
+
+    position: relative;
+
+    height: 620px;
+
+    overflow: hidden;
+
+    border-radius: 4px;
+
+    background: #0a0a0d;
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+}
+
+
+.feature-frame img,
+.feature-frame video {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition:
+        transform 1.2s ease;
+
+}
+
+
+.feature-frame:hover img,
+.feature-frame:hover video {
+
+    transform:
+        scale(1.035);
+
+}
+
+
+.image-vignette {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.7),
+            transparent 45%
+        );
+
+}
+
+
+.feature-label {
+
+    position: absolute;
+
+    left: 25px;
+    right: 25px;
+    bottom: 25px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    font-family:
+        "Fira Sans Condensed",
+        sans-serif;
+
+    font-size: .65rem;
+
+    letter-spacing: .25em;
+
+}
+
+
+.feature-label i {
+
+    font-style: normal;
+
+    color: #0fff50;
+
+    font-size: 1.2rem;
+
+}
+
+
+/* =========================================================
+   TODAY SIDE
+========================================================= */
+
+.cosmic-side {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 25px;
+
+}
+
+
+.universe-note,
+.orbit-info {
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+
+    background:
+        rgba(255,255,255,.02);
+
+    padding: 30px;
+
+    backdrop-filter:
+        blur(12px);
+
+}
+
+
+.universe-note {
+
+    flex: 1;
+
+    display: flex;
+
+    gap: 20px;
+
+}
+
+
+.note-symbol {
+
+    color: #0fff50;
+
+    font-size: 1.4rem;
+
+}
+
+
+.universe-note small,
+.orbit-info-header {
+
+    font-family:
+        "Fira Sans Condensed",
+        sans-serif;
+
+    font-size: .65rem;
+
+    letter-spacing: .25em;
+
+    opacity: .5;
+
+}
+
+
+.universe-note h3 {
+
+    font-family:
+        "Tangerine",
+        cursive;
+
+    font-size: 3.5rem;
+
+    line-height: .9;
+
+    font-weight: 400;
+
+    margin:
+        20px 0;
+
+}
+
+
+.universe-note p {
+
+    font-family:
+        "Fira Sans Condensed",
+        sans-serif;
+
+    font-size: .85rem;
+
+    line-height: 1.7;
+
+    opacity: .45;
+
+}
+
+
+.orbit-info-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+
+}
+
+
+.pulse-dot {
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: #0fff50;
+
+    box-shadow:
+        0 0 10px #0fff50;
+
+    animation:
+        pulse 2s infinite;
+
+}
+
+
+@keyframes pulse {
+
+    50% {
+        opacity: .3;
+    }
+
+}
+
+
+.orbit-stat {
+
+    display: flex;
+
+    gap: 18px;
+
+    align-items: center;
+
+    padding: 15px 0;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,.05);
+
+}
+
+
+.orbit-stat strong {
+
+    width: 35px;
+
+    font-size: 1.3rem;
+
+    color: #c49cff;
+
+}
+
+
+.orbit-stat span {
+
+    display: block;
+
+    font-family:
+        "Fira Sans Condensed",
+        sans-serif;
+
+    font-size: .65rem;
+
+    letter-spacing: .2em;
+
+    opacity: .5;
+
+}
+
+
+.orbit-stat p {
+
+    margin: 3px 0 0;
+
+    font-family:
+        "Fira Sans Condensed",
+        sans-serif;
+
+    font-size: .8rem;
+
+    opacity: .6;
+
+}
+
+
+/* =========================================================
+   NEW — UNIVERSE PULSE
+========================================================= */
+
+.universe-pulse {
+
+    position: relative;
+
+    min-height: 950px;
+
+    padding:
+        140px 7vw 160px;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(106,13,173,.14),
+            transparent 35%
+        ),
+        #030305;
+
+}
+
+
+.pulse-background {
+
+    position: absolute;
+
+    width: 700px;
+    height: 700px;
+
+    left: 50%;
+    top: 55%;
+
+    transform:
+        translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(106,13,173,.1),
+            transparent 60%
+        );
+
+    filter:
+        blur(20px);
+
+}
+
+
+.pulse-header {
+
+    position: relative;
+
+    z-index: 5;
+
+    max-width: 600px;
+
+    margin:
+        0 auto;
+
+    text-align: center;
+
+}
+
+
+.pulse-header > span {
+
+    font-family:
+        "Fira Sans Condensed",
+        sans-serif;
+
+    font-size: .65rem;
+
+    letter-spacing: .3em;
+
+    color: #0fff50;
+
+    opacity: .7;
+
+}
+
+
+.pulse-header h2 {
+
+    font-family:
+        "Tangerine",
+        cursive;
+
+    font-size:
+        clamp(4rem, 7vw, 7rem);
+
+    font-weight: 400;
+
+    line-height: .75;
+
+    margin:
+        25px 0;
+
+}
+
+
+.pulse-header h2 em {
+
+    display: block;
+
+    color: #b98aff;
+
+    font-style: normal;
+
+}
+
+
+.pulse-header p {
+
+    max-width: 420px;
+
+    margin: auto;
+
+    font-family:
+        "Fira Sans Condensed",
+        sans-serif;
+
+    font-size: .9rem;
+
+    line-height: 1.7;
+
+    opacity: .45;
+
+}
+
+
+/* =========================================================
+   PULSE ORBIT
+========================================================= */
+
+.pulse-orbit {
+
+    position: relative;
+
+    width: min(1000px, 90vw);
+
+    height: 650px;
+
+    margin:
+        60px auto 0;
+
+}
+
+
+/* central universe */
+
+.pulse-center {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    width: 170px;
+    height: 170px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(106,13,173,.35),
+            rgba(0,0,0,.85) 70%
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.1);
+
+    box-shadow:
+        0 0 80px
+        rgba(106,13,173,.25);
+
+    z-index: 5;
+
+}
+
+
+.pulse-center span {
+
+    font-family:
+        "Tangerine",
+        cursive;
+
+    font-size: 3.5rem;
+
+    line-height: .8;
+
+}
+
+
+.pulse-center small {
+
+    margin-top: 12px;
+
+    font-family:
+        "Fira Sans Condensed",
+        sans-serif;
+
+    font-size: .55rem;
+
+    letter-spacing: .35em;
+
+    opacity: .4;
+
+}
+
+
+.pulse-center-ring {
+
+    position: absolute;
+
+    inset: -35px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+
+    border-radius: 50%;
+
+    animation:
+        slowOrbit 15s
+        linear infinite;
+
+}
+
+
+.pulse-center-ring::after {
+
+    content: "✦";
+
+    position: absolute;
+
+    top: -5px;
+    left: 50%;
+
+    color: #0fff50;
+
+    font-size: .7rem;
+
+}
+
+
+@keyframes slowOrbit {
+
+    to {
+        transform:
+            rotate(360deg);
+    }
+
+}
+
+
+/* =========================================================
+   PULSE ITEMS
+========================================================= */
+
+.pulse-item {
+
+    position: absolute;
+
+    width: 310px;
+
+    min-height: 150px;
+
+    padding: 25px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 20px;
+
+    text-decoration: none;
+
+    color: white;
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    background:
+        rgba(255,255,255,.025);
+
+    backdrop-filter:
+        blur(15px);
+
+    transition:
+        transform .45s ease,
+        border-color .45s ease,
+        background .45s ease;
+
+    overflow: hidden;
+
+}
+
+
+.pulse-item::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 130px;
+    height: 130px;
+
+    left:
+        var(--mouse-x, 50%);
+
+    top:
+        var(--mouse-y, 50%);
+
+    transform:
+        translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(106,13,173,.18),
+            transparent 70%
+        );
+
+    pointer-events: none;
+
+}
+
+
+.pulse-item:hover {
+
+    transform:
+        translateY(-8px);
+
+    border-color:
+        rgba(106,13,173,.45);
+
+    background:
+        rgba(255,255,255,.045);
+
+}
+
+
+.pulse-item b {
+
+    margin-left: auto;
+
+    align-self: flex-start;
+
+    font-size: 1.1rem;
+
+    font-weight: 400;
+
+    opacity: .35;
+
+    transition:
+        .3s ease;
+
+}
+
+
+.pulse-item:hover b {
+
+    color: #0fff50;
+
+    opacity: 1;
+
+    transform:
+        translate(3px, -3px);
+
+}
+
+
+.pulse-icon {
+
+    position: relative;
+
+    flex-shrink: 0;
+
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.1);
+
+    color: #c49cff;
+
+    font-size: 1.3rem;
+
+    background:
+        rgba(106,13,173,.08);
+
+}
+
+
+.pulse-text {
+
+    position: relative;
+
+}
+
+
+.pulse-text > span {
+
+    font-family:
+        "Fira Sans Condensed",
+        sans-serif;
+
+    font-size: .55rem;
+
+    letter-spacing: .25em;
+
+    color: #0fff50;
+
+    opacity: .65;
+
+}
+
+
+.pulse-text h3 {
+
+    font-family:
+        "Tangerine",
+        cursive;
+
+    font-size: 2.7rem;
+
+    line-height: .8;
+
+    font-weight: 400;
+
+    margin:
+        8px 0;
+
+}
+
+
+.pulse-text p {
+
+    margin: 0;
+
+    font-family:
+        "Fira Sans Condensed",
+        sans-serif;
+
+    font-size: .72rem;
+
+    line-height: 1.5;
+
+    opacity: .45;
+
+}
+
+
+/* positions */
+
+.pulse-music {
+
+    left: 0;
+    top: 80px;
+
+}
+
+
+.pulse-news {
+
+    right: 0;
+    top: 80px;
+
+}
+
+
+.pulse-projects {
+
+    left: 50px;
+    bottom: 40px;
+
+}
+
+
+.pulse-community {
+
+    right: 50px;
+    bottom: 40px;
+
+}
+
+
+/* =========================================================
+   CONSTELLATION
+========================================================= */
+
+.constellation-section {
+
+    min-height: 900px;
+
+    padding:
+        140px 7vw;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(106,13,173,.12),
+            transparent 35%
+        ),
+        #020203;
+
+}
+
+
+.constellation-header {
+
+    position: relative;
+
+    z-index: 10;
+
+    max-width: 500px;
+
+    margin-left: 5vw;
+
+}
+
+
+.constellation-header > span {
+
+    font-family:
+        "Fira Sans Condensed",
+        sans-serif;
+
+    font-size: .65rem;
+
+    letter-spacing: .3em;
+
+    color: #0fff50;
+
+    opacity: .7;
+
+}
+
+
+.constellation-header h2 {
+
+    font-family:
+        "Tangerine",
+        cursive;
+
+    font-weight: 400;
+
+    font-size:
+        clamp(4rem, 7vw, 7rem);
+
+    line-height: .75;
+
+    margin:
+        25px 0;
+
+}
+
+
+.constellation-header p {
+
+    font-family:
+        "Fira Sans Condensed",
+        sans-serif;
+
+    max-width: 330px;
+
+    font-size: .9rem;
+
+    line-height: 1.7;
+
+    opacity: .45;
+
+}
+
+
+/* =========================================================
+   MOMENT FIELD
+========================================================= */
+
+.moment-field {
+
+    position: relative;
+
+    max-width: 1200px;
+
+    height: 650px;
+
+    margin:
+        -80px auto 0;
+
+}
+
+
+.floating-moment {
+
+    position: absolute;
+
+    width: 180px;
+    height: 230px;
+
+    animation:
+        floatMoment
+        6s ease-in-out infinite;
+
+}
+
+
+@keyframes floatMoment {
+
+    0%,
+    100% {
+        transform:
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translateY(-18px);
+    }
+
+}
+
+
+.moment-image {
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    box-shadow:
+        0 20px 50px
+        rgba(0,0,0,.5);
+
+}
+
+
+.moment-image img,
+.moment-image video {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+}
+
+
+.moment-star {
+
+    position: absolute;
+
+    color: #0fff50;
+
+    font-size: .8rem;
+
+    right: -12px;
+    top: -12px;
+
+    text-shadow:
+        0 0 15px
+        #0fff50;
+
+}
+
+
+/* positions */
+
+.moment-1 {
+    left: 5%;
+    top: 35%;
+    transform: rotate(-8deg);
+}
+
+.moment-2 {
+    left: 25%;
+    top: 10%;
+    transform: rotate(5deg);
+}
+
+.moment-3 {
+    right: 25%;
+    top: 5%;
+    transform: rotate(-5deg);
+}
+
+.moment-4 {
+    right: 5%;
+    top: 35%;
+    transform: rotate(8deg);
+}
+
+.moment-5 {
+    left: 15%;
+    bottom: 0;
+    transform: rotate(6deg);
+}
+
+.moment-6 {
+    right: 15%;
+    bottom: 0;
+    transform: rotate(-6deg);
+}
+
+.moment-7 {
+    left: 42%;
+    bottom: 12%;
+    transform: rotate(2deg);
+}
+
+
+/* center */
+
+.field-center {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    width: 160px;
+    height: 160px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-family:
+        "Tangerine",
+        cursive;
+
+    font-size: 3rem;
+
+    color: white;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(106,13,173,.2),
+            rgba(0,0,0,.8)
+        );
+
+    box-shadow:
+        0 0 80px
+        rgba(106,13,173,.2);
+
+}
+
+
+.center-ring {
+
+    position: absolute;
+
+    inset: -20px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.1);
+
+    border-radius: 50%;
+
+    animation:
+        slowOrbit 12s
+        linear infinite;
+
+}
+
+
+/* =========================================================
+   ENDING
+========================================================= */
+
+.universe-ending {
+
+    padding:
+        130px 20px 170px;
+
+    text-align: center;
+
+    background:
+        #020203;
+
+}
+
+
+.ending-line {
+
+    width: 120px;
+
+    height: 1px;
+
+    margin:
+        0 auto 45px;
+
+    background:
+        linear-gradient(
+            to right,
+            transparent,
+            rgba(255,255,255,.3),
+            transparent
+        );
+
+}
+
+
+.ending-content {
+
+    max-width: 700px;
+
+    margin: auto;
+
+}
+
+
+.ending-symbol {
+
+    color: #0fff50;
+
+    font-size: 1.5rem;
+
+}
+
+
+.ending-content p {
+
+    font-family:
+        "Fira Sans Condensed",
+        sans-serif;
+
+    opacity: .4;
+
+    letter-spacing: .1em;
+
+}
+
+
+.ending-content h2 {
+
+    font-family:
+        "Tangerine",
+        cursive;
+
+    font-size:
+        clamp(4rem, 8vw, 7rem);
+
+    line-height: .8;
+
+    font-weight: 400;
+
+    margin:
+        25px 0;
+
+}
+
+
+.ending-content h2 span {
+
+    display: block;
+
+    color: #b98aff;
+
+}
+
+
+.ending-small {
+
+    font-size: .7rem;
+
+    text-transform: uppercase;
+
+    letter-spacing: .3em;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+
+    .universe-hero {
+
+        min-height:
+            calc(100vh - 60px);
+
+    }
+
+
+    .hero-content h1 {
+
+        font-size: 5rem;
+
+    }
+
+
+    .hero-content h1 span {
+
+        font-size: .6em;
+
+    }
+
+
+    .hero-subtitle {
+
+        font-size: .8rem;
+
+    }
+
+
+    .hero-orbit {
+
+        opacity: .5;
+
+        transform:
+            rotate(-20deg)
+            scaleY(.3)
+            scale(.7);
+
+    }
+
+
+    .hero-corner {
+
+        bottom: 20px;
+
+    }
+
+
+    .hero-corner-left {
+        left: 15px;
+    }
+
+
+    .hero-corner-right {
+        right: 15px;
+    }
+
+
+    /* TODAY */
+
+    .today-section {
+
+        padding:
+            90px 18px;
+
+    }
+
+
+    .section-intro {
+
+        display: block;
+
+    }
+
+
+    .section-intro h2 {
+
+        font-size: 4rem;
+
+    }
+
+
+    .section-intro > p {
+
+        margin-top: 25px;
+
+    }
+
+
+    .today-layout {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .feature-frame {
+
+        height: 430px;
+
+    }
+
+
+    /* =====================================================
+       PULSE MOBILE
+    ===================================================== */
+
+    .universe-pulse {
+
+        min-height: auto;
+
+        padding:
+            100px 18px 120px;
+
+    }
+
+
+    .pulse-header h2 {
+
+        font-size: 4.5rem;
+
+    }
+
+
+    .pulse-orbit {
+
+        width: 100%;
+
+        height: auto;
+
+        margin-top: 50px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 15px;
+
+    }
+
+
+    .pulse-center {
+
+        position: relative;
+
+        left: auto;
+        top: auto;
+
+        transform: none;
+
+        width: 120px;
+        height: 120px;
+
+        margin:
+            10px auto 25px;
+
+        order: -1;
+
+    }
+
+
+    .pulse-center span {
+
+        font-size: 2.5rem;
+
+    }
+
+
+    .pulse-center-ring {
+
+        inset: -15px;
+
+    }
+
+
+    .pulse-item {
+
+        position: relative;
+
+        left: auto;
+        right: auto;
+        top: auto;
+        bottom: auto;
+
+        width: 100%;
+
+        min-height: 125px;
+
+    }
+
+
+    .pulse-music,
+    .pulse-news,
+    .pulse-projects,
+    .pulse-community {
+
+        left: auto;
+        right: auto;
+        top: auto;
+        bottom: auto;
+
+    }
+
+
+    .pulse-text h3 {
+
+        font-size: 2.3rem;
+
+    }
+
+
+    /* =====================================================
+       CONSTELLATION
+    ===================================================== */
+
+    .constellation-section {
+
+        padding:
+            100px 18px;
+
+        min-height: 850px;
+
+    }
+
+
+    .constellation-header {
+
+        margin-left: 0;
+
+    }
+
+
+    .constellation-header h2 {
+
+        font-size: 4.5rem;
+
+    }
+
+
+    .moment-field {
+
+        height: 600px;
+
+        margin-top: 40px;
+
+    }
+
+
+    .floating-moment {
+
+        width: 105px;
+        height: 145px;
+
+    }
+
+
+    .moment-1 {
+        left: 2%;
+        top: 28%;
+    }
+
+
+    .moment-2 {
+        left: 28%;
+        top: 8%;
+    }
+
+
+    .moment-3 {
+        right: 3%;
+        top: 25%;
+    }
+
+
+    .moment-4 {
+        display: none;
+    }
+
+
+    .moment-5 {
+        left: 8%;
+        bottom: 5%;
+    }
+
+
+    .moment-6 {
+        right: 8%;
+        bottom: 5%;
+    }
+
+
+    .moment-7 {
+        left: 40%;
+        bottom: 20%;
+    }
+
+
+    .field-center {
+
+        width: 105px;
+        height: 105px;
+
+        font-size: 2.2rem;
+
+    }
+
+
+    .center-ring {
+
+        inset: -12px;
+
+    }
+
+
+    /* END */
+
+    .universe-ending {
+
+        padding:
+            100px 20px 130px;
+
+    }
+
+}

@@ -28,7 +28,7 @@ def home_soon():
     image_folder = os.path.join(current_app.static_folder, 'images/home')
     images = [f for f in os.listdir(image_folder) if f.lower().endswith(('jpg','jpeg','png','gif','webp','mp4'))]
     song_file, song_name = get_page_music("home")
-    return render_template('01.home_soon.html', song_file=song_file, song_name=song_name, images=images)
+    return render_template('home_soon.html', song_file=song_file, song_name=song_name, images=images)
 
 
 @main_bp.route('/')
@@ -37,31 +37,51 @@ def home():
     images = [f for f in os.listdir(image_folder) if f.lower().endswith(('jpg','jpeg','png','gif','webp','mp4'))]
     random.shuffle(images)
     song_file, song_name = get_page_music("home")
-    return render_template('01.home.html', song_file=song_file, song_name=song_name, images=images)
+    return render_template('home.html', song_file=song_file, song_name=song_name, images=images)
 
 
 @main_bp.route('/meet-tae')
 def meet_tae():
     song_file, song_name = get_page_music("meet tae")
-    return render_template("10.01.meettae.html", song_file=song_file, song_name=song_name)
+    return render_template("meettae.html", song_file=song_file, song_name=song_name)
 
 
 @main_bp.route('/meet-koo')
 def meet_koo():
     song_file, song_name = get_page_music("meet koo")
-    return render_template("10.02.meetkoo.html", song_file=song_file, song_name=song_name)
+    return render_template("meetkoo.html", song_file=song_file, song_name=song_name)
 
 
 @main_bp.route('/termsandconditions')
 def termsandconditions():
-    return render_template("10.03.termsandconditions.html")
+    return render_template("termsandconditions.html")
 
 
 @main_bp.route('/pride')
 def pride():
-    return render_template("11.pride.html")
+    return render_template("pride.html")
 
 @main_bp.route('/demo')
 def demo():
-    songs = TKURadio.query.filter_by(published=True).all()
-    return render_template("Demo.html", songs=songs)
+    image_folder = os.path.join(
+        current_app.static_folder,
+        'images/home/pictureoftheday'
+    )
+
+    images = [
+        f for f in os.listdir(image_folder)
+        if f.lower().endswith(
+            ('jpg', 'jpeg', 'png', 'gif', 'webp', 'mp4')
+        )
+    ]
+
+    random.shuffle(images)
+
+    song_file, song_name = get_page_music("home")
+
+    return render_template(
+        'Demo.html',
+        song_file=song_file,
+        song_name=song_name,
+        images=images
+    )

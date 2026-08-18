@@ -1,9 +1,9 @@
-from flask import Blueprint, render_template, jsonify, url_for
+from flask import Blueprint, render_template, jsonify, url_for, request
 from collections import defaultdict
 from datetime import datetime
 import random
 
-from models import db, Memory, Discography, MusicVideo, BackgroundMusic, TKURadio
+from models import db, Memory, Discography, Lyrics, MusicVideo, BackgroundMusic, TKURadio
 from helpers import extract_youtube_id, get_page_music
 
 media_bp = Blueprint("media", __name__)
@@ -23,7 +23,7 @@ def memories():
             timeline_data[year].setdefault(month, [])
         timeline_data[year] = {month: timeline_data[year][month] for month in sorted(timeline_data[year])}
     formatted_years = {year: str(year)[-2:] for year in timeline_data.keys()}
-    return render_template("03.memories_soon.html", song_file=song_file, song_name=song_name)
+    return render_template("memories_soon.html", song_file=song_file, song_name=song_name)
     
 
 @media_bp.route('/memories_galaxy')
@@ -34,7 +34,7 @@ def memories_galaxy():
     for memory in memories_data:
         year, month, day = map(int, memory.date.split('-'))
         events.append({"year": year, "month": memory.date.split('-')[1], "title": memory.title, "image": memory.image, "description": memory.description, "artist": memory.artist, "date": memory.date})
-    return render_template("03.memories.html", events=events, song_file=song_file, song_name=song_name)
+    return render_template("memories.html", events=events, song_file=song_file, song_name=song_name)
 
 
 @media_bp.route('/get-event-details/<int:event_id>')
@@ -45,8 +45,8 @@ def get_event_details(event_id):
     return jsonify({'error': 'Event not found'}), 404
 
 
-@media_bp.route('/vibe')
-def vibe():
+@media_bp.route('/discography')
+def discography():
     song_names = [song.song_name for song in Discography.query.all() if song.song_name]
     taehyung_videos = MusicVideo.query.filter_by(artist='Taehyung').all()
     jungkook_videos = MusicVideo.query.filter_by(artist='Jungkook').all()
@@ -58,9 +58,41 @@ def vibe():
     random.shuffle(taehyung_videos)
     random.shuffle(jungkook_videos)
 
-    song_file, song_name = get_page_music("vibe")
-    return render_template("05.vibe.html", song_names=song_names, taehyung_videos=taehyung_videos, jungkook_videos=jungkook_videos, song_file=song_file, song_name=song_name)
+    song_file, song_name = get_page_music("discography")
+    return render_template("discography.html", song_names=song_names, taehyung_videos=taehyung_videos, jungkook_videos=jungkook_videos, song_file=song_file, song_name=song_name)
 
+@media_bp.route("/learnthelyrics")
+@media_bp.route("/learnthelyrics/<song_name>")
+def learn_the_lyrics(song_name=None):
+    if song_name:
+        song = Lyrics.query.filter_by(song=song_name).first_or_404()
+        vocabulary = []
+        current_section = "Vocabulary"
+        if song.vocabulary:
+            current_section = "Vocabulary"
+            for line in song.vocabulary.splitlines():
+                line = line.strip()
+                if not line:
+                    continue
+                if line.startswith("#"):
+                    current_section = line.replace("#", "").strip()
+                    continue
+                if "|" in line:
+                    parts = line.split("|")
+                    if len(parts) == 3:
+                        vocabulary.append({
+                            "section": current_section,
+                            "korean": parts[0].strip(),
+                            "romanization": parts[1].strip(),
+                            "meaning": parts[2].strip()
+                        })
+        song.vocabulary = vocabulary
+        return render_template("learnthelyrics.html",song=song,endpoint="media.learn_the_lyrics")
+
+    artist = request.args.get("artist")
+    if artist:lyrics = Lyrics.query.filter_by(artist=artist).all()
+    else:lyrics = Lyrics.query.all()
+    return render_template("learnthelyrics.html",lyrics=lyrics,endpoint="media.learn_the_lyrics")
 
 @media_bp.route('/tkuradio')
 def tku_radio():
@@ -80,4 +112,4 @@ def tku_radio():
         [p for p in priority_playlists if p in playlists] +
         sorted([p for p in playlists if p not in priority_playlists])
     )
-    return render_template("12.tkuradio.html",songs=songs,playlists=playlists)
+    return render_template("tkuradio.html",songs=songs,playlists=playlists)
