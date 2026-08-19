@@ -7,10 +7,19 @@
 {% block title %}Upcoming Projects{% endblock %}
 {% block content %}
 <div class="main-content">
-    <h1 class="heading">Upcoming Projects</h1>
-    <p class="caption">
-        Coming up next for Taehyung and Jung Kook!
-    </p>
+    <div class="features-hero">
+        <div class="features-badge">✨ FEATURES</div>
+        <div class="hero-icon">✦</div>
+        <h1 class="features-title">Upcoming Projects</h1>
+        <p class="features-tagline">What's coming up next for Taehyung and Jung Kook.</p>
+
+        <div class="hero-divider">
+            <span></span>
+            <i>✦</i>
+            <span></span>
+        </div>
+    </div>
+    
     <div class="upcoming-container">
         {% if upcoming %}
             {% for event in upcoming %}

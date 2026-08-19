@@ -8,8 +8,18 @@
 {% block content %}
 
 <div class="main-content">
-    <h1 class="heading">Events</h1>
-    <p class="caption">Explore all the amazing events organized by our fanbase!</p>
+    <div class="events-hero"> 
+        <div class="events-badge">✨ EVENTS</div>
+        <div class="hero-icon">🎟️</div>
+            <h1 class="events-title">Fan Events</h1>
+            <p class="events-tagline">Explore all the amazing events organized by our fanbase!</p>
+
+        <div class="hero-divider">
+            <span></span>
+            <i>✦</i>
+            <span></span>
+        </div>
+    </div>
 
     {% if banners %}
     <section class="banner-carousel">
@@ -91,6 +101,7 @@
     {% endfor %}
 
     {% include "components/pagination.html" with context %}
+    
 </div>
 
 <script>

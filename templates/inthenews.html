@@ -9,8 +9,19 @@
 {% block content %}
 
 <div class="main-content">
-    <h1 class="heading">In The News</h1>
-    <p class="caption">Stay up to date with Tae and Koo!</p>
+    <div class="features-hero">
+        <div class="features-badge">✨ FEATURES</div>
+        <div class="hero-icon">📰</div>
+        <h1 class="features-title">In The News</h1>
+        <p class="features-tagline">Keeping up with what's happening with Tae and Koo.</p>
+
+        <div class="hero-divider">
+            <span></span>
+            <i>✦</i>
+            <span></span>
+        </div>
+    </div>
+
     {{ category_filters(endpoint) }}
 
     <div class="inthenews-cards">

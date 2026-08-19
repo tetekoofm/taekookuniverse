@@ -7,13 +7,23 @@
 
 {% block content %}
 <div class="main-content">
-    <h1 class="heading">Recap</h1>
-    <p class="caption">Weekly Recap of Taehyung and Jung Kook!</p>
+    <div class="features-hero">
+        <div class="features-badge">📖 WEEKLY RECAP</div>
+        <div class="hero-icon">🔄</div>
+        <h1 class="features-title">TaeKook Recaps</h1>
+        <p class="features-tagline">A little look back at what Taehyung and Jung Kook have been up to.</p>
+
+        <div class="hero-divider">
+            <span></span>
+            <i>✦</i>
+            <span></span>
+        </div>
+    </div>
 
     <div class="upcoming-container">        
         {% if recaps %}
         <div class="weekly-recap-section">
-            <h2 class="section-heading">🌟 Weekly Recap 🌟</h2>
+            <!-- <h2 class="section-heading">🌟 Weekly Recap 🌟</h2> -->
             <div class="recap-cards">
 
                 {% for recap in recaps %}

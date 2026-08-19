@@ -32,6 +32,7 @@ def highlights():
 @updates_bp.route('/recap')
 def recap():
     page = request.args.get('page', 1, type=int)
+    query = Recap.query
     pagination = Recap.query.order_by(Recap.date.desc()).paginate(page=page, per_page=8, error_out=False)
     song_file, song_name = get_page_music("recap")
     return render_template("recap.html", recaps=pagination.items, pagination=pagination, endpoint="updates.recap", song_file=song_file, song_name=song_name)

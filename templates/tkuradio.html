@@ -2,17 +2,25 @@
 {% block extra_css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/tkuradio.css') }}">
 {% endblock %}
+
 {% block title %}TKU Radio{% endblock %}
 {% block content %}
+
 <div class="main-content">
     <div class="tkuradio-page">
         <div class="radio-header">
             <div class="hero-badge">🎧 NOW BROADCASTING</div>
-            <div class="radio-icon">🎙️</div>
+            <div class="hero-icon">🎙️</div>
             <h1 class="radio-title">TKU Radio</h1>
             <p class="radio-tagline">A little corner with TaeKook music</p>
             <p class="radio-tagline">Where Taekookers listen together from across the globe 💜</p>
+            <div class="hero-divider">
+                <span></span>
+                <i>♪</i>
+                <span></span>
+            </div>
         </div>
+        
         <div class="listen-options">
             <div class="listen-card stationhead-card">
                 <div class="listen-icon">🎙️</div>

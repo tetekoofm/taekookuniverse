@@ -83,11 +83,11 @@ def endorsements():
 @support_bp.route('/events')
 def events():
     page = request.args.get('page', 1, type=int)
-    pagination = Event.query.paginate(page=page, per_page=8, error_out=False)
+    query = Event.query
+    pagination = query.order_by(Event.date.desc()).paginate(page=page, per_page=8, error_out=False)
     banners = get_banners('events')
     song_file, song_name = get_page_music("events")
     return render_template("events.html", events=pagination.items, pagination=pagination, endpoint="support.events", banners=banners, song_file=song_file, song_name=song_name)
-
 
 @support_bp.route('/reporting')
 def reporting():

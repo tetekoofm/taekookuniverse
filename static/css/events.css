@@ -1,7 +1,126 @@
 /***************************************************** EVENTS *****************************************************/
+/* =========================================
+   EVENTS HERO
+========================================= */
+
+.events-hero{
+    position:relative;
+    width:100%;
+    max-width:1000px;
+    margin:0 auto 35px;
+    padding:35px 20px 25px;
+    text-align:center;
+    overflow:hidden;
+}
+
+/* =========================================
+   HERO GLOW
+========================================= */
+
+.events-hero::before{
+    content:"";
+    position:absolute;
+    width:420px;
+    height:420px;
+    top:-180px;
+    left:50%;
+    transform:translateX(-50%);
+    background:radial-gradient(
+        circle,
+        rgba(106,13,173,.25),
+        transparent 70%
+    );
+    pointer-events:none;
+    z-index:0;
+}
+
+.events-badge,
+.events-icon,
+.events-title,
+.events-tagline{
+    position:relative;
+    z-index:1;
+}
+
+/* =========================================
+   BADGE
+========================================= */
+
+.events-badge{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:7px 18px;
+    border:1px solid rgba(168,85,247,.35);
+    border-radius:30px;
+    background:rgba(106,13,173,.16);
+    color:#b9a3ff;
+    font-size:.8rem;
+    font-weight:600;
+    letter-spacing:1.5px;
+    margin-bottom:18px;
+}
+
+/* =========================================
+   ICON
+========================================= */
+
+.events-icon{
+    font-size:70px;
+    line-height:1;
+    margin-bottom:15px;
+    animation:floatEvent 3s ease-in-out infinite;
+    filter:drop-shadow(0 0 20px rgba(106,13,173,.7));
+}
+
+@keyframes floatEvent{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-8px);
+    }
+}
+
+/* =========================================
+   TITLE
+========================================= */
+
+.events-title{
+    margin:5px 0 8px;
+    font-size:3.2rem;
+    line-height:1.15;
+    font-weight:800;
+    letter-spacing:1px;
+    background:linear-gradient(
+        100deg,
+        #e8dcff 5%,
+        #b9a3ff 25%,
+        #7b2cbf 55%,
+        #6A0DAD 72%,
+        #0FFF50 100%
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+}
+
+
+/* =========================================
+   TAGLINE
+========================================= */
+
+.events-tagline{
+    max-width:650px;
+    margin:0 auto;
+    color:rgba(255,255,255,.72);
+    font-size:1.05rem;
+    line-height:1.5;
+}
 
 .event-card{
-    max-width:2000px;
+    width:1600px;
     margin:30px auto;
     padding:20px;
     border:3px solid rgba(106,13,173,.35);
@@ -22,13 +141,13 @@
 .event-name{
     margin:0;
     color:#a855f7;
-    font-size:1.6rem;
+    font-size:1.3rem;
     line-height:1.3;
 }
 
 .event-date{
     color:#00ff9d;
-    font-size:1.6rem;
+    font-size:1.3rem;
     white-space:nowrap;
     font-weight:600;
 }
@@ -40,7 +159,7 @@
 .media-container{
     position:relative;
     width:100%;
-    max-width:1000px;
+    max-width:800px;
     margin:0 auto 20px;
     overflow:hidden;
     background:transparent;
@@ -67,8 +186,8 @@
 .media-video{
     display:block;
     width:100%;
-    max-width:800px;
-    max-height:600px;
+    max-width:500px;
+    max-height:300px;
     object-fit:contain;
     border:none;
     border-radius:0;
@@ -79,31 +198,31 @@
 }
 
 .social-frame{
-    width:80%;
+    width:70%;
     display:flex;
     justify-content:center;
     overflow:hidden;
 }
 
 .x-frame{
-    max-width:400px;
-    height:600px;
+    max-width:350px;
+    height:450px;
 }
 
 .ig-frame{
-    max-width:400px;
-    height:340px;
+    max-width:300px;
+    height:240px;
 }
 
 .twitter-tweet{
-    width:80% !important;
-    max-width:430px !important;
+    width:70% !important;
+    max-width:350px !important;
     margin:0 auto !important;
 }
 
 .instagram-media{
-    width:80% !important;
-    max-width:430px !important;
+    width:70% !important;
+    max-width:350px !important;
     margin:0 auto !important;
 }
 
@@ -145,20 +264,16 @@
     background:#6a0dad;
 }
 
-/*****************************************************
-                    DESCRIPTION
-*****************************************************/
-
 .event-description{
     color:#c2bbbb;
-    font-size:.95rem;
-    line-height:1.6;
+    line-height:1.2;
     white-space:pre-line;
+    margin-bottom:0;
 }
 
 .event-description p{
     margin:0;
-    font-size: 1.5rem;
+    font-size: 0.95rem;
     text-align: justify;
 }
 
@@ -168,168 +283,596 @@
 
 .trending-title{
     margin:0 0 10px;
+    font-weight: bold;
+    color: #0FFF50;;
 }
 
 .trending-image{
     display:block;
     width:100%;
-    max-width:520px;
-    margin:15px auto;
+    max-width:420px;
+    margin-bottom:0;
     border-radius:10px;
 }
 
-/*****************************************************
-                    TABLET
-*****************************************************/
+/* =========================================================
+   TABLET LANDSCAPE
+========================================================= */
 
-@media(max-width:1024px){
+@media (min-width:1024px) and (max-width:1200px) and (orientation:landscape){
+
+    /* =========================================
+       EVENTS HERO
+    ========================================= */
+
+    .events-hero{
+        max-width:900px;
+        margin:0 auto 20px;
+        padding:30px 20px 15px;
+    }
+
+    .events-badge{
+        padding:6px 16px;
+        font-size:.78rem;
+        margin-bottom:15px;
+    }
+
+    .events-icon{
+        font-size:60px;
+        margin-bottom:12px;
+    }
+
+    .events-title{
+        font-size:2.8rem;
+    }
+
+    .events-tagline{
+        max-width:600px;
+        font-size:1rem;
+    }
+
+
+    /* =========================================
+       EVENT CARD
+    ========================================= */
 
     .event-card{
-        max-width:700px;
+        width:calc(100% - 40px);
+        max-width:1000px;
+
+        margin:25px auto;
         padding:18px;
+
+        border-width:2px;
+        border-radius:16px;
+
+        box-sizing:border-box;
+    }
+
+
+    /* =========================================
+       EVENT HEADER
+    ========================================= */
+
+    .event-header{
+        gap:12px;
+        margin-bottom:15px;
+        padding-bottom:9px;
     }
 
     .event-name{
         font-size:1.2rem;
     }
 
+    .event-date{
+        font-size:1.1rem;
+    }
+
+
+    /* =========================================
+       MEDIA
+    ========================================= */
+
     .media-container{
-        max-width:520px;
+        width:100%;
+        max-width:700px;
+        margin:0 auto 18px;
+    }
+
+    .media-slide{
+        padding:6px 0;
     }
 
     .media-slide img,
     .media-video{
-        max-width:520px;
-        max-height:500px;
+        width:100%;
+        max-width:450px;
+        max-height:280px;
     }
 
     .social-frame{
-        width:100%;
+        width:80%;
     }
 
     .x-frame{
-        width:100%;
-        max-width:400px;
-        height:520px;
+        max-width:330px;
+        height:420px;
     }
 
     .ig-frame{
-        width:100%;
-        max-width:400px;
-        height:330px;
+        max-width:300px;
+        height:240px;
     }
 
     .twitter-tweet{
-        width:100% !important;
-        max-width:400px !important;
+        width:80% !important;
+        max-width:340px !important;
     }
 
     .instagram-media{
-        width:100% !important;
-        max-width:400px !important;
+        width:80% !important;
+        max-width:340px !important;
+    }
+
+
+    /* =========================================
+       ARROWS
+    ========================================= */
+
+    .prev,
+    .next{
+        width:36px;
+        height:36px;
+        font-size:20px;
+    }
+
+    .prev{
+        left:8px;
+    }
+
+    .next{
+        right:8px;
+    }
+
+
+    /* =========================================
+       DESCRIPTION
+    ========================================= */
+
+    .event-description{
+        line-height:1.35;
+    }
+
+    .event-description p{
+        font-size:.95rem;
+    }
+
+
+    /* =========================================
+       TRENDING
+    ========================================= */
+
+    .trending-section{
+        margin-top:5px;
+    }
+
+    .trending-title{
+        font-size:1.2rem;
+    }
+
+    .trending-image{
+        max-width:380px;
     }
 }
 
-/*****************************************************
-                    MOBILE
-*****************************************************/
 
-@media(max-width:768px){
+/* =========================================================
+   TABLET PORTRAIT
+========================================================= */
+
+@media (min-width:769px) and (max-width:1023px) and (orientation:portrait){
+
+    /* =========================================
+       EVENTS HERO
+    ========================================= */
+
+    .events-hero{
+        max-width:700px;
+        margin:0 auto 15px;
+        padding:28px 18px 10px;
+    }
+
+    .events-badge{
+        padding:6px 15px;
+        font-size:.75rem;
+        letter-spacing:1.3px;
+        margin-bottom:14px;
+    }
+
+    .events-icon{
+        font-size:55px;
+        margin-bottom:10px;
+    }
+
+    .events-title{
+        font-size:2.4rem;
+        line-height:1.15;
+    }
+
+    .events-tagline{
+        max-width:540px;
+        font-size:.95rem;
+        line-height:1.45;
+    }
+
+
+    /* =========================================
+       EVENT CARD
+    ========================================= */
 
     .event-card{
-        margin:18px 10px;
-        padding:14px;
+        width:calc(100% - 30px);
+        max-width:700px;
+
+        margin:20px auto;
+        padding:15px;
+
+        border-width:2px;
+        border-radius:14px;
+
+        box-sizing:border-box;
     }
+
+
+    /* =========================================
+       EVENT HEADER
+    ========================================= */
 
     .event-header{
         flex-direction:column;
-        text-align:center;
+        justify-content:center;
         gap:5px;
+
+        margin-bottom:12px;
+        padding-bottom:8px;
+
+        text-align:center;
     }
 
     .event-name{
-        font-size:1.05rem;
+        font-size:1.15rem;
+        line-height:1.25;
+    }
+
+    .event-date{
+        font-size:1rem;
+        white-space:normal;
+    }
+
+
+    /* =========================================
+       MEDIA
+    ========================================= */
+
+    .media-container{
+        width:100%;
+        max-width:600px;
+        margin:0 auto 15px;
+    }
+
+    .media-slide{
+        padding:5px 0;
+    }
+
+    .media-slide img,
+    .media-video{
+        width:100%;
+        max-width:420px;
+        max-height:260px;
+    }
+
+    .social-frame{
+        width:90%;
+    }
+
+    .x-frame{
+        max-width:320px;
+        height:400px;
+    }
+
+    .ig-frame{
+        max-width:290px;
+        height:230px;
+    }
+
+    .twitter-tweet{
+        width:90% !important;
+        max-width:330px !important;
+    }
+
+    .instagram-media{
+        width:90% !important;
+        max-width:330px !important;
+    }
+
+
+    /* =========================================
+       ARROWS
+    ========================================= */
+
+    .prev,
+    .next{
+        width:34px;
+        height:34px;
+        font-size:19px;
+    }
+
+    .prev{
+        left:5px;
+    }
+
+    .next{
+        right:5px;
+    }
+
+
+    /* =========================================
+       DESCRIPTION
+    ========================================= */
+
+    .event-description{
+        line-height:1.35;
+    }
+
+    .event-description p{
+        font-size:.9rem;
+        text-align:left;
+    }
+
+
+    /* =========================================
+       TRENDING
+    ========================================= */
+
+    .trending-section{
+        margin-top:5px;
+    }
+
+    .trending-title{
+        font-size:1.1rem;
+        margin-bottom:8px;
+    }
+
+    .trending-image{
+        max-width:340px;
+        margin:0 auto;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media screen and (max-width:768px){
+
+    /* =========================================
+       EVENTS HERO
+    ========================================= */
+
+    .events-hero{
+        width:100%;
+        max-width:none;
+        margin:0 auto 10px;
+        padding:22px 15px 5px;
+        box-sizing:border-box;
+    }
+
+    .events-badge{
+        padding:5px 13px;
+        font-size:.68rem;
+        letter-spacing:1.1px;
+        margin-bottom:12px;
+    }
+
+    .events-icon{
+        font-size:45px;
+        margin-bottom:8px;
+    }
+
+    .events-title{
+        font-size:2rem;
+        line-height:1.15;
+        letter-spacing:.5px;
+    }
+
+    .events-tagline{
+        width:100%;
+        max-width:380px;
+        font-size:.88rem;
+        line-height:1.4;
+    }
+
+
+    /* =========================================
+       EVENT CARD
+    ========================================= */
+
+    .event-card{
+        width:calc(100% - 20px);
+        max-width:none;
+
+        margin:15px auto;
+        padding:12px;
+
+        border-width:1px;
+        border-radius:12px;
+
+        box-sizing:border-box;
+    }
+
+
+    /* =========================================
+       EVENT HEADER
+    ========================================= */
+
+    .event-header{
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+        gap:4px;
+        margin-bottom:10px;
+        padding-bottom:7px;
+        text-align:center;
+    }
+
+    .event-name{
+        width:100%;
+        font-size:1rem;
+        line-height:1.25;
+        overflow-wrap:anywhere;
     }
 
     .event-date{
         font-size:.85rem;
+        white-space:normal;
+        line-height:1.3;
     }
 
+    /* =========================================
+    MEDIA
+    ========================================= */
+
     .media-container{
-        max-width:100%;
-        margin-bottom:15px;
+        width:100%;
+        max-width:300px;
+        margin:0 auto 12px;
+    }
+
+    .media-slider{
+        width:100%;
     }
 
     .media-slide{
+        width:100%;
+        min-width:100%;
+        padding:3px 0;
+        display:flex;
         justify-content:center;
-        overflow:hidden;
+        align-items:center;
     }
 
     .media-slide img,
     .media-video{
+        display:block;
         width:100%;
-        max-width:100%;
-        max-height:300px;
+        max-width:260px;
+        height:auto;
+        max-height:190px;
+        object-fit:contain;
     }
+
+
+    /* =========================================
+    SOCIAL MEDIA
+    ========================================= */
 
     .social-frame{
+        width:100%;
+        max-width:100%;
         display:flex;
         justify-content:center;
         align-items:flex-start;
-        width:100%;
+        overflow:visible;
     }
-
-    .social-frame > *{
-        flex-shrink:0;
-    }
-
-    .x-frame,
-    .ig-frame{
-        width:100%;
-        overflow:hidden;
-        display:flex;
-        justify-content:center;
-        align-items:flex-start;
-    }
-
+    
     .x-frame{
-        height:390px;
+        width:100%;
+        max-width:350px;
+        margin:0 auto;
+        overflow:visible;
+        height: 250px;
+    }
+    
+    .x-frame .twitter-tweet{
+        width:100% !important;
+        max-width:100% !important;
+        min-width:0 !important;
+        margin:0 auto !important;
     }
 
     .ig-frame{
-        height:280px;
-    }
-
-
-    .twitter-tweet,
-    .instagram-media{
-        width:430px !important;
-        max-width:430px !important;
-        margin:0 !important;
-    }
-
-    .twitter-tweet{
-        width:430px !important;
-        max-width:430px !important;
-        transform:translateX(20px) scale(0.65);
-        transform-origin:top center;
-        margin:0 !important;
+        width:100%;
+        max-width:250px;
+        height:200px;
     }
 
     .instagram-media{
-        width:430px !important;
-        max-width:430px !important;
-        transform:translateX(20px) scale(0.70);
-        transform-origin:top center;
-        margin:0 !important;
+        width:100% !important;
+        max-width:260px !important;
+        margin:0 auto !important;
     }
+
+
+    /* =========================================
+       ARROWS
+    ========================================= */
+
+    .prev,
+    .next{
+        width:30px;
+        height:30px;
+
+        font-size:17px;
+
+        background:rgba(0,0,0,.6);
+    }
+
+    .prev{
+        left:4px;
+    }
+
+    .next{
+        right:4px;
+    }
+
+
+    /* =========================================
+       DESCRIPTION
+    ========================================= */
 
     .event-description{
-        font-size:.85rem;
+        line-height:1.35;
     }
 
-    .prev, .next {
-        padding:8px;
-        font-size:14px;
+    .event-description p{
+        margin:0;
+
+        font-size:.82rem;
+        line-height:1.4;
+
+        text-align:left;
+    }
+
+
+    /* =========================================
+       TRENDING
+    ========================================= */
+
+    .trending-section{
+        margin-top:5px;
+    }
+
+    .trending-title{
+        font-size:1rem;
+        margin:0 0 7px;
+    }
+
+    .trending-image{
+        width:100%;
+        max-width:300px;
+
+        margin:0 auto;
+        border-radius:8px;
     }
 }

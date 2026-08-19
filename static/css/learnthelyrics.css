@@ -87,29 +87,7 @@
     margin:7px auto;
     line-height:1.6;
 }
-.vibe-hero-divider{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:12px;
-    width:240px;
-    margin:20px auto 0;
-}
-.vibe-hero-divider span{
-    flex:1;
-    height:1px;
-    background:linear-gradient(90deg,transparent,rgba(168,85,247,.65));
-}
-.vibe-hero-divider span:last-child{
-    background:linear-gradient(90deg,rgba(168,85,247,.65),transparent);
-}
-.vibe-hero-divider i{
-    font-family:serif;
-    font-size:1.2rem;
-    font-style:normal;
-    color:#FFD700;
-    text-shadow:0 0 12px rgba(255,215,0,.5);
-}
+
 /* =========================================================
    SONG GRID
 ========================================================= */
@@ -388,10 +366,7 @@
         font-size:15px;
         line-height:1.45;
     }
-    .vibe-hero-divider{
-        width:210px;
-        margin-top:15px;
-    }
+
     .lyrics-song-grid{
         grid-template-columns:repeat(4,1fr);
         gap:15px;
@@ -614,10 +589,7 @@
         line-height:1.45;
         margin:5px auto;
     }
-    .vibe-hero-divider{
-        width:190px;
-        margin-top:13px;
-    }
+
     .lyrics-song-grid{
         grid-template-columns:repeat(2,1fr);
         gap:12px;

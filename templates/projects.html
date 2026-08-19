@@ -7,11 +7,19 @@
 {% block title %}Fan Projects{% endblock %}
 {% block content %}
 <div class="main-content">
-    <h1 class="heading">Fan Initiatives</h1>
-    <p class="caption">
-        Celebrating the impact of our community through donations, campaigns, and acts of kindness inspired by Taekook.
-    </p>
+    <div class="projects-hero">
+        <div class="projects-badge">✦ PROJECTS</div>
+        <div class="hero-icon">🤝</div>
+        <h1 class="projects-title">Fan Initiatives</h1>
+        <p class="projects-tagline">Turning our love for Taekook into meaningful projects, campaigns, and acts of kindness.</p>
 
+        <div class="hero-divider">
+            <span></span>
+            <i>✦</i>
+            <span></span>
+        </div>
+    </div>
+    
     <div class="project-cards">
         {% for project in projects %}
         <div class="project-card"
@@ -33,10 +41,6 @@
                     {% if project.location %}
                     • 🌎 {{ project.location }}
                     {% endif %}
-                </p>
-
-                <p class="project-description">
-                    {{ project.description }}
                 </p>
 
                 <span class="view-project">

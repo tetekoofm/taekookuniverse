@@ -41,13 +41,6 @@
     margin-bottom:20px;
 }
 
-.radio-icon{
-    font-size:70px;
-    margin-bottom:15px;
-    animation:floatRadio 3s ease-in-out infinite;
-    filter:drop-shadow(0 0 20px rgba(106,13,173,.7));
-}
-
 .radio-title{
     font-size:52px;
     margin:10px 0;
@@ -468,14 +461,6 @@
     to{
         opacity:1;
         transform:translateY(0);
-    }
-}
-@keyframes floatRadio{
-    0%,100%{
-        transform:translateY(0);
-    }
-    50%{
-        transform:translateY(-8px);
     }
 }
 

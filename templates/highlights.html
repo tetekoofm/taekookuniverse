@@ -9,9 +9,20 @@
 
 {% block content %}
 <div class="main-content">
-    <h1 class="heading">Highlights</h1>
-    <p class="caption">Highlights of Taehyung and Jung Kook!</p>
-   
+    
+    <div class="features-hero">
+        <div class="features-badge">✨ FEATURES</div>
+        <div class="hero-icon">✨</div>
+        <h1 class="features-title">Highlights</h1>
+        <p class="features-tagline">A closer look at moments worth remembering.</p>
+    
+        <div class="hero-divider">
+            <span></span>
+            <i>✦</i>
+            <span></span>
+        </div>   
+    </div>
+
     {{ category_filters(endpoint) }}
 
     <div class="highlights-container">
@@ -108,7 +119,7 @@
                                     {% else %}
 
                                         <img src="{{ url_for('static', filename='images/highlights/' ~ event.folder ~ '/' ~ media) }}"
-                                             alt="{{ event.title }}">
+                                            alt="{{ event.title }}">
 
                                     {% endif %}
 
@@ -140,7 +151,6 @@
     {% include "components/pagination.html" with context %}
 
 </div>
-
 <!-- ================= JS ================= -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
