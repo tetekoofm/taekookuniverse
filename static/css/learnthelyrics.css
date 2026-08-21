@@ -4,8 +4,8 @@
 .lyrics-page{
     width:100%;
     max-width:1200px;
-    margin:0 auto;
-    padding:0 20px 30px;
+    margin:auto;
+    padding:40px 20px 30px;
     box-sizing:border-box;
 }
 /* =========================================================

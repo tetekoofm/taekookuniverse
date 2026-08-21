@@ -1,732 +1,251 @@
 {% extends "00.base.html" %}
 
-{% block title %}TaeKook Universe{% endblock %}
-
 {% block extra_css %}
-<link rel="stylesheet"
-      href="{{ url_for('static', filename='css/demo.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 {% endblock %}
 
+{% block title %}TaeKook Universe{% endblock %}
 {% block content %}
 
-<!-- =========================================================
-     HERO
-========================================================= -->
+<!-- ✨ Intro Overlay -->
+<div id="logo-intro-overlay">
+    <canvas id="logo-intro-canvas"></canvas>
+    <img id="final-logo" src="{{ url_for('static', filename='images/fanbases/tku.webp') }}" alt="TaeKook Universe Logo">
+</div>
 
-<section class="universe-hero">
+<!-- 🌠 Main Content -->
+<div class="main-content hidden">
 
-    <div class="hero-stars"></div>
+    <!-- HERO -->
+    <section class="hero-section">
+        <h1 class="heading">Welcome to TaeKook Universe!</h1>
+        <p class="caption">A fanpage dedicated to Kim Taehyung and Jeon Jung Kook.</p>
+        <p class="caption">Follow their incredible journey from debut till now!</p>
+        <a href="#featured-universe" class="universe-btn">Explore The Universe ✨</a>
+    </section>
 
-    <div class="hero-glow hero-glow-purple"></div>
-    <div class="hero-glow hero-glow-green"></div>
-
-    <div class="hero-orbit orbit-one"></div>
-    <div class="hero-orbit orbit-two"></div>
-
-    <div class="hero-content">
-
-        <div class="universe-symbol">
-            <span></span>
-            <span></span>
-        </div>
-
-        <p class="hero-eyebrow">
-            WELCOME TO
-        </p>
-
-        <h1>
-            TaeKook
-            <span>Universe</span>
-        </h1>
-
-        <p class="hero-subtitle">
-            Two stars.<br>
-            One universe.
-        </p>
-
-        <button class="enter-universe" id="enterUniverse">
-            <span>Enter the Universe</span>
-            <b>↓</b>
-        </button>
-
-    </div>
-
-    <div class="hero-corner hero-corner-left">
-        <span>TKU</span>
-        <small>EST. 2023</small>
-    </div>
-
-    <div class="hero-corner hero-corner-right">
-        <span>∞</span>
-        <small>ALWAYS HERE</small>
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     PICTURE OF THE DAY
-========================================================= -->
-
-<section class="today-section" id="todayUniverse">
-
-    <div class="section-intro">
-
-        <div>
-            <span class="section-kicker">
-                ✦ CURRENTLY IN ORBIT
-            </span>
-
-            <h2>
-                Today in the
-                <em>Universe</em>
-            </h2>
-        </div>
-
-        <p>
-            A little glimpse of what's
-            shining in our universe today.
-        </p>
-
-    </div>
-
-
-    <div class="today-layout">
-
-        <!-- FEATURE IMAGE -->
-
-        <div class="cosmic-feature">
-
-            <div class="feature-frame">
-
-                {% if images %}
-
-                    {% set featured = images[0] %}
-
-                    {% if featured.endswith('.mp4') %}
-
-                    <video
-                        autoplay
-                        muted
-                        loop
-                        playsinline>
-
-                        <source
-                            src="{{ url_for(
-                                'static',
-                                filename='images/home/pictureoftheday/' + featured
-                            ) }}"
-                            type="video/mp4">
-
+    <!-- FEATURED CAROUSEL -->
+    <section id="featured-universe" class="universe-section">
+    <section class="universe-section featured-section">
+        <h2 class="section-title">Picture of the Day</h2>
+        <div class="image-carousel">
+            <div class="slides-track">
+                {% for media in images %}
+                <div class="image-slide">
+                    {% if media.endswith('.mp4') %}
+                    <video class="glow-media" autoplay loop muted playsinline>
+                        <source src="{{ url_for('static', filename='images/home/pictureoftheday/' + media) }}" type="video/mp4">
                     </video>
-
                     {% else %}
-
-                    <img
-                        src="{{ url_for(
-                            'static',
-                            filename='images/home/pictureoftheday/' + featured
-                        ) }}"
-                        alt="TaeKook Universe">
-
+                    <img class="glow-media" src="{{ url_for('static', filename='images/home/pictureoftheday/' + media) }}" alt="Taekook {{ loop.index }}" loading="lazy">
                     {% endif %}
-
-                {% endif %}
-
-                <div class="image-vignette"></div>
-
-                <div class="feature-label">
-
-                    <span>PICTURE OF THE DAY</span>
-
-                    <i>✦</i>
-
                 </div>
-
+                {% endfor %}
             </div>
+        </div>
+    </section>
+
+    <!-- UNIVERSE FEATURES -->
+    <section class="universe-section">
+        <h2 class="section-title">Explore TaeKook Universe</h2>
+
+        <div class="feature-grid">
+
+            <a href="/memories" class="feature-card">
+                <h3>✨ Memories</h3>
+                <p>Journey through unforgettable moments and milestones.</p>
+            </a>
+
+            <a href="/vibe" class="feature-card">
+                <h3>✨ Rhythm of Taekook</h3>
+                <p>Discover their music, playlists and inspirations.</p>
+            </a>
+
+            <a href="/brandambassador" class="feature-card">
+                <h3>✨ Ambassadorship</h3>
+                <p>The world's most coveted ambassadors.</p>
+            </a>
+
+            <a href="/highlights" class="feature-card">
+              <h3>✨ Highlights</h3>
+              <p>Explore iconic moments, media features and memorable events.</p>
+            </a>
+
+            <a href="/projects" class="feature-card">
+                <h3>✨ Projects</h3>
+                <p>Fan projects and celebrations created with love.</p>
+            </a>
+
+            <a href="/inthenews" class="feature-card">
+                <h3>✨ In The News</h3>
+                <p>Latest updates and media highlights.</p>
+            </a>
 
         </div>
+    </section>
 
+</div>
 
-        <!-- SIDE NOTE -->
-
-        <div class="cosmic-side">
-
-            <div class="universe-note">
-
-                <span class="note-symbol">✦</span>
-
-                <div>
-
-                    <small>
-                        UNIVERSE NOTE
-                    </small>
-
-                    <h3>
-                        Some moments
-                        deserve their
-                        own constellation.
-                    </h3>
-
-                    <p>
-                        Welcome back to your little
-                        corner of the TaeKook universe.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="orbit-info">
-
-                <div class="orbit-info-header">
-
-                    <span>
-                        THE SKY RIGHT NOW
-                    </span>
-
-                    <span class="pulse-dot"></span>
-
-                </div>
-
-
-                <div class="orbit-stat">
-
-                    <strong>∞</strong>
-
-                    <div>
-                        <span>MEMORIES</span>
-                        <p>still glowing</p>
-                    </div>
-
-                </div>
-
-
-                <div class="orbit-stat">
-
-                    <strong>♫</strong>
-
-                    <div>
-                        <span>MUSIC</span>
-                        <p>always playing</p>
-                    </div>
-
-                </div>
-
-
-                <div class="orbit-stat">
-
-                    <strong>✦</strong>
-
-                    <div>
-                        <span>STARS</span>
-                        <p>never stop shining</p>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     NEW SECTION — UNIVERSE PULSE
-========================================================= -->
-
-<section class="universe-pulse">
-
-    <div class="pulse-background"></div>
-
-    <div class="pulse-header">
-
-        <span>
-            ✦ THE UNIVERSE IS ALIVE
-        </span>
-
-        <h2>
-            What's happening
-            <em>around here?</em>
-        </h2>
-
-        <p>
-            A few places to wander when you don't
-            know where in the universe to go next.
-        </p>
-
-    </div>
-
-
-    <div class="pulse-orbit">
-
-        <!-- MUSIC -->
-
-        <a href="/vibe" class="pulse-item pulse-music">
-
-            <div class="pulse-icon">
-                ♫
-            </div>
-
-            <div class="pulse-text">
-
-                <span>
-                    LISTEN
-                </span>
-
-                <h3>
-                    Rhythm
-                </h3>
-
-                <p>
-                    Let the universe
-                    soundtrack your visit.
-                </p>
-
-            </div>
-
-            <b>↗</b>
-
-        </a>
-
-
-        <!-- NEWS -->
-
-        <a href="/inthenews" class="pulse-item pulse-news">
-
-            <div class="pulse-icon">
-                ◉
-            </div>
-
-            <div class="pulse-text">
-
-                <span>
-                    DISCOVER
-                </span>
-
-                <h3>
-                    What's New
-                </h3>
-
-                <p>
-                    See what's been
-                    happening beyond TKU.
-                </p>
-
-            </div>
-
-            <b>↗</b>
-
-        </a>
-
-
-        <!-- PROJECTS -->
-
-        <a href="/projects" class="pulse-item pulse-projects">
-
-            <div class="pulse-icon">
-                ✦
-            </div>
-
-            <div class="pulse-text">
-
-                <span>
-                    CREATE
-                </span>
-
-                <h3>
-                    Projects
-                </h3>
-
-                <p>
-                    Things made with
-                    love by this universe.
-                </p>
-
-            </div>
-
-            <b>↗</b>
-
-        </a>
-
-
-        <!-- COMMUNITY -->
-
-        <a href="/community" class="pulse-item pulse-community">
-
-            <div class="pulse-icon">
-                ∞
-            </div>
-
-            <div class="pulse-text">
-
-                <span>
-                    CONNECT
-                </span>
-
-                <h3>
-                    Community
-                </h3>
-
-                <p>
-                    Find your place
-                    among the stars.
-                </p>
-
-            </div>
-
-            <b>↗</b>
-
-        </a>
-
-
-        <div class="pulse-center">
-
-            <div class="pulse-center-ring"></div>
-
-            <span>
-                TK
-            </span>
-
-            <small>
-                UNIVERSE
-            </small>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     CONSTELLATION MOMENTS
-========================================================= -->
-
-<section class="constellation-section">
-
-    <div class="constellation-header">
-
-        <span>
-            ✦ MOMENTS IN ORBIT
-        </span>
-
-        <h2>
-            A universe made
-            of little moments.
-        </h2>
-
-        <p>
-            Not everything needs a timeline.
-            Some memories simply belong among
-            the stars.
-        </p>
-
-    </div>
-
-
-    <div class="moment-field">
-
-        {% for media in images[:7] %}
-
-        <div class="floating-moment moment-{{ loop.index }}">
-
-            <div class="moment-image">
-
-                {% if media.endswith('.mp4') %}
-
-                <video
-                    autoplay
-                    muted
-                    loop
-                    playsinline>
-
-                    <source
-                        src="{{ url_for(
-                            'static',
-                            filename='images/home/pictureoftheday/' + media
-                        ) }}"
-                        type="video/mp4">
-
-                </video>
-
-                {% else %}
-
-                <img
-                    src="{{ url_for(
-                        'static',
-                        filename='images/home/pictureoftheday/' + media
-                    ) }}"
-                    alt="TaeKook moment"
-                    loading="lazy">
-
-                {% endif %}
-
-            </div>
-
-            <span class="moment-star">
-                ✦
-            </span>
-
-        </div>
-
-        {% endfor %}
-
-
-        <div class="field-center">
-
-            <div class="center-ring"></div>
-
-            <span>
-                TK
-            </span>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     ENDING
-========================================================= -->
-
-<section class="universe-ending">
-
-    <div class="ending-line"></div>
-
-    <div class="ending-content">
-
-        <span class="ending-symbol">
-            ✦
-        </span>
-
-        <p>
-            Wherever you are,
-        </p>
-
-        <h2>
-            you're under the
-            <span>same sky.</span>
-        </h2>
-
-        <p class="ending-small">
-            Keep looking up.
-        </p>
-
-    </div>
-
-    <div class="ending-line"></div>
-
-</section>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
 
 <script>
-
-document.addEventListener("DOMContentLoaded", () => {
-
-
-    /* =====================================================
-       HERO STARS
-    ===================================================== */
-
-    const starContainer =
-        document.querySelector(".hero-stars");
-
-    if (starContainer) {
-
-        for (let i = 0; i < 110; i++) {
-
-            const star =
-                document.createElement("span");
-
-            star.className =
-                "hero-star";
-
-            star.style.left =
-                Math.random() * 100 + "%";
-
-            star.style.top =
-                Math.random() * 100 + "%";
-
-            star.style.animationDelay =
-                Math.random() * 5 + "s";
-
-            star.style.animationDuration =
-                3 + Math.random() * 4 + "s";
-
-            const size =
-                1 + Math.random() * 2.5;
-
-            star.style.width =
-                size + "px";
-
-            star.style.height =
-                size + "px";
-
-            starContainer.appendChild(star);
-
-        }
-
-    }
-
-
-    /* =====================================================
-       ENTER UNIVERSE
-    ===================================================== */
-
-    const enterButton =
-        document.getElementById("enterUniverse");
-
-    const today =
-        document.getElementById("todayUniverse");
-
-    if (enterButton && today) {
-
-        enterButton.addEventListener(
-            "click",
-            () => {
-
-                today.scrollIntoView({
-                    behavior: "smooth"
-                });
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       HERO PARALLAX
-    ===================================================== */
-
-    if (window.innerWidth > 900) {
-
-        const hero =
-            document.querySelector(".universe-hero");
-
-        const heroContent =
-            document.querySelector(".hero-content");
-
-        const purple =
-            document.querySelector(".hero-glow-purple");
-
-        const green =
-            document.querySelector(".hero-glow-green");
-
-
-        hero?.addEventListener(
-            "mousemove",
-            (e) => {
-
-                const x =
-                    e.clientX /
-                    window.innerWidth -
-                    .5;
-
-                const y =
-                    e.clientY /
-                    window.innerHeight -
-                    .5;
-
-
-                if (heroContent) {
-
-                    heroContent.style.transform =
-                        `translate(
-                            ${x * 8}px,
-                            ${y * 8}px
-                        )`;
-
-                }
-
-
-                if (purple) {
-
-                    purple.style.transform =
-                        `translate(
-                            ${x * -25}px,
-                            ${y * -25}px
-                        )`;
-
-                }
-
-
-                if (green) {
-
-                    green.style.transform =
-                        `translate(
-                            ${x * 20}px,
-                            ${y * 20}px
-                        )`;
-
-                }
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       FLOATING MOMENTS
-    ===================================================== */
-
-    document
-        .querySelectorAll(".floating-moment")
-        .forEach((moment, index) => {
-
-            moment.style.animationDelay =
-                `${index * -.8}s`;
-
-        });
-
-
-    /* =====================================================
-       PULSE ITEMS — MOUSE MOVEMENT
-    ===================================================== */
-
-    const pulseItems =
-        document.querySelectorAll(".pulse-item");
-
-    pulseItems.forEach(item => {
-
-        item.addEventListener(
-            "mousemove",
-            e => {
-
-                const rect =
-                    item.getBoundingClientRect();
-
-                const x =
-                    e.clientX - rect.left;
-
-                const y =
-                    e.clientY - rect.top;
-
-                item.style.setProperty(
-                    "--mouse-x",
-                    `${x}px`
-                );
-
-                item.style.setProperty(
-                    "--mouse-y",
-                    `${y}px`
-                );
-
-            }
-        );
-
-    });
-
-});
-
+  document.addEventListener("DOMContentLoaded", () => {
+  const nightSky=document.getElementById("night-sky");
+  const overlay=document.getElementById("logo-intro-overlay");
+  const canvas=document.getElementById("logo-intro-canvas");
+  const ctx=canvas.getContext("2d");
+  const logo=document.getElementById("final-logo");
+  const mainContent=document.querySelector(".main-content");
+  canvas.width=window.innerWidth;
+  canvas.height=window.innerHeight;
+
+  /* =========================
+    GLOBAL STAR FIELD
+  ========================= */
+
+  function generateStars(){
+      const stars=[];
+      const count=200;
+      for(let i=0;i<count;i++){
+          const star=document.createElement("div");
+          star.className="star";
+          const x=Math.random()*window.innerWidth;
+          const y=Math.random()*window.innerHeight;
+          star.style.left=x+"px";
+          star.style.top=y+"px";
+          star.style.animationDuration=(Math.random()*3+2)+"s";
+          nightSky.appendChild(star);
+          stars.push(star);
+      }
+  }
+  if(nightSky && !nightSky.children.length){
+      generateStars();
+  }
+
+  /* =========================
+    LOGO INTRO
+  ========================= */
+
+  const stars=[];
+  const starCount=150;
+  for(let i=0;i<starCount;i++){
+      const angle=Math.random()*Math.PI*2;
+      const radius=150*(0.5+Math.random()*0.5);
+      stars.push({
+          x:Math.random()*canvas.width,
+          y:Math.random()*canvas.height,
+          size:Math.random()*2+1,
+          targetX:(canvas.width/2)+radius*Math.cos(angle),
+          targetY:(canvas.height/2)+radius*Math.sin(angle),
+          alpha:0,
+          color:Math.random()>0.5?"#6A0DAD":"#10b981"
+      });
+  }
+
+  function drawStars(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      stars.forEach(s=>{
+          ctx.globalAlpha=s.alpha;
+          ctx.fillStyle=s.color;
+          ctx.beginPath();
+          ctx.arc(s.x,s.y,s.size,0,Math.PI*2);
+          ctx.fill();
+      });
+  }
+
+  const logoShown=localStorage.getItem("logoShown");
+  if(!logoShown){
+      localStorage.setItem("logoShown","true");
+      gsap.to(stars,{
+          alpha:1,
+          duration:1,
+          onUpdate:drawStars,
+          onComplete:()=>{
+
+              gsap.to(stars,{
+                  x:i=>stars[i].targetX,
+                  y:i=>stars[i].targetY,
+                  duration:2.5,
+                  ease:"power2.inOut",
+                  onUpdate:drawStars,
+                  onComplete:()=>{
+                      gsap.to(logo,{
+                          opacity:1,
+                          duration:2,
+                          onComplete:()=>{
+                              gsap.to(logo,{
+                                  scale:0,
+                                  opacity:0,
+                                  duration:2,
+                                  onComplete:()=>{
+                                      overlay.style.display="none";
+                                      mainContent.classList.remove("hidden");
+                                      gsap.fromTo(
+                                          mainContent,
+                                          {opacity:0,scale:.85},
+                                          {opacity:1,scale:1,duration:2}
+                                      );
+                                  }
+                              });
+                          }
+                      });
+                  }
+              });
+          }
+      });
+  }
+  else{
+
+overlay.style.display="none";
+mainContent.classList.remove("hidden");
+mainContent.classList.add("fade-in");
+
+  }
+
+  /* =========================
+    CAROUSEL
+  ========================= */
+
+  const track=document.querySelector(".slides-track");
+  const slides=document.querySelectorAll(".image-slide");
+  let index=0;
+  function getVisibleSlides(){
+    const isLandscape=window.matchMedia("(orientation: landscape)").matches;
+    const width=window.innerWidth;
+    if(width<=768){return 1;}
+    if(isLandscape && width>=769 && width<=1370){return 2;}
+    if(width<=1024){return 2;}
+    return 3;
+}
+
+  function slideCarousel(){
+      const visible=getVisibleSlides();
+      index++;
+      track.style.transition="transform 1s ease-in-out";
+      track.style.transform=`translateX(-${index*(100/visible)}%)`;
+
+      if(index>=slides.length-visible+1){
+          setTimeout(()=>{
+              track.style.transition="none";
+              index=0;
+              track.style.transform="translateX(0)";
+          },1000);
+      }
+  }
+  setInterval(slideCarousel,4000);
+
+  /* =========================
+    SMOOTH SCROLL BUTTON
+  ========================= */
+
+  document.querySelector(".universe-btn")?.addEventListener("click",(e)=>{
+      e.preventDefault();
+      document.querySelector("#featured-universe")
+      ?.scrollIntoView({
+          behavior:"smooth"
+      });
+  });
+  });
 </script>
 
 {% endblock %}

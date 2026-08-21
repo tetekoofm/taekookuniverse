@@ -27,7 +27,15 @@
         transparent 70%
     );
     pointer-events:none;
-    z-index:-1;
+    z-index:0;
+}
+
+.ambassador-badge,
+.ambassador-icon,
+.ambassador-title,
+.ambassador-tagline{
+    position:relative;
+    z-index:1;
 }
 
 .ambassador-badge{
@@ -46,6 +54,16 @@
     box-shadow:
         0 0 20px rgba(255,215,0,.06);
     position:relative;
+}
+
+.ambassador-icon{
+    font-size:38px;
+    line-height:1;
+    margin-bottom:8px;
+    color:#FFD700;
+    text-shadow:
+        0 0 8px rgba(255,215,0,.35),
+        0 0 20px rgba(168,85,247,.35);
 }
 
 .ambassador-title{
@@ -69,12 +87,11 @@
 }
 
 .ambassador-tagline{
-    max-width:680px;
-    margin:8px auto 0;
+    max-width:650px;
+    margin:0 auto;
     color:rgba(255,255,255,.72);
-    font-size:18px;
-    line-height:1.6;
-    font-weight:400;
+    font-size:1.05rem;
+    line-height:1.5;
 }
 
 /* =========================

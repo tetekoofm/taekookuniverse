@@ -3,7 +3,7 @@ from models import BackgroundMusic, TKURadio
 import os
 import random
 from helpers import get_page_music
-
+from datetime import date
 
 main_bp = Blueprint("main", __name__)
 
@@ -35,9 +35,18 @@ def home_soon():
 def home():
     image_folder = os.path.join(current_app.static_folder, 'images/home/pictureoftheday')
     images = [f for f in os.listdir(image_folder) if f.lower().endswith(('jpg','jpeg','png','gif','webp','mp4'))]
-    random.shuffle(images)
+    tk_images = [f for f in images if "_TK." in f.upper()]
+    tk_images.sort()
+
+    if tk_images:
+        today_seed = date.today().isoformat()
+        rng = random.Random(today_seed)
+        picture_of_the_day = rng.choice(tk_images)
+    else:
+        picture_of_the_day = None
+
     song_file, song_name = get_page_music("home")
-    return render_template('home.html', song_file=song_file, song_name=song_name, images=images)
+    return render_template('home.html', song_file=song_file, song_name=song_name, picture_of_the_day=picture_of_the_day)
 
 
 @main_bp.route('/meet-tae')
