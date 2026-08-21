@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template, send_from_directory, send_file, current_app
 from models import BackgroundMusic, TKURadio
-import os
-import random
+import os, random
 from helpers import get_page_music
 from datetime import date
 
@@ -70,27 +69,11 @@ def termsandconditions():
 def pride():
     return render_template("pride.html")
 
+
 @main_bp.route('/demo')
 def demo():
-    image_folder = os.path.join(
-        current_app.static_folder,
-        'images/home/pictureoftheday'
-    )
-
-    images = [
-        f for f in os.listdir(image_folder)
-        if f.lower().endswith(
-            ('jpg', 'jpeg', 'png', 'gif', 'webp', 'mp4')
-        )
-    ]
-
+    image_folder = os.path.join(current_app.static_folder, 'images/home/pictureoftheday')
+    images = [f for f in os.listdir(image_folder) if f.lower().endswith(('jpg','jpeg','png','gif','webp','mp4'))]
     random.shuffle(images)
-
     song_file, song_name = get_page_music("home")
-
-    return render_template(
-        'Demo.html',
-        song_file=song_file,
-        song_name=song_name,
-        images=images
-    )
+    return render_template('Demo.html',song_file=song_file,song_name=song_name,images=images)

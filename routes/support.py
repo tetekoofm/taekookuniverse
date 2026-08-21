@@ -2,7 +2,6 @@ from flask import Blueprint, render_template, request
 from models import Banner, Fanbase, Discography, Vote, Radio, Promotion, Event
 from helpers import get_page_music, get_banners
 
-
 support_bp = Blueprint("support", __name__)
 
 
@@ -94,9 +93,3 @@ def reporting():
     banners = get_banners('reporting')
     return render_template("reporting.html", banners=banners)
 
-
-@support_bp.route('/demo')
-def demo():
-    trending_tracks = Discography.query.filter_by(popular=1).all()
-    banners = get_banners('streaming')
-    return render_template("Demo.html", trending_tracks=trending_tracks, banners=banners)
