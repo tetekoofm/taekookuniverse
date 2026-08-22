@@ -19,6 +19,14 @@
     text-align:center;
 }
 
+.ckbook-logo{
+    display:block;
+    width:400px;
+    height:auto;
+    margin:-125px auto;
+    object-fit:contain;
+}
+
 .kitchen-header h1{
     font-family:'Tangerine',cursive;
     font-size:4.2rem;
@@ -60,6 +68,14 @@
 .sparkles{
     font-size:1.4rem;
     margin-bottom:12px;
+}
+
+.jkkitchen-logo{
+    display:block;
+    width:120px;
+    height:auto;
+    margin:10px auto 8px;
+    object-fit:contain;
 }
 
 .chest-lid h2{

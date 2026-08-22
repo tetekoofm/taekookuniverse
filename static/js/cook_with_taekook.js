@@ -1164,7 +1164,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         const dish=document.getElementById("deliveryDish");
 
         // Random customer
-        const totalCustomers=5;
+        const totalCustomers=9;
         const customerNo=Math.floor(Math.random()*totalCustomers)+1;
         window.currentCustomer=`customer${customerNo}.png`;
         document.getElementById("deliveryBackground").style.backgroundImage =
