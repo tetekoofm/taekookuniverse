@@ -182,6 +182,10 @@ document.getElementById("nextPuzzleBtn").onclick=()=>{
     loadPuzzle();
 };
 
+document.getElementById("startExitBtn").onclick=()=>{
+    window.location.href="/challenge-zone";
+};
+
 document.getElementById("exitBtn").onclick=()=>{
     window.location.href="/challenge-zone";
 };
