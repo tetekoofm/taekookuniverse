@@ -1,0 +1,107 @@
+{% extends "00.base.html" %}
+{% block title %}Signal Hunt | TKU Theme Park{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/reaction_speed.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<section class="reaction-game">
+    <div class="reaction-header">
+        <span class="reaction-eyebrow">✦ CHALLENGE ZONE</span>
+        <h1>Signal Hunt</h1>
+        <p>Watch carefully. React quickly.</p>
+    </div>
+
+    <div class="reaction-card">
+        <div class="reaction-top"><div class="game-stat">ROUND<strong><span id="roundNumber">1</span>/7</strong></div>
+            <div class="game-stat">SCORE<strong id="score">0</strong></div>
+            <div class="game-stat">BEST<strong id="bestScore">—</strong></div>
+        </div>
+
+        <div class="round-progress">
+            <span class="progress-dot"></span>
+            <span class="progress-dot"></span>
+            <span class="progress-dot"></span>
+            <span class="progress-dot"></span>
+            <span class="progress-dot"></span>
+            <span class="progress-dot"></span>
+            <span class="progress-dot"></span>
+        </div>
+
+        <div class="signal-area" id="signalArea">
+            <div class="signal-intro" id="signalIntro">
+                <div class="intro-symbol">✦</div>
+                <h2>READY?</h2>
+                <p>Tap the real TKU signals.<br>Avoid the 🚫 signal.</p>
+                <button class="reaction-button" id="startButton">START CHALLENGE</button>
+            </div>
+
+            <div class="signal-message" id="signalMessage">GET READY...</div>
+            <button class="signal-target" id="signalTarget" aria-label="Signal"></button>
+            <div class="feedback" id="feedback"></div>
+        </div>
+
+        <div class="round-result" id="roundResult">
+            <span id="resultLabel">REACTION</span>
+            <strong id="reactionTime">0.000</strong>
+            <small>SEC</small>
+            <div class="points-earned" id="pointsEarned">+0</div>
+        </div>
+    </div>
+
+    <div class="signal-guide">
+        <span class="guide-title">REAL SIGNALS</span>
+        <div class="valid-signals">
+            <span>🐻</span>
+            <span>🐯</span>
+            <span>🐰</span>
+            <span>💜</span>
+            <span>💚</span>
+            <span>❤️</span>
+            <span>💛</span>
+        </div>
+        <div class="fake-signal">
+            <span>🚫</span>
+            <small>AVOID</small>
+        </div>
+    </div>
+
+    <div class="final-results" id="finalResults">
+        <div class="final-results-box">
+            <button class="close-results" id="closeResults" aria-label="Close">×</button>
+            <span class="final-eyebrow">✦ CHALLENGE COMPLETE</span>
+            <div class="final-symbol">✦</div>
+            <h2 id="finalRank">TKU EXPLORER</h2>
+            <div class="final-score">
+                <span>FINAL SCORE</span>
+                <strong id="finalScore">0 / 700</strong>
+            </div>
+            <div class="score-details">
+                <div>
+                    <span>BEST REACTION</span>
+                    <strong id="finalBestReaction">—</strong>
+                    <small>sec</small>
+                </div>
+                <div>
+                    <span>CORRECT</span>
+                    <strong id="correctSignals">0</strong>
+                    <small>/ 7</small>
+                </div>
+                <div>
+                    <span>AVOIDED</span>
+                    <strong id="avoidedSignals">0</strong>
+                    <small>/ 7</small>
+                </div>
+            </div>
+            <div class="new-best" id="newBest">✨ NEW PERSONAL BEST!</div>
+            <button class="reaction-button replay-button" id="replayButton">PLAY AGAIN</button>
+            <a href="{{ url_for('games.challenge_zone') }}" class="back-button">← BACK TO CHALLENGE ZONE</a>
+        </div>
+    </div>
+</section>
+
+<script src="{{ url_for('static', filename='js/reaction_speed.js') }}"></script>
+
+{% endblock %}

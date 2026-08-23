@@ -129,6 +129,12 @@ def puzzle():
 
     return render_template("games/zones/challenge_zone/puzzle.html",images=images)
 
+
+@games_bp.route('/reactionspeed')
+def reactionspeed():
+    return render_template('games/zones/challenge_zone/reaction_speed.html')
+
+
 #====== SEASONAL ========
 @games_bp.route('/santas_delivery_dash')
 def santas_delivery_dash():

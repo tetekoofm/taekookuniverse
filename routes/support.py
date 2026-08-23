@@ -40,18 +40,13 @@ def buying():
 def voting():
     banners = get_banners('voting')
     vote_apps = Vote.query.all()
+    return render_template("voting.html", banners=banners, vote_apps=vote_apps)
 
-    return render_template(
-        "07.05.voting.html",
-        banners=banners,
-        vote_apps=vote_apps
-    )
 
 @support_bp.route('/radio')
 def radio():
     radio_stations = Radio.query.all()
     banners = get_banners('radio')
-
     return render_template("radio.html", radio_stations=radio_stations, banners=banners)
 
 @support_bp.route('/shazam')
