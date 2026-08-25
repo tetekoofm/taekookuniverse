@@ -4,9 +4,12 @@
 </div>
 
 {% if song_file %}
-<audio id="bgAudio" autoplay loop data-song="{{ song_name }}">
+<audio id="bgAudio" autoplay data-song="{{ song_name }}">
     <source src="{{ url_for('static', filename='audio/' + song_file) }}" type="audio/mp3">
 </audio>
+<!-- <audio id="bgAudio" autoplay loop data-song="{{ song_name }}">
+    <source src="{{ url_for('static', filename='audio/' + song_file) }}" type="audio/mp3">
+</audio> -->
 {% endif %}
 
 <script>
