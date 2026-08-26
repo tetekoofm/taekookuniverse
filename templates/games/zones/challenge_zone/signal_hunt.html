@@ -2,7 +2,7 @@
 {% block title %}Signal Hunt | TKU Theme Park{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/reaction_speed.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/signal_hunt.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -34,7 +34,11 @@
             <div class="signal-intro" id="signalIntro">
                 <div class="intro-symbol">✦</div>
                 <h2>READY?</h2>
-                <p>Tap the real TKU signals.<br>Avoid the 🚫 signal.</p>
+                <p>
+                    When the challenge begins, emojis related to Tae & Kook will pop up randomly<br>
+                    around the screen. Click them as quickly as you can to score points.<br>
+                    Watch carefully — avoid the 🚫 signal!
+                </p>
                 <button class="reaction-button" id="startButton">START CHALLENGE</button>
             </div>
 
@@ -102,6 +106,6 @@
     </div>
 </section>
 
-<script src="{{ url_for('static', filename='js/reaction_speed.js') }}"></script>
+<script src="{{ url_for('static', filename='js/signal_hunt.js') }}"></script>
 
 {% endblock %}

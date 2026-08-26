@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, jsonify, current_app
 import os, json, random
 from models import db, Recipe
+from helpers import get_page_music
 from extensions import csrf
 
 games_bp = Blueprint("games", __name__)
@@ -45,13 +46,22 @@ def cook_with_taekook():
 @games_bp.route('/kookies-golden-kitchen')
 def kookies_golden_kitchen():
     recipes = Recipe.query.filter_by(published=True).all()
+
     print("COUNT:", len(recipes))
+
     for r in recipes:
         if r.date:
-            r.date = r.date.strftime("%b %d, %Y")
+            r.formatted_date = r.date.strftime("%b %d, %Y")
+
         print(r.recipe_name, r.published, type(r.published))
+
+    song_file, song_name = get_page_music("kookies kitchen")
+
     return render_template(
-        "games/zones/food_zone/kookies_golden_kitchen.html", recipes=recipes, 
+        "games/zones/food_zone/kookies_golden_kitchen.html",
+        song_file=song_file,
+        song_name=song_name,
+        recipes=recipes,
         themepark=True
     )
 
@@ -130,9 +140,9 @@ def puzzle():
     return render_template("games/zones/challenge_zone/puzzle.html",images=images)
 
 
-@games_bp.route('/reactionspeed')
-def reactionspeed():
-    return render_template('games/zones/challenge_zone/reaction_speed.html')
+@games_bp.route('/signalhunt')
+def signalhunt():
+    return render_template('games/zones/challenge_zone/signal_hunt.html')
 
 
 #====== SEASONAL ========
