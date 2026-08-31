@@ -1,6 +1,6 @@
 .golden-kitchen{
     min-height:100vh;
-    padding:40px 20px;
+    padding: 70px 20px 40px;
     color:white;
     background:
     linear-gradient(
@@ -15,16 +15,17 @@
 
 .kitchen-header{
     max-width:850px;
-    margin:0 auto 50px;
+    margin:0 auto 10px;
     text-align:center;
 }
 
-.ckbook-logo{
+.ckbook-logo {
     display:block;
     width:400px;
     height:auto;
-    margin:-125px auto;
+    margin: 0 auto 5px;
     object-fit:contain;
+    background: red;
 }
 
 .kitchen-header h1{
@@ -38,22 +39,22 @@
     font-family:'Fira Sans Condensed',sans-serif;
     font-size:1.2rem;
     color:#ddd;
-    margin:0;
+    margin: -40px 0 0;
 }
 
 .kitchen-room{
     display:flex;
     justify-content:center;
     position:relative;
-    padding-top:70px;
+    padding-top:10px;
 }
 
-.recipe-chest{
+.recipe-chest {
     width:700px;
     max-width:95%;
     position:relative;
     z-index:5;
-    margin-top:-80px;
+    margin-top:0;
 }
 
 .chest-lid{
