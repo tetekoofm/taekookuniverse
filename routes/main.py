@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, send_from_directory, send_file, current_app
-from models import BackgroundMusic, TKURadio
+from models import BackgroundMusic, TKURadio, Celebration
 import os, random
-from helpers import get_page_music
+from helpers import get_page_music, get_celebration_display
 from datetime import date
 
 main_bp = Blueprint("main", __name__)
@@ -44,8 +44,24 @@ def home():
     else:
         picture_of_the_day = None
 
+    celebrations = Celebration.query.all()
+    celebration = None
+    for item in celebrations:
+        display = get_celebration_display(item)
+        if display:
+            celebration = display
+            break
+
+    celebration_images = []
+    if celebration:
+        image_key = f"_{celebration['image_key']}."
+        celebration_images = sorted([
+            f for f in images
+            if image_key in f.upper()
+        ])
+
     song_file, song_name = get_page_music("home")
-    return render_template('home.html', song_file=song_file, song_name=song_name, picture_of_the_day=picture_of_the_day)
+    return render_template('home.html', song_file=song_file, song_name=song_name, picture_of_the_day=picture_of_the_day, celebration=celebration, celebration_images=celebration_images)
 
 
 @main_bp.route('/meet-tae')

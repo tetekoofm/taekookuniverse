@@ -263,3 +263,12 @@ class Recipe(db.Model):
     notes = db.Column(db.Text)
     cultural_notes = db.Column(db.Text)
     published = db.Column(db.Boolean, default=False)
+
+class Celebration(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.Date, nullable=False)
+    type = db.Column(db.String(50), nullable=False)
+    title = db.Column(db.String(255), nullable=False)
+    message = db.Column(db.Text, nullable=False)
+    image = db.Column(db.String(100))
+    confetti = db.Column(db.Boolean, default=False)

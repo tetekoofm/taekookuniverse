@@ -1,6 +1,6 @@
 from urllib.parse import urlparse, parse_qs
 from models import BackgroundMusic, Banner
-
+from datetime import date, datetime, timedelta
 
 def extract_youtube_id(url):
     if not url:
@@ -40,3 +40,112 @@ def get_banners(subpage):
     return Banner.query.filter_by(
         subpage=subpage
     ).all()
+
+
+def get_ordinal(number):
+    if 10 <= number % 100 <= 20:
+        suffix = "TH"
+    else:
+        suffix = {
+            1: "ST",
+            2: "ND",
+            3: "RD"
+        }.get(number % 10, "TH")
+
+    return f"{number}{suffix}"
+
+
+def get_celebration_display(celebration, now=None):
+    """
+    Returns celebration data when the celebration is either:
+    - tomorrow (countdown)
+    - today (celebration)
+
+    Returns None on all other days.
+    """
+
+    if not celebration:
+        return None
+
+    if now is None:
+        now = datetime.now()
+
+    today = now.date()
+
+    celebration_date = date(
+        today.year,
+        celebration.date.month,
+        celebration.date.day
+    )
+
+    if celebration_date < today:
+        celebration_date = date(
+            today.year + 1,
+            celebration.date.month,
+            celebration.date.day
+        )
+
+    day_before = celebration_date - timedelta(days=1)
+
+    celebration_year = celebration_date.year
+    years = celebration_year - celebration.date.year
+    ordinal = get_ordinal(years)
+
+    celebration_type = celebration.type.lower()
+
+    title_first = None
+    title_second = None
+
+    if celebration_type == "birthday":
+        title = celebration.title.replace(
+            "Happy Birthday,",
+            f"Happy {ordinal} Birthday,"
+        ).upper()
+
+        title_first, title_second = title.rsplit(",", 1)
+        title_first += ","
+        title_second = title_second.strip()
+
+    elif celebration_type == "anniversary":
+        title = f"✦ HAPPY {ordinal} ANNIVERSARY, TETEKOOFM! ✦"
+
+    else:
+        title = celebration.title
+
+    if today == day_before:
+        countdown_end = datetime.combine(
+            celebration_date,
+            datetime.min.time()
+        )
+
+        return {
+            "status": "countdown",
+            "title": title,
+            "title_first": title_first,
+            "title_second": title_second,
+            "message": celebration.message,
+            "image_key": celebration.image,
+            "confetti": celebration.confetti,
+            "type": celebration.type,
+            "target": countdown_end.isoformat()
+        }
+
+    if today == celebration_date:
+        celebration_end = datetime.combine(
+            celebration_date + timedelta(days=1),
+            datetime.min.time()
+        )
+
+        return {
+            "status": "celebration",
+            "title": title,
+            "title_first": title_first,
+            "title_second": title_second,
+            "message": celebration.message,
+            "image_key": celebration.image,
+            "confetti": celebration.confetti,
+            "type": celebration.type,
+            "target": celebration_end.isoformat()
+        }
+
+    return None

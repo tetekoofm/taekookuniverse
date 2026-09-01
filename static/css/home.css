@@ -429,11 +429,9 @@
 
 .potd-image-frame{
     position:relative;
-
     width:fit-content;
     max-width:920px;
     max-height:72vh;
-
     background:transparent;
 }
 
@@ -705,6 +703,163 @@
 }
 
 /* =================================================
+   CELEBRATION
+================================================= */
+
+.celebration-section {
+    position: relative;
+    width: 100%;
+    padding: 90px 6vw;
+    overflow: hidden;
+    text-align: center;
+}
+
+.celebration-section::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 500px;
+    height: 500px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(
+        circle,
+        rgba(106, 13, 173, 0.18) 0%,
+        rgba(15, 255, 80, 0.06) 35%,
+        transparent 70%
+    );
+    pointer-events: none;
+}
+
+.celebration-content {
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.celebration-section .section-kicker {
+    display: block;
+    margin-bottom: 18px;
+}
+
+.celebration-title {
+    width: 90%;
+    max-width: 1400px;
+    margin: 0 auto;
+    font-family: "Orbitron", cursive;
+    font-size: clamp(3rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    background: linear-gradient(
+        90deg,
+        #6A0DAD,
+        #9B4DCA,
+        #F5C542,
+        #FFD966,
+        #9B4DCA,
+        #6A0DAD
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.celebration-title span {
+    display: block;
+}
+
+.celebration-message {
+    max-width: 700px;
+    margin: 25px auto 35px;
+    font-family: "Fira Sans Condensed", sans-serif;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.celebration-countdown-label {
+    margin: 25px 0 15px;
+    font-family: "Fira Sans Condensed", sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.celebration-countdown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin: 0 auto;
+    font-family: "Fira Sans Condensed", sans-serif;
+}
+
+.celebration-countdown > span {
+    min-width: 70px;
+    font-size: 2.2rem;
+    font-weight: 600;
+    line-height: 1;
+    color: #ffffff;
+    text-shadow:
+        0 0 12px rgba(106, 13, 173, 0.8),
+        0 0 25px rgba(15, 255, 80, 0.2);
+}
+
+.celebration-countdown > small {
+    align-self: flex-end;
+    margin: 0 5px 3px 0;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.celebration-image-frame {
+    position: relative;
+    width: min(520px, 90vw);
+    aspect-ratio: 1 / 1;
+    margin: 35px auto;
+    padding: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(0, 0, 0, 0.35);
+    box-shadow:
+        0 0 30px rgba(106, 13, 173, 0.2),
+        0 0 60px rgba(15, 255, 80, 0.05);
+}
+
+.celebration-image-frame::before,
+.celebration-image-frame::after {
+    content: "";
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    pointer-events: none;
+}
+
+.celebration-image-frame::before {
+    top: -6px;
+    left: -6px;
+    border-top: 2px solid #6A0DAD;
+    border-left: 2px solid #6A0DAD;
+}
+
+.celebration-image-frame::after {
+    right: -6px;
+    bottom: -6px;
+    border-right: 2px solid #0FFF50;
+    border-bottom: 2px solid #0FFF50;
+}
+
+.celebration-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* =================================================
    TABLET
 ================================================= */
 
@@ -826,7 +981,6 @@
         padding:27px;
     }
 
-
     /* =========================
        CLOSING
     ========================= */
@@ -836,8 +990,30 @@
         margin-bottom:90px;
         padding:75px 25px;
     }
-}
 
+    .celebration-section {
+        padding: 75px 5vw;
+    }
+
+    .celebration-title {
+        max-width: 850px;
+        font-size: clamp(3.2rem, 7vw, 4.8rem);
+    }
+
+    .celebration-message {
+        max-width: 650px;
+        font-size: 1.1rem;
+    }
+
+    .celebration-image-frame {
+        width: min(500px, 80vw);
+    }
+
+    .celebration-countdown > span {
+        min-width: 65px;
+        font-size: 2rem;
+    }
+}
 
 
 /* =================================================
@@ -939,6 +1115,31 @@
     .nav-feature{
         min-height:180px;
         padding:28px;
+    }
+
+    .celebration-section {
+        padding: 80px 5vw;
+    }
+
+    .celebration-title {
+        width: 75%;
+        max-width: 650px;
+        margin: 0 auto;
+        font-size: clamp(3.2rem, 4.2vw, 4.5rem);
+    }
+
+    .celebration-message {
+        max-width: 700px;
+        font-size: 1.1rem;
+    }
+
+    .celebration-image-frame {
+        width: min(480px, 55vw);
+    }
+
+    .celebration-countdown > span {
+        min-width: 65px;
+        font-size: 2rem;
     }
 }
 
@@ -1219,6 +1420,67 @@
         margin:0 auto 25px;
         font-size:.9rem;
         line-height:1.6;
+    }
+
+    .celebration-section {
+        padding: 20px 18px;
+    }
+
+    .celebration-content {
+        width: 100%;
+    }
+
+    .celebration-section .section-kicker {
+        margin-bottom: 14px;
+        font-size: 0.72rem;
+    }
+
+    .celebration-title {
+        max-width: 90%;
+        font-size: clamp(1.6rem, 8.5vw, 2.5rem) !important;
+        line-height: 1.1;
+        letter-spacing: -1px;
+    }
+
+    .celebration-message {
+        max-width: 100%;
+        margin: 20px auto 28px;
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    .celebration-countdown-label {
+        margin: 22px 0 12px;
+        font-size: 0.68rem;
+        letter-spacing: 0.14em;
+    }
+
+    .celebration-countdown {
+        gap: 3px;
+        width: 100%;
+    }
+
+    .celebration-countdown > span {
+        min-width: 42px;
+        font-size: 1.35rem;
+    }
+
+    .celebration-countdown > small {
+        margin: 0 2px 2px 0;
+        font-size: 0.45rem;
+        letter-spacing: 0.08em;
+    }
+
+    .celebration-image-frame {
+        width: min(350px, 88vw);
+        margin: 28px auto;
+        padding: 6px;
+    }
+
+    .celebration-image-frame::before,
+    .celebration-image-frame::after {
+        width: 30px;
+        height: 30px;
     }
 }
 

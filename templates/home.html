@@ -65,6 +65,104 @@
     </section>
 
     <!-- =================================================
+         CELEBRATIONS OF THE DAY
+    ================================================== -->
+
+{% if celebration %}
+<section class="celebration-section" id="celebration">
+
+    <div class="celebration-content">
+
+        {% if celebration.status == "countdown" %}
+
+        <span class="section-kicker">✦ TOMORROW IN THE UNIVERSE ✦</span>
+
+        <h2 class="celebration-title">
+            {{ celebration.title }}
+        </h2>
+
+        <p class="celebration-countdown-label">
+            The celebration begins in
+        </p>
+
+        <div
+            class="celebration-countdown"
+            data-target="{{ celebration.target }}"
+        >
+            <span class="countdown-days">00</span>
+            <small>DAYS</small>
+
+            <span class="countdown-hours">00</span>
+            <small>HOURS</small>
+
+            <span class="countdown-minutes">00</span>
+            <small>MINUTES</small>
+
+            <span class="countdown-seconds">00</span>
+            <small>SECONDS</small>
+        </div>
+
+        {% elif celebration.status == "celebration" %}
+
+        <span class="section-kicker">✦ TODAY'S CELEBRATION ✦</span>
+
+        <h2 class="celebration-title">
+            {% if celebration.title_first %}
+                <span>{{ celebration.title_first }}</span>
+                <span>{{ celebration.title_second }}</span>
+            {% else %}
+                {{ celebration.title }}
+            {% endif %}
+        </h2>
+
+        <p class="celebration-message">
+            {{ celebration.message }}
+        </p>
+
+        {% if celebration_images %}
+        <div class="celebration-image-frame">
+
+            {% for image in celebration_images %}
+            <img
+                src="{{ url_for('static', filename='images/home/pictureoftheday/' ~ image) }}"
+                alt="{{ celebration.title }}"
+                class="celebration-image"
+                {% if not loop.first %}style="display:none;"{% endif %}
+            >
+            {% endfor %}
+
+        </div>
+        {% endif %}
+
+        <p class="celebration-countdown-label">
+            Celebration ends in
+        </p>
+
+        <div
+            class="celebration-countdown"
+            data-target="{{ celebration.target }}"
+        >
+            <span class="countdown-days">00</span>
+            <small>DAYS</small>
+
+            <span class="countdown-hours">00</span>
+            <small>HOURS</small>
+
+            <span class="countdown-minutes">00</span>
+            <small>MINUTES</small>
+
+            <span class="countdown-seconds">00</span>
+            <small>SECONDS</small>
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+{% endif %}
+
+    <!-- =================================================
          PICTURE OF THE DAY
     ================================================== -->
 
@@ -356,6 +454,78 @@ document.addEventListener("DOMContentLoaded", () => {
         overlay.style.display = "none";
         mainContent.classList.remove("hidden");
         mainContent.classList.add("fade-in");
+    }
+
+    /* =================================================
+    CELEBRATION COUNTDOWN
+    ================================================= */
+
+    const countdown = document.querySelector(".celebration-countdown");
+
+    if (countdown) {
+        const target = new Date(countdown.dataset.target).getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = target - now;
+
+            if (difference <= 0) {
+                window.location.reload();
+                return;
+            }
+
+            const days = Math.floor(
+                difference / (1000 * 60 * 60 * 24)
+            );
+
+            const hours = Math.floor(
+                (difference / (1000 * 60 * 60)) % 24
+            );
+
+            const minutes = Math.floor(
+                (difference / (1000 * 60)) % 60
+            );
+
+            const seconds = Math.floor(
+                (difference / 1000) % 60
+            );
+
+            countdown.querySelector(".countdown-days").textContent =
+                String(days).padStart(2, "0");
+
+            countdown.querySelector(".countdown-hours").textContent =
+                String(hours).padStart(2, "0");
+
+            countdown.querySelector(".countdown-minutes").textContent =
+                String(minutes).padStart(2, "0");
+
+            countdown.querySelector(".countdown-seconds").textContent =
+                String(seconds).padStart(2, "0");
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    }
+
+
+    /* =================================================
+    CELEBRATION IMAGE ROTATION
+    ================================================= */
+
+    const celebrationImages =
+        document.querySelectorAll(".celebration-image");
+
+    if (celebrationImages.length > 1) {
+        let currentImage = 0;
+
+        setInterval(() => {
+            celebrationImages[currentImage].style.display = "none";
+
+            currentImage =
+                (currentImage + 1) % celebrationImages.length;
+
+            celebrationImages[currentImage].style.display = "block";
+        }, 1000);
     }
 
     /* =================================================

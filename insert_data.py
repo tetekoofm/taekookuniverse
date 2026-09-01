@@ -1,6 +1,6 @@
 import pandas as pd
 from models import db, TKURadio, BackgroundMusic, Discography, MusicVideo, Lyrics, Recipe, Upcoming, Highlights, Recap, Memory, InTheNews
-from models import Vote, Radio, Fanbase, Project, Event, Promotion, BrandAmbassador, Banner, FanLetter
+from models import Vote, Radio, Fanbase, Project, Event, Promotion, BrandAmbassador, Banner, FanLetter, Celebration
 from app import app
 from datetime import datetime, time
 
@@ -507,6 +507,28 @@ def insert_data_from_excel():
 
         db.session.commit()
         print("Fan Letters updated from Excel!")
+
+        celebrations_df = pd.read_excel(excel_file, sheet_name='Celebrations')
+
+        for _, row in celebrations_df.iterrows():
+            existing = Celebration.query.filter_by(
+                date=pd.to_datetime(row['Date']).date(),
+                type=row['Type']
+            ).first()
+
+            if not existing:
+                celebration_entry = Celebration(
+                    date=pd.to_datetime(row['Date']).date(),
+                    type=row['Type'],
+                    title=row['Title'],
+                    message=row['Message'],
+                    image=row['Image'],
+                    confetti=str(row['Confetti']).strip().lower() == 'yes'
+                )
+                db.session.add(celebration_entry)
+
+        db.session.commit()
+        print("Celebrations updated from Excel!")
 
 # Run the function to insert the data
 insert_data_from_excel()
