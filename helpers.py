@@ -1,6 +1,7 @@
 from urllib.parse import urlparse, parse_qs
 from models import BackgroundMusic, Banner
 from datetime import date, datetime, timedelta
+from zoneinfo import ZoneInfo
 
 def extract_youtube_id(url):
     if not url:
@@ -61,16 +62,31 @@ def get_celebration_display(celebration, now=None):
     - tomorrow (countdown)
     - today (celebration)
 
+    All celebration timing is based on US Eastern Time.
     Returns None on all other days.
     """
 
     if not celebration:
         return None
 
+    # ---------------------------------------------
+    # EASTERN TIME
+    # ---------------------------------------------
+
+    eastern = ZoneInfo("America/New_York")
+
     if now is None:
-        now = datetime.now()
+        now = datetime.now(eastern)
+    elif now.tzinfo is None:
+        now = now.replace(tzinfo=eastern)
+    else:
+        now = now.astimezone(eastern)
 
     today = now.date()
+
+    # ---------------------------------------------
+    # THIS YEAR'S CELEBRATION DATE
+    # ---------------------------------------------
 
     celebration_date = date(
         today.year,
@@ -78,6 +94,8 @@ def get_celebration_display(celebration, now=None):
         celebration.date.day
     )
 
+    # If this year's celebration has already passed,
+    # use next year's occurrence.
     if celebration_date < today:
         celebration_date = date(
             today.year + 1,
@@ -87,35 +105,62 @@ def get_celebration_display(celebration, now=None):
 
     day_before = celebration_date - timedelta(days=1)
 
+    # ---------------------------------------------
+    # CALCULATE YEARS
+    # ---------------------------------------------
+
     celebration_year = celebration_date.year
     years = celebration_year - celebration.date.year
     ordinal = get_ordinal(years)
 
     celebration_type = celebration.type.lower()
 
+    # Default values
+    title = celebration.title
     title_first = None
     title_second = None
 
+    # ---------------------------------------------
+    # BIRTHDAY
+    # ---------------------------------------------
+
     if celebration_type == "birthday":
+
         title = celebration.title.replace(
             "Happy Birthday,",
             f"Happy {ordinal} Birthday,"
         ).upper()
 
+        # Split into two intentional lines:
+        # HAPPY 29TH BIRTHDAY,
+        # JUNG KOOK!
         title_first, title_second = title.rsplit(",", 1)
-        title_first += ","
+
+        title_first = title_first + ","
         title_second = title_second.strip()
 
+        if not title_second.endswith("!"):
+            title_second += "!"
+
+    # ---------------------------------------------
+    # ANNIVERSARY
+    # ---------------------------------------------
+
     elif celebration_type == "anniversary":
+
         title = f"✦ HAPPY {ordinal} ANNIVERSARY, TETEKOOFM! ✦"
 
-    else:
-        title = celebration.title
+    # ---------------------------------------------
+    # DAY BEFORE — COUNTDOWN TO MIDNIGHT
+    # EASTERN TIME
+    # ---------------------------------------------
 
     if today == day_before:
+
         countdown_end = datetime.combine(
             celebration_date,
-            datetime.min.time()
+            datetime.min.time(),
+            tzinfo=eastern
         )
 
         return {
@@ -130,10 +175,17 @@ def get_celebration_display(celebration, now=None):
             "target": countdown_end.isoformat()
         }
 
+    # ---------------------------------------------
+    # CELEBRATION DAY
+    # UNTIL MIDNIGHT EASTERN TIME
+    # ---------------------------------------------
+
     if today == celebration_date:
+
         celebration_end = datetime.combine(
             celebration_date + timedelta(days=1),
-            datetime.min.time()
+            datetime.min.time(),
+            tzinfo=eastern
         )
 
         return {
@@ -147,5 +199,9 @@ def get_celebration_display(celebration, now=None):
             "type": celebration.type,
             "target": celebration_end.isoformat()
         }
+
+    # ---------------------------------------------
+    # NOT A CELEBRATION / COUNTDOWN DAY
+    # ---------------------------------------------
 
     return None

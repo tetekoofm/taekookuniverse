@@ -106,7 +106,7 @@
 
         <span class="section-kicker">✦ TODAY'S CELEBRATION ✦</span>
 
-        <h2 class="celebration-title">
+        <h2 class="celebration-title celebration-{{ celebration.image_key|lower }}">
             {% if celebration.title_first %}
                 <span>{{ celebration.title_first }}</span>
                 <span>{{ celebration.title_second }}</span>

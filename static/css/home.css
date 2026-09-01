@@ -743,6 +743,10 @@
     margin-bottom: 18px;
 }
 
+.celebration-title span {
+    display: block;
+}
+
 .celebration-title {
     width: 90%;
     max-width: 1400px;
@@ -755,8 +759,8 @@
         90deg,
         #6A0DAD,
         #9B4DCA,
-        #F5C542,
-        #FFD966,
+        #0FFF50,
+        #39FF78,
         #9B4DCA,
         #6A0DAD
     );
@@ -765,8 +769,51 @@
     background-clip: text;
 }
 
-.celebration-title span {
-    display: block;
+/* .celebration-title.celebration-jk {
+    background: linear-gradient(
+        90deg,
+        #6A0DAD,
+        #9B4DCA,
+        #F5C542,
+        #FFD966,
+        #9B4DCA,
+        #6A0DAD
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+} */
+
+.celebration-title.celebration-v {
+    background: linear-gradient(
+        90deg,
+        #0FFF50,
+        #39FF78,
+        #FF3B3B,
+        #FF6B6B,
+        #39FF78,
+        #0FFF50
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.celebration-title.celebration-tk {
+    background: linear-gradient(
+        90deg,
+        #6A0DAD 0%,
+        #9B4DCA 16%,
+        #0FFF50 34%,
+        #5FFF8A 43%,
+        #F5C542 57%,
+        #FFD966 70%,
+        #FF6B6B 86%,
+        #FF3B3B 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .celebration-message {
