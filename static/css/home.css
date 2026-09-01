@@ -769,7 +769,7 @@
     background-clip: text;
 }
 
-/* .celebration-title.celebration-jk {
+.celebration-title.celebration-jk {
     background: linear-gradient(
         90deg,
         #6A0DAD,
@@ -782,17 +782,16 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-} */
+}
 
 .celebration-title.celebration-v {
     background: linear-gradient(
         90deg,
-        #0FFF50,
-        #39FF78,
-        #FF3B3B,
-        #FF6B6B,
-        #39FF78,
-        #0FFF50
+        #0FFF50 0%,
+        #0FFF50 15%,
+        #FF3B3B 50%,
+        #0FFF50 85%,
+        #0FFF50 100%
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
