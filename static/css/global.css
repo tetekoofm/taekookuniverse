@@ -9,8 +9,8 @@ GLOBAL CSS
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope&display=swap');
 
 
 *,*::before,*::after{
@@ -158,15 +158,19 @@ main{
 }
 
 .navbar a{
-    font-family:'Fira Sans Condensed',serif;
+    font-family:'Rajdhani',sans-serif;
     text-decoration:none;
-    color:#a855f7;
-    font-size:1.5rem;
-    transition:color .3s ease;
+    color:#ffffff;
+    font-size:1rem;
+    transition:all .3s ease;
+    font-weight:1800;
+    letter-spacing:0.04em;
+    text-shadow:0 0 8px rgba(168,85,247,.45);
 }
 
 .navbar a:hover{
     color:#0FFF50;
+    text-shadow:0 0 10px rgba(15,255,80,.6);
 }
 
 /*======== Dropdown ========*/
@@ -183,11 +187,11 @@ main{
 }
 
 .dropdown-content a{
-    color:#a855f7;
+    color:#ffffff;
     padding:10px 15px;
     text-decoration:none;
     display:block;
-    font-size:1.3rem;
+    font-size:1rem;
 }
 
 .dropdown-content a:hover{
@@ -295,8 +299,8 @@ main{
 
 /*======== Footer ========*/
 footer{
-    font-family:'Fira Sans Condensed',serif;
-    padding:10px;
+    font-family:'Fira Sans Condensed',sans-serif;
+    padding:8px 10px;
     font-size:1rem;
     font-weight:bold;
     text-align:center;
@@ -312,6 +316,18 @@ footer{
 
 footer .meet-taekook{
     font-size:1.5rem;
+    margin:0 0 3px;
+    line-height:1.2;
+}
+
+footer p{
+    margin:3px 0;
+    line-height:1.2;
+}
+
+footer > div{
+    margin:3px 0;
+    line-height:1.2;
 }
 
 footer a:hover{
@@ -748,7 +764,7 @@ footer a:hover{
         margin:3px 5px;
     }
     .navbar a{
-        font-size:.8rem;
+        font-size:.7rem;
         font-weight:bold;
         line-height:1.1;
     }
