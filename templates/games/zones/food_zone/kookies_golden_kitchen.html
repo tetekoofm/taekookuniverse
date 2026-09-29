@@ -6,7 +6,7 @@
 {% block content %}
 <section class="golden-kitchen">
     <div class="kitchen-header">
-        <img class="ckbook-logo" src="/static/images/games/ckbook.png" alt="Kookie's Golden Kitchen"> 
+        <img class="ckbook-logo" src="/static/images/games/CKbook.png" alt="Kookie's Golden Kitchen"> 
         <p>Discover recipes, memories, and little moments from Jungkook's kitchen.</p>
     </div>
     <div class="kitchen-room">
@@ -73,7 +73,7 @@
     {
         recipe_name:{{ recipe.recipe_name|tojson }},
         category:{{ recipe.category|tojson }},
-        date: {{ recipe.date|tojson }},
+        date: {{ recipe.formatted_date|tojson if recipe.date else none }},
         difficulty:{{ recipe.difficulty|tojson }},
         cook_time:{{ recipe.cook_time|tojson }},
         image:{{ recipe.image|tojson }},

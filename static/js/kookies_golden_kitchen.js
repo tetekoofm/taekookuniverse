@@ -99,13 +99,14 @@ document.addEventListener("DOMContentLoaded",()=>{
     
             ingredientLines.forEach(line=>{
     
-                if(line.trim().endsWith(":")){
+                    if(line.trim().endsWith(":")){
     
-                    if(inList) ingredientsHtml+="</ul>";
+                    if(inList) ingredientsHtml+="</ul></div>";
     
                     ingredientsHtml+=`
-                        <h4 class="ingredient-subtitle">${line}</h4>
-                        <ul>
+                        <div class="recipe-subsection">
+                            <h4 class="ingredient-subtitle">${line}</h4>
+                            <ul>
                     `;
     
                     inList=true;
@@ -113,7 +114,7 @@ document.addEventListener("DOMContentLoaded",()=>{
                 }else{
     
                     if(!inList){
-                        ingredientsHtml+="<ul>";
+                        ingredientsHtml+='<div class="recipe-subsection"><ul>';
                         inList=true;
                     }
     
@@ -122,7 +123,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     
             });
     
-            if(inList) ingredientsHtml+="</ul>";
+            if(inList) ingredientsHtml+="</ul></div>";
     
         }else{
     
