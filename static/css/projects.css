@@ -205,75 +205,169 @@
     font-size:.8rem;
 }
 
+/* =========================================
+   PROJECT MODAL
+========================================= */
+
 .modal{
     display:none;
     position:fixed;
     inset:0;
-    z-index:9999;
-    background:rgba(0,0,0,.85);
+    z-index:99999;
+    background:rgba(0,0,0,.88);
     justify-content:center;
     align-items:center;
+    padding:20px;
+    box-sizing:border-box;
 }
 
 .modal.show{
     display:flex;
 }
 
+/* =========================================
+   MODAL CONTAINER
+========================================= */
+
 .modal-content{
-    width:90%;
-    max-width:650px;
+    position:relative;
+    width:100%;
+    max-width:1000px;
+    max-height:calc(100vh - 40px);
+    max-height:calc(100dvh - 40px);
+    margin:auto;
     background:#171717;
-    border-radius:15px;
-    padding:25px;
+    border:1px solid rgba(168,85,247,.35);
+    border-radius:18px;
+    padding:0;
+    box-sizing:border-box;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
     text-align:center;
-    max-height:90vh;
-    overflow-y:auto;
+    min-height:0;
 }
 
+/* =========================================
+   MODAL HEADER
+========================================= */
+
 .modal-header{
+    position:relative;
+    flex:0 0 auto;
     display:flex;
     align-items:center;
     justify-content:center;
-    position:relative;
+    min-height:75px;
+    padding:15px 65px;
+    box-sizing:border-box;
+    background:#171717;
+    border-bottom:1px solid rgba(168,85,247,.3);
 }
 
 #modalTitle{
     color:#00ff9d;
-    font-size:1.5rem;
+    font-size:1.7rem;
+    line-height:1.3;
+    margin:0;
 }
 
 .close{
     position:absolute;
-    right:0;
-    top:-5px;
-    font-size:32px;
+    right:22px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:34px;
+    line-height:1;
     color:white;
     cursor:pointer;
+    z-index:5;
 }
+
+.close:hover{
+    color:#00ff9d;
+}
+
+/* =========================================
+   SCROLLABLE MODAL BODY
+========================================= */
+
+.modal-body{
+    flex:1 1 auto;
+    min-height:0;
+    overflow-y:auto;
+    overflow-x:hidden;
+    padding:20px 35px 30px;
+    box-sizing:border-box;
+    scrollbar-width:thin;
+    scrollbar-color:#6a0dad #222;
+}
+
+.modal-body::-webkit-scrollbar{
+    width:7px;
+}
+
+.modal-body::-webkit-scrollbar-track{
+    background:#222;
+}
+
+.modal-body::-webkit-scrollbar-thumb{
+    background:#6a0dad;
+    border-radius:10px;
+}
+
+/* =========================================
+   MODAL IMAGE
+========================================= */
 
 #modalImage{
-    width:85%;
-    max-height:40vh;
-    object-fit:contain;
-    margin:15px auto;
     display:block;
+    width:auto;
+    height:auto;
+    max-width:100%;
+    max-height:42vh;
+    object-fit:contain;
+    margin:0 auto 20px;
 }
 
+/* =========================================
+   MODAL DESCRIPTION
+========================================= */
+
 .modal-section h3{
-    color:#6a0dad;
+    color:#a855f7;
+    margin:15px 0 10px;
 }
 
 #modalDescription{
     color:#ddd;
-    line-height:1.5;
+    line-height:1.6;
+    margin:0;
 }
+
+#modalDescription a{
+    color:#a855f7;
+    text-decoration:underline;
+    text-underline-offset:3px;
+    overflow-wrap:anywhere;
+    transition:color .3s ease;
+}
+#modalDescription a:hover{
+    color:#00ff9d;
+}
+
+/* =========================================
+   MODAL LINKS
+========================================= */
 
 #modalLinks{
     display:flex;
     justify-content:center;
+    align-items:center;
     gap:12px;
     flex-wrap:wrap;
-    margin-top:15px;
+    margin-top:20px;
+    padding-bottom:10px;
 }
 
 .modal-btn{
@@ -282,15 +376,30 @@
     padding:8px 15px;
     border-radius:8px;
     text-decoration:none;
+    transition:.3s ease;
 }
+
+.modal-btn:hover{
+    background:#00ff9d;
+    color:#111;
+}
+
 
 @media(max-width:1024px){
     .project-cards{
         grid-template-columns:repeat(2,1fr);
     }
+
+    .modal-content{
+        max-width:850px;
+    }
+
+    .modal-body{
+        padding:20px 25px;
+    }
 }
 
-@media(max-width:767px){
+@media(max-width:768px){
     .project-cards{
         grid-template-columns:1fr;
         padding:12px;
@@ -309,21 +418,40 @@
         font-size:.9rem;
     }
 
+    .modal{
+        padding:10px;
+    }
+
     .modal-content{
-        width:94%;
-        padding:18px;
+        max-height:calc(100vh - 20px);
+        max-height:calc(100dvh - 20px);
+        border-radius:14px;
+    }
+
+    .modal-header{
+        min-height:60px;
+        padding:12px 45px;
     }
 
     #modalTitle{
-        font-size:1.15rem;
+        font-size:1.2rem;
+    }
+
+    .close{
+        right:15px;
+        font-size:30px;
+    }
+
+    .modal-body{
+        padding:15px 15px 25px;
     }
 
     #modalImage{
-        width:90%;
-        max-height:30vh;
+        max-width:100%;
+        max-height:35vh;
     }
 
     #modalDescription{
-        font-size:.85rem;
+        font-size:.9rem;
     }
 }

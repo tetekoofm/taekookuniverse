@@ -55,21 +55,18 @@
 
 <div id="projectModal" class="modal">
     <div class="modal-content">
-
         <div class="modal-header">
             <h2 id="modalTitle"></h2>
             <span class="close">&times;</span>
         </div>
-
-        <img id="modalImage">
-
-        <div class="modal-section">
-            <h3>Project Story</h3>
-            <p id="modalDescription"></p>
+        <div class="modal-body">
+            <img id="modalImage" alt="">
+            <div class="modal-section">
+                <h3>Project Story</h3>
+                <p id="modalDescription"></p>
+            </div>
+            <div id="modalLinks"></div>
         </div>
-
-        <div id="modalLinks"></div>
-
     </div>
 </div>
 
@@ -89,7 +86,15 @@ document.querySelectorAll(".project-card").forEach(card => {
         document.getElementById("modalImage").src =
             "/static/images/projects/" + image;
 
-        document.getElementById("modalDescription").innerText = description;
+            const linkifiedDescription = description.replace(
+                /(https?:\/\/[^\s<]+)/g,
+                url => {
+                    const cleanUrl = url.replace(/[),.!?]+$/, "");
+                    const trailing = url.slice(cleanUrl.length);
+                    return `<a href="${cleanUrl}" target="_blank" rel="noopener noreferrer">${cleanUrl}</a>${trailing}`;
+                }
+            );
+            modalDescription.innerHTML = linkifiedDescription.replace(/\n/g, "<br>");
 
         const linkContainer = document.getElementById("modalLinks");
         linkContainer.innerHTML = "";
@@ -128,6 +133,7 @@ document.querySelector(".close").onclick = function(){
 window.onclick = function(event){
 
     const modal = document.getElementById("projectModal");
+    document.body.appendChild(modal);
 
     if(event.target === modal){
 
