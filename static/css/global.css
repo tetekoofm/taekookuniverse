@@ -231,46 +231,37 @@ main{
 
 /*======== Hero Divider ========*/
 .hero-divider{
+    position:relative;
+    z-index:2;
     display:flex;
     align-items:center;
     justify-content:center;
-    gap:12px;
-    width:240px;
-    height:18px;
-    margin:20px auto 0;
-    position:relative;
-    z-index:2;
+    gap:15px;
+    width:220px;
+    height:20px;
+    margin:28px auto 0;
 }
-
 .hero-divider span{
     display:block;
-    flex:1;
-    height:1px;
+    flex:1 1 0;
     min-width:0;
-    background:linear-gradient(
-        90deg,
-        transparent,
-        rgba(168,85,247,.65)
-    );
+    height:2px;
+    opacity:1;
+    visibility:visible;
 }
-
+.hero-divider span:first-child{
+    background:linear-gradient(90deg,transparent,#0fff50);
+}
 .hero-divider span:last-child{
-    background:linear-gradient(
-        90deg,
-        rgba(168,85,247,.65),
-        transparent
-    );
+    background:linear-gradient(90deg,#a855f7,transparent);
 }
-
 .hero-divider i{
     display:block;
     flex:0 0 auto;
-    font-family:serif;
-    font-size:1.2rem;
+    color:#d4af37;
     font-style:normal;
+    font-size:1rem;
     line-height:1;
-    color:#FFD700;
-    text-shadow:0 0 12px rgba(255,215,0,.5);
 }
 
 .pagination {

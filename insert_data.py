@@ -353,25 +353,54 @@ def insert_data_from_excel():
         db.session.commit()
         print("Fanbases data updated from Excel!")
 
+        
         projects_df = pd.read_excel(excel_file, sheet_name="Project")
-        projects_df['date'] = projects_df['date'].dt.strftime('%Y-%m-%d')
+
+        def get_optional_value(value):
+            if pd.isna(value):
+                return None
+            return str(value).strip()
+
+        def get_optional_date(value):
+            if pd.isna(value):
+                return None
+            return pd.to_datetime(value).date()
+
         for _, row in projects_df.iterrows():
+            project_date = pd.to_datetime(row['date']).strftime('%Y-%m-%d')
+
             existing = Project.query.filter_by(
-                title=row['title'], 
-                date=row['date']
+                title=row['title'],
+                date=project_date
             ).first()
 
-            if not existing:
-                project = Project(
-                    title=row['title'],
-                    date=row['date'],
-                    location=row['location'],
-                    image=row['image'], 
-                    description=row['description'],
-                    link=row['link']  
+            update_links = get_optional_value(row['update_links'])
+            if update_links:
+                update_links = ','.join(
+                    url.strip() for url in update_links.split(',') if url.strip()
                 )
+
+            project_data = {
+                'title': str(row['title']).strip(),
+                'date': project_date,
+                'location': get_optional_value(row['location']),
+                'image': get_optional_value(row['image']),
+                'description': get_optional_value(row['description']),
+                'project_type': get_optional_value(row['project_type']),
+                'status': get_optional_value(row['status']),
+                'event_start_date': get_optional_date(row['event_start_date']),
+                'event_end_date': get_optional_date(row['event_end_date']),
+                'donation_url': get_optional_value(row['donation_url']),
+                'update_links': update_links
+            }
+
+            if existing:
+                for key, value in project_data.items():
+                    setattr(existing, key, value)
+            else:
+                project = Project(**project_data)
                 db.session.add(project)
-        
+
         db.session.commit()
         print("Projects data updated from Excel!")
         

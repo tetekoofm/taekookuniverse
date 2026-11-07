@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, send_from_directory, send_file, current_app
-from models import BackgroundMusic, TKURadio, Celebration
+from models import BackgroundMusic, TKURadio, Celebration, Project
 import os, random
 from helpers import get_page_music, get_celebration_display
 from datetime import date
@@ -91,5 +91,6 @@ def demo():
     image_folder = os.path.join(current_app.static_folder, 'images/home/pictureoftheday')
     images = [f for f in os.listdir(image_folder) if f.lower().endswith(('jpg','jpeg','png','gif','webp','mp4'))]
     random.shuffle(images)
+    projects = Project.query.order_by(Project.date.desc()).all()
     song_file, song_name = get_page_music("home")
-    return render_template('Demo.html',song_file=song_file,song_name=song_name,images=images)
+    return render_template('Demo.html',song_file=song_file,song_name=song_name,images=images, projects=projects)

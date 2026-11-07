@@ -158,16 +158,21 @@ class Fanbase(db.Model):
     def __repr__(self):
         return f"<Fanbase {self.fb_name}>"
 
+
 class Project(db.Model):
     __tablename__ = 'projects'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255), nullable=False)
     date = db.Column(db.String(50), nullable=False)
-    location = db.Column(db.String(100), nullable=False)
+    location = db.Column(db.String(255), nullable=True)
     image = db.Column(db.String(255), nullable=True)
     description = db.Column(db.Text, nullable=True)
-    link = db.Column(db.String(255), nullable=True)  # Optional
-
+    project_type = db.Column(db.String(100), nullable=True)
+    status = db.Column(db.String(50), nullable=True)
+    event_start_date = db.Column(db.Date, nullable=True)
+    event_end_date = db.Column(db.Date, nullable=True)
+    donation_url = db.Column(db.String(500), nullable=True)
+    update_links = db.Column(db.Text, nullable=True)
     def __repr__(self):
         return f"<Project {self.title}>"
 

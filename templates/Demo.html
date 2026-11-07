@@ -1,93 +1,693 @@
+
 {% extends "00.base.html" %}
-{% block title %}Kookie's Golden Kitchen{% endblock %}
+
 {% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/kookies_golden_kitchen.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/demo.css') }}">
 {% endblock %}
+
+{% block title %}Fan Projects | TaeKook Universe{% endblock %}
+
 {% block content %}
-<section class="golden-kitchen">
-    <div class="kitchen-header">
-        <img class="ckbook-logo" src="/static/images/games/ckbook.png" alt="Kookie's Golden Kitchen"> 
-        <p>Discover recipes, memories, and little moments from Jungkook's kitchen.</p>
-    </div>
-    <div class="kitchen-room">
-        <div class="recipe-chest" id="recipeChest">
-            <div class="chest-lid" id="chestLid">
-                <div class="sparkles">✨ ✨ ✨</div>
-                <!-- <img class="jkkitchen-logo" src="/static/images/games/jkkitchen.png" alt="Kookie's Golden Kitchen"> -->
-                <h2>Golden Recipe Collection</h2>
-                <p>Click to Open</p>
+<div class="main-content projects-page">
+    <section class="projects-hero">
+        <span class="projects-badge">✦ OUR INITIATIVES ✦</span>
+        <h1>Fan Projects</h1>
+        <p>Turning our love for TaeKook into meaningful projects, celebrations, and acts of kindness.</p>
+        <div class="hero-divider">
+            <span></span>
+            <i>✦</i>
+            <span></span>
+        </div>
+    </section>
+    <section class="projects-content">
+        <div class="projects-toolbar">
+            <div class="projects-search">
+                <span>⌕</span>
+                <input type="search" id="projectSearch" placeholder="Search projects..." aria-label="Search projects">
             </div>
-            <div class="recipe-menu hidden" id="recipeMenu">
-                <div class="recipe-category" data-category="bread & toast">
-                    <div class="category-header">🍞 Bread & Toast</div>
-                    <div class="category-recipes"></div>
+            <select id="yearFilter" aria-label="Filter by year">
+                <option value="all">All Years</option>
+                {% set ns = namespace(years=[]) %}
+                {% for project in projects %}
+                    {% set year = project.date[:4] %}
+                    {% if year not in ns.years %}
+                        {% set ns.years = ns.years + [year] %}
+                    {% endif %}
+                {% endfor %}
+                {% for year in ns.years|sort(reverse=True) %}
+                    <option value="{{ year }}">{{ year }}</option>
+                {% endfor %}
+            </select>
+            <select id="statusFilter" aria-label="Filter by project status">
+                <option value="all">All Statuses</option>
+                <option value="Fundraising">Fundraising</option>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Live">Live</option>
+                <option value="Completed">Completed</option>
+            </select>
+        </div>
+        <div class="projects-grid" id="projectsGrid">
+            {% for project in projects %}
+                {% set image_data = namespace(items=[]) %}
+                {% for filename in (project.image or '').split(',') %}
+                    {% set filename = filename.strip() %}
+                    {% if filename %}
+                        {% set image_data.items = image_data.items + [url_for('static', filename='images/projects/' ~ filename)] %}
+                    {% endif %}
+                {% endfor %}
+                <article class="project-card"
+                    tabindex="0"
+                    role="button"
+                    aria-label="View {{ project.title }}"
+                    data-title="{{ project.title|e }}"
+                    data-date="{{ project.date }}"
+                    data-year="{{ project.date[:4] }}"
+                    data-location="{{ project.location or '' }}"
+                    data-images='{{ image_data.items|tojson|forceescape }}'
+                    data-description='{{ (project.description or "")|tojson|forceescape }}'
+                    data-status="{{ project.status or '' }}"
+                    data-type="{{ project.project_type or '' }}"
+                    data-event-start="{{ project.event_start_date.strftime('%Y-%m-%d') if project.event_start_date else '' }}"
+                    data-event-end="{{ project.event_end_date.strftime('%Y-%m-%d') if project.event_end_date else '' }}"
+                    data-donation-url="{{ project.donation_url or '' }}"
+                    data-update-links='{{ (project.update_links or "")|tojson|forceescape }}'>
+                    <div class="project-card-image">
+                        {% if image_data.items %}
+                            <img src="{{ image_data.items[0] }}"
+                                 alt="{{ project.title }}"
+                                 loading="lazy">
+                        {% else %}
+                            <div class="project-image-placeholder">✦</div>
+                        {% endif %}
+                        <span class="project-card-overlay">VIEW PROJECT <span>↗</span></span>
+                        {% if project.status %}
+                            <span class="project-status status-{{ project.status|lower }}">{{ project.status }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="project-card-info">
+                        <div class="project-card-meta">
+                            {% if project.project_type %}
+                                <span class="project-card-type">{{ project.project_type }}</span>
+                            {% endif %}
+                            <span class="project-card-date">{{ project.date }}</span>
+                        </div>
+                        <h2>{{ project.title }}</h2>
+                        {% if project.location %}
+                            <span class="project-card-location">⌖ {{ project.location }}</span>
+                        {% endif %}
+                        {% if project.event_start_date %}
+                            <span class="project-card-event-date">
+                                {{ project.event_start_date.strftime('%b %d, %Y') }}
+                                {% if project.event_end_date and project.event_end_date != project.event_start_date %}
+                                    – {{ project.event_end_date.strftime('%b %d, %Y') }}
+                                {% endif %}
+                            </span>
+                        {% endif %}
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+        <div class="projects-empty" id="projectsEmpty" hidden>
+            <span>✦</span>
+            <h3>No projects found</h3>
+            <p>Try another search or change your filters.</p>
+        </div>
+    </section>
+</div>
+
+<div class="project-modal" id="projectModal" aria-hidden="true">
+    <div class="project-modal-backdrop"></div>
+    <div class="project-modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <button class="project-modal-close" type="button" aria-label="Close">×</button>
+        <div class="project-modal-scroll">
+            <div class="project-modal-gallery" id="modalGallery" hidden>
+                <button class="project-gallery-arrow project-gallery-prev" id="galleryPrev" type="button" aria-label="Previous media">
+                    &#10094;
+                </button>
+                <div class="project-gallery-track" id="modalGalleryTrack"></div>
+                <button class="project-gallery-arrow project-gallery-next" id="galleryNext" type="button" aria-label="Next media">
+                    &#10095;
+                </button>
+            </div>
+            <div class="project-modal-details">
+                <div class="modal-meta">
+                    <span class="modal-status" id="modalStatus"></span>
+                    <span class="modal-date" id="modalDate"></span>
                 </div>
-                
-                <div class="recipe-category" data-category="noodles & pasta">
-                    <div class="category-header">🍜 Noodles & Pasta</div>
-                    <div class="category-recipes"></div>
+                <h2 id="modalTitle"></h2>
+                <div class="modal-project-info">
+                    <div class="modal-info-item">
+                        <span class="modal-info-label">
+                            <i class="fa-solid fa-location-dot"></i>
+                            LOCATION
+                        </span>
+                        <p class="modal-location" id="modalLocation"></p>
+                    </div>
+                    <div class="modal-info-item">
+                        <span class="modal-info-label">
+                            <i class="fa-regular fa-calendar"></i>
+                            EVENT DATES
+                        </span>
+                        <p class="modal-event-date" id="modalEventDate"></p>
+                    </div>
                 </div>
-                
-                <div class="recipe-category" data-category="rice">
-                    <div class="category-header">🍚 Rice</div>
-                    <div class="category-recipes"></div>
-                </div>
-                
-                <div class="recipe-category" data-category="meat">
-                    <div class="category-header">🍖 Meat</div>
-                    <div class="category-recipes"></div>
-                </div>
-                
-                <div class="recipe-category" data-category="eggs">
-                    <div class="category-header">🍳 Eggs</div>
-                    <div class="category-recipes"></div>
-                </div>
-                
-                <div class="recipe-category" data-category="side dishes">
-                    <div class="category-header">🥗 Side Dishes</div>
-                    <div class="category-recipes"></div>
-                </div>
-                
-                <div class="recipe-category" data-category="snacks">
-                    <div class="category-header">🍪 Snacks</div>
-                    <div class="category-recipes"></div>
-                </div>
-                
-                <div class="recipe-category" data-category="drinks">
-                    <div class="category-header">🥤 Drinks</div>
-                    <div class="category-recipes"></div>
+                <div class="modal-divider"><span>✦</span></div>
+                <section class="modal-story-section">
+                    <h3>About This Project</h3>
+                    <div class="modal-description" id="modalDescription"></div>
+                </section>
+                <div class="modal-actions">
+                    <div class="modal-donation" id="modalDonation"></div>
+                    <div class="modal-links" id="modalLinks"></div>
                 </div>
             </div>
         </div>
     </div>
-</section>
-<div class="recipe-modal hidden" id="recipeModal">
-    <div class="recipe-card">
-        <button class="close-btn" id="closeRecipe">✕</button>
-        <div id="recipeDetails"></div>
-    </div>
 </div>
+
 <script>
-    window.kitchenRecipes=[
-    {% for recipe in recipes %}
-    {
-        recipe_name:{{ recipe.recipe_name|tojson }},
-        category:{{ recipe.category|tojson }},
-        date: {{ recipe.date|tojson }},
-        difficulty:{{ recipe.difficulty|tojson }},
-        cook_time:{{ recipe.cook_time|tojson }},
-        image:{{ recipe.image|tojson }},
-        video:{{ recipe.video|tojson }},
-        description:{{ recipe.description|tojson }},
-        ingredients:{{ recipe.ingredients|tojson }},
-        steps:{{ recipe.steps|tojson }},
-        jk_corner:{{ recipe.jk_corner|tojson }},
-        memory:{{ recipe.memory|tojson }},
-        notes:{{ recipe.notes|tojson }},
-        cultural_notes:{{ recipe.cultural_notes|tojson }}
-    },
-    {% endfor %}
-    ];
+document.addEventListener("DOMContentLoaded", function () {
+    const cards = document.querySelectorAll(".project-card");
+    const searchInput = document.getElementById("projectSearch");
+    const yearFilter = document.getElementById("yearFilter");
+    const statusFilter = document.getElementById("statusFilter");
+    const emptyState = document.getElementById("projectsEmpty");
+    const modal = document.getElementById("projectModal");
+    const closeButton = document.querySelector(".project-modal-close");
+    const backdrop = document.querySelector(".project-modal-backdrop");
+    const gallery = document.getElementById("modalGallery");
+    const galleryTrack = document.getElementById("modalGalleryTrack");
+    const galleryPrev = document.getElementById("galleryPrev");
+    const galleryNext = document.getElementById("galleryNext");
+
+    function parseData(value) {
+        if (!value) return "";
+        try {
+            const parsed = JSON.parse(value);
+            return typeof parsed === "string" ? parsed : value;
+        } catch {
+            return value;
+        }
+    }
+
+    function formatDate(value, options = {
+        month: "long",
+        day: "numeric",
+        year: "numeric"
+    }) {
+        if (!value) return "";
+        const date = new Date(value + "T00:00:00");
+        if (Number.isNaN(date.getTime())) return value;
+        return new Intl.DateTimeFormat("en-US", options).format(date);
+    }
+
+    function renderDescription(rawDescription, container) {
+        let value = parseData(rawDescription);
+        value = value
+            .replace(/<br\s*\/?>/gi, "\n")
+            .replace(/<\/p\s*>/gi, "\n\n")
+            .replace(/<p\b[^>]*>/gi, "")
+            .replace(/<[^>]*>/g, "")
+            .replace(/&nbsp;/gi, " ")
+            .replace(/&amp;/gi, "&")
+            .replace(/&quot;/gi, '"')
+            .replace(/&#39;/gi, "'")
+            .replace(/\r\n?/g, "\n");
+
+        value = value
+            .split("\n")
+            .map(line => line.replace(/[ \t]+/g, " ").trim())
+            .join("\n")
+            .replace(/\n{3,}/g, "\n\n")
+            .trim();
+
+        container.replaceChildren();
+
+        const storySection = container.closest(".modal-story-section");
+
+        if (!value) {
+            if (storySection) storySection.hidden = true;
+            return;
+        }
+
+        if (storySection) storySection.hidden = false;
+
+        value.split(/\n\s*\n/).forEach(paragraph => {
+            const p = document.createElement("p");
+
+            paragraph.split("\n").forEach((line, lineIndex) => {
+                if (lineIndex > 0) {
+                    p.appendChild(document.createElement("br"));
+                }
+
+                line.split(/(\*\*[^*]+\*\*)/g).forEach(part => {
+                    if (part.startsWith("**") && part.endsWith("**")) {
+                        const strong = document.createElement("strong");
+                        strong.textContent = part.slice(2, -2);
+                        p.appendChild(strong);
+                    } else {
+                        p.appendChild(document.createTextNode(part));
+                    }
+                });
+            });
+
+            container.appendChild(p);
+        });
+    }
+
+    function filterProjects() {
+        const search = searchInput.value.toLowerCase().trim();
+        const year = yearFilter.value;
+        const status = statusFilter.value;
+        let visibleCount = 0;
+
+        cards.forEach(card => {
+            const descriptionText = parseData(card.dataset.description);
+
+            const searchableText = [
+                card.dataset.title,
+                card.dataset.location,
+                descriptionText,
+                card.dataset.type,
+                card.dataset.status
+            ].join(" ").toLowerCase();
+
+            const matchesSearch = !search || searchableText.includes(search);
+            const matchesYear = year === "all" || card.dataset.year === year;
+            const matchesStatus = status === "all" || card.dataset.status === status;
+            const visible = matchesSearch && matchesYear && matchesStatus;
+
+            card.hidden = !visible;
+
+            if (visible) visibleCount++;
+        });
+
+        emptyState.hidden = visibleCount !== 0;
+    }
+
+    function getSafeUrl(value) {
+        if (!value || typeof value !== "string") return null;
+
+        try {
+            const url = new URL(value.trim());
+
+            if (url.protocol !== "http:" && url.protocol !== "https:") {
+                return null;
+            }
+
+            const hostname = url.hostname.toLowerCase();
+
+            if (
+                hostname === "localhost" ||
+                hostname === "127.0.0.1" ||
+                hostname === "0.0.0.0" ||
+                hostname === "::1" ||
+                hostname.endsWith(".localhost") ||
+                hostname.endsWith(".local") ||
+                /^127\./.test(hostname)
+            ) {
+                return null;
+            }
+
+            return url.href;
+        } catch (error) {
+            console.warn("Invalid project URL:", value);
+            return null;
+        }
+    }
+
+    function createExternalLink(url, label, className = "project-action-btn") {
+        const link = document.createElement("a");
+        link.href = url;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.className = className;
+        link.textContent = label;
+        return link;
+    }
+
+    function cleanUrl(value) {
+        return value.trim().replace(/[.,;!?]+$/, "");
+    }
+
+    function extractProjectLinks(rawLinks) {
+        const value = parseData(rawLinks)
+            .replace(/<br\s*\/?>/gi, "\n")
+            .replace(/&nbsp;/gi, " ")
+            .trim();
+
+        if (!value) return [];
+
+        const links = [];
+
+        function addLink(label, url) {
+            const cleanLabel = (label || "").trim();
+            const safeUrl = getSafeUrl(cleanUrl(url || ""));
+
+            if (!cleanLabel || !safeUrl) return;
+
+            if (!links.some(item => item.label === cleanLabel && item.url === safeUrl)) {
+                links.push({ label: cleanLabel, url: safeUrl });
+            }
+        }
+
+        // Handle Markdown links.
+        const markdownPattern = /\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/gi;
+        let match;
+        const markdownMatches = [];
+
+        while ((match = markdownPattern.exec(value)) !== null) {
+            markdownMatches.push(match[0]);
+
+            const visibleText = match[1]
+                .replace(/<[^>]*>/g, "")
+                .replace(/\*\*/g, "")
+                .trim();
+
+            const separator = visibleText.indexOf(":");
+
+            if (separator !== -1) {
+                const label = visibleText.slice(0, separator).trim();
+                const visibleUrl = visibleText.slice(separator + 1).trim();
+                const urlMatch = visibleUrl.match(/https?:\/\/[^\s<>"'()[\],]+/i);
+
+                addLink(label, urlMatch ? urlMatch[0] : match[2]);
+            } else {
+                addLink(visibleText || "Project Update", match[2]);
+            }
+        }
+
+        // Remove Markdown links before processing plain-text entries.
+        let plainText = value;
+
+        markdownMatches.forEach(markdown => {
+            plainText = plainText.replace(markdown, "");
+        });
+
+        // Split entries at commas followed by another label and URL.
+        const entries = plainText.split(/,(?=\s*[^,\n:]+:\s*https?:\/\/)/i);
+
+        entries.forEach(entry => {
+            entry = entry.replace(/<[^>]*>/g, "").trim();
+
+            const separator = entry.indexOf(":");
+            if (separator === -1) return;
+
+            const label = entry.slice(0, separator).trim();
+            const remainder = entry.slice(separator + 1).trim();
+            const urlMatch = remainder.match(/https?:\/\/[^\s<>"'()[\],]+/i);
+
+            if (urlMatch) {
+                addLink(label, urlMatch[0]);
+            }
+        });
+
+        return links;
+    }
+
+    function getProjectImages(rawImages) {
+        try {
+            const images = JSON.parse(rawImages || "[]");
+
+            if (!Array.isArray(images)) return [];
+
+            return images.filter(item =>
+                typeof item === "string" && item.trim()
+            );
+        } catch {
+            return [];
+        }
+    }
+
+    function updateGalleryArrows() {
+        if (!galleryTrack || !galleryPrev || !galleryNext) return;
+
+        const maxScroll =
+            galleryTrack.scrollWidth - galleryTrack.clientWidth;
+
+        galleryPrev.disabled = galleryTrack.scrollLeft <= 5;
+        galleryNext.disabled = galleryTrack.scrollLeft >= maxScroll - 5;
+    }
+
+    function renderProjectGallery(images, title) {
+        galleryTrack.replaceChildren();
+
+        if (!images.length) {
+            gallery.hidden = true;
+            return;
+        }
+
+        images.forEach((src, index) => {
+            const extension = src.split("?")[0].split(".").pop().toLowerCase();
+            const isVideo = ["mp4", "webm", "ogg", "mov"].includes(extension);
+
+            const item = document.createElement("div");
+            item.className = "project-gallery-item";
+
+            if (isVideo) {
+                const video = document.createElement("video");
+                video.src = src;
+                video.controls = true;
+                video.playsInline = true;
+                video.preload = "metadata";
+                video.setAttribute(
+                    "aria-label",
+                    title + " video " + (index + 1)
+                );
+
+                item.appendChild(video);
+            } else {
+                const image = document.createElement("img");
+                image.src = src;
+                image.alt = title + (
+                    index === 0
+                        ? " project poster"
+                        : " project media " + (index + 1)
+                );
+                image.loading = index === 0 ? "eager" : "lazy";
+
+                item.appendChild(image);
+            }
+
+            if (images.length > 1) {
+                const counter = document.createElement("span");
+                counter.className = "project-gallery-counter";
+                counter.textContent = (index + 1) + " / " + images.length;
+                item.appendChild(counter);
+            }
+
+            galleryTrack.appendChild(item);
+        });
+
+        gallery.hidden = false;
+        galleryTrack.scrollLeft = 0;
+
+        requestAnimationFrame(updateGalleryArrows);
+    }
+
+    function moveGallery(direction) {
+        const item = galleryTrack.querySelector(".project-gallery-item");
+
+        if (!item) return;
+
+        const gap = parseFloat(
+            window.getComputedStyle(galleryTrack).columnGap
+        ) || 0;
+
+        const scrollAmount = item.getBoundingClientRect().width + gap;
+
+        galleryTrack.scrollBy({
+            left: direction * scrollAmount,
+            behavior: "smooth"
+        });
+    }
+
+    function openProject(card) {
+        const data = {
+            title: card.dataset.title || "",
+            date: card.dataset.date || "",
+            year: card.dataset.year || "",
+            location: card.dataset.location || "",
+            images: getProjectImages(card.dataset.images),
+            description: card.dataset.description || "",
+            status: card.dataset.status || "",
+            eventStart: card.dataset.eventStart || "",
+            eventEnd: card.dataset.eventEnd || "",
+            donationUrl: card.dataset.donationUrl || "",
+            updateLinks: card.dataset.updateLinks || ""
+        };
+
+        const modalTitle = document.getElementById("modalTitle");
+        const modalDate = document.getElementById("modalDate");
+        const modalStatus = document.getElementById("modalStatus");
+        const modalLocation = document.getElementById("modalLocation");
+        const modalEventDate = document.getElementById("modalEventDate");
+        const modalDonation = document.getElementById("modalDonation");
+        const modalLinks = document.getElementById("modalLinks");
+        const infoContainer = document.querySelector(".modal-project-info");
+        const actionsContainer = document.querySelector(".modal-actions");
+
+        modalTitle.textContent = data.title;
+        modalDate.textContent = data.date || data.year;
+        modalStatus.textContent = data.status;
+        modalStatus.className = "modal-status";
+
+        const statusClass = data.status.toLowerCase().replace(/\s+/g, "-");
+
+        if (statusClass) {
+            modalStatus.classList.add("status-" + statusClass);
+        }
+
+        renderProjectGallery(data.images, data.title);
+
+        modalLocation.textContent = data.location;
+
+        let eventDateText = "";
+
+        if (data.eventStart && data.eventEnd) {
+            eventDateText =
+                `${formatDate(data.eventStart)} – ${formatDate(data.eventEnd)}`;
+        } else if (data.eventStart) {
+            eventDateText = formatDate(data.eventStart);
+        } else if (data.eventEnd) {
+            eventDateText = formatDate(data.eventEnd);
+        }
+
+        modalEventDate.textContent = eventDateText;
+
+        const locationItem = modalLocation.closest(".modal-info-item");
+        const eventDateItem = modalEventDate.closest(".modal-info-item");
+
+        if (locationItem) {
+            locationItem.hidden = !data.location;
+        }
+
+        if (eventDateItem) {
+            eventDateItem.hidden = !eventDateText;
+        }
+
+        if (infoContainer) {
+            infoContainer.hidden = !data.location && !eventDateText;
+        }
+
+        renderDescription(
+            data.description,
+            document.getElementById("modalDescription")
+        );
+
+        /*
+         * DONATION BUTTON
+         * Invalid, blank, localhost and local development URLs are hidden.
+         */
+
+        modalDonation.replaceChildren();
+
+        const donationUrl = getSafeUrl(data.donationUrl);
+
+        if (donationUrl) {
+            modalDonation.appendChild(
+                createExternalLink(
+                    donationUrl,
+                    "Support This Project"
+                )
+            );
+        }
+
+        /*
+         * PROJECT LINKS
+         */
+
+        modalLinks.replaceChildren();
+
+        const projectLinks = extractProjectLinks(data.updateLinks);
+
+        if (projectLinks.length) {
+            const heading = document.createElement("h3");
+            heading.className = "modal-links-heading";
+            heading.textContent = "Project Links";
+
+            modalLinks.appendChild(heading);
+
+            const linksContainer = document.createElement("div");
+            linksContainer.className = "modal-links-list";
+
+            projectLinks.forEach(item => {
+                linksContainer.appendChild(
+                    createExternalLink(item.url, item.label)
+                );
+            });
+
+            modalLinks.appendChild(linksContainer);
+        }
+
+        /*
+         * Hide the entire action area if there are no valid actions.
+         */
+
+        if (actionsContainer) {
+            actionsContainer.hidden =
+                !donationUrl && projectLinks.length === 0;
+        }
+
+        modal.classList.add("show");
+        modal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+
+        const scrollArea = modal.querySelector(".project-modal-scroll");
+
+        if (scrollArea) {
+            scrollArea.scrollTop = 0;
+        }
+    }
+
+    function closeModal() {
+        modal.querySelectorAll("video").forEach(video => {
+            video.pause();
+            video.removeAttribute("src");
+            video.load();
+        });
+
+        modal.classList.remove("show");
+        modal.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+    }
+
+    searchInput.addEventListener("input", filterProjects);
+    yearFilter.addEventListener("change", filterProjects);
+    statusFilter.addEventListener("change", filterProjects);
+
+    cards.forEach(card => {
+        card.addEventListener("click", () => openProject(card));
+
+        card.addEventListener("keydown", event => {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                openProject(card);
+            }
+        });
+    });
+
+    if (galleryPrev) {
+        galleryPrev.addEventListener("click", () => moveGallery(-1));
+    }
+
+    if (galleryNext) {
+        galleryNext.addEventListener("click", () => moveGallery(1));
+    }
+
+    if (galleryTrack) {
+        galleryTrack.addEventListener("scroll", updateGalleryArrows);
+        window.addEventListener("resize", updateGalleryArrows);
+    }
+
+    closeButton.addEventListener("click", closeModal);
+    backdrop.addEventListener("click", closeModal);
+
+    document.addEventListener("keydown", event => {
+        if (event.key === "Escape" && modal.classList.contains("show")) {
+            closeModal();
+        }
+    });
+});
 </script>
-<script src="{{ url_for('static', filename='js/kookies_golden_kitchen.js') }}"></script>
 {% endblock %}
