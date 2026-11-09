@@ -879,7 +879,7 @@
 ========================================================= */
 @media screen and (max-width:768px){
     .projects-page{
-        padding:20px 16px 55px;
+        padding:85px 16px 55px !important;
     }
     .projects-hero{
         margin-bottom:30px;
@@ -1032,6 +1032,17 @@
     .project-modal-details{
         padding:23px 20px 27px;
     }
+        .modal-overlay{
+        align-items:flex-start;
+        padding:100px 12px 24px;
+        box-sizing:border-box;
+        overflow-y:auto;
+    }
+    .modal-content{
+        max-height:calc(100dvh - 124px);
+        overflow-y:auto;
+        margin:0 auto;
+    }
     .modal-meta{
         gap:10px;
         margin-bottom:15px;
@@ -1102,57 +1113,7 @@
         font-size:.75rem;
     }
 }
-/* =========================================================
-   SMALL MOBILE
-========================================================= */
-@media screen and (max-width:420px){
-    .projects-page{
-        padding-right:12px;
-        padding-left:12px;
-    }
-    .projects-grid{
-        gap:10px;
-    }
-    .project-card-info{
-        padding:11px 10px 13px;
-    }
-    .project-card-info h2{
-        font-size:.98rem;
-    }
-    .project-card-type{
-        font-size:.52rem;
-    }
-    .project-card-date{
-        font-size:.58rem;
-    }
-    .project-status{
-        font-size:.5rem;
-        padding:4px 6px;
-    }
-    .modal-project-info{
-        grid-template-columns:1fr;
-    }
-    .modal-info-item{
-        padding:9px 12px;
-    }
-    .project-modal-details{
-        padding:21px 16px 24px;
-    }
-    .project-modal-details h2{
-        font-size:1.35rem;
-    }
-    .modal-description{
-        font-size:.88rem;
-    }
-    .modal-links-list{
-        flex-direction:column;
-        align-items:stretch;
-    }
-    .modal-links-list a{
-        width:100%;
-        box-sizing:border-box;
-    }
-}
+
 /* =========================================================
    REDUCED MOTION
 ========================================================= */

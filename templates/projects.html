@@ -113,57 +113,7 @@
         </div>
     </section>
 </div>
-
-<div class="project-modal" id="projectModal" aria-hidden="true">
-    <div class="project-modal-backdrop"></div>
-    <div class="project-modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-        <button class="project-modal-close" type="button" aria-label="Close">×</button>
-        <div class="project-modal-scroll">
-            <div class="project-modal-gallery" id="modalGallery" hidden>
-                <button class="project-gallery-arrow project-gallery-prev" id="galleryPrev" type="button" aria-label="Previous media">
-                    &#10094;
-                </button>
-                <div class="project-gallery-track" id="modalGalleryTrack"></div>
-                <button class="project-gallery-arrow project-gallery-next" id="galleryNext" type="button" aria-label="Next media">
-                    &#10095;
-                </button>
-            </div>
-            <div class="project-modal-details">
-                <div class="modal-meta">
-                    <span class="modal-status" id="modalStatus"></span>
-                    <span class="modal-date" id="modalDate"></span>
-                </div>
-                <h2 id="modalTitle"></h2>
-                <div class="modal-project-info">
-                    <div class="modal-info-item">
-                        <span class="modal-info-label">
-                            <i class="fa-solid fa-location-dot"></i>
-                            LOCATION
-                        </span>
-                        <p class="modal-location" id="modalLocation"></p>
-                    </div>
-                    <div class="modal-info-item">
-                        <span class="modal-info-label">
-                            <i class="fa-regular fa-calendar"></i>
-                            EVENT DATES
-                        </span>
-                        <p class="modal-event-date" id="modalEventDate"></p>
-                    </div>
-                </div>
-                <div class="modal-divider"><span>✦</span></div>
-                <section class="modal-story-section">
-                    <h3>About This Project</h3>
-                    <div class="modal-description" id="modalDescription"></div>
-                </section>
-                <div class="modal-actions">
-                    <div class="modal-donation" id="modalDonation"></div>
-                    <div class="modal-links" id="modalLinks"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-    
+   
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const cards = document.querySelectorAll(".project-card");
@@ -690,4 +640,45 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 {% endblock %}
-    
+
+{% block after_main %}
+<div class="project-modal" id="projectModal" aria-hidden="true">
+    <div class="project-modal-backdrop"></div>
+    <div class="project-modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <button class="project-modal-close" type="button" aria-label="Close">×</button>
+        <div class="project-modal-scroll">
+            <div class="project-modal-gallery" id="modalGallery" hidden>
+                <button class="project-gallery-arrow project-gallery-prev" id="galleryPrev" type="button" aria-label="Previous media">&#10094;</button>
+                <div class="project-gallery-track" id="modalGalleryTrack"></div>
+                <button class="project-gallery-arrow project-gallery-next" id="galleryNext" type="button" aria-label="Next media">&#10095;</button>
+            </div>
+            <div class="project-modal-details">
+                <div class="modal-meta">
+                    <span class="modal-status" id="modalStatus"></span>
+                    <span class="modal-date" id="modalDate"></span>
+                </div>
+                <h2 id="modalTitle"></h2>
+                <div class="modal-project-info">
+                    <div class="modal-info-item">
+                        <span class="modal-info-label"><i class="fa-solid fa-location-dot"></i> LOCATION</span>
+                        <p class="modal-location" id="modalLocation"></p>
+                    </div>
+                    <div class="modal-info-item">
+                        <span class="modal-info-label"><i class="fa-regular fa-calendar"></i> EVENT DATES</span>
+                        <p class="modal-event-date" id="modalEventDate"></p>
+                    </div>
+                </div>
+                <div class="modal-divider"><span>✦</span></div>
+                <section class="modal-story-section">
+                    <h3>About This Project</h3>
+                    <div class="modal-description" id="modalDescription"></div>
+                </section>
+                <div class="modal-actions">
+                    <div class="modal-donation" id="modalDonation"></div>
+                    <div class="modal-links" id="modalLinks"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
